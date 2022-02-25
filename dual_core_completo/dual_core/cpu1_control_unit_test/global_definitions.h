@@ -1,0 +1,224 @@
+#ifndef GLOBAL_DEFINITIONS_H_
+#define GLOBAL_DEFINITIONS_H_
+
+
+#define R2D_BRAKE_TRESHOLD  10
+
+#define FIFTEEN_SEC   15 * 1000 * 1000
+
+//
+// torque
+//
+#define NUM_OF_MOTORS       4
+#define KMH2MS              (1 / 3.6)
+#ifdef NO_TORQUE_VECTORING
+#define REAR_MOTOR_SCALE    1.00f
+#define FRONT_MOTOR_SCALE   1.00f
+#else
+#define REAR_MOTOR_SCALE    1.0f
+#define FRONT_MOTOR_SCALE   1.0f
+#endif
+#define STZ_RANGE           90
+
+#define G_ACC               9.81f
+#define PI_FLOAT            3.14159265f
+#define HALF_PI             1.5707963267948966192313216916398
+#define PI                  3.1415926535897932384626433832795
+#define TWO_PI              6.283185307179586476925286766559
+#define DEG_TO_RAD          0.017453292519943295769236907684886
+#define KMH2MS              (1 / 3.6)
+#define RAD_TO_DEG          57.295779513082320876798154814105
+#define RPM_TO_KMH          (TWO_PI*0.00095)
+#define RPM_TO_RADS         (PI/30)
+
+#define THROTTLE_POWER_SCALE        10
+#define REG_POWER_SCALE             -5
+
+#define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
+#define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
+#define SPEED_LIMIT                 5000 //15000               //Speed limit
+#define M_N                         9.8f
+
+//
+// PERFORMANCE PACK
+//
+#define ACC_X_UPPER_BOUND           1.8f*G_ACC
+#define ACC_X_LOWER_BOUND           -2.1f*G_ACC
+#define ACC_Y_UPPER_BOUND           2.6f*G_ACC
+#define ACC_Y_LOWER_BOUND           -2.6f*G_ACC
+#define YAW_R_UPPER_BOUND           2.0*PI_FLOAT
+#define YAW_R_LOWER_BOUND           -2.0*PI_FLOAT
+#define STR_UPPER_BOUND             90
+#define STR_LOWER_BOUND             -90
+#define MOTOR_SPEED_UPPER_BOUND     18000
+#define MOTOR_SPEED_LOWER_BOUND     0
+#define FZ_UPPER_BOUND              2000.0f
+#define FZ_LOWER_BOUND              50.0f
+
+#define TAU                         (1.0f/14.4f)
+#define K_DELTA                     0.2776853f
+#define R0                          0.228f
+#define FZR                         62.0f
+#define FZF                         58.0f
+#define W                           1.525f
+#define MASS                        280.0f
+#define Z_G                         0.3f
+#define T_F                         1.23f
+#define T_R                         1.2f
+#define K_F                         0.53f
+#define K_R                         (1-K_F)
+#define C_Z_A                       3.04f
+#define RHO                         1.1352f
+#define A_A                         1.087f
+
+#define MAX_POS_TORQUE              21.0f
+#define MAX_NEG_TORQUE              -1.5f
+
+#define MAX_REGEN_CURRENT           -20.0f
+//
+
+// POWER CONTROL
+//
+#define POWER_LIMIT         50000.0f       //Watt
+#define STANDARD_SPEED      1000.0f
+#define KP_PI               0.05f
+#define KI_PI               20.0f
+#define T_SAMPLING_ECU      0.010f       //seconds
+#define PI_UPPER_BOUND      175929.2f
+
+//
+// IMU
+//
+#define X                   0
+#define Y                   1
+#define Z                   2
+
+
+//
+// motor management
+//
+#define MOTOR_FL 0
+#define MOTOR_FR 1
+#define MOTOR_RL 2
+#define MOTOR_RR 3
+
+#define AMK_CURR_SCALE (107.2f / 16384.0f)
+
+#define FORWARD_ACC 0
+#define COASTING    1
+#define BRAKES_POS  2
+#define BRAKES_NEG  3
+#define REVERSE_ACC 4
+
+#define RF_TRAP                 50      //*10 ms
+#define HV_TRAP                 50
+
+//
+// adc management
+//
+#define RESULTS_BUFFER_SIZE     256
+#define EX_ADC_RESOLUTION       12
+#define ACQPS_                   240
+#define VREFLO                  0
+#define VREFHI                  3.3
+
+//
+// can management
+//
+#define RX_OBJ_ID               1       //ID della "mailbox"
+#define TX_OBJ_ID               2
+
+#define MSG_DATA_LENGTH         8
+
+#define OBJ_ID_TEMPS            3
+#define OBJ_ID_CAR_STATUS       4
+#define OBJ_ID_AMK1_DATA_BASE   5
+#define OBJ_ID_AMK2_DATA_BASE   9
+#define OBJ_ID_BMS_VOLTAGE      10
+#define OBJ_ID_BMS_TEMP         11
+#define OBJ_ID_POWER_CONTROL    25
+#define OBJ_ID_AMK_SETPOINTS    13
+#define OBJ_ID_FROM_AMK         26
+#define OBJ_ID_FROM_SENDYNE     27
+#define OBJ_ID_FROM_IMU         28
+#define OBJ_ID_SENDYNE_FORWARD  29
+
+
+#define MSG_ID_AMK1_DATA_BASE   0x40
+#define MSG_ID_AMK2_DATA_BASE   0x44
+#define MSG_ID_TEMPS            0x49
+#define MSG_ID_SENDYNE          0x50
+#define MSG_ID_CAR_STATUS       0x52
+#define MSG_ID_BMS_VOLTAGE      0x53
+#define MSG_ID_BMS_TEMP         0x54
+#define MSG_ID_IMU_BASE         0x60
+#define MSG_ID_IMU_1            0x60
+#define MSG_ID_IMU_2            0x61
+#define MSG_ID_IMU_3            0x62
+#define MSG_ID_SENDYNE_FORWARD  0x70
+#define MSG_ID_POWER_CONTROL    0X81
+#define MSG_ID_AMK_SETPOINTS    0x82
+
+//
+// ePWM
+//
+#define EPWM_CMP_UP             1U
+#define EPWM_CMP_DOWN           0U
+#define EPWM_TIMER_TBPRD        2000U       //più basso il numero, più alta la frequenza
+                                            //vedi la guida per calcolare la frequenza
+#define VENTOLA_DX              1
+#define VENTOLA_SX              2
+#define POMPA_DX                3
+#define POMPA_SX                4
+
+//
+// GPIOs
+//
+//#define POMPA_DX_Abil       95      //PIN 42
+//#define POMPA_SX_Abil       139     //PIN 43
+//#define AIR_1_STATE         56      //PIN 44    //INPUT
+//#define AIR_2_STATE         97      //PIN 45    //INPUT
+//#define RTDS                94      //PIN 46
+//#define SCS_FAULT           65      //PIN 47
+//#define R2D                 52      //PIN 48
+//#define AUX_SDC             41      //PIN 49    //INPUT
+//#define BRAKE_LIGHT_Abil    40      //PIN 50
+//#define VENTOLA_Abil        105     //PIN 9
+//#define LV_ALARM            104     //PIN 10    //INPUT
+
+#define IMD_STATE           14      //PIN74     //INPUT
+#define BMS_STATE           15      //PIN73     //INPUT
+
+#define ENABLE_PUMPS        94      //PIN45
+#define VENTOLA_Abil         97      //PIN46
+#define AIR_1_STATE         40      //PIN50     //INPUT
+#define AIR_2_STATE         41      //PIN49     //INPUT
+#define RTDS                27      //PIN52
+#define SCS_FAULT           11      //PIN75
+#define R2D                 6       //PIN80
+#define BRAKE_LIGHT_Abil    25      //PIN51
+#define SDC1_STATE          26      //PIN53     //INPUT
+#define SDC2_STATE          130     //PIN57     //INPUT
+#define SDC3_STATE          64      //PIN54     //INPUT
+#define SDC4_STATE          131     //PIN58     //INPUT
+#define SDC5_STATE          63      //PIN55     //INPUT
+#define SDC6_STATE          66      //PIN59     //INPUT
+#define DEBUG_LED1          105     //PIN9
+#define DEBUG_LED2          104     //PIN10
+
+#define R2D_LED_ON          0       //LED R2D ha la logica invertita!
+#define R2D_LED_OFF         1U      //GPIO ALTA -> LED SPENTO       GPIO BASSA -> LED ACCESO
+
+#define RTDS_DURATION       15      //*100ms
+
+#define BRAKE_LIGHT_ON      1U
+#define BRAKE_LIGHT_OFF     0
+
+#define RED_BLINK           34
+#define BLUE_BLINK          31
+//
+// misc
+//
+#define BRAKE_LIGHT_MIN                 5   //valore minimo di brake per attivare la brake light
+
+#endif
