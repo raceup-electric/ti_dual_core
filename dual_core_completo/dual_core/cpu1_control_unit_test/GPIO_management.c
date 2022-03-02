@@ -56,6 +56,8 @@ void GPIOSetup()
 
     GPIO_SetupPinMux(6, GPIO_MUX_CPU2, 0);
     GPIO_SetupPinOptions(6, GPIO_OUTPUT, GPIO_PUSHPULL);
+    GPIO_SetupPinMux(16, GPIO_MUX_CPU1, 0);
+    GPIO_SetupPinOptions(16, GPIO_OUTPUT, GPIO_PUSHPULL);
 
     GPIO_WritePin(BLUE_BLINK, 0);
     GPIO_WritePin(R2D, R2D_LED_OFF);

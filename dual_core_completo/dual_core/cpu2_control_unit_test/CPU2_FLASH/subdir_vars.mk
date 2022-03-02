@@ -25,7 +25,6 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_Sy
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.c \
 ../can_management.c \
 ../car_management.c \
-C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/cmdline.c \
 ../driver_input.c \
 ../epwm_management.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c \
@@ -53,7 +52,6 @@ C_DEPS += \
 ./can.d \
 ./can_management.d \
 ./car_management.d \
-./cmdline.d \
 ./driver_input.d \
 ./epwm_management.d \
 ./interrupt.d \
@@ -83,7 +81,6 @@ OBJS += \
 ./can.obj \
 ./can_management.obj \
 ./car_management.obj \
-./cmdline.obj \
 ./driver_input.obj \
 ./epwm_management.obj \
 ./interrupt.obj \
@@ -117,7 +114,6 @@ OBJS__QUOTED += \
 "can.obj" \
 "can_management.obj" \
 "car_management.obj" \
-"cmdline.obj" \
 "driver_input.obj" \
 "epwm_management.obj" \
 "interrupt.obj" \
@@ -145,7 +141,6 @@ C_DEPS__QUOTED += \
 "can.d" \
 "can_management.d" \
 "car_management.d" \
-"cmdline.d" \
 "driver_input.d" \
 "epwm_management.d" \
 "interrupt.d" \
@@ -177,7 +172,6 @@ C_SRCS__QUOTED += \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.c" \
 "../can_management.c" \
 "../car_management.c" \
-"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/cmdline.c" \
 "../driver_input.c" \
 "../epwm_management.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c" \

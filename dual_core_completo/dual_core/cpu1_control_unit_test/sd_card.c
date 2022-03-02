@@ -185,20 +185,20 @@ Cmd_ls(int argc, char *argv[])
         //
         // Add the information as a line in the listbox widget.
         //
-        if(ulItemCount < NUM_LIST_STRINGS)
-        {
-            usprintf(g_pcFilenames[ulItemCount], "(%c) %12s",
-                     (g_sFileInfo.fattrib & AM_DIR) ? 'D' : 'F',
-                     g_sFileInfo.fname);
-        }
+//        if(ulItemCount < NUM_LIST_STRINGS)
+//        {
+//            usprintf(g_pcFilenames[ulItemCount], "(%c) %12s",
+//                     (g_sFileInfo.fattrib & AM_DIR) ? 'D' : 'F',
+//                     g_sFileInfo.fname);
+//        }
 
         //
         // If the attribute is directory, then increment the directory count.
         //
-        if(g_sFileInfo.fattrib & AM_DIR)
-        {
-            ulDirCount++;
-        }
+//        if(g_sFileInfo.fattrib & AM_DIR)
+//        {
+//            ulDirCount++;
+//        }
         //
         // Otherwise, it is a file.  Increment the file count, and
         // add in the file size to the total.
@@ -206,7 +206,7 @@ Cmd_ls(int argc, char *argv[])
         else
         {
             ulFileCount++;
-            ulTotalSize += g_sFileInfo.fsize;
+            //ulTotalSize += g_sFileInfo.fsize;
         }
 
         //
@@ -220,7 +220,7 @@ Cmd_ls(int argc, char *argv[])
     //
     // Get the free space.
     //
-    fresult = f_getfree("/", &ulTotalSize, &pFatFs);
+    //fresult = f_getfree("/", &ulTotalSize, &pFatFs);
 
     //
     // Check for error and return if there is a problem.
@@ -232,7 +232,7 @@ Cmd_ls(int argc, char *argv[])
 
 
 
-    return(0);
+    return ulItemCount;
 }
 
 //
@@ -811,17 +811,23 @@ setupSD(void)
     // Mount the file system, using logical disk 0.
     //
     f_mount(&g_sFatFs, "0:", 1);
-    //f_mount(0, &g_sFatFs);
-    //var = 0;
     diskResult = disk_initialize(0);
 
-    char cmd[40] = "SD init completed !!!\n";
+    file_counter = CmdLineProcess("ls") - 2;
+    char temp[20];
+    sprintf(temp, "test%d.txt ", file_counter);
+    memcpy(filename, temp, 20);
+
+    char cmd[40] = "\t \t SD init completed \n";
     writeSD(cmd);
+
+
 }
 
 void writeSD(char *str)
 {
-    char a[290] = "write test.txt ";
+    char a[290] = "write ";
+    strcat(a, filename);
     const char* b = str;
     strcat(a, b);
     CmdLineProcess(a);
@@ -839,50 +845,5 @@ void reverse(char* str, int len)
     }
 }
 
-// Converts a given integer x to string str[].
-// d is the number of digits required in the output.
-// If d is more than the number of digits in x,
-// then 0s are added at the beginning.
-int intToStr(int x, char str[], int d)
-{
-    int i = 0;
-    while (x) {
-        str[i++] = (x % 10) + '0';
-        x = x / 10;
-    }
 
-    // If number of digits required is more, then
-    // add 0s at the beginning
-    while (i < d)
-        str[i++] = '0';
-
-    reverse(str, i);
-    str[i] = '\0';
-    return i;
-}
-
-// Converts a floating-point/double number to a string.
-void ftoa(float n, char* res, int afterpoint)
-{
-    // Extract integer part
-    int ipart = (int)n;
-
-    // Extract floating part
-    float fpart = n - (float)ipart;
-
-    // convert integer part to string
-    int i = intToStr(ipart, res, 0);
-
-    // check for display option after point
-    if (afterpoint != 0) {
-        res[i] = '.'; // add dot
-
-        // Get the value of fraction part upto given no.
-        // of points after dot. The third parameter
-        // is needed to handle cases like 233.007
-        fpart = fpart * pow(10, afterpoint);
-
-        intToStr((int)fpart, res + i + 1, afterpoint);
-    }
-}
 

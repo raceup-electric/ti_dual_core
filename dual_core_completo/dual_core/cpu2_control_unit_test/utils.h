@@ -75,6 +75,17 @@ struct Imu_Log{
     float omegas_shared[3];
 };
 
+struct Gpio_Log{
+    bool Imd_shared;
+    bool Bms_shared;
+    bool Sdc1_shared;
+    bool Sdc2_shared;
+    bool Sdc3_shared;
+    bool Sdc4_shared;
+    bool Sdc5_shared;
+    bool Sdc6_shared;
+};
+
 
 struct Share_struct {
     Uint16 Temps[8];
@@ -86,6 +97,7 @@ struct Share_struct {
     struct Sendyne_Log sendyne;
     struct BMS_Log bms;
     struct Status_Log status;
+    struct Gpio_Log gpio;
 };
 
 typedef struct Share_struct Data;

@@ -33,7 +33,7 @@ void timerSetup()
     // ISR functions found within this file.
     //
        EALLOW;  // This is needed to write to EALLOW protected registers
-       //PieVectTable.TIMER0_INT = &cpu_timer0_isr;
+       PieVectTable.TIMER0_INT = &cpu_timer0_isr;
        PieVectTable.TIMER1_INT = &cpu_timer1_isr;
        PieVectTable.TIMER2_INT = &cpu_timer2_isr;
        EDIS;    // This is needed to disable write to EALLOW protected registers
@@ -48,7 +48,7 @@ void timerSetup()
     // Configure CPU-Timer 0 to __interrupt every 500 milliseconds:
     // 60MHz CPU Freq, 50 millisecond Period (in uSeconds)
     //
-       //ConfigCpuTimer(&CpuTimer0, 200, 500000);
+       ConfigCpuTimer(&CpuTimer0, 200, 10000);
        ConfigCpuTimer(&CpuTimer1, 200, 10000);
        ConfigCpuTimer(&CpuTimer2, 200, 200000);
 
@@ -58,14 +58,14 @@ void timerSetup()
     // ConfigCpuTimer and InitCpuTimers (in F2837xD_cputimervars.h), the below
     // settings must also be updated.
     //
-       //CpuTimer0Regs.TCR.all = 0x4000;
+       CpuTimer0Regs.TCR.all = 0x4000;
        CpuTimer1Regs.TCR.all = 0x4000;
        CpuTimer2Regs.TCR.all = 0x4000;
 
        //
        // Enable CPU INT
        //
-          //IER |= M_INT1;  //timer0
+          IER |= M_INT1;  //timer0
           IER |= M_INT13;   //timer1
           IER |= M_INT14;   //timer2
 
@@ -76,6 +76,13 @@ void timerSetup()
 
        CpuTimer2Regs.TCR.bit.TSS = 1;   //Stop timer R2D
        CpuTimer1Regs.TCR.bit.TSS = 1;
+}
+
+__interrupt void cpu_timer0_isr(void){
+    CpuTimer0.InterruptCount++;
+    time_elapsed++;
+
+    PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }
 
 //
@@ -93,6 +100,8 @@ __interrupt void cpu_timer1_isr(void)
     fanControl();
     checkTemps();                   //rewrite
 
+    updateGPIOState();
+
 
 #ifndef DEBUG_NO_HV
     checkHV();
@@ -100,15 +109,15 @@ __interrupt void cpu_timer1_isr(void)
     R2D_init();
 #endif
 
-    debugLight(20);
+    //debugLight(20); //non funziona
 
 #if defined(DEBUG_NO_HV) || defined(DEBUG_HV)
 
     //debug adc
-    int i;
-    for(i=0; i<15; i++){
-        adc_values_debug[i]=getVoltage(readADC(i));
-    }
+//    int i;
+//    for(i=0; i<15; i++){
+//        adc_values_debug[i]=getVoltage(readADC(i));
+//    }
 
 
     //debug acc1 acc2 brake
@@ -227,25 +236,6 @@ __interrupt void cpu_timer1_isr(void)
     sendAMKData();
     checkStatus();
     sendDataToLogger();
-
-
-//    char cmd[250] = "\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
-//           //    CmdLineProcess(cmd);
-//    writeSD(cmd);
-
-//    char gmd[200] = "\n banan banan banan banan banan banan banan banan banan \n kapok kapok kapok kapok kapok kapok kapok kapok kapok\n";
-//
-//    writeSD(gmd);
-//    int j = 0;
-//    while (j < 8)
-//    {
-//        TXB_Setpoints_Data[1][j] = 0x60;
-//        j++;
-//    }
-//
-//    CANMessageSet(CANB_BASE, (14 + 1), &TXCANB_Setpoints_Message[1], MSG_OBJ_TYPE_TX);
-
-    //GpioDataRegs.GPATOGGLE.bit.GPIO31 = 1;
 
 }
 

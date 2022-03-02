@@ -26,6 +26,15 @@ Uint16 deb;
 Uint16 local_buf[256];
 Uint16 local_val;
 
+//timestamp
+Uint32 time_elapsed;
+Uint32 local_time_elapsed;
+
+//Sd Card
+int file_counter;
+char filename[20];
+
+//Logging
 struct motorValues1 {
     bool AMK_bSystemReady;      //System ready(SBM)
     bool AMK_bError;            //Error
@@ -95,6 +104,17 @@ struct Imu_Log{
     float omegas_shared[3];
 };
 
+struct Gpio_Log{
+    bool Imd_shared;
+    bool Bms_shared;
+    bool Sdc1_shared;
+    bool Sdc2_shared;
+    bool Sdc3_shared;
+    bool Sdc4_shared;
+    bool Sdc5_shared;
+    bool Sdc6_shared;
+};
+
 
 struct Share_struct {
     Uint16 Temps[8];
@@ -106,6 +126,7 @@ struct Share_struct {
     struct Sendyne_Log sendyne;
     struct BMS_Log bms;
     struct Status_Log status;
+    struct Gpio_Log gpio;
 };
 
 struct Share_struct sh;
@@ -127,10 +148,13 @@ struct FanSpeed_Log fanspeed_log;
 
 struct Imu_Log imu_log;
 
+struct Gpio_Log gpio_log;
+
 
 
 //#pragma DATA_SECTION(c1_r_w_array,"SHARERAMGS1");
 #pragma DATA_SECTION(sh,"SHARERAMGS1");
+#pragma DATA_SECTION(time_elapsed,"SHARERAMGS2");
 
 uint16_t error;
 uint16_t multiplier;

@@ -23,7 +23,7 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_Pi
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_SysCtrl.c \
 ../GPIO_management.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.c \
-C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/cmdline.c \
+../cmdline.c \
 ../ff.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c \
 ../main.c \
@@ -155,7 +155,7 @@ C_SRCS__QUOTED += \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_SysCtrl.c" \
 "../GPIO_management.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.c" \
-"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/cmdline.c" \
+"../cmdline.c" \
 "../ff.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c" \
 "../main.c" \

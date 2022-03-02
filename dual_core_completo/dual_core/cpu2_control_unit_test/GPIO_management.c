@@ -1,5 +1,5 @@
 #include "GPIO_management.h"
-#include "global_definitions.h"
+
 
 int gpioOutput[] = {ENABLE_PUMPS,
                     RTDS,
@@ -24,26 +24,14 @@ int gpioInput[] = { AIR_1_STATE,
 
 void GPIOSetup()
 {
-//    int i;
-//    for (i=0; i<(sizeof(gpioOutput)/sizeof(int)); i++)
-//    {
-//        GPIO_SetupPinMux(gpioOutput[i], GPIO_MUX_CPU1, 0);
-//        GPIO_SetupPinOptions(gpioOutput[i], GPIO_OUTPUT, GPIO_PUSHPULL);
-//    }
-//
-//    for (i=0; i<(sizeof(gpioInput)/sizeof(int)); i++)
-//    {
-//        GPIO_SetupPinMux(gpioOutput[i], GPIO_MUX_CPU1, 0);
-//        GPIO_SetupPinOptions(gpioOutput[i], GPIO_OUTPUT, GPIO_PUSHPULL);
-//    }
-//
-//    //setup LED 1
-//    GPIO_SetupPinMux(RED_BLINK, GPIO_MUX_CPU1, 0);
-//    GPIO_SetupPinOptions(RED_BLINK, GPIO_OUTPUT, GPIO_PUSHPULL);
-//
-//    //setup LED 2
-//    GPIO_SetupPinMux(BLUE_BLINK, GPIO_MUX_CPU1, 0);
-//    GPIO_SetupPinOptions(BLUE_BLINK, GPIO_OUTPUT, GPIO_PUSHPULL);
+
+
+    GPIO_WritePin(SDC1_STATE, 0);
+    GPIO_WritePin(SDC2_STATE, 0);
+    GPIO_WritePin(SDC3_STATE, 0);
+    GPIO_WritePin(SDC4_STATE, 0);
+    GPIO_WritePin(SDC5_STATE, 0);
+    GPIO_WritePin(SDC6_STATE, 0);
 
     GPIO_WritePin(BLUE_BLINK, 0);
     GPIO_WritePin(R2D, R2D_LED_OFF);
@@ -64,4 +52,16 @@ void GPIOSetup()
     GPIO_WritePin(14, 0);
     //------------------------------------------
 #endif
+}
+
+void updateGPIOState()
+{
+    Imd_State = GPIO_ReadPin(IMD_STATE);
+    Bms_State = GPIO_ReadPin(BMS_STATE);
+    Sdc1_State = GPIO_ReadPin(SDC1_STATE);
+    Sdc2_State = GPIO_ReadPin(SDC2_STATE);
+    Sdc3_State = GPIO_ReadPin(SDC3_STATE);
+    Sdc4_State = GPIO_ReadPin(SDC4_STATE);
+    Sdc5_State = GPIO_ReadPin(SDC5_STATE);
+    Sdc6_State = GPIO_ReadPin(SDC6_STATE);
 }

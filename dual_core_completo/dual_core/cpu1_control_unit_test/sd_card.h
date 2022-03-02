@@ -17,6 +17,7 @@
 //#include "third_party/fatfs/src/diskio.h"
 #include "ff.h"
 #include "diskio.h"
+#include <stdio.h>
 
 //
 // Defines
@@ -61,6 +62,9 @@ static FIL g_sFileObject;
 
 static FRESULT ChangeToDirectory(char *pcDirectory, unsigned long *pulReason);
 static const char *StringFromFresult(FRESULT fresult);
+
+extern int file_counter;
+extern char filename[20];
 
 void setupSD(void);
 void writeSD(char *str);

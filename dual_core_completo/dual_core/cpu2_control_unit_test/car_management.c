@@ -511,6 +511,8 @@ void update_log_values()
     status_log.brakePress_shared = increment;
     status_log.steering_shared = increment;
 
+    gpio_log.Sdc1_shared = 1;
+
     for(index = 0; index < 8; index++)
     {
         Temps_shared[index] = increment;
@@ -520,6 +522,10 @@ void update_log_values()
     {
         motorSetP_shared[index].AMK_TargetVelocity = increment;
     }
+
+    EALLOW;
+    GpioDataRegs.GPATOGGLE.bit.GPIO31 = 1;
+    EDIS;
 
 
     increment++;
@@ -618,6 +624,7 @@ void update_shared_mem()
     sh.sendyne = sendyne_log;
     sh.bms = bms_log;
     sh.status = status_log;
+    sh.gpio = gpio_log;
 }
 
 void sendStatusToLogger()

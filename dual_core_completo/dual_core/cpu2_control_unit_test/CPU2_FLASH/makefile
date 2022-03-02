@@ -27,7 +27,6 @@ ORDERED_OBJS += \
 "./can.obj" \
 "./can_management.obj" \
 "./car_management.obj" \
-"./cmdline.obj" \
 "./driver_input.obj" \
 "./epwm_management.obj" \
 "./interrupt.obj" \
@@ -162,15 +161,15 @@ all: cpu2_control_unit_test.out
 cpu2_control_unit_test.out: $(OBJS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --cla_support=cla1 --tmu_support=tmu0 --vcu_support=vcu2 -g --define=CPU2 --define=_LAUNCHXL_F28379D --define=_FLASH --display_error_number --diag_warning=225 -z -m"cpu2_control_unit_test.map" --heap_size=0x400 --stack_size=0x3F8 --warn_sections -i"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/lib" -i"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/cmd" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/cmd" --reread_libs --display_error_number --xml_link_info="cpu2_control_unit_test_linkInfo.xml" --rom_model -o "cpu2_control_unit_test.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --cla_support=cla1 --tmu_support=tmu0 --vcu_support=vcu2 -g --define=CPU2 --define=DEBUG_NO_HV --define=_LAUNCHXL_F28379D --define=_FLASH --display_error_number --diag_warning=225 -z -m"cpu2_control_unit_test.map" --heap_size=0x400 --stack_size=0x3F8 --warn_sections -i"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/lib" -i"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/cmd" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/cmd" --reread_libs --display_error_number --xml_link_info="cpu2_control_unit_test_linkInfo.xml" --rom_model -o "cpu2_control_unit_test.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "F2837xD_Adc.obj" "F2837xD_CodeStartBranch.obj" "F2837xD_CpuTimers.obj" "F2837xD_DefaultISR.obj" "F2837xD_GlobalVariableDefs.obj" "F2837xD_Gpio.obj" "F2837xD_Ipc.obj" "F2837xD_Ipc_Driver_Util.obj" "F2837xD_PieCtrl.obj" "F2837xD_PieVect.obj" "F2837xD_SysCtrl.obj" "F2837xD_usDelay.obj" "GPIO_management.obj" "adc_management.obj" "can.obj" "can_management.obj" "car_management.obj" "cmdline.obj" "driver_input.obj" "epwm_management.obj" "interrupt.obj" "main.obj" "motor_management.obj" "power_controller.obj" "timer_management.obj" "torque_management.obj" "ustdlib.obj" "utils.obj" 
-	-$(RM) "F2837xD_Adc.d" "F2837xD_CpuTimers.d" "F2837xD_DefaultISR.d" "F2837xD_GlobalVariableDefs.d" "F2837xD_Gpio.d" "F2837xD_Ipc.d" "F2837xD_Ipc_Driver_Util.d" "F2837xD_PieCtrl.d" "F2837xD_PieVect.d" "F2837xD_SysCtrl.d" "GPIO_management.d" "adc_management.d" "can.d" "can_management.d" "car_management.d" "cmdline.d" "driver_input.d" "epwm_management.d" "interrupt.d" "main.d" "motor_management.d" "power_controller.d" "timer_management.d" "torque_management.d" "ustdlib.d" "utils.d" 
+	-$(RM) "F2837xD_Adc.obj" "F2837xD_CodeStartBranch.obj" "F2837xD_CpuTimers.obj" "F2837xD_DefaultISR.obj" "F2837xD_GlobalVariableDefs.obj" "F2837xD_Gpio.obj" "F2837xD_Ipc.obj" "F2837xD_Ipc_Driver_Util.obj" "F2837xD_PieCtrl.obj" "F2837xD_PieVect.obj" "F2837xD_SysCtrl.obj" "F2837xD_usDelay.obj" "GPIO_management.obj" "adc_management.obj" "can.obj" "can_management.obj" "car_management.obj" "driver_input.obj" "epwm_management.obj" "interrupt.obj" "main.obj" "motor_management.obj" "power_controller.obj" "timer_management.obj" "torque_management.obj" "ustdlib.obj" "utils.obj" 
+	-$(RM) "F2837xD_Adc.d" "F2837xD_CpuTimers.d" "F2837xD_DefaultISR.d" "F2837xD_GlobalVariableDefs.d" "F2837xD_Gpio.d" "F2837xD_Ipc.d" "F2837xD_Ipc_Driver_Util.d" "F2837xD_PieCtrl.d" "F2837xD_PieVect.d" "F2837xD_SysCtrl.d" "GPIO_management.d" "adc_management.d" "can.d" "can_management.d" "car_management.d" "driver_input.d" "epwm_management.d" "interrupt.d" "main.d" "motor_management.d" "power_controller.d" "timer_management.d" "torque_management.d" "ustdlib.d" "utils.d" 
 	-$(RM) "F2837xD_CodeStartBranch.d" "F2837xD_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

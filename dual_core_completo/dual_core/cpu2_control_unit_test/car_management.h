@@ -65,6 +65,7 @@ extern struct BMS_Log bms_log;
 extern struct Sendyne_Log sendyne_log;
 extern struct FanSpeed_Log fanspeed_log;
 extern struct Imu_Log imu_log;
+extern struct Gpio_Log gpio_log;
 extern Uint16 Temps_shared[8];
 extern struct motorSetPoints motorSetP_shared[4];
 extern struct motorValues1 motorVal1_shared[4];

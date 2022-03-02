@@ -40,6 +40,11 @@ void setup()
 
        InitSysCtrl();
 
+       while(!( MemCfgRegs.GSxMSEL.bit.MSEL_GS1 &
+                MemCfgRegs.GSxMSEL.bit.MSEL_GS2 ))
+       {
+       }
+
        //InitGpio();
 
        canSetup_phase1();
@@ -53,10 +58,7 @@ void setup()
 
        InitPieVectTable();
 
-       while(!( MemCfgRegs.GSxMSEL.bit.MSEL_GS1 &
-                MemCfgRegs.GSxMSEL.bit.MSEL_GS2 ))
-       {
-       }
+
 
 
 //       GPIOSetup();
@@ -89,6 +91,7 @@ void setup()
        sh.sendyne = sendyne_log;
        sh.bms = bms_log;
        sh.status = status_log;
+       sh.gpio = gpio_log;
 
 
        setupOk = 1;    //debug

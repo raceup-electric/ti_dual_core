@@ -10,13 +10,12 @@
 extern Uint16 c2_r_w_array[256];
 extern Uint16 increment;
 
-extern struct Status_Log status_log;
-extern int throttle;
+extern Uint32 time_elapsed;
 
 
 
 void timerSetup(void);
-//__interrupt void cpu_timer0_isr(void);
+__interrupt void cpu_timer0_isr(void);
 __interrupt void cpu_timer1_isr(void);
 __interrupt void cpu_timer2_isr(void);
 

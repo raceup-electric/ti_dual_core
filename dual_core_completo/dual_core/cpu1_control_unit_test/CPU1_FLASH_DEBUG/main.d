@@ -86,9 +86,9 @@ main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/depreca
 main.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/time.h
 main.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/abi_prefix.h
 main.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/xlocale/_time.h
-main.obj: D:/Desktop/raceup/ecu/ff14b/source/ff.h
-main.obj: D:/Desktop/raceup/ecu/ff14b/source/ffconf.h
-main.obj: D:/Desktop/raceup/ecu/ff14b/source/diskio.h
+main.obj: C:/ti/ff14b/source/ff.h
+main.obj: C:/ti/ff14b/source/ffconf.h
+main.obj: C:/ti/ff14b/source/diskio.h
 
 ../main.c:
 
@@ -262,9 +262,9 @@ C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/abi_prefix.h:
 
 C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/xlocale/_time.h:
 
-D:/Desktop/raceup/ecu/ff14b/source/ff.h:
+C:/ti/ff14b/source/ff.h:
 
-D:/Desktop/raceup/ecu/ff14b/source/ffconf.h:
+C:/ti/ff14b/source/ffconf.h:
 
-D:/Desktop/raceup/ecu/ff14b/source/diskio.h:
+C:/ti/ff14b/source/diskio.h:
 

@@ -1,6 +1,7 @@
 # FIXED
 
 main.obj: ../main.c
+main.obj: ../main.h
 main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F28x_Project.h
 main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_Cla_typedefs.h
 main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_device.h
@@ -68,8 +69,30 @@ main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include
 main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_Upp_defines.h
 main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_defaultisr.h
 main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_Ipc_drivers.h
+main.obj: ../GPIO_management.h
+main.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdio.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_types.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_memmap.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_can.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.h
+main.obj: ../sd_card.h
+main.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_ints.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/sysctl.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/systick.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/cmdline.h
+main.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/ustdlib.h
+main.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/time.h
+main.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/abi_prefix.h
+main.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/xlocale/_time.h
+main.obj: D:/Desktop/raceup/ecu/ff14b/source/ff.h
+main.obj: D:/Desktop/raceup/ecu/ff14b/source/ffconf.h
+main.obj: D:/Desktop/raceup/ecu/ff14b/source/diskio.h
 
 ../main.c:
+
+../main.h:
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F28x_Project.h:
 
@@ -204,4 +227,44 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_U
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_defaultisr.h:
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_Ipc_drivers.h:
+
+../GPIO_management.h:
+
+C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdio.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_types.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_memmap.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_can.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.h:
+
+../sd_card.h:
+
+C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_ints.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/sysctl.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/systick.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/cmdline.h:
+
+C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/ustdlib.h:
+
+C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/time.h:
+
+C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/abi_prefix.h:
+
+C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/xlocale/_time.h:
+
+D:/Desktop/raceup/ecu/ff14b/source/ff.h:
+
+D:/Desktop/raceup/ecu/ff14b/source/ffconf.h:
+
+D:/Desktop/raceup/ecu/ff14b/source/diskio.h:
 

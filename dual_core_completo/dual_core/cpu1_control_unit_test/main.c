@@ -65,14 +65,7 @@ void main(void)
 //
 // Give Memory Access to GS0/ GS14 SARAM to CPU02
 //
-    while( !(MemCfgRegs.GSxMSEL.bit.MSEL_GS2 &
-             MemCfgRegs.GSxMSEL.bit.MSEL_GS1))
-    {
-        EALLOW;
-        MemCfgRegs.GSxMSEL.bit.MSEL_GS2 = 1;
-        MemCfgRegs.GSxMSEL.bit.MSEL_GS1 = 1;
-        EDIS;
-    }
+
 
 //
 //  Copy ISR routine to a specified RAM location to determine the size
@@ -88,6 +81,15 @@ void main(void)
 //
     GPIOSetup();
     setupSD();
+
+    while( !(MemCfgRegs.GSxMSEL.bit.MSEL_GS2 &
+             MemCfgRegs.GSxMSEL.bit.MSEL_GS1))
+    {
+        EALLOW;
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS2 = 1;
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS1 = 1;
+        EDIS;
+    }
 
     EINT;   // Enable Global interrupt INTM
     ERTM;   // Enable Global realtime interrupt DBGM
@@ -152,7 +154,7 @@ void cpu1_timer_setup(void)
 // c2_FREQ in MHz, 10 millisecond Period (in uSeconds)
 //
     //ConfigCpuTimer(&CpuTimer0, 200, 100000);
-    ConfigCpuTimer(&CpuTimer1, 200, 20000);
+    ConfigCpuTimer(&CpuTimer1, 200, 10000);
     ConfigCpuTimer(&CpuTimer2, 200, 20000);
 
 //
@@ -197,29 +199,9 @@ void Shared_Ram_dataRead_c1(void)
 
     //memcpy(local_buf, c1_r_w_array, sizeof(local_buf));
     local_sh = sh;
+    local_time_elapsed = time_elapsed;
     //memcpy(&local_sh, &sh, 256);
 }
-
-//
-// cpu_timer0_isr - CPU Timer0 ISR
-//
-//__interrupt void cpu_timer0_isr(void)
-//{
-//
-//        EALLOW;
-//        CpuTimer0.InterruptCount++;
-//        GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-//        EDIS;
-//
-//        Shared_Ram_dataRead_c1();
-//
-////            char cmd[250] = "\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
-////                   //    CmdLineProcess(cmd);
-//        char cmd[100] = "testiamo insieme amici del bosco\n";
-//            writeSD(cmd);
-//
-//        PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
-//}
 
 __interrupt void cpu_timer1_isr(void)
 {
@@ -227,28 +209,53 @@ __interrupt void cpu_timer1_isr(void)
         EALLOW;
         CpuTimer1.InterruptCount++;
         GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-        //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
+        GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
         EDIS;
 
         Shared_Ram_dataRead_c1();
 
-
-
         //char cmd[250] = "\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
         //    CmdLineProcess(cmd);
-        //sprintf(cmd , "testiamo insieme amici del bosco AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA = %d\n", local_sh.status.throttle_shared);
 
-
-
-
-        char cmd[100];
+        char cmd[200];
         int index;
 
+        sprintf(cmd, "timestamp %d stop", (int)local_time_elapsed);
+        writeSD(cmd);
 
         for(index = 0; index < 4; index++)
         {
+           //TO USE
+           sprintf(cmd , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d",
+                           local_sh.motorVal1[index].AMK_ActualVelocity, local_sh.motorVal1[index].AMK_Current,
+                           local_sh.motorVal1[index].AMK_MagnetizingCurrent, local_sh.motorVal1[index].AMK_TorqueCurrent,
+                           local_sh.motorVal1[index].AMK_bDcOn, local_sh.motorVal1[index].AMK_bDerating,
+                           local_sh.motorVal1[index].AMK_bError, local_sh.motorVal1[index].AMK_bInverterOn,
+                           local_sh.motorVal1[index].AMK_bQuitDcOn, local_sh.motorVal1[index].AMK_bQuitInverterOn,
+                           local_sh.motorVal1[index].AMK_bSystemReady, local_sh.motorVal1[index].AMK_bWarn,
+                           local_sh.motorVal2[index].AMK_ErrorInfo, local_sh.motorVal2[index].AMK_TempIGBT,
+                           local_sh.motorVal2[index].AMK_TempInverter, local_sh.motorVal2[index].AMK_TempMotor,
+                           local_sh.motorSetP[index].AMK_bInverterOn, local_sh.motorSetP[index].AMK_bDcOn,
+                           local_sh.motorSetP[index].AMK_bEnable, local_sh.motorSetP[index].AMK_bErrorReset,
+                           local_sh.motorSetP[index].AMK_TargetVelocity, local_sh.motorSetP[index].AMK_TorqueLimitPositive,
+                           local_sh.motorSetP[index].AMK_TorqueLimitNegative);
+           writeSD(cmd);
+        }
+
+        //cmd = "ls";
+        //deb = CmdLineProcess(cmd);
+
+
+
+        /*for(index = 0; index < 4; index++)
+        {
            //AMKVAL1 TO DECIDE
-           sprintf(cmd , "AmkVal1 %d %d %d %d %d %d %d %d %d %d %d %d stop",
+            EALLOW;
+//            CpuTimer1.InterruptCount++;
+//            GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+            GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
+            EDIS;
+           sprintf(cmd , "%d %d %d %d %d %d %d %d %d %d %d %d",
                            local_sh.motorVal1[index].AMK_ActualVelocity, local_sh.motorVal1[index].AMK_Current,
                            local_sh.motorVal1[index].AMK_MagnetizingCurrent, local_sh.motorVal1[index].AMK_TorqueCurrent,
                            local_sh.motorVal1[index].AMK_bDcOn, local_sh.motorVal1[index].AMK_bDerating,
@@ -257,70 +264,125 @@ __interrupt void cpu_timer1_isr(void)
                            local_sh.motorVal1[index].AMK_bSystemReady, local_sh.motorVal1[index].AMK_bWarn);
            writeSD(cmd);
 
+
            //AMKVAL2 TO DECIDE
-           sprintf(cmd , "AmkVal2 %d %d %d %d stop",
+           sprintf(cmd , "%d %d %d %d",
                            local_sh.motorVal2[index].AMK_ErrorInfo, local_sh.motorVal2[index].AMK_TempIGBT,
                            local_sh.motorVal2[index].AMK_TempInverter, local_sh.motorVal2[index].AMK_TempMotor);
            writeSD(cmd);
 
            //SETPOINTS TO DECIDE
-           sprintf(cmd , "Setpoints %d %d %d %d %d %d %d stop",
+           sprintf(cmd , "%d %d %d %d %d %d %d",
                            local_sh.motorSetP[index].AMK_bInverterOn, local_sh.motorSetP[index].AMK_bDcOn,
                            local_sh.motorSetP[index].AMK_bEnable, local_sh.motorSetP[index].AMK_bErrorReset,
                            local_sh.motorSetP[index].AMK_TargetVelocity, local_sh.motorSetP[index].AMK_TorqueLimitPositive,
                            local_sh.motorSetP[index].AMK_TorqueLimitNegative);
            writeSD(cmd);
-        }
+        }*/
+
+//        sprintf(cmd , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d",
+//                        local_sh.Temps[0], local_sh.Temps[1], local_sh.Temps[2], local_sh.Temps[3],
+//                        local_sh.Temps[4], local_sh.Temps[5], local_sh.Temps[6], local_sh.Temps[7],
+//                        local_sh.status.throttle_shared, local_sh.status.steering_shared,
+//                        local_sh.status.brake_shared, local_sh.status.brakePress_shared,
+//                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared);
+//        writeSD(cmd);
 
 
-        //TEMPS
-        sprintf(cmd , "Temps %d %d %d %d %d %d %d %d stop ",
+//        //TEMPS
+//        sprintf(cmd , "%d %d %d %d %d %d %d %d",
+//                        local_sh.Temps[0], local_sh.Temps[1], local_sh.Temps[2], local_sh.Temps[3],
+//                        local_sh.Temps[4], local_sh.Temps[5], local_sh.Temps[6], local_sh.Temps[7]);
+//        writeSD(cmd);
+//
+//        //STATUS
+//        sprintf(cmd , "Status %d %d %d %d %d %d stop ",
+//                        local_sh.status.throttle_shared, local_sh.status.steering_shared,
+//                        local_sh.status.brake_shared, local_sh.status.brakePress_shared,
+//                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared);
+//        writeSD(cmd);
+
+
+        //TO USE
+        sprintf(cmd , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %d %d %.2f %.2f %.2f %.2f %.2f %.2f "
+                " %d %d %d %d %d %d %d %d\n",
                         local_sh.Temps[0], local_sh.Temps[1], local_sh.Temps[2], local_sh.Temps[3],
-                        local_sh.Temps[4], local_sh.Temps[5], local_sh.Temps[6], local_sh.Temps[7]);
-        writeSD(cmd);
-
-        //STATUS
-        sprintf(cmd , "Status %d %d %d %d %d %d stop ",
+                        local_sh.Temps[4], local_sh.Temps[5], local_sh.Temps[6], local_sh.Temps[7],
                         local_sh.status.throttle_shared, local_sh.status.steering_shared,
                         local_sh.status.brake_shared, local_sh.status.brakePress_shared,
-                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared);
-        writeSD(cmd);
-
-        //BMS
-        sprintf(cmd , "Bms %.2f %.2f %.2f %.2f %.2f %.2f stop ",
+                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
                         local_sh.bms.max_bms_temp_shared, local_sh.bms.min_bms_voltage_shared,
                         local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
-                        local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared);
-        writeSD(cmd);
-
-
-        //SENDYNE AND CURRENT
-        sprintf(cmd , "Sendyne %.2f %.2f %.2f %.2f stop ",
+                        local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
                         local_sh.sendyne.sendyne_voltage_shared, local_sh.sendyne.sendyne_current_shared,
-                        local_sh.sendyne.curr_sens_shared, local_sh.sendyne.total_power_shared);
-        writeSD(cmd);
-
-        //FANSPEED
-        sprintf(cmd , "FanSpeed %d %d stop ",
-                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared);
-        writeSD(cmd);
-
-        //IMU
-        sprintf(cmd , "Imu %.2f %.2f %.2f %.2f %.2f %.2f stop \n",
+                        local_sh.sendyne.curr_sens_shared, local_sh.sendyne.total_power_shared,
+                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
                         local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
                         local_sh.imu.accelerations_shared[2], local_sh.imu.omegas_shared[0],
-                        local_sh.imu.omegas_shared[1], local_sh.imu.omegas_shared[2]);
+                        local_sh.imu.omegas_shared[1], local_sh.imu.omegas_shared[2],
+                        local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
+                        local_sh.gpio.Sdc1_shared, local_sh.gpio.Sdc2_shared,
+                        local_sh.gpio.Sdc3_shared, local_sh.gpio.Sdc4_shared,
+                        local_sh.gpio.Sdc5_shared, local_sh.gpio.Sdc6_shared);
         writeSD(cmd);
+
+//        //STATUS
+//        sprintf(cmd , "new %d %d %d %d %d %d %d %d",
+//                        local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
+//                        local_sh.gpio.Sdc1_shared, local_sh.gpio.Sdc2_shared,
+//                        local_sh.gpio.Sdc3_shared, local_sh.gpio.Sdc4_shared,
+//                        local_sh.gpio.Sdc5_shared, local_sh.gpio.Sdc6_shared);
+//        writeSD(cmd);
+
+
+//        //SENDYNE AND CURRENT
+//        sprintf(cmd , "",
+//
+//        writeSD(cmd);
+//
+//        //FANSPEED
+//        sprintf(cmd , "FanSpeed %d %d stop ",
+//
+//        writeSD(cmd);
+//
+//        //IMU
+//        sprintf(cmd , "Imu %.2f %.2f %.2f %.2f %.2f %.2f stop \n",
+//
+//        writeSD(cmd);
+//
+//        //BMS
+//        sprintf(cmd , "%.2f %.2f %.2f %.2f %.2f %.2f",
+//
+//        writeSD(cmd);
+
+
+//        //SENDYNE AND CURRENT
+//        sprintf(cmd , "%.2f %.2f %.2f %.2f",
+//                        local_sh.sendyne.sendyne_voltage_shared, local_sh.sendyne.sendyne_current_shared,
+//                        local_sh.sendyne.curr_sens_shared, local_sh.sendyne.total_power_shared);
+//        writeSD(cmd);
+//
+//        //FANSPEED
+//        sprintf(cmd , "FanSpeed %d %d stop ",
+//                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared);
+//        writeSD(cmd);
+//
+//        //IMU
+//        sprintf(cmd , "Imu %.2f %.2f %.2f %.2f %.2f %.2f stop \n",
+//                        local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
+//                        local_sh.imu.accelerations_shared[2], local_sh.imu.omegas_shared[0],
+//                        local_sh.imu.omegas_shared[1], local_sh.imu.omegas_shared[2]);
+//        writeSD(cmd);
 
 
         //char gmd[100] = "testiamo insieme amici del bosco AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
 
         //PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
-//        EALLOW;
+        //EALLOW;
 //        CpuTimer1.InterruptCount++;
 //        //GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-//        //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
-//        EDIS;
+        //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
+        //EDIS;
 
 }
 

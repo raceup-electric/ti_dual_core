@@ -91,11 +91,6 @@
 			<locationURI>PARENT-5-ORIGINAL_PROJECT_ROOT/common/deprecated/driverlib/can.c</locationURI>
 		</link>
 		<link>
-			<name>cmdline.c</name>
-			<type>1</type>
-			<locationURI>copy_PARENT/common/deprecated/utils/cmdline.c</locationURI>
-		</link>
-		<link>
 			<name>interrupt.c</name>
 			<type>1</type>
 			<locationURI>copy_PARENT/common/deprecated/driverlib/interrupt.c</locationURI>

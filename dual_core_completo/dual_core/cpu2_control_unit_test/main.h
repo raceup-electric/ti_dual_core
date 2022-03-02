@@ -26,6 +26,8 @@
 
 int counter;    //for debug
 
+//timestamp
+Uint32 time_elapsed;
 
 // sendyne
 float sendyne_current;
@@ -231,6 +233,8 @@ struct FanSpeed_Log fanspeed_log;
 
 struct Imu_Log imu_log;
 
+struct Gpio_Log gpio_log;
+
 
 //shard ram
 Uint16 c2_r_w_array[256];
@@ -238,6 +242,7 @@ Uint16 increment;
 
 //#pragma DATA_SECTION(c2_r_w_array,"SHARERAMGS1");
 #pragma DATA_SECTION(sh,"SHARERAMGS1");
+#pragma DATA_SECTION(time_elapsed,"SHARERAMGS2");
 
 
 //
