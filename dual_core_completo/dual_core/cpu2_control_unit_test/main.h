@@ -162,8 +162,10 @@ volatile uint16_t cpuTimer1IntCount;
 volatile uint16_t cpuTimer2IntCount;
 volatile Uint32 pinValue;
 
-//CAN
+//schermo
+int presets[8] = {3, 30, 40, 50, 60, 65, 70, 75};
 
+//CAN
 volatile Uint32 errorFlag = 0;
 volatile Uint32 rxBMsgCount = 0;
 volatile Uint32 rxAMsgCount = 0;
@@ -216,7 +218,6 @@ Uint16 TempRadInRC_temp;
 
 struct Share_struct sh;
 
-
 Uint16 Temps_shared[8];
 
 struct Status_Log status_log;
@@ -235,6 +236,8 @@ struct Imu_Log imu_log;
 
 struct Gpio_Log gpio_log;
 
+struct Display_command display;
+
 
 //shard ram
 Uint16 c2_r_w_array[256];
@@ -243,6 +246,7 @@ Uint16 increment;
 //#pragma DATA_SECTION(c2_r_w_array,"SHARERAMGS1");
 #pragma DATA_SECTION(sh,"SHARERAMGS1");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS2");
+#pragma DATA_SECTION(display,"SHARERAMGS14");
 
 
 //

@@ -89,6 +89,9 @@ main.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/xloca
 main.obj: C:/ti/ff14b/source/ff.h
 main.obj: C:/ti/ff14b/source/ffconf.h
 main.obj: C:/ti/ff14b/source/diskio.h
+main.obj: ../display.h
+main.obj: ../uart.h
+main.obj: ../global_definitions.h
 
 ../main.c:
 
@@ -267,4 +270,10 @@ C:/ti/ff14b/source/ff.h:
 C:/ti/ff14b/source/ffconf.h:
 
 C:/ti/ff14b/source/diskio.h:
+
+../display.h:
+
+../uart.h:
+
+../global_definitions.h:
 

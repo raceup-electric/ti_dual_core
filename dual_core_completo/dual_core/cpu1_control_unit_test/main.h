@@ -14,6 +14,7 @@
 #include "inc/hw_can.h"
 #include "driverlib/can.h"
 #include "sd_card.h"
+#include "display.h"
 
 
 //
@@ -34,100 +35,15 @@ Uint32 local_time_elapsed;
 int file_counter;
 char filename[20];
 
-//Logging
-struct motorValues1 {
-    bool AMK_bSystemReady;      //System ready(SBM)
-    bool AMK_bError;            //Error
-    bool AMK_bWarn;             //Warning
-    bool AMK_bQuitDcOn;         //HVactivation acknowledgment
-    bool AMK_bDcOn;             //HVactivation level
-    bool AMK_bQuitInverterOn;   // RF Controller enable acknowledgment
-    bool AMK_bInverterOn;       //Controller enable level
-    bool AMK_bDerating;         //Derating (torque limitation active)
+//Schermo
+Uint16 currentPage=99;
+char tmp[50];
+Uint16 n_setup;
+Uint16 old_setup;
+Uint16 ack = 0;
+Uint16 old_ack = 0;
+Uint16 sel; //for debug
 
-    float AMK_ActualVelocity;       //Signed - Unit: rpm - Actual speed value
-    float AMK_TorqueCurrent;        //Signed - Raw data for calculating 'actual torque current'Iq See 'Units'on page 61
-    float AMK_MagnetizingCurrent;   //Signed - Raw data for calculating 'actual magnetizing current'Id See 'Units'on page 1
-    float AMK_Current;  // see PDK
-};
-
-struct motorValues2 {
-    float AMK_TempMotor;                //Signed - Unit: 0.1 °C - Motor temperature
-    float AMK_TempInverter;             //Signed - Unit: 0.1 °C - Cold plate temperature
-    float AMK_TempIGBT;                 //Signed - Unit: 0.1 °C - IGBTtemperature
-    unsigned int AMK_ErrorInfo;         //Unsigned - Diagnostic number
-};
-
-struct motorSetPoints {
-    bool AMK_bInverterOn;               // Controller enable
-    bool AMK_bDcOn;                     // HVactivation
-    bool AMK_bEnable;                   // Driverenable
-    bool AMK_bErrorReset;               // Remove error*
-
-    int AMK_TargetVelocity;             //Signed - Unit: rpm - Speed setpoint
-    int AMK_TorqueLimitPositive;        //Signed - Unit:  0.1% M_N  - Positive torque limit (subject to nominal torque)
-    int AMK_TorqueLimitNegative;        //Signed - Unit:  0.1% M_N  - Negative torque limit (subject to nominal torque)
-};
-
-struct Status_Log {
-    int throttle_shared;
-    int steering_shared;
-    int brake_shared;
-    int brakePress_shared;
-    int status_shared;
-    int actualVelocityKMH_shared;
-};
-
-struct BMS_Log {
-    float max_bms_voltage_shared;
-    float min_bms_voltage_shared;
-    float mean_bms_voltage_shared;
-    float max_bms_temp_shared;
-    float min_bms_temp_shared;
-    float mean_bms_temp_shared;
-};
-
-struct Sendyne_Log {
-    float sendyne_current_shared;
-    float sendyne_voltage_shared;
-    float curr_sens_shared;
-    float total_power_shared;
-};
-
-struct FanSpeed_Log{
-    Uint16 leftFanSpeed_shared;
-    Uint16 rightFanSpeed_shared;
-};
-
-struct Imu_Log{
-    float accelerations_shared[3];
-    float omegas_shared[3];
-};
-
-struct Gpio_Log{
-    bool Imd_shared;
-    bool Bms_shared;
-    bool Sdc1_shared;
-    bool Sdc2_shared;
-    bool Sdc3_shared;
-    bool Sdc4_shared;
-    bool Sdc5_shared;
-    bool Sdc6_shared;
-};
-
-
-struct Share_struct {
-    Uint16 Temps[8];
-    struct motorValues1 motorVal1[4];
-    struct motorValues2 motorVal2[4];
-    struct motorSetPoints motorSetP[4];
-    struct Imu_Log imu;
-    struct FanSpeed_Log fanSpeed;
-    struct Sendyne_Log sendyne;
-    struct BMS_Log bms;
-    struct Status_Log status;
-    struct Gpio_Log gpio;
-};
 
 struct Share_struct sh;
 struct Share_struct local_sh;
@@ -150,11 +66,14 @@ struct Imu_Log imu_log;
 
 struct Gpio_Log gpio_log;
 
+struct Display_command display;
 
 
 //#pragma DATA_SECTION(c1_r_w_array,"SHARERAMGS1");
 #pragma DATA_SECTION(sh,"SHARERAMGS1");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS2");
+#pragma DATA_SECTION(display,"SHARERAMGS14");
+
 
 uint16_t error;
 uint16_t multiplier;

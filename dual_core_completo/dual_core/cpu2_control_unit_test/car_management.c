@@ -93,6 +93,31 @@ void read_power_control_message(Uint16 val[]){
     power_limit = val[0]*1000.0f;
 }
 
+void read_steering_wheel_message(Uint16 val[], int id){
+
+    int currentPage = display.page;
+    if (id == MSG_ID_STEERING_WHEEL_DISPLAY_PAGE){
+        if(val[0] == NEXT_PAGE){
+            currentPage++;
+            currentPage = currentPage % 10;
+        }
+        else if(val[0] == PREVIOUS_PAGE){
+            currentPage = currentPage - 1 + 10;
+            currentPage = currentPage % 10;
+        }
+        display.page = currentPage;
+    }
+    else if(id ==MSG_ID_STEERING_WHEEL_CHANGE_SETUP){
+        display.selector = val[0];
+    }
+    else if(id == MSG_ID_STEERING_WHEEL_ACK && val[0] == CONFIRMATION){
+        display.ack = display.selector;
+        //manca mandare il messaggio
+        powersetup[0]=presets[display.ack];
+        power_limit = powersetup[0]*1000.0f;
+    }
+}
+
 void brakeLight()
 {
     if (brake > BRAKE_LIGHT_MIN) {

@@ -1,11 +1,34 @@
-#ifndef UTILS_H
-#define UTILS_H
+/*
+ * display.h
+ *
+ *  Created on: 18 feb 2022
+ *      Author: ludon
+ */
 
-//
-// include
-//
-#include "motor_management.h"
+#ifndef DISPLAY_H_
+#define DISPLAY_H_
+#include "F28x_Project.h"
+#include "uart.h"
+#include "stdio.h"
+#include "global_definitions.h"
 
+extern Uint16 currentPage;
+extern Uint16 old_ack;
+extern char tmp[50];
+extern struct Share_struct local_sh;
+extern struct Display_command display;
+extern Uint16 n_setup;
+extern Uint16 old_setup;
+extern Uint16 ack;
+extern Uint16 old_ack;
+
+struct Display_command{
+    Uint16 page;
+    Uint16 selector;
+    Uint16 ack; //non è un bool, ma il valore della selezione 0-7
+};
+
+//Logging
 struct motorValues1 {
     bool AMK_bSystemReady;      //System ready(SBM)
     bool AMK_bError;            //Error
@@ -86,14 +109,6 @@ struct Gpio_Log{
     bool Sdc6_shared;
 };
 
-struct Display_command{
-    Uint16 page;
-    Uint16 selector;
-    Uint16 ack;
-};
-
-
-
 struct Share_struct {
     Uint16 Temps[8];
     struct motorValues1 motorVal1[4];
@@ -107,28 +122,31 @@ struct Share_struct {
     struct Gpio_Log gpio;
 };
 
-//
-// prototypes
-//
 
-float convertBMSvoltage(Uint16 voltage);
+void updatePage(Uint16 page);
 
-float convertBMStemp(Uint16 temp);
+void changePreset(Uint16 preset, Uint16 page, Uint16 ack);
 
-float changeRange(float val, float minX, float maxX, float newMinX, float newMaxX);
+void setStatus();
 
-Uint16 saturateUnsigned(Uint16 signal, Uint16 upperBound, Uint16 lowerBound);
+void setAMK_fl();
 
-float saturateFloat(float signal, float upperBound, float lowerBound);
+void setAMK_fr();
 
-float saturateInt(int signal, int upperBound, int lowerBound);
+void setAMK_rl();
 
-float torqueSetpointToNM(int setpoint);
+void setAMK_rr();
 
-int NMtoTorqueSetpoint(float torqueNM);
+void setTemps();
 
-//void debugLight(int period);
+void setBMS_voltage();
 
-float Uint32o_float(Uint32 u);
+void setFLstatus();
 
-#endif
+void setFRstatus();
+
+void setRLstatus();
+
+void setRRstatus();
+
+#endif /* DISPLAY_H_ */

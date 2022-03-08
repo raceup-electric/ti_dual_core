@@ -58,6 +58,8 @@ extern bool inverterRF[4];
 //power control
 extern float power_limit;
 
+extern int presets[8];
+
 //logging
 extern struct Share_struct sh;
 extern struct Status_Log status_log;
@@ -70,6 +72,8 @@ extern Uint16 Temps_shared[8];
 extern struct motorSetPoints motorSetP_shared[4];
 extern struct motorValues1 motorVal1_shared[4];
 extern struct motorValues2 motorVal2_shared[4];
+
+extern struct Display_command display;
 
 
 //
@@ -84,6 +88,8 @@ void read_power_control_message(Uint16 val[]);
 void read_BMS_TEMP_message(Uint16 bms_values[]);
 
 void read_BMS_VOLTAGE_message(Uint16 bms_values[]);
+
+void read_steering_wheel_message(Uint16 val[], int id);
 
 void brakeLight();
 

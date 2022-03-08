@@ -305,6 +305,8 @@ __interrupt void canISR_A(void)
 
        int id = getMessageID(CANA_BASE, OBJ_ID_STEERING_WHEEL);
 
+       read_steering_wheel_message((Uint16 *)RXA_Wheel_Data, id);
+
        rxAMsgCount++;
 
        CANIntClear(CANA_BASE, OBJ_ID_STEERING_WHEEL);

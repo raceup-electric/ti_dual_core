@@ -81,11 +81,15 @@ void main(void)
 //
     GPIOSetup();
     setupSD();
+    uart_setup();
 
-    while( !(MemCfgRegs.GSxMSEL.bit.MSEL_GS2 &
+    while( !(
+            //MemCfgRegs.GSxMSEL.bit.MSEL_GS14 &
+            MemCfgRegs.GSxMSEL.bit.MSEL_GS2 &
              MemCfgRegs.GSxMSEL.bit.MSEL_GS1))
     {
         EALLOW;
+        //MemCfgRegs.GSxMSEL.bit.MSEL_GS14 = 1;
         MemCfgRegs.GSxMSEL.bit.MSEL_GS2 = 1;
         MemCfgRegs.GSxMSEL.bit.MSEL_GS1 = 1;
         EDIS;
@@ -122,7 +126,7 @@ void main(void)
     writeSD(str_init);
 
     CpuTimer1Regs.TCR.bit.TSS = 0;          //start timer1
-    //CpuTimer2Regs.TCR.bit.TSS = 0;        //do not start timer2
+    CpuTimer2Regs.TCR.bit.TSS = 0;        //do not start timer2
 
 
 
@@ -154,8 +158,8 @@ void cpu1_timer_setup(void)
 // c2_FREQ in MHz, 10 millisecond Period (in uSeconds)
 //
     //ConfigCpuTimer(&CpuTimer0, 200, 100000);
-    ConfigCpuTimer(&CpuTimer1, 200, 10000);
-    ConfigCpuTimer(&CpuTimer2, 200, 20000);
+    ConfigCpuTimer(&CpuTimer1, 200, 20000);
+    ConfigCpuTimer(&CpuTimer2, 200, 2000000);
 
 //
 // To ensure precise timing, use write-only instructions to write to the
@@ -208,8 +212,8 @@ __interrupt void cpu_timer1_isr(void)
         //setupSD();
         EALLOW;
         CpuTimer1.InterruptCount++;
-        GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-        GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
+        //GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+        //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
         EDIS;
 
         Shared_Ram_dataRead_c1();
@@ -389,24 +393,20 @@ __interrupt void cpu_timer1_isr(void)
 //not necessary at the moment
 __interrupt void cpu_timer2_isr(void)
 {
-//
-//    EALLOW;
-//    CpuTimer2.InterruptCount++;
-//    //GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-//    //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
-//    EDIS;
-//
-//    Shared_Ram_dataRead_c1();
-//
-////        char cmd[250] = "\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
-////                   //    CmdLineProcess(cmd);
-//////        char cmd[100] = "testiamo insieme amici del bosco\n";
-////         writeSD(cmd);
-//
-//    //PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
-////    EALLOW;
-////    //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
-////    EDIS;
+    updatePage(7);
+    setAck();
+    setSelector();
+    display.page++;
+    display.selector++;
+    display.page = display.page % 9;
+    display.selector = display.selector % 8;
+    if(display.selector == sel){
+        display.ack = display.selector;
+        display.ack = display.ack % 8;
+        sel = sel + 2;
+        sel = sel % 8;
+    }
+
 }
 
 
