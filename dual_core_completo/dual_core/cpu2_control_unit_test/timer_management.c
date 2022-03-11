@@ -1,6 +1,8 @@
 
 #include "timer_management.h"
 
+int h = 0;
+
 #if defined(DEBUG_NO_HV) || defined(DEBUG_HV)
 
 // variabili per debug
@@ -232,6 +234,13 @@ __interrupt void cpu_timer1_isr(void)
     {
         stopAMK();
     }
+
+    if(h >= 50){
+        display.page++;
+        display.page = display.page % 10;
+        h = 0;
+    }
+    h++;
 
     sendAMKData();
     checkStatus();
