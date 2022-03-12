@@ -4,6 +4,8 @@ unsigned long gg;
 
 void canSetup_phase1()
 {
+
+    //DONT WORRY! Spostato nella CPU1
 //    GPIO_SetupPinMux(5, GPIO_MUX_CPU1, 6); //GPIO5 -  CANRXA
 //    GPIO_SetupPinOptions(5, GPIO_INPUT, GPIO_ASYNC);
 //    GPIO_SetupPinMux(4, GPIO_MUX_CPU1, 6); //GPIO4 - CANTXA
@@ -131,7 +133,7 @@ void canSetup_phase2()
 
 
         RXCANA_Wheel_Message.ui32MsgID = MSG_ID_STEERING_WHEEL_BASE;
-        RXCANA_Wheel_Message.ui32MsgIDMask = 0x1FFFFFFC;
+        RXCANA_Wheel_Message.ui32MsgIDMask = 0x1FFFFFF8;
         RXCANA_Wheel_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
         RXCANA_Wheel_Message.ui32MsgLen = 1;
         RXCANA_Wheel_Message.pucMsgData = RXA_Wheel_Data;

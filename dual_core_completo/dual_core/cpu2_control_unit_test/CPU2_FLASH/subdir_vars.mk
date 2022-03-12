@@ -28,6 +28,7 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driver
 ../driver_input.c \
 ../epwm_management.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c \
+../launch_controller.c \
 ../main.c \
 ../motor_management.c \
 ../power_controller.c \
@@ -55,6 +56,7 @@ C_DEPS += \
 ./driver_input.d \
 ./epwm_management.d \
 ./interrupt.d \
+./launch_controller.d \
 ./main.d \
 ./motor_management.d \
 ./power_controller.d \
@@ -84,6 +86,7 @@ OBJS += \
 ./driver_input.obj \
 ./epwm_management.obj \
 ./interrupt.obj \
+./launch_controller.obj \
 ./main.obj \
 ./motor_management.obj \
 ./power_controller.obj \
@@ -117,6 +120,7 @@ OBJS__QUOTED += \
 "driver_input.obj" \
 "epwm_management.obj" \
 "interrupt.obj" \
+"launch_controller.obj" \
 "main.obj" \
 "motor_management.obj" \
 "power_controller.obj" \
@@ -144,6 +148,7 @@ C_DEPS__QUOTED += \
 "driver_input.d" \
 "epwm_management.d" \
 "interrupt.d" \
+"launch_controller.d" \
 "main.d" \
 "motor_management.d" \
 "power_controller.d" \
@@ -175,6 +180,7 @@ C_SRCS__QUOTED += \
 "../driver_input.c" \
 "../epwm_management.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c" \
+"../launch_controller.c" \
 "../main.c" \
 "../motor_management.c" \
 "../power_controller.c" \

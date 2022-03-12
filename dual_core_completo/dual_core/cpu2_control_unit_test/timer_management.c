@@ -81,6 +81,9 @@ void timerSetup()
 }
 
 __interrupt void cpu_timer0_isr(void){
+    EALLOW;
+    GpioDataRegs.GPATOGGLE.bit.GPIO6 = 1;
+    EDIS;
     CpuTimer0.InterruptCount++;
     time_elapsed++;
 
@@ -234,13 +237,6 @@ __interrupt void cpu_timer1_isr(void)
     {
         stopAMK();
     }
-
-    if(h >= 50){
-        display.page++;
-        display.page = display.page % 10;
-        h = 0;
-    }
-    h++;
 
     sendAMKData();
     checkStatus();

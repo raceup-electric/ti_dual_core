@@ -68,6 +68,7 @@ struct Gpio_Log gpio_log;
 
 struct Display_command display;
 
+char AmkStatus[4];
 
 //#pragma DATA_SECTION(c1_r_w_array,"SHARERAMGS1");
 #pragma DATA_SECTION(sh,"SHARERAMGS1");
@@ -86,5 +87,6 @@ __interrupt void cpu_timer2_isr(void);
 void Shared_Ram_dataRead_c1(void);
 void send_can_to_cpu2(void);
 void cpu1_timer_setup(void);
+void compute_AMKStatus(void);
 
 #endif

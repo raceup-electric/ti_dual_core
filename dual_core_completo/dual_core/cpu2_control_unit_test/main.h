@@ -76,6 +76,16 @@ Uint16 rightFanSpeed = 0;
 
 bool temp_warning = false;
 Uint16 Temps[8];
+
+//Temps[0]=getTempAvPT1000(TempRadOutLC_temp);
+//Temps[1]=getTempAvPT1000(TempRadOutRC_temp);
+//Temps[2]=getTempAvPT1000(TempRadInLC_temp);
+//Temps[3]=getTempAvPT1000(TempRadInRC_temp);
+//Temps[4]=0;
+//Temps[5]=0;
+//Temps[6]=leftFanSpeed;
+//Temps[7]=rightFanSpeed;
+
 Uint16 status = 0b00000000;
 
 //torque

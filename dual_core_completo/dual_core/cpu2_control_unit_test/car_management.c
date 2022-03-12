@@ -111,10 +111,15 @@ void read_steering_wheel_message(Uint16 val[], int id){
         display.selector = val[0];
     }
     else if(id == MSG_ID_STEERING_WHEEL_ACK && val[0] == CONFIRMATION){
-        display.ack = display.selector;
-        //manca mandare il messaggio
-        powersetup[0]=presets[display.ack];
-        power_limit = powersetup[0]*1000.0f;
+        if(display.page == CHANGE_SETUP_PAGE && !R2D_state){
+            display.ack = display.selector;
+            //manca mandare il messaggio
+            powersetup[0]=presets[display.ack];
+            power_limit = powersetup[0]*1000.0f;
+        }
+
+    } else if(id == MSG_ID_STEERING_WHEEL_LAUNCH) {
+        // si vedrà quello che faremo
     }
 }
 
