@@ -33,8 +33,8 @@ void GPIOSetup()
 
     for (i=0; i<(sizeof(gpioInput)/sizeof(int)); i++)
     {
-        GPIO_SetupPinMux(gpioOutput[i], GPIO_MUX_CPU2, 0);
-        GPIO_SetupPinOptions(gpioOutput[i], GPIO_OUTPUT, GPIO_PUSHPULL);
+        GPIO_SetupPinMux(gpioInput[i], GPIO_MUX_CPU2, 0);
+        GPIO_SetupPinOptions(gpioInput[i], GPIO_INPUT, GPIO_PUSHPULL);
     }
 
     //setup LED 1

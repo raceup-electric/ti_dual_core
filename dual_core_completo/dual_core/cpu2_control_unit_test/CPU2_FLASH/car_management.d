@@ -79,6 +79,7 @@ car_management.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/inc
 car_management.obj: ../can_management.h
 car_management.obj: ../timer_management.h
 car_management.obj: ../can_management.h
+car_management.obj: ../GPIO_management.h
 car_management.obj: ../utils.h
 car_management.obj: ../motor_management.h
 car_management.obj: ../adc_management.h
@@ -89,6 +90,7 @@ car_management.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/comm
 car_management.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.h
 car_management.obj: ../power_controller.h
 car_management.obj: ../torque_management.h
+car_management.obj: ../epwm_management.h
 
 ../car_management.c:
 
@@ -248,6 +250,8 @@ C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h:
 
 ../can_management.h:
 
+../GPIO_management.h:
+
 ../utils.h:
 
 ../motor_management.h:
@@ -267,4 +271,6 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driver
 ../power_controller.h:
 
 ../torque_management.h:
+
+../epwm_management.h:
 

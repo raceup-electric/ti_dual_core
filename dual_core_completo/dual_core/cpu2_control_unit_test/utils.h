@@ -129,6 +129,6 @@ int NMtoTorqueSetpoint(float torqueNM);
 
 //void debugLight(int period);
 
-float Uint32o_float(Uint32 u);
+float uint32_to_float(Uint32 u);
 
 #endif

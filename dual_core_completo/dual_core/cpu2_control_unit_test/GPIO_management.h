@@ -15,5 +15,6 @@ extern bool Sdc5_State;
 extern bool Sdc6_State;
 
 void GPIOSetup();
+void updateGPIOState();
 
 #endif

@@ -96,21 +96,24 @@ void read_power_control_message(Uint16 val[]){
 void read_steering_wheel_message(Uint16 val[], int id){
 
     int currentPage = display.page;
-    if (id == MSG_ID_STEERING_WHEEL_DISPLAY_PAGE){
+    if (id == MSG_ID_STEERING_WHEEL_BASE){
         if(val[0] == NEXT_PAGE){
             currentPage++;
             currentPage = currentPage % 10;
+            display.page = currentPage;
         }
         else if(val[0] == PREVIOUS_PAGE){
             currentPage = currentPage - 1 + 10;
             currentPage = currentPage % 10;
+            display.page = currentPage;
         }
-        display.page = currentPage;
+
     }
-    else if(id ==MSG_ID_STEERING_WHEEL_CHANGE_SETUP){
+
+    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP){
         display.selector = val[0];
     }
-    else if(id == MSG_ID_STEERING_WHEEL_ACK && val[0] == CONFIRMATION){
+    else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == CONFIRMATION){
         if(display.page == CHANGE_SETUP_PAGE && !R2D_state){
             display.ack = display.selector;
             //manca mandare il messaggio
@@ -118,7 +121,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
             power_limit = powersetup[0]*1000.0f;
         }
 
-    } else if(id == MSG_ID_STEERING_WHEEL_LAUNCH) {
+    } else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == START_LAUNCH) {
         // si vedrà quello che faremo
     }
 }
@@ -531,37 +534,37 @@ void sendDataToLogger()
 }
 void update_log_values()
 {
-    uint16_t index;
-
-    //FOR TESTING
-    status_log.throttle_shared = increment;
-    status_log.actualVelocityKMH_shared = increment;
-    status_log.brake_shared = increment;
-    status_log.status_shared = increment;
-    status_log.brakePress_shared = increment;
-    status_log.steering_shared = increment;
-
-    gpio_log.Sdc1_shared = 1;
-
-    for(index = 0; index < 8; index++)
-    {
-        Temps_shared[index] = increment;
-    }
-
-    for(index = 0; index < 4; index++)
-    {
-        motorSetP_shared[index].AMK_TargetVelocity = increment;
-    }
-
-    EALLOW;
-    GpioDataRegs.GPATOGGLE.bit.GPIO31 = 1;
-    EDIS;
-
-
-    increment++;
+//    uint16_t index;
+//
+//    //FOR TESTING
+//    status_log.throttle_shared = increment;
+//    status_log.actualVelocityKMH_shared = increment;
+//    status_log.brake_shared = increment;
+//    status_log.status_shared = increment;
+//    status_log.brakePress_shared = increment;
+//    status_log.steering_shared = increment;
+//
+//    gpio_log.Sdc1_shared = 1;
+//
+//    for(index = 0; index < 8; index++)
+//    {
+//        Temps_shared[index] = increment;
+//    }
+//
+//    for(index = 0; index < 4; index++)
+//    {
+//        motorSetP_shared[index].AMK_TargetVelocity = increment;
+//    }
+//
+//    EALLOW;
+//    GpioDataRegs.GPATOGGLE.bit.GPIO31 = 1;
+//    EDIS;
+//
+//
+//    increment++;
 
     //PARTE DA AGGIUNGERE PER I TEST. COMMENTARE PER FARE TEST FITTIZI
-    /*
+
     int i;
     //Temps
     for(i = 0; i < 8; i++)
@@ -609,7 +612,7 @@ void update_log_values()
     status_log.actualVelocityKMH_shared = actualVelocityKMH;
     status_log.brake_shared = brake;
     status_log.status_shared = status;
-    status_log.brakePress_shared = getPressAvSP100(BrakePress_temp));;
+    status_log.brakePress_shared = (int)getPressAvSP100(BrakePress_temp);
     status_log.steering_shared = steering;
 
     //Bms
@@ -633,10 +636,10 @@ void update_log_values()
     //Imu
     for(i = 0; i < 3; i++)
     {
-        imu_log.accelerations_shared = accelerations[i];
-        imu_log.omegas_shared = omegas[i];
+        imu_log.accelerations_shared[i] = accelerations[i];
+        imu_log.omegas_shared[i] = omegas[i];
     }
-    */
+
 }
 
 void update_shared_mem()

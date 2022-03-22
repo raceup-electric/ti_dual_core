@@ -78,11 +78,13 @@ driver_input.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/inclu
 driver_input.obj: ../can_management.h
 driver_input.obj: ../timer_management.h
 driver_input.obj: ../can_management.h
+driver_input.obj: ../GPIO_management.h
 driver_input.obj: ../utils.h
 driver_input.obj: ../motor_management.h
 driver_input.obj: ../adc_management.h
 driver_input.obj: ../car_management.h
 driver_input.obj: ../driver_input.h
+driver_input.obj: ../epwm_management.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_types.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_memmap.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_can.h
@@ -246,6 +248,8 @@ C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h:
 
 ../can_management.h:
 
+../GPIO_management.h:
+
 ../utils.h:
 
 ../motor_management.h:
@@ -255,6 +259,8 @@ C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h:
 ../car_management.h:
 
 ../driver_input.h:
+
+../epwm_management.h:
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_types.h:
 

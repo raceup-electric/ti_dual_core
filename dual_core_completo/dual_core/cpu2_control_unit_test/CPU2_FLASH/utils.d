@@ -74,6 +74,7 @@ utils.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stri
 utils.obj: ../can_management.h
 utils.obj: ../timer_management.h
 utils.obj: ../can_management.h
+utils.obj: ../GPIO_management.h
 utils.obj: ../utils.h
 utils.obj: ../motor_management.h
 utils.obj: ../adc_management.h
@@ -82,6 +83,7 @@ utils.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_def
 utils.obj: C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_limits.h
 utils.obj: ../car_management.h
 utils.obj: ../driver_input.h
+utils.obj: ../epwm_management.h
 utils.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_types.h
 utils.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_memmap.h
 utils.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_can.h
@@ -237,6 +239,8 @@ C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h:
 
 ../can_management.h:
 
+../GPIO_management.h:
+
 ../utils.h:
 
 ../motor_management.h:
@@ -252,6 +256,8 @@ C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_limits
 ../car_management.h:
 
 ../driver_input.h:
+
+../epwm_management.h:
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/inc/hw_types.h:
 

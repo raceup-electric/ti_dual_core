@@ -8,6 +8,7 @@
 #include "adc_management.h"
 #include "utils.h"
 #include "global_definitions.h"
+#include "epwm_management.h"
 
 
 //

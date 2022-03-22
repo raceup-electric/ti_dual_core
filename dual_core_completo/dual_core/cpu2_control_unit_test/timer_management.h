@@ -5,6 +5,7 @@
 #include "F28x_Project.h"
 #include "global_definitions.h"
 #include "can_management.h"
+#include "GPIO_management.h"
 #include "utils.h"
 
 extern Uint16 c2_r_w_array[256];

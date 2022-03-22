@@ -23,6 +23,7 @@
 Uint16 c1_r_w_array[256];
 Uint16 increment;
 Uint16 deb;
+Uint16 var_v = 0;
 
 Uint16 local_buf[256];
 Uint16 local_val;

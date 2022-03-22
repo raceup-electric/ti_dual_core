@@ -81,9 +81,9 @@ void timerSetup()
 }
 
 __interrupt void cpu_timer0_isr(void){
-    EALLOW;
-    GpioDataRegs.GPATOGGLE.bit.GPIO6 = 1;
-    EDIS;
+//    EALLOW;
+//    GpioDataRegs.GPATOGGLE.bit.GPIO6 = 1;
+//    EDIS;
     CpuTimer0.InterruptCount++;
     time_elapsed++;
 

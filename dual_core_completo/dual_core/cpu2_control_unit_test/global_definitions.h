@@ -159,15 +159,14 @@
 #define MSG_ID_SENDYNE_FORWARD  0x70
 #define MSG_ID_POWER_CONTROL    0X81
 #define MSG_ID_AMK_SETPOINTS    0x82
-#define MSG_ID_STEERING_WHEEL_BASE 0x90
+#define MSG_ID_STEERING_WHEEL_BASE 0x90         //id dei buttons
 #define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90
-#define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91
-#define MSG_ID_STEERING_WHEEL_ACK   0x92
-#define MSG_ID_STEERING_WHEEL_LAUNCH   0x93
+#define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91   //id del selector
 
+#define CONFIRMATION        0x1
 #define NEXT_PAGE           0x2
 #define PREVIOUS_PAGE       0x4
-#define CONFIRMATION        0x1
+#define START_LAUNCH        0x8
 
 #define CHANGE_SETUP_PAGE   0x7
 

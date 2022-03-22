@@ -24,6 +24,7 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_Sy
 ../GPIO_management.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.c \
 ../cmdline.c \
+../display.c \
 ../ff.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c \
 ../main.c \
@@ -31,6 +32,7 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driver
 ../sd_card.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/sysctl.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/systick.c \
+../uart.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/ustdlib.c 
 
 C_DEPS += \
@@ -48,6 +50,7 @@ C_DEPS += \
 ./GPIO_management.d \
 ./can.d \
 ./cmdline.d \
+./display.d \
 ./ff.d \
 ./interrupt.d \
 ./main.d \
@@ -55,6 +58,7 @@ C_DEPS += \
 ./sd_card.d \
 ./sysctl.d \
 ./systick.d \
+./uart.d \
 ./ustdlib.d 
 
 OBJS += \
@@ -74,6 +78,7 @@ OBJS += \
 ./GPIO_management.obj \
 ./can.obj \
 ./cmdline.obj \
+./display.obj \
 ./ff.obj \
 ./interrupt.obj \
 ./main.obj \
@@ -81,6 +86,7 @@ OBJS += \
 ./sd_card.obj \
 ./sysctl.obj \
 ./systick.obj \
+./uart.obj \
 ./ustdlib.obj 
 
 ASM_DEPS += \
@@ -104,6 +110,7 @@ OBJS__QUOTED += \
 "GPIO_management.obj" \
 "can.obj" \
 "cmdline.obj" \
+"display.obj" \
 "ff.obj" \
 "interrupt.obj" \
 "main.obj" \
@@ -111,6 +118,7 @@ OBJS__QUOTED += \
 "sd_card.obj" \
 "sysctl.obj" \
 "systick.obj" \
+"uart.obj" \
 "ustdlib.obj" 
 
 C_DEPS__QUOTED += \
@@ -128,6 +136,7 @@ C_DEPS__QUOTED += \
 "GPIO_management.d" \
 "can.d" \
 "cmdline.d" \
+"display.d" \
 "ff.d" \
 "interrupt.d" \
 "main.d" \
@@ -135,6 +144,7 @@ C_DEPS__QUOTED += \
 "sd_card.d" \
 "sysctl.d" \
 "systick.d" \
+"uart.d" \
 "ustdlib.d" 
 
 ASM_DEPS__QUOTED += \
@@ -156,6 +166,7 @@ C_SRCS__QUOTED += \
 "../GPIO_management.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.c" \
 "../cmdline.c" \
+"../display.c" \
 "../ff.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c" \
 "../main.c" \
@@ -163,6 +174,7 @@ C_SRCS__QUOTED += \
 "../sd_card.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/sysctl.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/systick.c" \
+"../uart.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/utils/ustdlib.c" 
 
 ASM_SRCS__QUOTED += \

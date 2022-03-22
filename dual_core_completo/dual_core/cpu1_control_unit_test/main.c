@@ -233,7 +233,7 @@ __interrupt void cpu_timer1_isr(void)
                 "%.2f;%.2f;%.2f;"   //MotorVal2
                 "%.2f;%.2f;%.2f;"
                 "%.2f;%.2f;%.2f;"
-                "%.2f;%.2f;%.2f;",
+                "%.2f;%.2f;%.2f;\n",
                 AmkStatus[0], AmkStatus[1], AmkStatus[2], AmkStatus[3],
 
                 local_sh.motorVal2[0].AMK_TempMotor, local_sh.motorVal2[0].AMK_ErrorInfo,
@@ -246,10 +246,12 @@ __interrupt void cpu_timer1_isr(void)
                 local_sh.motorVal2[3].AMK_TempIGBT
         );
 
+        writeSD(cmd);
 
 
 
 
+        /*
         sprintf(cmd, "%d;%d;%d;%d;"  //Temps
                 "%.2f;%.2f;"       //Sendyne
                 "%d;%d;%d;%d;%d;"   //Status
@@ -280,6 +282,7 @@ __interrupt void cpu_timer1_isr(void)
         );
 
         writeSD(cmd);
+        */
 
         //EALLOW;
 //        CpuTimer1.InterruptCount++;
@@ -292,7 +295,10 @@ __interrupt void cpu_timer1_isr(void)
 //not necessary at the moment
 __interrupt void cpu_timer2_isr(void)
 {
-    updatePage(display.page);
+    //updatePage(display.page);
+//    updatePage(var_v);
+//    var_v++;
+//    var_v = var_v % 9;
 //    setAck();
 //    setSelector();
 //    display.page++;
