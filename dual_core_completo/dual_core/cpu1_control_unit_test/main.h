@@ -15,6 +15,9 @@
 #include "driverlib/can.h"
 #include "sd_card.h"
 #include "display.h"
+#include "LoRa.h"
+#include "Telemetry.h"
+
 
 
 //

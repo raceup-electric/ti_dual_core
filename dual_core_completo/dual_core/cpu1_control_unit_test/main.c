@@ -1,5 +1,8 @@
 #include "main.h"
 
+
+int LoRa_Packet_Counter = 0;
+
 void main(void)
 {
 
@@ -33,6 +36,13 @@ void main(void)
     setupSD();
     uart_setup();
 
+#ifndef NO_LORA
+
+    GPIO_LoRa_Setup();
+    LoRa_begin(LORA_DEFAULT_SPI_FREQUENCY);
+#endif
+
+
     while( !(
             MemCfgRegs.GSxMSEL.bit.MSEL_GS14 &
             MemCfgRegs.GSxMSEL.bit.MSEL_GS2 &
@@ -65,6 +75,8 @@ void main(void)
     EDIS;
 
     send_can_to_cpu2();
+
+
 
 
     local_sh = sh;
@@ -311,6 +323,17 @@ __interrupt void cpu_timer2_isr(void)
 //        sel = sel + 2;
 //        sel = sel % 8;
 //    }
+
+#ifndef NO_LORA
+    if(LoRa_Packet_Counter == 0){
+        send_Motors();
+        LoRa_Packet_Counter++;
+    }else{
+        send_Status_Imu_BMS_Sendyne();
+        LoRa_Packet_Counter--;
+    }
+
+#endif
 
 }
 

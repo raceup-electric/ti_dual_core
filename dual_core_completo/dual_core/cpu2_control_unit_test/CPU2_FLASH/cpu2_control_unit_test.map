@@ -1,7 +1,7 @@
 ******************************************************************************
-             TMS320C2000 Linker PC v20.2.1                     
+             TMS320C2000 Linker PC v21.6.0                     
 ******************************************************************************
->> Linked Tue Mar 22 11:32:06 2022
+>> Linked Sat Apr 30 09:42:02 2022
 
 OUTPUT FILE NAME:   <cpu2_control_unit_test.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0009b1d8
@@ -19,7 +19,7 @@ PAGE 0:
   RAMLS3                00009800   00000800  00000000  00000800  RWIX
   RAMLS4                0000a000   00000800  00000000  00000800  RWIX
   RAMD0                 0000b000   00000800  00000000  00000800  RWIX
-  RAMGS14               0001a000   00001000  00000003  00000ffd  RWIX
+  RAMGS14               0001a000   00001000  00000000  00001000  RWIX
   RAMGS15               0001b000   00000ff8  00000000  00000ff8  RWIX
   BEGIN                 00080000   00000002  00000002  00000000  RWIX
   FLASHA                00080002   00001ffe  00000000  00001ffe  RWIX
@@ -39,7 +39,7 @@ PAGE 0:
   RESET                 003fffc0   00000002  00000000  00000002  RWIX
 
 PAGE 1:
-  BOOT_RSVD             00000002   000000a0  00000000  000000a0  RWIX
+  BOOT_RSVD             00000002   000000a0  00000003  0000009d  RWIX
   RAMM1                 00000400   000003f8  000003f8  00000000  RWIX
   ADCARESULT            00000b00   00000018  00000018  00000000  RWIX
   ADCBRESULT            00000b20   00000018  00000018  00000000  RWIX
@@ -149,10 +149,6 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
-SHARERAMGS14 
-*          0    0001a000    00000003     UNINITIALIZED
-                  0001a000    00000003     main.obj (SHARERAMGS14)
-
 codestart 
 *          0    00080000    00000002     
                   00080000    00000002     F2837xD_CodeStartBranch.obj (codestart)
@@ -175,11 +171,6 @@ codestart
                   00082127    00000004     timer_management.obj (.cinit)
                   0008212b    00000004     ustdlib.obj (.cinit)
                   0008212f    00000002     --HOLE-- [fill = 0]
-
-.TI.ramfunc 
-*          0    00086000    0000003b     RUN ADDR = 00008000
-                  00086000    00000037     F2837xD_SysCtrl.obj (.TI.ramfunc)
-                  00086037    00000004     F2837xD_usDelay.obj (.TI.ramfunc)
 
 .text      0    00098000    00003421     
                   00098000    00000639     car_management.obj (.text)
@@ -233,38 +224,6 @@ codestart
 
 .pinit     0    00082000    00000000     UNINITIALIZED
 
-AdcaResultRegsFile 
-*          1    00000b00    00000018     UNINITIALIZED
-                  00000b00    00000018     F2837xD_GlobalVariableDefs.obj (AdcaResultRegsFile)
-
-AdcbResultRegsFile 
-*          1    00000b20    00000018     UNINITIALIZED
-                  00000b20    00000018     F2837xD_GlobalVariableDefs.obj (AdcbResultRegsFile)
-
-AdccResultRegsFile 
-*          1    00000b40    00000018     UNINITIALIZED
-                  00000b40    00000018     F2837xD_GlobalVariableDefs.obj (AdccResultRegsFile)
-
-AdcdResultRegsFile 
-*          1    00000b60    00000018     UNINITIALIZED
-                  00000b60    00000018     F2837xD_GlobalVariableDefs.obj (AdcdResultRegsFile)
-
-AdcaRegsFile 
-*          1    00007400    0000007c     UNINITIALIZED
-                  00007400    0000007c     F2837xD_GlobalVariableDefs.obj (AdcaRegsFile)
-
-AdcbRegsFile 
-*          1    00007480    0000007c     UNINITIALIZED
-                  00007480    0000007c     F2837xD_GlobalVariableDefs.obj (AdcbRegsFile)
-
-AdccRegsFile 
-*          1    00007500    0000007c     UNINITIALIZED
-                  00007500    0000007c     F2837xD_GlobalVariableDefs.obj (AdccRegsFile)
-
-AdcdRegsFile 
-*          1    00007580    0000007c     UNINITIALIZED
-                  00007580    0000007c     F2837xD_GlobalVariableDefs.obj (AdcdRegsFile)
-
 SHARERAMGS1 
 *          1    0000d000    000000b4     UNINITIALIZED
                   0000d000    000000b4     main.obj (SHARERAMGS1)
@@ -272,6 +231,11 @@ SHARERAMGS1
 SHARERAMGS2 
 *          1    0000e000    00000002     UNINITIALIZED
                   0000e000    00000002     main.obj (SHARERAMGS2)
+
+.TI.ramfunc 
+*          0    00086000    0000003b     RUN ADDR = 00008000
+                  00086000    00000037     F2837xD_SysCtrl.obj (.TI.ramfunc)
+                  00086037    00000004     F2837xD_usDelay.obj (.TI.ramfunc)
 
 GETBUFFER 
 *          0    0003fc00    00000000     DSECT
@@ -298,6 +262,22 @@ PUTREADIDX
                   0009024c    00000003     main.obj (.econst)
                   0009024f    00000001     --HOLE-- [fill = 0]
                   00090250    00000002     ustdlib.obj (.econst)
+
+AdcaResultRegsFile 
+*          1    00000b00    00000018     UNINITIALIZED
+                  00000b00    00000018     F2837xD_GlobalVariableDefs.obj (AdcaResultRegsFile)
+
+AdcbResultRegsFile 
+*          1    00000b20    00000018     UNINITIALIZED
+                  00000b20    00000018     F2837xD_GlobalVariableDefs.obj (AdcbResultRegsFile)
+
+AdccResultRegsFile 
+*          1    00000b40    00000018     UNINITIALIZED
+                  00000b40    00000018     F2837xD_GlobalVariableDefs.obj (AdccResultRegsFile)
+
+AdcdResultRegsFile 
+*          1    00000b60    00000018     UNINITIALIZED
+                  00000b60    00000018     F2837xD_GlobalVariableDefs.obj (AdcdResultRegsFile)
 
 CpuTimer0RegsFile 
 *          1    00000c00    00000008     UNINITIALIZED
@@ -582,6 +562,22 @@ I2cbRegsFile
 *          1    00007340    00000022     UNINITIALIZED
                   00007340    00000022     F2837xD_GlobalVariableDefs.obj (I2cbRegsFile)
 
+AdcaRegsFile 
+*          1    00007400    0000007c     UNINITIALIZED
+                  00007400    0000007c     F2837xD_GlobalVariableDefs.obj (AdcaRegsFile)
+
+AdcbRegsFile 
+*          1    00007480    0000007c     UNINITIALIZED
+                  00007480    0000007c     F2837xD_GlobalVariableDefs.obj (AdcbRegsFile)
+
+AdccRegsFile 
+*          1    00007500    0000007c     UNINITIALIZED
+                  00007500    0000007c     F2837xD_GlobalVariableDefs.obj (AdccRegsFile)
+
+AdcdRegsFile 
+*          1    00007580    0000007c     UNINITIALIZED
+                  00007580    0000007c     F2837xD_GlobalVariableDefs.obj (AdcdRegsFile)
+
 DmaClaSrcSelRegsFile 
 *          1    00007980    0000001a     UNINITIALIZED
                   00007980    0000001a     F2837xD_GlobalVariableDefs.obj (DmaClaSrcSelRegsFile)
@@ -657,6 +653,10 @@ Flash0EccRegsFile
 RomPrefetchRegsFile 
 *          1    0005e608    00000002     UNINITIALIZED
                   0005e608    00000002     F2837xD_GlobalVariableDefs.obj (RomPrefetchRegsFile)
+
+SHARERAMGS14 
+*          1    00000002    00000003     UNINITIALIZED
+                  00000002    00000003     main.obj (SHARERAMGS14)
 
 .ebss      1    0000a800    000003fb     UNINITIALIZED
                   0000a800    000000e2     main.obj (.ebss)
@@ -748,7 +748,7 @@ MODULE SUMMARY
     +--+--------------------------------+-------+------------------+--------------------+
        Total:                           12053   773                9961              
                                                                                      
-    C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/lib/rts2800_fpu32.lib
+    C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib/rts2800_fpu32.lib
        ti_fmax.c.obj                    428     0                  0                 
        e_logf.c.obj                     299     16                 0                 
        fs_div28.asm.obj                 136     0                  0                 
@@ -783,6 +783,8 @@ GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
 
 address     data page           name
 --------    ----------------    ----
+00000002       0 (00000000)     _display
+
 00000400      10 (00000400)     __stack
 
 00000b00      2c (00000b00)     _AdcaResultRegs
@@ -1111,8 +1113,6 @@ address     data page           name
 0000d000     340 (0000d000)     _sh
 
 0000e000     380 (0000e000)     _time_elapsed
-
-0001a000     680 (0001a000)     _display
 
 00047000    11c0 (00047000)     _Emif1Regs
 
@@ -1621,7 +1621,7 @@ abs   ffffffff  ___pinit__
 1     0000a9fa  _currSensVal                    
 0     00098ee8  _deactiveMotor                  
 0     0009ae01  _debugLight                     
-0     0001a000  _display                        
+1     00000002  _display                        
 1     0000a81d  _drivingMode                    
 1     0000a801  _driving_configuration          
 1     0000a819  _enableMotor                    
@@ -1806,7 +1806,6 @@ page  address   name
 0     00008029  _FlashOff                       
 0     00008037  _F28x_usDelay                   
 0     0000803b  _RamfuncsRunEnd                 
-0     0001a000  _display                        
 0     00080000  code_start                      
 0     00082000  ___cinit__                      
 0     00082000  cinit                           
@@ -2155,6 +2154,7 @@ page  address   name
 0     0009b420  __system_post_cinit             
 0     0009b421  ___etext__                      
 0     0009b421  etext                           
+1     00000002  _display                        
 1     00000400  __stack                         
 1     000007f8  __STACK_END                     
 1     00000b00  _AdcaResultRegs                 
