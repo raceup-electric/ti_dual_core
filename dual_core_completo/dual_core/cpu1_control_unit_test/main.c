@@ -85,8 +85,15 @@ void main(void)
     sprintf(str_init , "throttle | steering | brake | brakePress | status | actualVelocityKMH \n");
     writeSD(str_init);
 
-    CpuTimer1Regs.TCR.bit.TSS = 0;        //start timer1
-    CpuTimer2Regs.TCR.bit.TSS = 0;        //do not start timer2
+#ifdef LORA_DEBUG
+    debugSet();
+    CpuTimer1Regs.TCR.bit.TSS = 1;      //Do not start timer 1 (SD) in LORA_DEBUG
+#else
+    CpuTimer1Regs.TCR.bit.TSS = 0;      //Start SD timer
+#endif
+
+          //start timer1
+    CpuTimer2Regs.TCR.bit.TSS = 0;        //Start timer 2
 
 
 
@@ -110,7 +117,7 @@ void cpu1_timer_setup(void)
     InitCpuTimers();
 
     ConfigCpuTimer(&CpuTimer1, 200, 20000);
-    ConfigCpuTimer(&CpuTimer2, 200, 100000);
+    ConfigCpuTimer(&CpuTimer2, 200, 150000);
 
     CpuTimer1Regs.TCR.all = 0x4000;
     CpuTimer2Regs.TCR.all = 0x4000;

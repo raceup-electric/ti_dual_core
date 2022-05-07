@@ -32,7 +32,7 @@ int send_Motors(){
     int counter = 2;
     int i;
     for(i = 0; i < 4; i++){
-        counter += sprintf(tempData, "%f;%.1f;%.1f;%.1f;%.1f;%4d;",
+        counter += sprintf(tempData, "%f;%.1f;%.1f;%.1f;%.1f;%04d;",
                 local_sh.motorVal1[i].AMK_ActualVelocity,
                 posTorquesNM[i], negTorquesNM[i],
                 local_sh.motorVal2[i].AMK_TempMotor,
@@ -40,6 +40,7 @@ int send_Motors(){
                 local_sh.motorVal2[i].AMK_ErrorInfo);
         strcat(toSendData, tempData);
     }
+    toSendData[counter++] = '\n';
     beginPacket(0);
     LoRa_writeBuffer(toSendData, counter);
     endPacket(true);
@@ -80,23 +81,34 @@ int send_Status_Imu_BMS_Sendyne(){
 }
 
 void debugSet(){
-    local_sh.status.steering_shared = 270;
-           local_sh.status.actualVelocityKMH_shared = 120;
-           local_sh.status.throttle_shared = 78;
-           local_sh.status.brake_shared = 22;
+     local_sh.status.steering_shared = 270;
+     local_sh.status.actualVelocityKMH_shared = 120;
+     local_sh.status.throttle_shared = 78;
+     local_sh.status.brake_shared = 22;
 
-           local_sh.imu.accelerations_shared[0] = 56.27;
-           local_sh.imu.accelerations_shared[1] = 24.32;
-           local_sh.imu.accelerations_shared[2] = 25.67;
-           local_sh.imu.omegas_shared[0] = 56.278;
-           local_sh.imu.omegas_shared[1] = 23.456;
-           local_sh.imu.omegas_shared[2] = 67.987;
+     local_sh.imu.accelerations_shared[0] = 56.27;
+     local_sh.imu.accelerations_shared[1] = 24.32;
+     local_sh.imu.accelerations_shared[2] = 25.67;
+     local_sh.imu.omegas_shared[0] = 56.278;
+     local_sh.imu.omegas_shared[1] = 23.456;
+     local_sh.imu.omegas_shared[2] = 67.987;
 
-           local_sh.sendyne.sendyne_voltage_shared = 458.67;
-           local_sh.sendyne.sendyne_current_shared = 20.89;
-           local_sh.bms.max_bms_temp_shared = 71.2;
-           local_sh.bms.min_bms_temp_shared  =52.4;
-           local_sh.bms.max_bms_voltage_shared = 3.76;
-           local_sh.bms.min_bms_voltage_shared  =3.24f;
+     local_sh.sendyne.sendyne_voltage_shared = 458.67;
+     local_sh.sendyne.sendyne_current_shared = 20.89;
+     local_sh.bms.max_bms_temp_shared = 71.2;
+     local_sh.bms.min_bms_temp_shared  =52.4;
+     local_sh.bms.max_bms_voltage_shared = 3.76;
+     local_sh.bms.min_bms_voltage_shared  =3.24f;
+
+     //Add motor debug set
+     int i;
+     for(i = 0; i < 4; i++){
+         local_sh.motorVal1[i].AMK_ActualVelocity = 2600;
+         posTorquesNM[i] = 21.8f;
+         negTorquesNM[i] = -15.6f;
+         local_sh.motorVal2[i].AMK_TempMotor = 15.768f,
+         local_sh.motorVal2[i].AMK_TempIGBT = 24.653f;
+         local_sh.motorVal2[i].AMK_ErrorInfo = 0;
+     }
 }
 
