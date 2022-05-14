@@ -109,6 +109,12 @@ struct Share_struct {
     struct Gpio_Log gpio;
 };
 
+extern float versx[3];
+extern float versy[3];
+extern float versz[3];
+extern float V[3][3];
+
+
 //
 // prototypes
 //
@@ -132,5 +138,8 @@ int NMtoTorqueSetpoint(float torqueNM);
 //void debugLight(int period);
 
 float uint32_to_float(Uint32 u);
+
+void imu_calibration_1(float accelerations[3]);
+void imu_calibration_2(float accelerations[3]);
 
 #endif

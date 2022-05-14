@@ -168,6 +168,13 @@ float omegas[3];        //rad/s
 float temperatures[5];
 float suspensions[4];
 
+
+//Calibration parameter
+float versx[3];
+float versy[3];
+float versz[3];
+float V[3][3];
+
 //timer
 volatile uint16_t cpuTimer0IntCount;
 volatile uint16_t cpuTimer1IntCount;

@@ -140,7 +140,7 @@
 								<option id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.DEBUGGING_MODEL.173923136" name="Debugging model" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.DEBUGGING_MODEL" value="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.DEBUGGING_MODEL.SYMDEBUG__DWARF" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.DEFINE.467720974" name="Pre-define NAME (--define, -D)" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.DEFINE" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="CPU1"/>
-									<listOptionValue builtIn="false" value="LORA_DEBUG"/>
+									<listOptionValue builtIn="false" value="NO_LORA_DEBUG"/>
 									<listOptionValue builtIn="false" value="_LAUNCHXL_F28379D"/>
 									<listOptionValue builtIn="false" value="_FLASH"/>
 								</option>

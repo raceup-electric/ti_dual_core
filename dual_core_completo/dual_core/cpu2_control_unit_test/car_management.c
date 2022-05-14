@@ -1,5 +1,8 @@
 #include "car_management.h"
 
+int calibration_status = 0;
+
+
 #ifdef DEBUG_HV
 bool hvDebugging = false; //debug
 bool hvGoneWrong[4] = {1,1,1,1};
@@ -145,6 +148,16 @@ void read_steering_wheel_message(Uint16 val[], int id){
             currentPage = currentPage - 1 + 10;
             currentPage = currentPage % 10;
             display.page = currentPage;
+        }else if(val[0] == CALIBRATION){
+            if(calibration_status){
+                //Z-axe calibration
+                imu_calibration_1(&accelerations);
+                calibration_status++;
+            }else{
+               //Other axes calibration
+                imu_calibration_2(&accelerations);
+                calibration_status--;
+            }
         }
 
     }
@@ -163,6 +176,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
     } else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == START_LAUNCH) {
         // si vedrà quello che faremo
     }
+
 }
 
 void brakeLight()
@@ -683,7 +697,7 @@ void update_log_values()
         imu_log.temperatures_shared[i] = temperatures[i];
     }
 
-    imu_log.temperatures_shared[5] = temperatures[5];
+    imu_log.temperatures_shared[4] = temperatures[4];
 
 }
 
