@@ -165,6 +165,8 @@ int drivingMode = 0;
 //IMU
 float accelerations[3]; //g
 float omegas[3];        //rad/s
+float temperatures[5];
+float suspensions[4];
 
 //timer
 volatile uint16_t cpuTimer0IntCount;
@@ -182,12 +184,14 @@ volatile Uint32 rxAMsgCount = 0;
 int errorFrameCounterB = 0;
 int errorFrameCounterA = 0;
 tCANMsgObject RXCANA_Imu_Message;
+tCANMsgObject RXCANA_Smu_Message;
 tCANMsgObject RXCANA_Sendyne_Message;
 tCANMsgObject RXCANA_BmsVol_Message;
 tCANMsgObject RXCANA_BmsTemp_Message;
 tCANMsgObject RXCANA_PwCtrl_Message;
 tCANMsgObject RXCANA_Wheel_Message;
 unsigned char RXA_Imu_Data[8];
+unsigned char RXA_Smu_Data[8];
 unsigned char RXA_Sendyne_Data[8];
 unsigned char RXA_BmsVol_Data[6];
 unsigned char RXA_BmsTemp_Data[6];

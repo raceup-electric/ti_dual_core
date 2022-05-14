@@ -67,6 +67,45 @@ void read_IMU_message(Uint16 imu_values[], int id)
     }
 }
 
+void read_SMU_Message(Uint16 smu_values[], int id){
+
+    uint32_t aux_1 = 0;
+    uint32_t aux_2 = 0;
+    uint32_t aux_3 = 0;
+    uint32_t aux_4 = 0;
+    uint32_t aux_5 = 0;
+
+    aux_1 |= ((int32_t)(smu_values[0]) << 0);
+    aux_1 |= ((int32_t)(smu_values[1]) << 8) & 0x03;
+
+    aux_2 |= ((int32_t)(smu_values[1] >> 2));
+    aux_2 |= ((int32_t)(smu_values[2] << 6)) & 0x0F;
+
+    aux_3 |= ((int32_t)(smu_values[2] >> 4));
+    aux_3 |= ((int32_t)(smu_values[3] << 4)) & 0x3F;
+
+    aux_4 |= ((int32_t)(smu_values[3] >> 6));
+    aux_4 |= ((int32_t)(smu_values[4] << 2));
+
+    aux_5 |= ((int32_t)(smu_values[5] << 0));
+    aux_5 |= ((int32_t)(smu_values[6]) << 8) & 0x03;
+
+
+    if(id == MSG_ID_SMU_TEMPERATURES){
+        temperatures[0] = uint32_to_float(aux_1);
+        temperatures[1] = uint32_to_float(aux_2);
+        temperatures[2] = uint32_to_float(aux_3);
+        temperatures[3] = uint32_to_float(aux_4);
+        temperatures[4] = uint32_to_float(aux_5);
+
+    }else if(id == MSG_ID_SMU_SUSPENSIONS){
+        suspensions[0] = uint32_to_float(aux_1);
+        suspensions[1] = uint32_to_float(aux_2);
+        suspensions[2] = uint32_to_float(aux_3);
+        suspensions[3] = uint32_to_float(aux_4);
+    }
+}
+
 void read_BMS_VOLTAGE_message(Uint16 bms_values[]){
     Uint16 tmp = 0;
     tmp=(bms_values[0] | bms_values[1]<<8);
@@ -639,6 +678,12 @@ void update_log_values()
         imu_log.accelerations_shared[i] = accelerations[i];
         imu_log.omegas_shared[i] = omegas[i];
     }
+    for(i = 0; i < 4; i++){
+        imu_log.suspensions_shared[i] = suspensions[i];
+        imu_log.temperatures_shared[i] = temperatures[i];
+    }
+
+    imu_log.temperatures_shared[5] = temperatures[5];
 
 }
 

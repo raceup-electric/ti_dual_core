@@ -34,6 +34,8 @@ extern float mean_bms_temp;
 
 extern float accelerations[3];
 extern float omegas[3];
+extern float suspensions[4];
+extern float temperatures[5];
 
 extern char RTDS_STATE;  // RTDS
 extern char OIL_PUMP_STATE;
@@ -83,6 +85,8 @@ extern struct Display_command display;
 void read_SENDYNE_message(unsigned char sendyne_values[]);
 
 void read_IMU_message(Uint16 imu_values[], int id);
+
+void read_SMU_Message(Uint16 smu_values[], int id);
 
 void read_power_control_message(Uint16 val[]);
 

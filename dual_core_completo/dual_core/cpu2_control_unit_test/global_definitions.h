@@ -143,6 +143,7 @@
 #define OBJ_ID_FROM_IMU         28
 #define OBJ_ID_SENDYNE_FORWARD  29
 #define OBJ_ID_STEERING_WHEEL   30
+#define OBJ_ID_FROM_SMU         31
 
 
 #define MSG_ID_AMK1_DATA_BASE   0x40
@@ -162,6 +163,9 @@
 #define MSG_ID_STEERING_WHEEL_BASE 0x90         //id dei buttons
 #define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90
 #define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91   //id del selector
+#define MSG_ID_SMU_BASE 0x92
+#define MSG_ID_SMU_TEMPERATURES 0x92
+#define MSG_ID_SMU_SUSPENSIONS 0x93
 
 #define CONFIRMATION        0x1
 #define NEXT_PAGE           0x2

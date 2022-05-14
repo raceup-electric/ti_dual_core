@@ -86,7 +86,7 @@ void canSetup_phase2()
 
         }
 
-
+        //Pacchetto accelerazioni IMU
         RXCANA_Imu_Message.ui32MsgID = MSG_ID_IMU_BASE;
         RXCANA_Imu_Message.ui32MsgIDMask = 0x1FFFFFFC;
         RXCANA_Imu_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
@@ -94,6 +94,15 @@ void canSetup_phase2()
         RXCANA_Imu_Message.pucMsgData = RXA_Imu_Data;
 
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, MSG_OBJ_TYPE_RX);
+
+        //Pacchetto generico SMU
+        RXCANA_Smu_Message.ui32MsgID = MSG_ID_SMU_BASE;
+        RXCANA_Smu_Message.ui32MsgIDMask = 0x1FFFFFFE;
+        RXCANA_Smu_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
+        RXCANA_Smu_Message.ui32MsgLen = MSG_DATA_LENGTH;
+        RXCANA_Smu_Message.pucMsgData = RXA_Smu_Data;
+
+        CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);
 
 
         RXCANA_Sendyne_Message.ui32MsgID = MSG_ID_SENDYNE;
@@ -255,6 +264,18 @@ __interrupt void canISR_A(void)
         rxAMsgCount++;
 
         CANIntClear(CANA_BASE, OBJ_ID_FROM_IMU);
+    }
+    else if(status == OBJ_ID_FROM_SMU){
+        //Ricevuto pacchetto da mailbox dello SMU
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, true);
+
+        int id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
+
+        read_SMU_Message((Uint16 *)RXA_Smu_Data, id);
+
+        rxAMsgCount++;
+
+        CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
     }
     else if (status == OBJ_ID_BMS_VOLTAGE){
        //Uint16 bms_msg_temp[6];
