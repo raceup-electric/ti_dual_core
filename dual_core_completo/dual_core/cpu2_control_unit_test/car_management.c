@@ -1,8 +1,8 @@
 #include "car_management.h"
 
 int calibration_status = 0;
-#define NUM_SMU_TEMP = 5;
-#define NUM_SMU_SUSP = 4;
+int NUM_SMU_TEMP = 5;
+int NUM_SMU_SUSP = 4;
 
 
 #ifdef DEBUG_HV
@@ -85,14 +85,12 @@ void read_SMU_Message(Uint16 smu_values[], int id){
 
 
     if(id == MSG_ID_SMU_TEMPERATURES){
-        for(i = 0; i < NUM_SMU_TEMP; i++)
-        {
+        for(i = 0; i < NUM_SMU_TEMP; i++){
             temperatures[i] = uint32_to_float(0x3FF & (aux >> 10*i));
         }
 
     }else if(id == MSG_ID_SMU_SUSPENSIONS){
-        for(i = 0; i < NUM_SMU_SUSP; i++)
-        {
+        for(i = 0; i < NUM_SMU_SUSP; i++){
             suspensions[i] = uint32_to_float(0x3FF & (aux >> 10*i));
         }
     }

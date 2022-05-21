@@ -62,7 +62,7 @@ void setup()
 
 
 
-//       GPIOSetup();
+       GPIOSetup();
 
        epwmSetup();
        adcSetup();
