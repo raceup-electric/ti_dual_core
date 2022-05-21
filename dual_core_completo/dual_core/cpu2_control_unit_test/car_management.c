@@ -1,6 +1,8 @@
 #include "car_management.h"
 
 int calibration_status = 0;
+#define NUM_SMU_TEMP = 5;
+#define NUM_SMU_SUSP = 4;
 
 
 #ifdef DEBUG_HV
@@ -72,40 +74,27 @@ void read_IMU_message(Uint16 imu_values[], int id)
 
 void read_SMU_Message(Uint16 smu_values[], int id){
 
-    uint32_t aux_1 = 0;
-    uint32_t aux_2 = 0;
-    uint32_t aux_3 = 0;
-    uint32_t aux_4 = 0;
-    uint32_t aux_5 = 0;
+    uint64_t aux = 0;
+    int i;
 
-    aux_1 |= ((int32_t)(smu_values[0]) << 0);
-    aux_1 |= ((int32_t)(smu_values[1]) << 8) & 0x03;
-
-    aux_2 |= ((int32_t)(smu_values[1] >> 2));
-    aux_2 |= ((int32_t)(smu_values[2] << 6)) & 0x0F;
-
-    aux_3 |= ((int32_t)(smu_values[2] >> 4));
-    aux_3 |= ((int32_t)(smu_values[3] << 4)) & 0x3F;
-
-    aux_4 |= ((int32_t)(smu_values[3] >> 6));
-    aux_4 |= ((int32_t)(smu_values[4] << 2));
-
-    aux_5 |= ((int32_t)(smu_values[5] << 0));
-    aux_5 |= ((int32_t)(smu_values[6]) << 8) & 0x03;
+    for(i = 0; i < 8; i++){
+        //Insert smu_values in a auxiliary variable to extract it later
+        //Taking the 8 last bits of each Uint16 represeting a char(1byte) and shifting by 8*i position
+        aux |= ((0x00FF & smu_values[i]) << 8*i);
+    }
 
 
     if(id == MSG_ID_SMU_TEMPERATURES){
-        temperatures[0] = uint32_to_float(aux_1);
-        temperatures[1] = uint32_to_float(aux_2);
-        temperatures[2] = uint32_to_float(aux_3);
-        temperatures[3] = uint32_to_float(aux_4);
-        temperatures[4] = uint32_to_float(aux_5);
+        for(i = 0; i < NUM_SMU_TEMP; i++)
+        {
+            temperatures[i] = uint32_to_float(0x3FF & (aux >> 10*i));
+        }
 
     }else if(id == MSG_ID_SMU_SUSPENSIONS){
-        suspensions[0] = uint32_to_float(aux_1);
-        suspensions[1] = uint32_to_float(aux_2);
-        suspensions[2] = uint32_to_float(aux_3);
-        suspensions[3] = uint32_to_float(aux_4);
+        for(i = 0; i < NUM_SMU_SUSP; i++)
+        {
+            suspensions[i] = uint32_to_float(0x3FF & (aux >> 10*i));
+        }
     }
 }
 

@@ -2,7 +2,7 @@
 <link_info>
    <banner>TMS320C2000 Linker PC v21.6.0.LTS</banner>
    <copyright>Copyright (c) 1996-2018 Texas Instruments Incorporated</copyright>
-   <link_time>0x627f72e1</link_time>
+   <link_time>0x627fb5f0</link_time>
    <link_errors>0x0</link_errors>
    <output_file>cpu1_control_unit_test.out</output_file>
    <entry_point>
@@ -449,14 +449,14 @@
       </input_file>
    </input_file_list>
    <object_component_list>
-      <object_component id="oc-18e">
+      <object_component id="oc-18f">
          <name>.cinit:_g_psCmdTable</name>
          <load_address>0x82000</load_address>
          <run_address>0x82000</run_address>
          <size>0x4b</size>
          <input_file_ref idref="fl-1a"/>
       </object_component>
-      <object_component id="oc-18f">
+      <object_component id="oc-18e">
          <name>.cinit:_g_sFresultStrings</name>
          <load_address>0x8204b</load_address>
          <run_address>0x8204b</run_address>
@@ -1078,7 +1078,7 @@
          <size>0x146</size>
          <input_file_ref idref="fl-18"/>
       </object_component>
-      <object_component id="oc-293">
+      <object_component id="oc-292">
          <name>.ebss:_g_sFresultStrings</name>
          <uninitialized>true</uninitialized>
          <run_address>0xae06</run_address>
@@ -1211,7 +1211,7 @@
          <size>0x50</size>
          <input_file_ref idref="fl-1a"/>
       </object_component>
-      <object_component id="oc-292">
+      <object_component id="oc-293">
          <name>.ebss:_g_psCmdTable</name>
          <uninitialized>true</uninitialized>
          <run_address>0xc280</run_address>
@@ -4472,8 +4472,8 @@
          <run_address>0x82000</run_address>
          <size>0xea</size>
          <contents>
-            <object_component_ref idref="oc-18e"/>
             <object_component_ref idref="oc-18f"/>
+            <object_component_ref idref="oc-18e"/>
             <object_component_ref idref="oc-177"/>
             <object_component_ref idref="oc-1e1"/>
             <object_component_ref idref="oc-2bd"/>
@@ -4614,7 +4614,7 @@
             <object_component_ref idref="oc-2bc"/>
             <object_component_ref idref="oc-28d"/>
             <object_component_ref idref="oc-178"/>
-            <object_component_ref idref="oc-293"/>
+            <object_component_ref idref="oc-292"/>
             <object_component_ref idref="oc-1e2"/>
             <object_component_ref idref="oc-2c9"/>
             <object_component_ref idref="oc-2af"/>
@@ -4647,7 +4647,7 @@
          <run_address>0xc280</run_address>
          <size>0x48</size>
          <contents>
-            <object_component_ref idref="oc-292"/>
+            <object_component_ref idref="oc-293"/>
          </contents>
       </logical_group>
       <split_section id="lg-9" display="no" color="cyan">
@@ -10978,7 +10978,7 @@
       <symbol id="sm-ad1">
          <name>_g_psCmdTable</name>
          <value>0xc280</value>
-         <object_component_ref idref="oc-292"/>
+         <object_component_ref idref="oc-293"/>
       </symbol>
       <symbol id="sm-ad2">
          <name>_writeSD</name>
@@ -11003,7 +11003,7 @@
       <symbol id="sm-ada">
          <name>_g_sFresultStrings</name>
          <value>0xae06</value>
-         <object_component_ref idref="oc-293"/>
+         <object_component_ref idref="oc-292"/>
       </symbol>
       <symbol id="sm-adb">
          <name>_var</name>
