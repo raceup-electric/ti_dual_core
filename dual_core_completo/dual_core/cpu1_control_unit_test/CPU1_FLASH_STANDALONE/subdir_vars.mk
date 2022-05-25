@@ -22,6 +22,9 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_Pi
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_PieVect.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_SysCtrl.c \
 ../GPIO_management.c \
+../LoRa.c \
+../SPI_LoRa.c \
+../Telemetry.c \
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.c \
 ../cmdline.c \
 ../display.c \
@@ -48,6 +51,9 @@ C_DEPS += \
 ./F2837xD_PieVect.d \
 ./F2837xD_SysCtrl.d \
 ./GPIO_management.d \
+./LoRa.d \
+./SPI_LoRa.d \
+./Telemetry.d \
 ./can.d \
 ./cmdline.d \
 ./display.d \
@@ -76,6 +82,9 @@ OBJS += \
 ./F2837xD_SysCtrl.obj \
 ./F2837xD_usDelay.obj \
 ./GPIO_management.obj \
+./LoRa.obj \
+./SPI_LoRa.obj \
+./Telemetry.obj \
 ./can.obj \
 ./cmdline.obj \
 ./display.obj \
@@ -108,6 +117,9 @@ OBJS__QUOTED += \
 "F2837xD_SysCtrl.obj" \
 "F2837xD_usDelay.obj" \
 "GPIO_management.obj" \
+"LoRa.obj" \
+"SPI_LoRa.obj" \
+"Telemetry.obj" \
 "can.obj" \
 "cmdline.obj" \
 "display.obj" \
@@ -134,6 +146,9 @@ C_DEPS__QUOTED += \
 "F2837xD_PieVect.d" \
 "F2837xD_SysCtrl.d" \
 "GPIO_management.d" \
+"LoRa.d" \
+"SPI_LoRa.d" \
+"Telemetry.d" \
 "can.d" \
 "cmdline.d" \
 "display.d" \
@@ -164,6 +179,9 @@ C_SRCS__QUOTED += \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_PieVect.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/source/F2837xD_SysCtrl.c" \
 "../GPIO_management.c" \
+"../LoRa.c" \
+"../SPI_LoRa.c" \
+"../Telemetry.c" \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/can.c" \
 "../cmdline.c" \
 "../display.c" \

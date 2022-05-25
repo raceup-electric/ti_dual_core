@@ -166,7 +166,7 @@ int drivingMode = 0;
 float accelerations[3]; //g
 float omegas[3];        //rad/s
 float temperatures[5];
-float suspensions[4];
+Uint32 suspensions[4];
 
 
 //Calibration parameter

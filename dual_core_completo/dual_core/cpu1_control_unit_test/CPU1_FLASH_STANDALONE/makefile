@@ -24,6 +24,9 @@ ORDERED_OBJS += \
 "./F2837xD_SysCtrl.obj" \
 "./F2837xD_usDelay.obj" \
 "./GPIO_management.obj" \
+"./LoRa.obj" \
+"./SPI_LoRa.obj" \
+"./Telemetry.obj" \
 "./can.obj" \
 "./cmdline.obj" \
 "./display.obj" \
@@ -167,8 +170,8 @@ cpu1_control_unit_test.out: $(OBJS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "F2837xD_Adc.obj" "F2837xD_CodeStartBranch.obj" "F2837xD_CpuTimers.obj" "F2837xD_DefaultISR.obj" "F2837xD_EPwm.obj" "F2837xD_GlobalVariableDefs.obj" "F2837xD_Gpio.obj" "F2837xD_Ipc.obj" "F2837xD_Ipc_Driver_Util.obj" "F2837xD_PieCtrl.obj" "F2837xD_PieVect.obj" "F2837xD_SysCtrl.obj" "F2837xD_usDelay.obj" "GPIO_management.obj" "can.obj" "cmdline.obj" "display.obj" "ff.obj" "interrupt.obj" "main.obj" "mmc_F2837x.obj" "sd_card.obj" "sysctl.obj" "systick.obj" "uart.obj" "ustdlib.obj" 
-	-$(RM) "F2837xD_Adc.d" "F2837xD_CpuTimers.d" "F2837xD_DefaultISR.d" "F2837xD_EPwm.d" "F2837xD_GlobalVariableDefs.d" "F2837xD_Gpio.d" "F2837xD_Ipc.d" "F2837xD_Ipc_Driver_Util.d" "F2837xD_PieCtrl.d" "F2837xD_PieVect.d" "F2837xD_SysCtrl.d" "GPIO_management.d" "can.d" "cmdline.d" "display.d" "ff.d" "interrupt.d" "main.d" "mmc_F2837x.d" "sd_card.d" "sysctl.d" "systick.d" "uart.d" "ustdlib.d" 
+	-$(RM) "F2837xD_Adc.obj" "F2837xD_CodeStartBranch.obj" "F2837xD_CpuTimers.obj" "F2837xD_DefaultISR.obj" "F2837xD_EPwm.obj" "F2837xD_GlobalVariableDefs.obj" "F2837xD_Gpio.obj" "F2837xD_Ipc.obj" "F2837xD_Ipc_Driver_Util.obj" "F2837xD_PieCtrl.obj" "F2837xD_PieVect.obj" "F2837xD_SysCtrl.obj" "F2837xD_usDelay.obj" "GPIO_management.obj" "LoRa.obj" "SPI_LoRa.obj" "Telemetry.obj" "can.obj" "cmdline.obj" "display.obj" "ff.obj" "interrupt.obj" "main.obj" "mmc_F2837x.obj" "sd_card.obj" "sysctl.obj" "systick.obj" "uart.obj" "ustdlib.obj" 
+	-$(RM) "F2837xD_Adc.d" "F2837xD_CpuTimers.d" "F2837xD_DefaultISR.d" "F2837xD_EPwm.d" "F2837xD_GlobalVariableDefs.d" "F2837xD_Gpio.d" "F2837xD_Ipc.d" "F2837xD_Ipc_Driver_Util.d" "F2837xD_PieCtrl.d" "F2837xD_PieVect.d" "F2837xD_SysCtrl.d" "GPIO_management.d" "LoRa.d" "SPI_LoRa.d" "Telemetry.d" "can.d" "cmdline.d" "display.d" "ff.d" "interrupt.d" "main.d" "mmc_F2837x.d" "sd_card.d" "sysctl.d" "systick.d" "uart.d" "ustdlib.d" 
 	-$(RM) "F2837xD_CodeStartBranch.d" "F2837xD_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

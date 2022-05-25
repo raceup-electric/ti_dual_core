@@ -34,7 +34,7 @@ extern float mean_bms_temp;
 
 extern float accelerations[3];
 extern float omegas[3];
-extern float suspensions[4];
+extern Uint32 suspensions[4];
 extern float temperatures[5];
 
 extern char RTDS_STATE;  // RTDS
