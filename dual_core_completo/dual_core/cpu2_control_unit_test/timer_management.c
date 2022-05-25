@@ -52,7 +52,7 @@ void timerSetup()
     //
        ConfigCpuTimer(&CpuTimer0, 200, 10000);
        ConfigCpuTimer(&CpuTimer1, 200, 10000);
-       ConfigCpuTimer(&CpuTimer2, 200, 200000);
+       ConfigCpuTimer(&CpuTimer2, 200, 100000);
 
     //
     // To ensure precise timing, use write-only instructions to write to the entire
@@ -145,7 +145,7 @@ __interrupt void cpu_timer1_isr(void)
 //
 //    //debug gpio
 //    GPIO_WritePin(POMPA_SX_Abil, pompa_sx_on_off);
-    GPIO_WritePin(VENTOLA_Abil, ventola_on_off);
+//    GPIO_WritePin(VENTOLA_Abil, ventola_on_off);
 
 //    GPIO_WritePin(POMPA_DX_Abil, pompa_dx_on_off);
 //    GPIO_WritePin(SCS_FAULT, scs_on_off);
@@ -181,59 +181,71 @@ __interrupt void cpu_timer1_isr(void)
     if(canSendAMK)
     {
 
-        bool brakeWhenSlow = brake > 10 && actualVelocityKMH <= 5;
-        bool brakeReg = brake > 10 && brake < REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
-        bool brakeMec = brake >= REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
-        bool noBrake = brake <= 10;
+        brakeWhenSlow = brake > 10 && actualVelocityKMH <= 5;
+        brakeReg = brake > 10 && brake < REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
+        brakeMec = brake >= REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
+        noBrake = brake <= 10;
         checkImplausibility();
 
-        if (implBrakeAndThrottle || brk_disconnected)
+        if (!implausibility_occurred)       //REGOLA EV 2.3
         {
-            stopAMK();
-        }
-        else if(brakeWhenSlow)
-        {
-            stopAMK();
-        }
-        else if(brakeReg)
-        {
-#ifdef NO_REG_BRAKE
-            stopAMK();
-#else
-            //brakeAMK(brake * (NEGATIVE_TORQUE_LIMIT /10));
-            if(sendyne_current > MAX_REGEN_CURRENT){
-                brakeAMK(brake);
+            if (implBrakeAndThrottle || brk_disconnected)
+            {
+                stopAMK();
+                implausibility_occurred = true;
             }
-            else {
+            else if(brakeWhenSlow)
+            {
+                stopAMK();
+                implausibility_occurred = true;
+            }
+            else if(brakeReg)
+            {
+    #ifdef NO_REG_BRAKE
+                stopAMK();
+    #else
+                //brakeAMK(brake * (NEGATIVE_TORQUE_LIMIT /10));
+                if(sendyne_current > MAX_REGEN_CURRENT){
+                    brakeAMK(brake);
+                }
+                else {
+                    stopAMK();
+                }
+    #endif
+            }
+            else if(brakeMec)
+            {
+    #ifdef NO_REG_BRAKE
+                stopAMK();
+    #else
+                //brakeAMK((REGENERATIVE_BRAKE_LIMIT - (brake - REGENERATIVE_BRAKE_LIMIT) * (REGENERATIVE_BRAKE_LIMIT)/(100-REGENERATIVE_BRAKE_LIMIT)) * (NEGATIVE_TORQUE_LIMIT /10));
+                if(sendyne_current > MAX_REGEN_CURRENT){
+                    brakeAMK(brake);
+                }
+                else {
+                    stopAMK();
+                }
+    #endif
+            }
+            else if(noBrake)
+            {
+                //throttleAMK(throttle * THROTTLE_POWER_SCALE);
+                throttleAMK(throttle);
+            }
+            else
+            {
                 stopAMK();
             }
-#endif
-        }
-        else if(brakeMec)
-        {
-#ifdef NO_REG_BRAKE
-            stopAMK();
-#else
-            //brakeAMK((REGENERATIVE_BRAKE_LIMIT - (brake - REGENERATIVE_BRAKE_LIMIT) * (REGENERATIVE_BRAKE_LIMIT)/(100-REGENERATIVE_BRAKE_LIMIT)) * (NEGATIVE_TORQUE_LIMIT /10));
-            if(sendyne_current > MAX_REGEN_CURRENT){
-                brakeAMK(brake);
-            }
-            else {
-                stopAMK();
-            }
-#endif
-        }
-        else if(noBrake)
-        {
-            //throttleAMK(throttle * THROTTLE_POWER_SCALE);
-            throttleAMK(throttle);
         }
         else
         {
             stopAMK();
         }
-    }
-    else
+    } else if (throttle  < 5)   //REGOLA EV 2.3
+        {
+            implausibility_occurred = false;     //implausibility is cleared
+        }
+    else                        //REGOLA EV 2.3
     {
         stopAMK();
     }
@@ -256,9 +268,9 @@ __interrupt void cpu_timer2_isr(void)
     //
     CpuTimer2.InterruptCount++;
 
+
     if (CpuTimer2.InterruptCount == RTDS_DURATION)
     {
-        GPIO_WritePin(31, 1);
         GPIO_WritePin(RTDS, 0);
         CpuTimer2Regs.TCR.bit.TSS = 1;  //stop timer
     }

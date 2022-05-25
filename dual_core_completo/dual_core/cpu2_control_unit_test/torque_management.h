@@ -9,6 +9,17 @@
 #include "utils.h"
 #include "math.h"
 
+#define R 0.0675
+#define P 5
+#define FLUX_MG 0.0296
+#define LD 0.12E-3
+#define LQ 0.24E-3
+#define ETA_INV 0.98
+#define SATURAZIONE 0.9
+#define RBATT 0.3
+#define TALPHA -5.919761121102884
+
+
 //
 // variables
 //
@@ -44,6 +55,7 @@ extern float posTorqueCandidate[4][4];      //[MotorIndex][CandidateIndex]
 extern float negTorqueCandidate[4];      //[MotorIndex]
 extern float AMK_TorqueLimitPositive[4];
 extern float AMK_TorqueLimitNegative[4];
+extern float torque_reg_IPM[4];
 
 extern float power_limit;
 
@@ -74,6 +86,10 @@ void speedCalculatorTV();
 void torqueVectoring();
 
 void torqueRepartition();
+
+void regBrake();
+
+void onePedalDriving();
 //DEPRECATED
 //float getMotorScale(int motor);
 //

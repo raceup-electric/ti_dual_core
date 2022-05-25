@@ -52,6 +52,7 @@ int driving_configuration;
 bool R2D_first_state = 0;
 bool R2D_state = 0;
 bool brk_disconnected = false;
+bool implausibility_occurred = false;
 
 // driver input
 // filtro max-nuotatori: media mobile, senza contare i top N valori
@@ -118,6 +119,7 @@ float negTorqueCandidate[4];      //[MotorIndex][CandidateIndex]
 float Torque_max[4];
 float AMK_TorqueLimitPositive[4];
 float AMK_TorqueLimitNegative[4];
+float torque_reg_IPM[4];            //massima coppia rigenerativa per motore
 
 
 //power control
@@ -161,6 +163,11 @@ int velocityRef = 0;
 int throttleReq = 0;
 int brakeReq = 0;
 int drivingMode = 0;
+
+bool brakeWhenSlow = 0;
+bool brakeReg = 0;
+bool brakeMec = 0;
+bool noBrake = 0;
 
 //IMU
 float accelerations[3]; //g

@@ -194,6 +194,104 @@ void torqueRepartition()
     repFz[3] = fzSum;
 }
 
+//torque_reg_IPM in uscita é POSITIVO
+void regBrake()
+{
+    float sumrip = repFz[0] + repFz[1] + repFz[2] + repFz[3];
+    int rpm = SPEED_LIMIT;
+    float rads = rpm*PI/30;
+
+    float Pemax = (sendyne_voltage+RBATT*MAX_REGEN_CURRENT)*MAX_REGEN_CURRENT/ETA_INV;
+
+    float Pmot = 0;
+    float a = 0;
+    float b = 0;
+    float c = 0;
+    float Iq = 0, Id = 0;
+    int mot;
+
+    for(mot = 0; mot < 4; mot++)
+    {
+        Pmot = Pemax/sumrip*repFz[mot];
+        float rade = rads*P;
+
+        a = 3/2*(R*(1+1/pow(TALPHA, 2))+rade*(LD-LQ)/TALPHA);
+        b = 3/2*rade*FLUX_MG;
+        c = -Pmot;
+        Iq = (-b+sqrt(pow(b, 2)-4*a*c))/(2*a);
+        Id = Iq/TALPHA;
+
+        float Ploss = 3/2*R*(pow(Id, 2)+pow(Iq, 2));
+        float Pw = (Pmot+Ploss);
+
+        Pw = Pw/SATURAZIONE;
+        float T_max_an_IPM = Pw/rads;
+
+        //T_lim = 21-0.000857*(rpm-13000); da matlab
+        float T_lim = MAX_POS_TORQUE - 0.000857*(fabsf(motorVal1[mot].AMK_ActualVelocity) -
+                ((21.0f - MAX_POS_TORQUE)/0.000857) - 13000.0f); //da riga 47
+        if(T_lim > 21)
+            T_lim = 21;
+
+        if(T_max_an_IPM > T_lim)
+            torque_reg_IPM[mot] = T_lim;
+        else
+            torque_reg_IPM[mot] = T_max_an_IPM;
+#ifdef NO_TORQUE_VECTORING
+        negTorquesNM[mot] = -((brakeReq/100.0)*torque_reg_IPM[mot]);
+#endif
+    }
+
+
+}
+
+
+void onePedalDriving()
+{
+    float brake_point_limit = 35;
+    //int var_min = 1;
+
+/*    dacc = throttleReq - old_throttleReq2;
+    old_throttleReq2 = old_throttleReq1;
+    old_throttleReq1 = old_throttleReq;
+    old_throttleReq = throttleReq;
+
+
+    /*if(dacc > var_min)
+        slope = abs(slope);
+    else if( dacc < -var_min)
+        slope = -abs(slope);*/
+
+    //slope = -1;
+
+
+     //if(slope == -1)
+
+        if(throttleReq > brake_point_limit)
+        {
+                throttleReq = ((throttleReq - brake_point_limit)*100)/(100-brake_point_limit);
+                brakeReq = 0;
+
+        }
+        else
+        {
+            if(actualVelocityKMH > 5)
+            {
+
+                brakeReq = (100 - throttleReq*100/brake_point_limit);
+                throttleReq = 0;
+
+                velocityRef = 0;    //per setpoint AMK4
+            }else
+            {
+                throttleReq = 0;
+                brakeReq = 0;
+            }
+
+        }
+
+}
+
 //DEPRECATED
 //
 //float getInnerTorque(float requestedTorque, float speed, float steering, float k)

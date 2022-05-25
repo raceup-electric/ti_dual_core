@@ -246,7 +246,7 @@ void int2Bytes(unsigned char* bytes_temp, int int_variable)
 void sendAMKDataMotor(int motor, int posTorque, int negTorque) {
     if(!motorInitialized[motor] && motorVal1[motor].AMK_bSystemReady == 1) {
         initializeMotor(motor);
-    } else if(motorInitialized[motor] == 1 && motorVal1[motor].AMK_bSystemReady == 1) {
+    } else if(motorInitialized[motor] == 1 && motorVal1[motor].AMK_bQuitInverterOn == 1) {
         send_AMK_SetPoints(motor, velocityRef, posTorque, negTorque);
     } else if(motorVal1[motor].AMK_bError) {
         send_AMK_SetPoints(motor, 0, 0, 0);
@@ -258,11 +258,15 @@ void sendAMKDataMotor(int motor, int posTorque, int negTorque) {
         motorSetP[motor].AMK_bEnable = 0;
         motorSetP[motor].AMK_bErrorReset = 0;
         send_AMK_SetPoints(motor, 0, 0, 0);
+        motorInitialized[motor] = 0;
     }
 }
 
 void sendAMKData() {
 
+#ifndef NO_ONE_PEDAL
+    onePedalDriving();
+#endif
     int i = 0;
 
     for (i = 0; i < NUM_OF_MOTORS; i++)
@@ -271,10 +275,15 @@ void sendAMKData() {
         negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
     }
 
+
 #ifndef NO_TORQUE_VECTORING
     //TORQUE VECTORING
      performancePack();
 
+#endif
+
+#ifndef NO_REG_BRAKE
+     regBrake();
 #endif
 
 #ifndef NO_POWER_CONTROL
@@ -292,12 +301,12 @@ void sendAMKData() {
         if (i == MOTOR_FL || i == MOTOR_FR)
         {
             posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*FRONT_MOTOR_SCALE, MAX_POS_TORQUE, 0.0f));
-            negTorque = NMtoTorqueSetpoint(negTorquesNM[i]*FRONT_MOTOR_SCALE);
+            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*FRONT_MOTOR_SCALE,0,MAX_NEG_TORQUE));
         }
         else if (i == MOTOR_RR || i == MOTOR_RL)
         {
             posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*REAR_MOTOR_SCALE, MAX_POS_TORQUE, 0.0f));
-            negTorque = NMtoTorqueSetpoint(negTorquesNM[i]*REAR_MOTOR_SCALE);
+            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*REAR_MOTOR_SCALE,0,MAX_NEG_TORQUE));
         }
 
         sendAMKDataMotor(i, posTorque, negTorque);
