@@ -314,7 +314,7 @@ __interrupt void cpu_timer1_isr(void)
 //not necessary at the moment
 __interrupt void cpu_timer2_isr(void)
 {
-    //updatePage(display.page);
+    updatePage(display.page);
 //    updatePage(var_v);
 //    var_v++;
 //    var_v = var_v % 9;

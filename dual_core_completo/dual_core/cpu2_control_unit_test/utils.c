@@ -72,6 +72,12 @@ float uint32_to_float(Uint32 u)
     return temp.f;
 }
 
+float ConvertTempToKelvin(int adc_read)
+{
+  float div = (float)((float)adc_read / 1023);
+  return (3977 * 298.15) / (3977 - (298.25 * log((1 - div) / div)));
+}
+
 float torqueSetpointToNM(int setpoint)
 {
     return (setpoint/1000.0)*M_N;

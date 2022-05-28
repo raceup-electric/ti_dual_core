@@ -21,14 +21,14 @@ void loop()
     enableMotor = true; //debug
 #endif
     while(true) {
-//        if(isHVOn()) {
-//            if(!enableMotor) {
-//                DEVICE_DELAY_US(10000000);  // wait for precharge
-//                enableMotor = true;
-//            }
-//        } else {
-//            enableMotor = false;
-//        }
+        if(isHVOn()) {
+            if(!enableMotor) {
+                //DEVICE_DELAY_US(10000000);  // wait for precharge
+                enableMotor = true;
+            }
+        } else {
+            enableMotor = false;
+        }
 
     loopCounter++; //debug
     }

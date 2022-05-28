@@ -142,7 +142,7 @@
 #define OBJ_ID_FROM_SENDYNE     27
 #define OBJ_ID_FROM_IMU         28
 #define OBJ_ID_SENDYNE_FORWARD  29
-#define OBJ_ID_STEERING_WHEEL   30
+#define OBJ_ID_STEERING_WHEEL   23
 #define OBJ_ID_FROM_SMU         24
 #define OBJ_ID_FROM_BMS_LV      23
 

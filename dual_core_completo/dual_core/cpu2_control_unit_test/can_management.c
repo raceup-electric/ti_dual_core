@@ -97,7 +97,7 @@ void canSetup_phase2()
 
         //Pacchetto generico SMU
         RXCANA_Smu_Message.ui32MsgID = MSG_ID_SMU_BASE;
-        RXCANA_Smu_Message.ui32MsgIDMask = 0x1FFFFFFC;
+        RXCANA_Smu_Message.ui32MsgIDMask = 0x1FFFFFF8;
         RXCANA_Smu_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
         RXCANA_Smu_Message.ui32MsgLen = MSG_DATA_LENGTH;
         RXCANA_Smu_Message.pucMsgData = RXA_Smu_Data;

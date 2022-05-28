@@ -77,23 +77,30 @@ void read_SMU_Message(Uint16 smu_values[], int id){
     uint64_t aux = 0;
     int i;
 
-    for(i = 0; i < 8; i++){
+    for(i = 7; i >= 0; i--){
         //Insert smu_values in a auxiliary variable to extract it later
         //Taking the 8 last bits of each Uint16 represeting a char(1byte) and shifting by 8*i position
-        aux |= ((0x00FF & smu_values[i]) << 8*i);
+        //aux |= ((0x00FF & smu_values[i]) << (8*i));
+        aux = aux << 8;
+        aux |= (0x00FF & smu_values[i]);
     }
 
 
     if(id == MSG_ID_SMU_TEMPERATURES){
-        for(i = 0; i < NUM_SMU_TEMP; i++){
-            temperatures[i] = uint32_to_float(0x3FF & (aux >> 10*i));
+        for(i = 0; i < NUM_SMU_TEMP; i++)
+        {
+            temperatures[i] = ConvertTempToKelvin(0x3FF & aux );
+            aux>>=10;
         }
 
     }else if(id == MSG_ID_SMU_SUSPENSIONS){
-        for(i = 0; i < NUM_SMU_SUSP; i++){
-            suspensions[i] = uint32_to_float(0x3FF & (aux >> 10*i));
+        for(i = 0; i < NUM_SMU_SUSP; i++)
+        {
+            suspensions[i] = (Uint32)(0x3FF & aux );
+            aux>>=10;
         }
     }
+
 }
 
 void read_BMSLV_message(Uint16 bmslv_values[], int id){

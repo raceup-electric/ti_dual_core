@@ -135,6 +135,8 @@ float torqueSetpointToNM(int setpoint);
 
 int NMtoTorqueSetpoint(float torqueNM);
 
+float ConvertTempToKelvin(int adc_read);
+
 //void debugLight(int period);
 
 float uint32_to_float(Uint32 u);
