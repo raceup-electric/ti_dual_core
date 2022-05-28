@@ -50,6 +50,7 @@ extern tCANMsgObject RXCANA_Smu_Message;
 extern tCANMsgObject RXCANA_Sendyne_Message;
 extern tCANMsgObject RXCANA_BmsVol_Message;
 extern tCANMsgObject RXCANA_BmsTemp_Message;
+extern tCANMsgObject RXCANA_BmsLV_Message;
 extern tCANMsgObject RXCANA_PwCtrl_Message;
 extern tCANMsgObject RXCANA_Wheel_Message;
 extern unsigned char RXA_Imu_Data[8];

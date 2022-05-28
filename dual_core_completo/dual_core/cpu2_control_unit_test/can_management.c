@@ -131,6 +131,13 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, MSG_OBJ_TYPE_RX);
 
+        RXCANA_BmsLV_Message.ui32MsgID = MSG_ID_BMS_BASE;
+        RXCANA_BmsLV_Message.ui32MsgIDMask = 0x1FFFFFFC;
+        RXCANA_BmsLV_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
+        RXCANA_BmsLV_Message.ui32MsgLen = 8;
+        RXCANA_BmsLV_Message.pucMsgData = RXA_BmsLV_Data;
+
+        CANMessageSet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, MSG_OBJ_TYPE_RX);
 
         RXCANA_PwCtrl_Message.ui32MsgID = MSG_ID_POWER_CONTROL;
         RXCANA_PwCtrl_Message.ui32MsgIDMask = 0x0;
@@ -304,6 +311,18 @@ __interrupt void canISR_A(void)
        rxAMsgCount++;
 
        CANIntClear(CANA_BASE, OBJ_ID_BMS_TEMP);
+
+   }else if(status == OBJ_ID_FROM_BMS_LV){
+
+       CANMessageGet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsTemp_Message, true);
+
+       int id = getMessageID(CANA_BASE, OBJ_ID_FROM_BMS_LV);
+
+       read_BMSLV_message((Uint16 *)RXA_BmsLV_Data, id);
+
+       rxAMsgCount++;
+
+       CANIntClear(CANA_BASE, OBJ_ID_FROM_BMS_LV);
    }
    else if (status == OBJ_ID_POWER_CONTROL)
    {

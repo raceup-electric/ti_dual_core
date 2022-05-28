@@ -88,6 +88,8 @@ void read_IMU_message(Uint16 imu_values[], int id);
 
 void read_SMU_Message(Uint16 smu_values[], int id);
 
+void read_BMSLV_message(Uint16 bmslv_values[], int id);
+
 void read_power_control_message(Uint16 val[]);
 
 void read_BMS_TEMP_message(Uint16 bms_values[]);

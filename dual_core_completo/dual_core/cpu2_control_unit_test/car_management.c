@@ -96,6 +96,10 @@ void read_SMU_Message(Uint16 smu_values[], int id){
     }
 }
 
+void read_BMSLV_message(Uint16 bmslv_values[], int id){
+    //TODO implement reading of the BMSLV packets
+}
+
 void read_BMS_VOLTAGE_message(Uint16 bms_values[]){
     Uint16 tmp = 0;
     tmp=(bms_values[0] | bms_values[1]<<8);

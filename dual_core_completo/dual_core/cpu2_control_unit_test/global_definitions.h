@@ -144,6 +144,7 @@
 #define OBJ_ID_SENDYNE_FORWARD  29
 #define OBJ_ID_STEERING_WHEEL   30
 #define OBJ_ID_FROM_SMU         24
+#define OBJ_ID_FROM_BMS_LV      23
 
 
 #define MSG_ID_AMK1_DATA_BASE   0x40
@@ -153,6 +154,9 @@
 #define MSG_ID_CAR_STATUS       0x52
 #define MSG_ID_BMS_VOLTAGE      0x53
 #define MSG_ID_BMS_TEMP         0x54
+#define MSG_ID_BMS_BASE         0x55
+#define MSG_ID_BMS_LV_1         0x55
+#define MSG_ID_BMS_LV_2         0x56
 #define MSG_ID_IMU_BASE         0x60
 #define MSG_ID_IMU_1            0x60
 #define MSG_ID_IMU_2            0x61
