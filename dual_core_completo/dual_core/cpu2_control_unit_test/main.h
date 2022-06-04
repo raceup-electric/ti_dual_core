@@ -199,6 +199,7 @@ int errorFrameCounterB = 0;
 int errorFrameCounterA = 0;
 tCANMsgObject RXCANA_Imu_Message;
 tCANMsgObject RXCANA_Smu_Message;
+tCANMsgObject TXCANA_Smu_Message[5];
 tCANMsgObject RXCANA_Sendyne_Message;
 tCANMsgObject RXCANA_BmsVol_Message;
 tCANMsgObject RXCANA_BmsTemp_Message;
@@ -213,6 +214,7 @@ unsigned char RXA_BmsTemp_Data[6];
 unsigned char RXA_BmsLV_Data[8];
 unsigned char RXA_PwCtrl_Data[1];
 unsigned char RXA_Wheel_Data[1];
+float TXA_Smu_Calibration[5][2];
 
 tCANMsgObject RXCANB_AmkVal1_Message[4];
 tCANMsgObject RXCANB_AmkVal2_Message[4];

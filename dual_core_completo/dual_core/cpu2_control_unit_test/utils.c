@@ -127,3 +127,25 @@ void imu_calibration_2(float accelerations[3]){
         }
     }
 }
+void send_calibration(float V[3][3]){
+    //Loads floats of the correction matrix in the packets arrays
+    //with the following logic:
+    //Value with a pair sum of indices must be placed in position 0 of the i-esim array
+    //Value with a odd sum must be in position 1
+    //Every time a pair of value is loaded the the number of row 'c' is increased by +1
+    int i, j,c;
+    for(i = 0; i < 3; i++){
+        for(j = 0; j < 3; j++){
+            if((i+j)%2 == 0){
+                TXA_Smu_Calibration[c][0];
+            }else{
+                TXA_Smu_Calibration[c][1];
+                c++;
+            }
+        }
+    }
+
+    for(c = 0; c < 5; c++){
+        CANMessageSet(CANA_BASE, TX_OBJ_ID, &TXA_Smu_Calibration, MSG_OBJ_TYPE_TX);
+    }
+}

@@ -146,7 +146,8 @@
 #define OBJ_ID_FROM_SMU         24
 #define OBJ_ID_FROM_BMS_LV      23
 
-
+//Message IDs
+#define MSG_ID_CALIBRATION_TO_SMU 0x30
 #define MSG_ID_AMK1_DATA_BASE   0x40
 #define MSG_ID_AMK2_DATA_BASE   0x44
 #define MSG_ID_TEMPS            0x49

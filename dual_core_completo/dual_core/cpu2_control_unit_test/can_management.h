@@ -48,6 +48,7 @@ extern Uint16 powersetup[8];
 extern tCANMsgObject RXCANA_Imu_Message;
 extern tCANMsgObject RXCANA_Smu_Message;
 extern tCANMsgObject RXCANA_Sendyne_Message;
+extern tCANMsgObject TXCANA_Smu_Message[5];
 extern tCANMsgObject RXCANA_BmsVol_Message;
 extern tCANMsgObject RXCANA_BmsTemp_Message;
 extern tCANMsgObject RXCANA_BmsLV_Message;
@@ -58,8 +59,10 @@ extern unsigned char RXA_Smu_Data[8];
 extern unsigned char RXA_Sendyne_Data[8];
 extern unsigned char RXA_BmsVol_Data[6];
 extern unsigned char RXA_BmsTemp_Data[6];
+extern unsigned char RXA_BmsLV_Data[8];
 extern unsigned char RXA_PwCtrl_Data[1];
 extern unsigned char RXA_Wheel_Data[1];
+extern float TXA_Smu_Calibration[5][2];
 
 extern tCANMsgObject TXCANB_Setpoints_Message[4];
 extern unsigned char TXB_Setpoints_Data[4][8];
