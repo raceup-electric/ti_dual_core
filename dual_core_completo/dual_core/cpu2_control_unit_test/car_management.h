@@ -62,8 +62,10 @@ extern bool inverterRF[4];
 
 //power control
 extern float power_limit;
+extern int presets_power[8];
 
-extern int presets[8];
+extern float max_regen_current;
+extern float presets_regen[6];
 
 //logging
 extern struct Share_struct sh;

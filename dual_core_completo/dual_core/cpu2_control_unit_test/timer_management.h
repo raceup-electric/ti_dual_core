@@ -18,7 +18,7 @@ extern bool brakeReg;
 extern bool brakeMec;
 extern bool noBrake;
 extern bool implausibility_occurred;
-
+extern float max_regen_current;
 
 
 void timerSetup(void);

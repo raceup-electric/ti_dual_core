@@ -71,6 +71,7 @@ extern tCANMsgObject RXCANB_AmkVal1_Message[4];
 extern tCANMsgObject RXCANB_AmkVal2_Message[4];
 extern unsigned char RXB_AmkVal_Data[8];
 
+extern float max_regen_current;
 
 
 //

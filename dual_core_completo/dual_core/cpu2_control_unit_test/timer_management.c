@@ -205,7 +205,7 @@ __interrupt void cpu_timer1_isr(void)
                 stopAMK();
     #else
                 //brakeAMK(brake * (NEGATIVE_TORQUE_LIMIT /10));
-                if(sendyne_current > MAX_REGEN_CURRENT){
+                if(sendyne_current > max_regen_current){
                     brakeAMK(brake);
                 }
                 else {
@@ -219,7 +219,7 @@ __interrupt void cpu_timer1_isr(void)
                 stopAMK();
     #else
                 //brakeAMK((REGENERATIVE_BRAKE_LIMIT - (brake - REGENERATIVE_BRAKE_LIMIT) * (REGENERATIVE_BRAKE_LIMIT)/(100-REGENERATIVE_BRAKE_LIMIT)) * (NEGATIVE_TORQUE_LIMIT /10));
-                if(sendyne_current > MAX_REGEN_CURRENT){
+                if(sendyne_current > max_regen_current){
                     brakeAMK(brake);
                 }
                 else {

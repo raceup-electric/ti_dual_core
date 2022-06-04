@@ -174,10 +174,10 @@ cpu1_control_unit_test.out: $(OBJS) $(GEN_CMDS)
 	@echo ' '
 
 cpu1_control_unit_test.hex: $(EXE_OUTPUTS)
-	@echo 'Building secondary target: "$@"'
+	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: C2000 Hex Utility'
-	"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/bin/hex2000" --diag_wrap=off -o "cpu1_control_unit_test.hex" $(EXE_OUTPUTS__QUOTED)
-	@echo 'Finished building secondary target: "$@"'
+	"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/bin/hex2000"  -o "cpu1_control_unit_test.hex" $(EXE_OUTPUTS__QUOTED)
+	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
 # Other Targets

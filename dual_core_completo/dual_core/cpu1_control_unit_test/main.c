@@ -253,11 +253,10 @@ __interrupt void cpu_timer1_isr(void)
 __interrupt void cpu_timer2_isr(void)
 {
     updatePage(display.page);
-//    updatePage(var_v);
+    updateValues(var_v);
 //    var_v++;
 //    var_v = var_v % 9;
 //    setAck();
-//    setSelector();
 //    display.page++;
 //    display.selector++;
 //    display.page = display.page % 9;

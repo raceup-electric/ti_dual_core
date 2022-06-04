@@ -201,7 +201,7 @@ void regBrake()
     int rpm = SPEED_LIMIT;
     float rads = rpm*PI/30;
 
-    float Pemax = (sendyne_voltage+RBATT*MAX_REGEN_CURRENT)*MAX_REGEN_CURRENT/ETA_INV;
+    float Pemax = (sendyne_voltage+RBATT*max_regen_current)*max_regen_current/ETA_INV;
 
     float Pmot = 0;
     float a = 0;

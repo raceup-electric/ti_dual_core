@@ -6,7 +6,39 @@
  */
 #include "display.h"
 
+void updateValues()
+{
 
+    switch(currentPage){
+           case PAGE_1:
+             updatePage1();
+           break;
+           case PAGE_2:
+               updatePage2();
+             break;
+           case PAGE_3:
+               updatePage3();
+           break;
+           case PAGE_4:
+               updatePage4();
+           break;
+           case PAGE_5:
+               updatePage5();
+           break;
+           case PAGE_6:
+               updatePage6();
+           break;
+           case PAGE_7:
+               updatePage7();
+           break;
+           case PAGE_8:
+               updatePage8();
+           break;
+           case PAGE_9:
+               updatePage9();
+           break;
+         }
+}
 void updatePage(Uint16 page){
 
     if (currentPage!=page){
@@ -14,7 +46,6 @@ void updatePage(Uint16 page){
         case PAGE_1:
           currentPage=PAGE_1;
           scic_msg("page 1ÿÿÿ\0");
-          setStatus();
         break;
         case PAGE_2:
             currentPage=PAGE_3;
@@ -56,7 +87,162 @@ void updatePage(Uint16 page){
     }
 }
 
-void setSelector(){
+void updatePage1()
+{
+    if(local_sh.status.status_shared & 0b00000001) scic_msg("main_dark.hv.bco=GREENÿÿÿ\0");
+    else scic_msg("main_dark.hv.bco=REDÿÿÿ\0");
+
+
+    if(local_sh.status.status_shared & 0b00000010) scic_msg("main_dark.lv.bco=REDÿÿÿ\0");
+    else scic_msg("main_dark.lv.bco=GREENÿÿÿ\0");
+
+    // DA Sostituire con fault hv
+    //if(local_sh.status.status_shared & 0b00000100) scic_msg("main_dark.temp.bco=REDÿÿÿ\0");
+    //else scic_msg("main_dark.temp.bco=GREENÿÿÿ\0");
+
+
+    if(local_sh.status.status_shared & 0b00001000) scic_msg("main_dark.pre.bco=GREENÿÿÿ\0");
+    else scic_msg("main_dark.pre.bco=REDÿÿÿ\0");
+
+
+    if(local_sh.status.status_shared & 0b00010000) scic_msg("main_dark.r2d.bco=GREENÿÿÿ\0");
+    else scic_msg("main_dark.r2d.bco=REDÿÿÿ\0");
+
+
+    if(local_sh.status.status_shared & 0b00100000) scic_msg("main_dark.brk.bco=REDÿÿÿ\0");
+    else scic_msg("main_dark.brk.bco=GREENÿÿÿ\0");
+
+
+    if(local_sh.status.status_shared & 0b01000000) scic_msg("main_dark.imp.bco=REDÿÿÿ\0");
+    else scic_msg("main_dark.imp.bco=GREENÿÿÿ\0");
+
+
+    if(local_sh.status.status_shared & 0b10000000) scic_msg("main_dark.rf.bco=GREENÿÿÿ\0");
+    else scic_msg("main_dark.rf.bco=REDÿÿÿ\0");
+
+
+    sprintf(tmp, "main_dark.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
+    scic_msg(tmp);
+}
+
+void updatePage2()
+{
+    sprintf(tmp, "hv_val.voltage_HV.val=%.2fÿÿÿ\0",local_sh.sendyne.sendyne_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "hv_val.lem.val=%.2fÿÿÿ\0",local_sh.sendyne.sendyne_current_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "hv_val.curr_sens.val=%.2fÿÿÿ\0",local_sh.sendyne.curr_sens_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "hv_val.tot_power.val=%.2fÿÿÿ\0",local_sh.sendyne.total_power_shared);
+    scic_msg(tmp);
+}
+void updatePage3()
+{
+    if(local_sh.gpio.Sdc1_shared)
+        scic_msg("gpio.sdc1.bco=REDÿÿÿ\0");
+    else
+        scic_msg("gpio.sdc1.bco=GREENÿÿÿ\0");
+
+    if(local_sh.gpio.Sdc2_shared)
+            scic_msg("gpio.sdc2.bco=REDÿÿÿ\0");
+    else
+            scic_msg("gpio.sdc2.bco=GREENÿÿÿ\0");
+
+    if(local_sh.gpio.Sdc3_shared)
+            scic_msg("gpio.sdc3.bco=REDÿÿÿ\0");
+    else
+            scic_msg("gpio.sdc3.bco=GREENÿÿÿ\0");
+
+    if(local_sh.gpio.Sdc4_shared)
+            scic_msg("gpio.sdc4.bco=REDÿÿÿ\0");
+    else
+            scic_msg("gpio.sdc4.bco=GREENÿÿÿ\0");
+
+    if(local_sh.gpio.Sdc5_shared)
+            scic_msg("gpio.sdc5.bco=REDÿÿÿ\0");
+    else
+            scic_msg("gpio.sdc5.bco=GREENÿÿÿ\0");
+
+    if(local_sh.gpio.Sdc6_shared)
+            scic_msg("gpio.sdc6.bco=REDÿÿÿ\0");
+    else
+            scic_msg("gpio.sdc6.bco=GREENÿÿÿ\0");
+
+    if(local_sh.gpio.Bms_shared)
+            scic_msg("gpio.bms.bco=REDÿÿÿ\0");
+    else
+            scic_msg("gpio.bms.bco=GREENÿÿÿ\0");
+
+    if(local_sh.gpio.Imd_shared)
+            scic_msg("gpio.imd.bco=REDÿÿÿ\0");
+    else
+            scic_msg("gpio.imd.bco=GREENÿÿÿ\0");
+
+}
+
+void updatePage4()
+{
+    sprintf(tmp, "bms.high.val=%dÿÿÿ\0",local_sh.bms.max_bms_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "bms.medium.val=%dÿÿÿ\0",local_sh.bms.mean_bms_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "bms.low.val=%dÿÿÿ\0",local_sh.bms.min_bms_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "bms.highest_temp.val=%dÿÿÿ\0",local_sh.bms.max_bms_temp_shared);
+    scic_msg(tmp);
+}
+
+void updatePage5()
+{
+    sprintf(tmp, "tyre_motor_d.mot1.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempMotor);
+    scic_msg(tmp);
+    sprintf(tmp, "tyre_motor_d.mot2.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempMotor);
+    scic_msg(tmp);
+    sprintf(tmp, "tyre_motor_d.mot3.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempMotor);
+    scic_msg(tmp);
+    sprintf(tmp, "tyre_motor_d.mot4.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempMotor);
+    scic_msg(tmp);
+}
+
+void updatePage6()
+{
+    sprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempInverter);
+    scic_msg(tmp);
+    sprintf(tmp, "inverter.inv2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempInverter);
+    scic_msg(tmp);
+    sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempInverter);
+    scic_msg(tmp);
+    sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempInverter);
+    scic_msg(tmp);
+}
+
+void updatePage7()
+{
+    sprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempIGBT);
+    scic_msg(tmp);
+    sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempIGBT);
+    scic_msg(tmp);
+    sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempIGBT);
+    scic_msg(tmp);
+    sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempIGBT);
+    scic_msg(tmp);
+}
+
+
+void updatePage8()
+{
+    setSelectorPowerControl();
+    setAckPowerControl();
+}
+
+void updatePage9()
+{
+    setSelectorRegen();
+    setAckRegen();
+}
+
+
+void setSelectorPowerControl(){
     n_setup = display.selector;
     if(old_setup != n_setup){
 
@@ -76,7 +262,7 @@ void setSelector(){
     }
 }
 
-void setAck(){
+void setAckPowerControl(){
     //Serial.println(String(msg.buf[0]));
     int i;
     ack = display.ack;
@@ -94,79 +280,69 @@ void setAck(){
         }
 
     }
+}
+void setSelectorRegen(){
+    n_setup = display.selector;
+    if(old_setup != n_setup){
+
+      if (old_setup != old_ack){
+          sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", old_setup);
+          scic_msg(tmp);
+      }
 
 
-    //da fare in cpu2
-//    CAN_message_t power_change;
-//    power_change.id=0x81;
-//    power_change.buf[0]=presets[n_setup];
-//    power_change.len=1;
-//    Can_veicolo.write(power_change);
+      old_setup = n_setup;
+
+      if (old_setup != old_ack){
+          sprintf(tmp, "regen.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          scic_msg(tmp);
+      }
+
+    }
 }
 
-void setStatus(){
+void setAckRegen(){
+    //Serial.println(String(msg.buf[0]));
+    int i;
+    ack = display.ack;
+    if (old_ack != ack){
+        for (i = 0; i < 8; i++){
+            if (i == ack){
+                sprintf(tmp, "regen.setup%d.bco=GREENÿÿÿ\0", i);
+                old_ack = ack;
+                scic_msg(tmp);
+            }
+            else {
+                sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", i);
+                scic_msg(tmp);
+            }
+        }
 
-  if(local_sh.status.status_shared & 0b00000001) scic_msg("main_dark.hv.bco=GREENÿÿÿ\0");
-  else scic_msg("main_dark.hv.bco=REDÿÿÿ\0");
-
-
-  if(local_sh.status.status_shared & 0b00000010) scic_msg("main_dark.lv.bco=REDÿÿÿ\0");
-  else scic_msg("main_dark.lv.bco=GREENÿÿÿ\0");
-
-
-  if(local_sh.status.status_shared & 0b00000100) scic_msg("main_dark.temp.bco=REDÿÿÿ\0");
-  else scic_msg("main_dark.temp.bco=GREENÿÿÿ\0");
-
-
-  if(local_sh.status.status_shared & 0b00001000) scic_msg("main_dark.pre.bco=GREENÿÿÿ\0");
-  else scic_msg("main_dark.pre.bco=REDÿÿÿ\0");
-
-
-  if(local_sh.status.status_shared & 0b00010000) scic_msg("main_dark.r2d.bco=GREENÿÿÿ\0");
-  else scic_msg("main_dark.r2d.bco=REDÿÿÿ\0");
-
-
-  if(local_sh.status.status_shared & 0b00100000) scic_msg("main_dark.brk.bco=REDÿÿÿ\0");
-  else scic_msg("main_dark.brk.bco=GREENÿÿÿ\0");
-
-
-  if(local_sh.status.status_shared & 0b01000000) scic_msg("main_dark.imp.bco=REDÿÿÿ\0");
-  else scic_msg("main_dark.imp.bco=GREENÿÿÿ\0");
-
-
-  if(local_sh.status.status_shared & 0b10000000) scic_msg("main_dark.rf.bco=GREENÿÿÿ\0");
-  else scic_msg("main_dark.rf.bco=REDÿÿÿ\0");
-
-
-  sprintf(tmp, "main_dark.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
-  scic_msg(tmp);
+    }
 }
+
+
+
 
 void setAMK_fl(){
-    sprintf(tmp, "tyre_motor_d.mot1.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempMotor);
-    scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempIGBT);
-    scic_msg(tmp);
-    sprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempInverter);
-    scic_msg(tmp);
+
+
+
     sprintf(tmp, "motor_status.errorfl.txt=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
 void setAMK_fr(){
-    sprintf(tmp, "tyre_motor_d.mot2.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempMotor);
-    scic_msg(tmp);
+
     sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempIGBT);
     scic_msg(tmp);
-    sprintf(tmp, "inverter.inv2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempInverter);
-    scic_msg(tmp);
+
     sprintf(tmp, "motor_status.errorfr.txt=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
 void setAMK_rl(){
-    sprintf(tmp, "tyre_motor_d.mot3.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempMotor);
-    scic_msg(tmp);
+
     sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempIGBT);
     scic_msg(tmp);
     sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempInverter);
@@ -176,8 +352,7 @@ void setAMK_rl(){
 }
 
 void setAMK_rr(){
-    sprintf(tmp, "tyre_motor_d.mot4.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempMotor);
-    scic_msg(tmp);
+
     sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempIGBT);
     scic_msg(tmp);
     sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempInverter);
@@ -204,14 +379,7 @@ void setTemps(){
     scic_msg(tmp);
 }
 
-void setBMS_voltage(){
-    sprintf(tmp, "bms.high.val=%dÿÿÿ\0",local_sh.bms.max_bms_voltage_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "bms.medium.val=%dÿÿÿ\0",local_sh.bms.mean_bms_voltage_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "bms.low.val=%dÿÿÿ\0",local_sh.bms.min_bms_voltage_shared);
-    scic_msg(tmp);
-}
+
 
 void setFLstatus(){
   if(local_sh.motorVal1[0].AMK_bInverterOn){

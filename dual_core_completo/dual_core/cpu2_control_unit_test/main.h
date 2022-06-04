@@ -128,6 +128,9 @@ float power_error;
 float anti_wind_up = 0;
 float reduction_factor;
 
+Uint16 regensetup[8];
+float max_regen_current=-20.0f;
+
 float power_limit; //quello che gli arriva dal volante
 bool powerOK = false;
 Uint16 powersetup[8];
@@ -190,7 +193,9 @@ volatile uint16_t cpuTimer2IntCount;
 volatile Uint32 pinValue;
 
 //schermo
-int presets[8] = {3, 30, 40, 50, 60, 65, 70, 75};
+int presets_power[8] = {3, 30, 40, 50, 60, 65, 70, 75};
+
+float presets_regen[6]={-1.5f,-3.0f,-5.0f,-10.0f,-15.0f,-20.0f};
 
 //CAN
 volatile Uint32 errorFlag = 0;

@@ -126,11 +126,11 @@ struct Share_struct {
 };
 
 
+void updateValues();
 void updatePage(Uint16 page);
 
 void changePreset(Uint16 preset, Uint16 page, Uint16 ack);
 
-void setStatus();
 
 void setAMK_fl();
 

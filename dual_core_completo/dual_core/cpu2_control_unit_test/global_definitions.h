@@ -74,7 +74,7 @@
 #define MAX_POS_TORQUE              21.0f
 #define MAX_NEG_TORQUE              -1.5f
 
-#define MAX_REGEN_CURRENT           -20.0f
+//#define MAX_REGEN_CURRENT           -20.0f
 //
 
 // POWER CONTROL
@@ -174,11 +174,12 @@
 
 #define CONFIRMATION        0x1
 #define NEXT_PAGE           0x2
-#define CALIBRATION         0x3
+#define CALIBRATION         0x3//TO REVIEW
 #define PREVIOUS_PAGE       0x4
 #define START_LAUNCH        0x8
 
-#define CHANGE_SETUP_PAGE   0x7
+#define POWER_CONTROL_PAGE   0x8
+#define REGEN_PAGE          0x9
 
 //
 // ePWM

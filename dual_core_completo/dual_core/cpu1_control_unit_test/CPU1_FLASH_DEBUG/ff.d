@@ -9,19 +9,11 @@ ff.obj: C:/ti/ff14b/source/ff.h
 ff.obj: C:/ti/ff14b/source/ffconf.h
 ff.obj: C:/ti/ff14b/source/diskio.h
 
-../ff.c:
-
-C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h:
-
-C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_ti_config.h:
-
-C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/linkage.h:
-
-C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/cdefs.h:
-
-C:/ti/ff14b/source/ff.h:
-
-C:/ti/ff14b/source/ffconf.h:
-
-C:/ti/ff14b/source/diskio.h:
-
+../ff.c: 
+C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h: 
+C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_ti_config.h: 
+C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/linkage.h: 
+C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/cdefs.h: 
+C:/ti/ff14b/source/ff.h: 
+C:/ti/ff14b/source/ffconf.h: 
+C:/ti/ff14b/source/diskio.h: 

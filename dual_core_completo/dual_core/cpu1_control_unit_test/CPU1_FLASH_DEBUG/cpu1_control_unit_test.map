@@ -1,10 +1,10 @@
 ******************************************************************************
              TMS320C2000 Linker PC v20.2.1                     
 ******************************************************************************
->> Linked Sat Jun  4 12:30:15 2022
+>> Linked Sat Jun  4 15:58:34 2022
 
 OUTPUT FILE NAME:   <cpu1_control_unit_test.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 0009caf3
+ENTRY POINT SYMBOL: "_c_int00"  address: 0009ccb7
 
 
 MEMORY CONFIGURATION
@@ -27,8 +27,8 @@ PAGE 0:
   FLASHC                00084000   00002000  00000000  00002000  RWIX
   FLASHD                00086000   00002000  0000003f  00001fc1  RWIX
   FLASHE                00088000   00008000  00000000  00008000  RWIX
-  FLASHF                00090000   00008000  00000fdc  00007024  RWIX
-  FLASHG                00098000   00008000  00004fbb  00003045  RWIX
+  FLASHF                00090000   00008000  000011f8  00006e08  RWIX
+  FLASHG                00098000   00008000  0000517f  00002e81  RWIX
   FLASHH                000a0000   00008000  00000000  00008000  RWIX
   FLASHI                000a8000   00008000  00000000  00008000  RWIX
   FLASHJ                000b0000   00008000  00000000  00008000  RWIX
@@ -197,71 +197,71 @@ codestart
                   000820e4    00000004     ustdlib.obj (.cinit)
                   000820e8    00000002     --HOLE-- [fill = 0]
 
-.text      0    00098000    00004fbb     
+.text      0    00098000    0000517f     
                   00098000    00001501     ff.obj (.text)
                   00099501    00000001     rts2800_fpu32.lib : startup.c.obj (.text)
                   00099502    00000ce4                       : _printfi.c.obj (.text)
                   0009a1e6    00000585     F2837xD_DefaultISR.obj (.text:retain)
                   0009a76b    00000522     can.obj (.text)
-                  0009ac8d    000004b4     F2837xD_SysCtrl.obj (.text)
-                  0009b141    0000042c     mmc_F2837x.obj (.text)
-                  0009b56d    00000324     display.obj (.text)
-                  0009b891    000002c5     sd_card.obj (.text)
-                  0009bb56    0000024b     sysctl.obj (.text)
-                  0009bda1    00000244     F2837xD_Gpio.obj (.text)
-                  0009bfe5    000001ca     interrupt.obj (.text)
-                  0009c1af    00000194     main.obj (.text:retain)
-                  0009c343    00000151     main.obj (.text)
-                  0009c494    00000107     rts2800_fpu32.lib : ll_div28.asm.obj (.text)
-                  0009c59b    000000f0     F2837xD_EPwm.obj (.text)
-                  0009c68b    000000b2     GPIO_management.obj (.text)
-                  0009c73d    000000ae     rts2800_fpu32.lib : s_scalbn.c.obj (.text)
-                  0009c7eb    0000009c                       : fd_add28.asm.obj (.text)
-                  0009c887    0000008b                       : fd_div28.asm.obj (.text)
-                  0009c912    00000088                       : fs_div28.asm.obj (.text)
-                  0009c99a    00000083                       : fd_mpy28.asm.obj (.text)
-                  0009ca1d    0000007c     F2837xD_CpuTimers.obj (.text)
-                  0009ca99    0000005a     rts2800_fpu32.lib : s_frexp.c.obj (.text)
-                  0009caf3    00000056                       : boot28.asm.obj (.text)
-                  0009cb49    00000055     systick.obj (.text)
-                  0009cb9e    00000055     uart.obj (.text)
-                  0009cbf3    00000049     cmdline.obj (.text)
-                  0009cc3c    00000032     rts2800_fpu32.lib : sprintf.c.obj (.text)
-                  0009cc6e    00000031     sd_card.obj (.text:retain)
-                  0009cc9f    00000031     rts2800_fpu32.lib : atoi.c.obj (.text)
-                  0009ccd0    00000030                       : _ltoa.c.obj (.text)
-                  0009cd00    0000002a                       : fd_cmp28.asm.obj (.text)
-                  0009cd2a    0000002a                       : l_div28.asm.obj (.text)
-                  0009cd54    00000029                       : exit.c.obj (.text)
-                  0009cd7d    00000028     F2837xD_PieCtrl.obj (.text)
-                  0009cda5    00000026     F2837xD_PieVect.obj (.text)
-                  0009cdcb    00000025     rts2800_fpu32.lib : s_copysign.c.obj (.text)
-                  0009cdf0    00000024                       : cpy_tbl.c.obj (.text)
-                  0009ce14    00000021                       : fd_toi28.asm.obj (.text)
-                  0009ce35    0000001f                       : fd_tol28.asm.obj (.text)
-                  0009ce54    0000001e                       : ll_cmp28.asm.obj (.text)
-                  0009ce72    0000001d                       : i_tofd28.asm.obj (.text)
-                  0009ce8f    0000001d                       : memcpy.c.obj (.text)
-                  0009ceac    0000001c                       : fs_tofdfpu32.asm.obj (.text)
-                  0009cec8    0000001c                       : l_tofd28.asm.obj (.text)
-                  0009cee4    00000018                       : ll_aox28.asm.obj (.text)
-                  0009cefc    00000015                       : strncpy.c.obj (.text)
-                  0009cf11    00000013                       : memcmp.c.obj (.text)
-                  0009cf24    00000012                       : args_main.c.obj (.text)
-                  0009cf36    00000010                       : memccpy.c.obj (.text)
-                  0009cf46    0000000f     interrupt.obj (.text:retain)
-                  0009cf55    0000000e     rts2800_fpu32.lib : fd_sub28.asm.obj (.text)
-                  0009cf63    0000000c                       : strchr.c.obj (.text)
-                  0009cf6f    0000000a                       : strcmp.c.obj (.text)
-                  0009cf79    00000009                       : _lock.c.obj (.text)
-                  0009cf82    00000009                       : fd_neg28.asm.obj (.text)
-                  0009cf8b    00000009                       : strcat.c.obj (.text)
-                  0009cf94    00000009                       : wcslen.c.obj (.text)
-                  0009cf9d    00000008     F2837xD_CodeStartBranch.obj (.text)
-                  0009cfa5    00000008     rts2800_fpu32.lib : strlen.c.obj (.text)
-                  0009cfad    00000007                       : memset.c.obj (.text)
-                  0009cfb4    00000005                       : strcpy.c.obj (.text)
-                  0009cfb9    00000002                       : pre_init.c.obj (.text)
+                  0009ac8d    000004e3     display.obj (.text)
+                  0009b170    000004b4     F2837xD_SysCtrl.obj (.text)
+                  0009b624    0000042c     mmc_F2837x.obj (.text)
+                  0009ba50    000002c5     sd_card.obj (.text)
+                  0009bd15    0000024b     sysctl.obj (.text)
+                  0009bf60    00000244     F2837xD_Gpio.obj (.text)
+                  0009c1a4    000001ca     interrupt.obj (.text)
+                  0009c36e    00000199     main.obj (.text:retain)
+                  0009c507    00000151     main.obj (.text)
+                  0009c658    00000107     rts2800_fpu32.lib : ll_div28.asm.obj (.text)
+                  0009c75f    000000f0     F2837xD_EPwm.obj (.text)
+                  0009c84f    000000b2     GPIO_management.obj (.text)
+                  0009c901    000000ae     rts2800_fpu32.lib : s_scalbn.c.obj (.text)
+                  0009c9af    0000009c                       : fd_add28.asm.obj (.text)
+                  0009ca4b    0000008b                       : fd_div28.asm.obj (.text)
+                  0009cad6    00000088                       : fs_div28.asm.obj (.text)
+                  0009cb5e    00000083                       : fd_mpy28.asm.obj (.text)
+                  0009cbe1    0000007c     F2837xD_CpuTimers.obj (.text)
+                  0009cc5d    0000005a     rts2800_fpu32.lib : s_frexp.c.obj (.text)
+                  0009ccb7    00000056                       : boot28.asm.obj (.text)
+                  0009cd0d    00000055     systick.obj (.text)
+                  0009cd62    00000055     uart.obj (.text)
+                  0009cdb7    00000049     cmdline.obj (.text)
+                  0009ce00    00000032     rts2800_fpu32.lib : sprintf.c.obj (.text)
+                  0009ce32    00000031     sd_card.obj (.text:retain)
+                  0009ce63    00000031     rts2800_fpu32.lib : atoi.c.obj (.text)
+                  0009ce94    00000030                       : _ltoa.c.obj (.text)
+                  0009cec4    0000002a                       : fd_cmp28.asm.obj (.text)
+                  0009ceee    0000002a                       : l_div28.asm.obj (.text)
+                  0009cf18    00000029                       : exit.c.obj (.text)
+                  0009cf41    00000028     F2837xD_PieCtrl.obj (.text)
+                  0009cf69    00000026     F2837xD_PieVect.obj (.text)
+                  0009cf8f    00000025     rts2800_fpu32.lib : s_copysign.c.obj (.text)
+                  0009cfb4    00000024                       : cpy_tbl.c.obj (.text)
+                  0009cfd8    00000021                       : fd_toi28.asm.obj (.text)
+                  0009cff9    0000001f                       : fd_tol28.asm.obj (.text)
+                  0009d018    0000001e                       : ll_cmp28.asm.obj (.text)
+                  0009d036    0000001d                       : i_tofd28.asm.obj (.text)
+                  0009d053    0000001d                       : memcpy.c.obj (.text)
+                  0009d070    0000001c                       : fs_tofdfpu32.asm.obj (.text)
+                  0009d08c    0000001c                       : l_tofd28.asm.obj (.text)
+                  0009d0a8    00000018                       : ll_aox28.asm.obj (.text)
+                  0009d0c0    00000015                       : strncpy.c.obj (.text)
+                  0009d0d5    00000013                       : memcmp.c.obj (.text)
+                  0009d0e8    00000012                       : args_main.c.obj (.text)
+                  0009d0fa    00000010                       : memccpy.c.obj (.text)
+                  0009d10a    0000000f     interrupt.obj (.text:retain)
+                  0009d119    0000000e     rts2800_fpu32.lib : fd_sub28.asm.obj (.text)
+                  0009d127    0000000c                       : strchr.c.obj (.text)
+                  0009d133    0000000a                       : strcmp.c.obj (.text)
+                  0009d13d    00000009                       : _lock.c.obj (.text)
+                  0009d146    00000009                       : fd_neg28.asm.obj (.text)
+                  0009d14f    00000009                       : strcat.c.obj (.text)
+                  0009d158    00000009                       : wcslen.c.obj (.text)
+                  0009d161    00000008     F2837xD_CodeStartBranch.obj (.text)
+                  0009d169    00000008     rts2800_fpu32.lib : strlen.c.obj (.text)
+                  0009d171    00000007                       : memset.c.obj (.text)
+                  0009d178    00000005                       : strcpy.c.obj (.text)
+                  0009d17d    00000002                       : pre_init.c.obj (.text)
 
 .reset     0    003fffc0    00000002     DSECT
                   003fffc0    00000002     rts2800_fpu32.lib : boot28.asm.obj (.reset)
@@ -295,29 +295,29 @@ GETWRITEIDX
 PUTREADIDX 
 *          0    0003f800    00000000     DSECT
 
-.econst    0    00090000    00000fdc     
-                  00090000    000006e1     display.obj (.econst:.string)
-                  000906e1    00000001     --HOLE-- [fill = 0]
-                  000906e2    00000236     sd_card.obj (.econst:.string)
-                  00090918    000001c0     F2837xD_PieVect.obj (.econst:_PieVectTableInit)
-                  00090ad8    000001a2     main.obj (.econst:.string)
-                  00090c7a    00000122     sd_card.obj (.econst:.string:_$P$T1$2)
-                  00090d9c    00000101     rts2800_fpu32.lib : ctype.c.obj (.econst:.string:__ctypes_)
-                  00090e9d    00000001     --HOLE-- [fill = 0]
-                  00090e9e    00000067     Telemetry.obj (.econst:.string)
-                  00090f05    00000028     sd_card.obj (.econst:.string:_$P$T0$1)
-                  00090f2d    00000001     --HOLE-- [fill = 0]
-                  00090f2e    00000026     rts2800_fpu32.lib : _printfi.c.obj (.econst:.string)
-                  00090f54    0000001c                       : _printfi.c.obj (.econst)
-                  00090f70    0000001c                       : s_scalbn.c.obj (.econst)
-                  00090f8c    00000019     ff.obj (.econst:.string)
-                  00090fa5    00000001     --HOLE-- [fill = 0]
-                  00090fa6    00000018     ustdlib.obj (.econst:.string)
-                  00090fbe    0000000a     ff.obj (.econst:.string:_DbcTbl)
-                  00090fc8    00000009     can.obj (.econst:_g_ui16CANBitValues)
-                  00090fd1    00000001     --HOLE-- [fill = 0]
-                  00090fd2    00000008     rts2800_fpu32.lib : s_frexp.c.obj (.econst)
-                  00090fda    00000002     ustdlib.obj (.econst)
+.econst    0    00090000    000011f8     
+                  00090000    000008fd     display.obj (.econst:.string)
+                  000908fd    00000001     --HOLE-- [fill = 0]
+                  000908fe    00000236     sd_card.obj (.econst:.string)
+                  00090b34    000001c0     F2837xD_PieVect.obj (.econst:_PieVectTableInit)
+                  00090cf4    000001a2     main.obj (.econst:.string)
+                  00090e96    00000122     sd_card.obj (.econst:.string:_$P$T1$2)
+                  00090fb8    00000101     rts2800_fpu32.lib : ctype.c.obj (.econst:.string:__ctypes_)
+                  000910b9    00000001     --HOLE-- [fill = 0]
+                  000910ba    00000067     Telemetry.obj (.econst:.string)
+                  00091121    00000028     sd_card.obj (.econst:.string:_$P$T0$1)
+                  00091149    00000001     --HOLE-- [fill = 0]
+                  0009114a    00000026     rts2800_fpu32.lib : _printfi.c.obj (.econst:.string)
+                  00091170    0000001c                       : _printfi.c.obj (.econst)
+                  0009118c    0000001c                       : s_scalbn.c.obj (.econst)
+                  000911a8    00000019     ff.obj (.econst:.string)
+                  000911c1    00000001     --HOLE-- [fill = 0]
+                  000911c2    00000018     ustdlib.obj (.econst:.string)
+                  000911da    0000000a     ff.obj (.econst:.string:_DbcTbl)
+                  000911e4    00000009     can.obj (.econst:_g_ui16CANBitValues)
+                  000911ed    00000001     --HOLE-- [fill = 0]
+                  000911ee    00000008     rts2800_fpu32.lib : s_frexp.c.obj (.econst)
+                  000911f6    00000002     ustdlib.obj (.econst)
 
 AdcaResultRegsFile 
 *          1    00000b00    00000018     UNINITIALIZED
@@ -798,9 +798,9 @@ MODULE SUMMARY
     .\
        F2837xD_GlobalVariableDefs.obj   0       0                  9854              
        ff.obj                           5377    35                 3                 
+       display.obj                      1251    2301               0                 
        sd_card.obj                      758     1040               1462              
-       display.obj                      804     1761               0                 
-       main.obj                         741     438                635               
+       main.obj                         746     438                635               
        F2837xD_DefaultISR.obj           1413    0                  0                 
        can.obj                          1314    9                  0                 
        F2837xD_SysCtrl.obj              1314    0                  0                 
@@ -822,7 +822,7 @@ MODULE SUMMARY
        F2837xD_usDelay.obj              8       0                  0                 
        LoRa.obj                         0       4                  3                 
     +--+--------------------------------+-------+------------------+--------------------+
-       Total:                           15318   3900               12263             
+       Total:                           15770   4440               12263             
                                                                                      
     C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/lib/rts2800_fpu32.lib
        _printfi.c.obj                   3300    66                 0                 
@@ -873,7 +873,7 @@ MODULE SUMMARY
                                                                                      
        Stack:                           0       0                  1016              
     +--+--------------------------------+-------+------------------+--------------------+
-       Grand Total:                     20539   4287               13290             
+       Grand Total:                     20991   4827               13290             
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -1132,9 +1132,9 @@ address     data page           name
 
 0005fb00    17ec (0005fb00)     _Flash0EccRegs
 
-00090918    2424 (00090900)     _PieVectTableInit
+00090b34    242c (00090b00)     _PieVectTableInit
 
-00090d9c    2436 (00090d80)     __ctypes_
+00090fb8    243e (00090f80)     __ctypes_
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
@@ -1142,32 +1142,32 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                                  
 ----  -------   ----                                  
 0     00098000  .text                                 
-0     0009cd54  C$$EXIT                               
-0     0009c7eb  FD$$ADD                               
-0     0009cd00  FD$$CMP                               
-0     0009c887  FD$$DIV                               
-0     0009c99a  FD$$MPY                               
-0     0009cf82  FD$$NEG                               
-0     0009cf55  FD$$SUB                               
-0     0009ce14  FD$$TOI                               
-0     0009ce35  FD$$TOL                               
-0     0009c912  FS$$DIV                               
-0     0009ceac  FS$$TOFD                              
-0     0009ce72  I$$TOFD                               
-0     0009cd2a  L$$DIV                                
-0     0009cd39  L$$MOD                                
-0     0009cec8  L$$TOFD                               
-0     0009cee4  LL$$AND                               
-0     0009ce54  LL$$CMP                               
-0     0009c494  LL$$DIV                               
-0     0009c4d0  LL$$MOD                               
-0     0009ceec  LL$$OR                                
-0     0009cef4  LL$$XOR                               
-0     0009cd47  UL$$DIV                               
-0     0009cd4e  UL$$MOD                               
-0     0009ce66  ULL$$CMP                              
-0     0009c50a  ULL$$DIV                              
-0     0009c539  ULL$$MOD                              
+0     0009cf18  C$$EXIT                               
+0     0009c9af  FD$$ADD                               
+0     0009cec4  FD$$CMP                               
+0     0009ca4b  FD$$DIV                               
+0     0009cb5e  FD$$MPY                               
+0     0009d146  FD$$NEG                               
+0     0009d119  FD$$SUB                               
+0     0009cfd8  FD$$TOI                               
+0     0009cff9  FD$$TOL                               
+0     0009cad6  FS$$DIV                               
+0     0009d070  FS$$TOFD                              
+0     0009d036  I$$TOFD                               
+0     0009ceee  L$$DIV                                
+0     0009cefd  L$$MOD                                
+0     0009d08c  L$$TOFD                               
+0     0009d0a8  LL$$AND                               
+0     0009d018  LL$$CMP                               
+0     0009c658  LL$$DIV                               
+0     0009c694  LL$$MOD                               
+0     0009d0b0  LL$$OR                                
+0     0009d0b8  LL$$XOR                               
+0     0009cf0b  UL$$DIV                               
+0     0009cf12  UL$$MOD                               
+0     0009d02a  ULL$$CMP                              
+0     0009c6ce  ULL$$DIV                              
+0     0009c6fd  ULL$$MOD                              
 0     0009a2a4  _ADCA1_ISR                            
 0     0009a524  _ADCA2_ISR                            
 0     0009a52e  _ADCA3_ISR                            
@@ -1200,9 +1200,9 @@ page  address   name
 1     00000b60  _AdcdResultRegs                       
 1     0000acbc  _AmkStatus                            
 1     0005d180  _AnalogSubsysRegs                     
-0     0009b0d0  _AuxAuxClkSel                         
-0     0009b0ba  _AuxIntOsc2Sel                        
-0     0009b0c4  _AuxXtalOscSel                        
+0     0009b5b3  _AuxAuxClkSel                         
+0     0009b59d  _AuxIntOsc2Sel                        
+0     0009b5a7  _AuxXtalOscSel                        
 0     0009a4f2  _CANA0_ISR                            
 0     0009a4fc  _CANA1_ISR                            
 0     0009a506  _CANB0_ISR                            
@@ -1258,15 +1258,15 @@ page  address   name
 1     00003d00  _Clb4LogicCtrlRegs                    
 1     00007a40  _ClbXbarRegs                          
 1     0005d200  _ClkCfgRegs                           
-0     0009cbf3  _CmdLineProcess                       
-0     0009b94f  _Cmd_cat                              
-0     0009b939  _Cmd_cd                               
-0     0009bab0  _Cmd_help                             
-0     0009b891  _Cmd_ls                               
-0     0009ba3a  _Cmd_mkdir                            
-0     0009b949  _Cmd_pwd                              
-0     0009ba75  _Cmd_rm                               
-0     0009b9a4  _Cmd_write                            
+0     0009cdb7  _CmdLineProcess                       
+0     0009bb0e  _Cmd_cat                              
+0     0009baf8  _Cmd_cd                               
+0     0009bc6f  _Cmd_help                             
+0     0009ba50  _Cmd_ls                               
+0     0009bbf9  _Cmd_mkdir                            
+0     0009bb08  _Cmd_pwd                              
+0     0009bc34  _Cmd_rm                               
+0     0009bb63  _Cmd_write                            
 1     00005c80  _Cmpss1Regs                           
 1     00005ca0  _Cmpss2Regs                           
 1     00005cc0  _Cmpss3Regs                           
@@ -1275,8 +1275,8 @@ page  address   name
 1     00005d20  _Cmpss6Regs                           
 1     00005d40  _Cmpss7Regs                           
 1     00005d60  _Cmpss8Regs                           
-0     0009ca5e  _ConfigCpuTimer                       
-0     0009b124  _ConfigureTMXAnalogTrim               
+0     0009cc22  _ConfigCpuTimer                       
+0     0009b607  _ConfigureTMXAnalogTrim               
 1     0005d300  _CpuSysRegs                           
 1     0000ac9a  _CpuTimer0                            
 1     00000c00  _CpuTimer0Regs                        
@@ -1284,7 +1284,7 @@ page  address   name
 1     00000c08  _CpuTimer1Regs                        
 1     0000acaa  _CpuTimer2                            
 1     00000c10  _CpuTimer2Regs                        
-0     0009b065  _CsmUnlock                            
+0     0009b548  _CsmUnlock                            
 0     0009a1fa  _DATALOG_ISR                          
 0     0009a43e  _DMA_CH1_ISR                          
 0     0009a448  _DMA_CH2_ISR                          
@@ -1299,8 +1299,8 @@ page  address   name
 1     0005f000  _DcsmZ1Regs                           
 1     0005f040  _DcsmZ2Regs                           
 1     0005d000  _DevCfgRegs                           
-0     0009ad79  _DisableDog                           
-0     0009ad3a  _DisablePeripheralClocks              
+0     0009b25c  _DisableDog                           
+0     0009b21d  _DisablePeripheralClocks              
 1     00007980  _DmaClaSrcSelRegs                     
 1     00001000  _DmaRegs                              
 0     0009a394  _ECAP1_ISR                            
@@ -1365,7 +1365,7 @@ page  address   name
 1     00047000  _Emif1Regs                            
 1     0005f4a0  _Emif2ConfigRegs                      
 1     00047800  _Emif2Regs                            
-0     0009cd9c  _EnableInterrupts                     
+0     0009cf60  _EnableInterrupts                     
 0     00008037  _F28x_usDelay                         
 0     0009a70e  _FLASH_CORRECTABLE_ERROR_ISR          
 0     0009a5e2  _FPU_OVERFLOW_ISR                     
@@ -1374,67 +1374,67 @@ page  address   name
 1     0005fb00  _Flash0EccRegs                        
 0     00008029  _FlashOff                             
 1     00050024  _FlashPumpSemaphoreRegs               
-0     0009c68b  _GPIOSetup                            
-0     0009bf9a  _GPIO_EnableUnbondedIOPullups         
-0     0009bf75  _GPIO_EnableUnbondedIOPullupsFor100Pin
-0     0009bf5c  _GPIO_EnableUnbondedIOPullupsFor176Pin
-0     0009bfb0  _GPIO_ReadPin                         
-0     0009bf01  _GPIO_SetupLock                       
-0     0009bde1  _GPIO_SetupPinMux                     
-0     0009be6d  _GPIO_SetupPinOptions                 
-0     0009bf2a  _GPIO_SetupXINT1Gpio                  
-0     0009bf34  _GPIO_SetupXINT2Gpio                  
-0     0009bf3e  _GPIO_SetupXINT3Gpio                  
-0     0009bf48  _GPIO_SetupXINT4Gpio                  
-0     0009bf52  _GPIO_SetupXINT5Gpio                  
-0     0009bfc7  _GPIO_WritePin                        
+0     0009c84f  _GPIOSetup                            
+0     0009c159  _GPIO_EnableUnbondedIOPullups         
+0     0009c134  _GPIO_EnableUnbondedIOPullupsFor100Pin
+0     0009c11b  _GPIO_EnableUnbondedIOPullupsFor176Pin
+0     0009c16f  _GPIO_ReadPin                         
+0     0009c0c0  _GPIO_SetupLock                       
+0     0009bfa0  _GPIO_SetupPinMux                     
+0     0009c02c  _GPIO_SetupPinOptions                 
+0     0009c0e9  _GPIO_SetupXINT1Gpio                  
+0     0009c0f3  _GPIO_SetupXINT2Gpio                  
+0     0009c0fd  _GPIO_SetupXINT3Gpio                  
+0     0009c107  _GPIO_SetupXINT4Gpio                  
+0     0009c111  _GPIO_SetupXINT5Gpio                  
+0     0009c186  _GPIO_WritePin                        
 1     00007c00  _GpioCtrlRegs                         
 1     00007f00  _GpioDataRegs                         
-0     0009b0ee  _HALT                                 
-0     0009b107  _HIB                                  
+0     0009b5d1  _HALT                                 
+0     0009b5ea  _HIB                                  
 0     0009a484  _I2CA_FIFO_ISR                        
 0     0009a47a  _I2CA_ISR                             
 0     0009a498  _I2CB_FIFO_ISR                        
 0     0009a48e  _I2CB_ISR                             
 1     00007300  _I2caRegs                             
 1     00007340  _I2cbRegs                             
-0     0009b0da  _IDLE                                 
+0     0009b5bd  _IDLE                                 
 0     0009a222  _ILLEGAL_ISR                          
 0     0009a5f6  _IPC0_ISR                             
 0     0009a600  _IPC1_ISR                             
 0     0009a60a  _IPC2_ISR                             
 0     0009a614  _IPC3_ISR                             
-0     0009af76  _InitAuxPll                           
-0     0009ca1d  _InitCpuTimers                        
-0     0009c651  _InitEPwm10Gpio                       
-0     0009c664  _InitEPwm11Gpio                       
-0     0009c678  _InitEPwm12Gpio                       
-0     0009c5b4  _InitEPwm1Gpio                        
-0     0009c5c6  _InitEPwm2Gpio                        
-0     0009c5d8  _InitEPwm3Gpio                        
-0     0009c5ec  _InitEPwm4Gpio                        
-0     0009c5f9  _InitEPwm5Gpio                        
-0     0009c60b  _InitEPwm6Gpio                        
-0     0009c617  _InitEPwm7Gpio                        
-0     0009c62b  _InitEPwm8Gpio                        
-0     0009c63f  _InitEPwm9Gpio                        
-0     0009c59b  _InitEPwmGpio                         
+0     0009b459  _InitAuxPll                           
+0     0009cbe1  _InitCpuTimers                        
+0     0009c815  _InitEPwm10Gpio                       
+0     0009c828  _InitEPwm11Gpio                       
+0     0009c83c  _InitEPwm12Gpio                       
+0     0009c778  _InitEPwm1Gpio                        
+0     0009c78a  _InitEPwm2Gpio                        
+0     0009c79c  _InitEPwm3Gpio                        
+0     0009c7b0  _InitEPwm4Gpio                        
+0     0009c7bd  _InitEPwm5Gpio                        
+0     0009c7cf  _InitEPwm6Gpio                        
+0     0009c7db  _InitEPwm7Gpio                        
+0     0009c7ef  _InitEPwm8Gpio                        
+0     0009c803  _InitEPwm9Gpio                        
+0     0009c75f  _InitEPwmGpio                         
 0     00008000  _InitFlash                            
-0     0009bda1  _InitGpio                             
-0     0009acb6  _InitPeripheralClocks                 
-0     0009cd7d  _InitPieCtrl                          
-0     0009cda5  _InitPieVectTable                     
-0     0009ac8d  _InitSysCtrl                          
-0     0009ad87  _InitSysPll                           
+0     0009bf60  _InitGpio                             
+0     0009b199  _InitPeripheralClocks                 
+0     0009cf41  _InitPieCtrl                          
+0     0009cf69  _InitPieVectTable                     
+0     0009b170  _InitSysCtrl                          
+0     0009b26a  _InitSysPll                           
 1     00007900  _InputXbarRegs                        
-0     0009cf46  _IntDefaultHandler                    
-0     0009c0b0  _IntDisable                           
-0     0009c01d  _IntEnable                            
-0     0009c130  _IntIFRClear                          
-0     0009bfed  _IntMasterDisable                     
-0     0009bfe5  _IntMasterEnable                      
-0     0009bff5  _IntRegister                          
-0     0009c008  _IntUnregister                        
+0     0009d10a  _IntDefaultHandler                    
+0     0009c26f  _IntDisable                           
+0     0009c1dc  _IntEnable                            
+0     0009c2ef  _IntIFRClear                          
+0     0009c1ac  _IntMasterDisable                     
+0     0009c1a4  _IntMasterEnable                      
+0     0009c1b4  _IntRegister                          
+0     0009c1c7  _IntUnregister                        
 1     00050000  _IpcRegs                              
 1     0000accd  _LoRa_Packet_Counter                  
 0     0009a416  _MCBSPA_RX_ISR                        
@@ -1452,7 +1452,7 @@ page  address   name
 0     0009a74a  _PIE_RESERVED_ISR                     
 1     00000ce0  _PieCtrlRegs                          
 1     00000d00  _PieVectTable                         
-0     00090918  _PieVectTableInit                     
+0     00090b34  _PieVectTableInit                     
 0     0009a718  _RAM_ACCESS_VIOLATION_ISR             
 0     0009a704  _RAM_CORRECTABLE_ERROR_ISR            
 0     0009a204  _RTOS_ISR                             
@@ -1462,7 +1462,7 @@ abs   0000003f  _RamfuncsLoadSize
 0     0000803f  _RamfuncsRunEnd                       
 abs   0000003f  _RamfuncsRunSize                      
 0     00008000  _RamfuncsRunStart                     
-0     0009ad61  _ReleaseFlashPump                     
+0     0009b244  _ReleaseFlashPump                     
 1     0005e608  _RomPrefetchRegs                      
 1     0005f540  _RomWaitStateRegs                     
 0     0009a4ca  _SCIA_RX_ISR                          
@@ -1481,7 +1481,7 @@ abs   0000003f  _RamfuncsRunSize
 0     0009a40c  _SPIB_TX_ISR                          
 0     0009a682  _SPIC_RX_ISR                          
 0     0009a68c  _SPIC_TX_ISR                          
-0     0009b0e3  _STANDBY                              
+0     0009b5c6  _STANDBY                              
 0     0009a722  _SYS_PLL_SLIP_ISR                     
 1     00007200  _SciaRegs                             
 1     00007210  _ScibRegs                             
@@ -1489,40 +1489,40 @@ abs   0000003f  _RamfuncsRunSize
 1     00007230  _ScidRegs                             
 1     00005e00  _Sdfm1Regs                            
 1     00005e80  _Sdfm2Regs                            
-0     0009ad52  _SeizeFlashPump                       
-0     0009ad6b  _ServiceDog                           
-0     0009c405  _Shared_Ram_dataRead_c1               
+0     0009b235  _SeizeFlashPump                       
+0     0009b24e  _ServiceDog                           
+0     0009c5c9  _Shared_Ram_dataRead_c1               
 1     00006100  _SpiaRegs                             
 1     00006110  _SpibRegs                             
 1     00006120  _SpicRegs                             
 1     00007940  _SyncSocRegs                          
-0     0009bd1d  _SysCtlAuxClockSet                    
-0     0009bc1a  _SysCtlClockGet                       
-0     0009bc7d  _SysCtlClockSet                       
+0     0009bedc  _SysCtlAuxClockSet                    
+0     0009bdd9  _SysCtlClockGet                       
+0     0009be3c  _SysCtlClockSet                       
 0     0000803b  _SysCtlDelay                          
-0     0009bc66  _SysCtlLowSpeedClockGet               
-0     0009bbf5  _SysCtlPeripheralDisable              
-0     0009bbdb  _SysCtlPeripheralEnable               
-0     0009bb56  _SysCtlPeripheralPresent              
-0     0009bb75  _SysCtlPeripheralReady                
-0     0009bbaf  _SysCtlPeripheralReset                
-0     0009bc10  _SysCtlReset                          
-0     0009bda0  _SysCtlUSBPLLDisable                  
-0     0009bd9f  _SysCtlUSBPLLEnable                   
-0     0009b086  _SysIntOsc1Sel                        
-0     0009b096  _SysIntOsc2Sel                        
-0     0009cb5c  _SysTickDisable                       
-0     0009cb55  _SysTickEnable                        
-0     0009cc6e  _SysTickHandler                       
-0     0009cb49  _SysTickInit                          
-0     0009cb85  _SysTickIntDisable                    
-0     0009cb7b  _SysTickIntEnable                     
-0     0009cb61  _SysTickIntRegister                   
-0     0009cb70  _SysTickIntUnregister                 
-0     0009cb96  _SysTickPeriodGet                     
-0     0009cb8f  _SysTickPeriodSet                     
-0     0009cb9a  _SysTickValueGet                      
-0     0009b0aa  _SysXtalOscSel                        
+0     0009be25  _SysCtlLowSpeedClockGet               
+0     0009bdb4  _SysCtlPeripheralDisable              
+0     0009bd9a  _SysCtlPeripheralEnable               
+0     0009bd15  _SysCtlPeripheralPresent              
+0     0009bd34  _SysCtlPeripheralReady                
+0     0009bd6e  _SysCtlPeripheralReset                
+0     0009bdcf  _SysCtlReset                          
+0     0009bf5f  _SysCtlUSBPLLDisable                  
+0     0009bf5e  _SysCtlUSBPLLEnable                   
+0     0009b569  _SysIntOsc1Sel                        
+0     0009b579  _SysIntOsc2Sel                        
+0     0009cd20  _SysTickDisable                       
+0     0009cd19  _SysTickEnable                        
+0     0009ce32  _SysTickHandler                       
+0     0009cd0d  _SysTickInit                          
+0     0009cd49  _SysTickIntDisable                    
+0     0009cd3f  _SysTickIntEnable                     
+0     0009cd25  _SysTickIntRegister                   
+0     0009cd34  _SysTickIntUnregister                 
+0     0009cd5a  _SysTickPeriodGet                     
+0     0009cd53  _SysTickPeriodSet                     
+0     0009cd5e  _SysTickValueGet                      
+0     0009b58d  _SysXtalOscSel                        
 0     0009a2e0  _TIMER0_ISR                           
 0     0009a1e6  _TIMER1_ISR                           
 0     0009a1f0  _TIMER2_ISR                           
@@ -1556,7 +1556,7 @@ abs   000003f8  __STACK_SIZE
 1     0000ae34  ___TI_cleanup_ptr                     
 1     0000ae36  ___TI_dtors_ptr                       
 1     0000ae32  ___TI_enable_exit_profile_output      
-0     0009ccd0  ___TI_ltoa                            
+0     0009ce94  ___TI_ltoa                            
 abs   ffffffff  ___TI_pprof_out_hndl                  
 0     0009a055  ___TI_printfi                         
 abs   ffffffff  ___TI_prof_data_size                  
@@ -1564,43 +1564,43 @@ abs   ffffffff  ___TI_prof_data_start
 abs   ffffffff  ___binit__                            
 abs   ffffffff  ___c_args__                           
 0     00082000  ___cinit__                            
-0     0009cfbb  ___etext__                            
+0     0009d17f  ___etext__                            
 abs   ffffffff  ___pinit__                            
 0     00098000  ___text__                             
-0     0009cf24  __args_main                           
-0     00090d9c  __ctypes_                             
+0     0009d0e8  __args_main                           
+0     00090fb8  __ctypes_                             
 1     0000af78  __lock                                
-0     0009cf81  __nop                                 
-0     0009cf7d  __register_lock                       
-0     0009cf79  __register_unlock                     
+0     0009d145  __nop                                 
+0     0009d141  __register_lock                       
+0     0009d13d  __register_unlock                     
 0     00008800  __stack                               
 0     00099501  __system_post_cinit                   
-0     0009cfb9  __system_pre_init                     
+0     0009d17d  __system_pre_init                     
 1     0000af7a  __unlock                              
-0     0009cd54  _abort                                
+0     0009cf18  _abort                                
 1     0000acc8  _ack                                  
-0     0009cc9f  _atoi                                 
+0     0009ce63  _atoi                                 
 1     0000ace8  _bms_log                              
-0     0009caf3  _c_int00                              
-0     0009c412  _compute_AMKStatus                    
-0     0009cdf0  _copy_in                              
-0     0009cdcb  _copysignl                            
-0     0009c3b7  _cpu1_timer_setup                     
-0     0009c1af  _cpu_timer1_isr                       
-0     0009c313  _cpu_timer2_isr                       
+0     0009ccb7  _c_int00                              
+0     0009c5d6  _compute_AMKStatus                    
+0     0009cfb4  _copy_in                              
+0     0009cf8f  _copysignl                            
+0     0009c57b  _cpu1_timer_setup                     
+0     0009c36e  _cpu_timer1_isr                       
+0     0009c4d2  _cpu_timer2_isr                       
 1     0000acc5  _currentPage                          
 1     0000acc1  _deb                                  
 1     0000a801  _diskResult                           
-0     0009b311  _disk_initialize                      
-0     0009b482  _disk_ioctl                           
-0     0009b3da  _disk_read                            
-0     0009b3cf  _disk_status                          
-0     0009b557  _disk_timerproc                       
-0     0009b424  _disk_write                           
+0     0009b7f4  _disk_initialize                      
+0     0009b965  _disk_ioctl                           
+0     0009b8bd  _disk_read                            
+0     0009b8b2  _disk_status                          
+0     0009ba3a  _disk_timerproc                       
+0     0009b907  _disk_write                           
 0     0001a000  _display                              
 1     0000af7d  _errno                                
 1     0000accb  _error                                
-0     0009cd56  _exit                                 
+0     0009cf1a  _exit                                 
 0     00098fd2  _f_close                              
 0     00099185  _f_closedir                           
 0     000991e9  _f_getfree                            
@@ -1620,76 +1620,86 @@ abs   ffffffff  ___pinit__
 1     0000acd0  _fanspeed_log                         
 1     0000acc4  _file_counter                         
 1     0000ae16  _filename                             
-0     0009ca99  _frexpl                               
+0     0009cc5d  _frexpl                               
 1     0000c080  _g_psCmdTable                         
 1     0000af42  _g_sFresultStrings                    
 1     0000a802  _g_ulStatusStringIndex                
-0     0009b568  _get_fattime                          
+0     0009ba4b  _get_fattime                          
 1     0000acb2  _gpioInput                            
 1     0000ae2a  _gpioOutput                           
 1     0000ace0  _gpio_log                             
 1     0000ae3e  _implicitHeaderFlag                   
 1     0000ad00  _imu_log                              
 1     0000acc0  _increment                            
-0     0009c73d  _ldexpl                               
+0     0009c901  _ldexpl                               
 1     0000ad40  _local_sh                             
 1     0000acce  _local_time_elapsed                   
 1     0000acc3  _local_val                            
-0     0009c343  _main                                 
-0     0009cf36  _memccpy                              
-0     0009cf11  _memcmp                               
-0     0009ce8f  _memcpy                               
-0     0009cfad  _memset                               
+0     0009c507  _main                                 
+0     0009d0fa  _memccpy                              
+0     0009d0d5  _memcmp                               
+0     0009d053  _memcpy                               
+0     0009d171  _memset                               
 1     0000accc  _multiplier                           
 1     0000acc6  _n_setup                              
 1     0000acc9  _old_ack                              
 1     0000acc7  _old_setup                            
 1     0000ae3f  _onTxDone                             
-0     0009bb34  _reverse                              
-0     0009c73d  _scalbnl                              
-0     0009cbeb  _scic_fifo_init                       
-0     0009cbb7  _scic_init                            
-0     0009cbd8  _scic_msg                             
-0     0009cbca  _scic_xmit                            
+0     0009bcf3  _reverse                              
+0     0009c901  _scalbnl                              
+0     0009cdaf  _scic_fifo_init                       
+0     0009cd7b  _scic_init                            
+0     0009cd9c  _scic_msg                             
+0     0009cd8e  _scic_xmit                            
 1     0000acca  _sel                                  
-0     0009c3e9  _send_can_to_cpu2                     
+0     0009c5ad  _send_can_to_cpu2                     
 1     0000acd8  _sendyne_log                          
-0     0009b6d8  _setAMK_fl                            
-0     0009b717  _setAMK_fr                            
-0     0009b756  _setAMK_rl                            
-0     0009b795  _setAMK_rr                            
-0     0009b61e  _setAck                               
-0     0009b7f5  _setBMS_voltage                       
-0     0009b825  _setFLstatus                          
-0     0009b840  _setFRstatus                          
-0     0009b85b  _setRLstatus                          
-0     0009b876  _setRRstatus                          
-0     0009b5db  _setSelector                          
-0     0009b65e  _setStatus                            
-0     0009b7d4  _setTemps                             
-0     0009bac0  _setupSD                              
+0     0009b050  _setAMK_fl                            
+0     0009b062  _setAMK_fr                            
+0     0009b083  _setAMK_rl                            
+0     0009b0b3  _setAMK_rr                            
+0     0009af8d  _setAckPowerControl                   
+0     0009b010  _setAckRegen                          
+0     0009b104  _setFLstatus                          
+0     0009b11f  _setFRstatus                          
+0     0009b13a  _setRLstatus                          
+0     0009b155  _setRRstatus                          
+0     0009af4a  _setSelectorPowerControl              
+0     0009afcd  _setSelectorRegen                     
+0     0009b0e3  _setTemps                             
+0     0009bc7f  _setupSD                              
 1     0000d000  _sh                                   
-0     0009cc3c  _sprintf                              
+0     0009ce00  _sprintf                              
 1     0000acd2  _status_log                           
-0     0009cf8b  _strcat                               
-0     0009cf63  _strchr                               
-0     0009cf6f  _strcmp                               
-0     0009cfb4  _strcpy                               
-0     0009cfa5  _strlen                               
-0     0009cefc  _strncpy                              
+0     0009d14f  _strcat                               
+0     0009d127  _strchr                               
+0     0009d133  _strcmp                               
+0     0009d178  _strcpy                               
+0     0009d169  _strlen                               
+0     0009d0c0  _strncpy                              
 1     0000e000  _time_elapsed                         
 1     0000c0c8  _tmp                                  
-0     0009cb9e  _uart_setup                           
-0     0009b56d  _updatePage                           
+0     0009cd62  _uart_setup                           
+0     0009acc3  _updatePage                           
+0     0009ad2f  _updatePage1                          
+0     0009ad9c  _updatePage2                          
+0     0009addb  _updatePage3                          
+0     0009ae44  _updatePage4                          
+0     0009ae83  _updatePage5                          
+0     0009aec2  _updatePage6                          
+0     0009af01  _updatePage7                          
+0     0009af40  _updatePage8                          
+0     0009af45  _updatePage9                          
+0     0009ac8d  _updateValues                         
 1     0000a800  _var                                  
 1     0000acc2  _var_v                                
 1     0000ae3d  _version                              
-0     0009cf94  _wcslen                               
-0     0009bb0d  _writeSD                              
+0     0009d158  _wcslen                               
+0     0009bccc  _writeSD                              
 abs   ffffffff  binit                                 
 0     00082000  cinit                                 
 0     00080000  code_start                            
-0     0009cfbb  etext                                 
+0     0009d17f  etext                                 
 abs   ffffffff  pinit                                 
 
 
@@ -1711,8 +1721,8 @@ page  address   name
 0     00082000  cinit                                 
 0     00086000  _RamfuncsLoadStart                    
 0     0008603f  _RamfuncsLoadEnd                      
-0     00090918  _PieVectTableInit                     
-0     00090d9c  __ctypes_                             
+0     00090b34  _PieVectTableInit                     
+0     00090fb8  __ctypes_                             
 0     00098000  .text                                 
 0     00098000  ___text__                             
 0     00098b33  _f_mount                              
@@ -1898,191 +1908,201 @@ page  address   name
 0     0009ac6d  _CANGlobalIntDisable                  
 0     0009ac77  _CANGlobalIntClear                    
 0     0009ac80  _CANGlobalIntstatusGet                
-0     0009ac8d  _InitSysCtrl                          
-0     0009acb6  _InitPeripheralClocks                 
-0     0009ad3a  _DisablePeripheralClocks              
-0     0009ad52  _SeizeFlashPump                       
-0     0009ad61  _ReleaseFlashPump                     
-0     0009ad6b  _ServiceDog                           
-0     0009ad79  _DisableDog                           
-0     0009ad87  _InitSysPll                           
-0     0009af76  _InitAuxPll                           
-0     0009b065  _CsmUnlock                            
-0     0009b086  _SysIntOsc1Sel                        
-0     0009b096  _SysIntOsc2Sel                        
-0     0009b0aa  _SysXtalOscSel                        
-0     0009b0ba  _AuxIntOsc2Sel                        
-0     0009b0c4  _AuxXtalOscSel                        
-0     0009b0d0  _AuxAuxClkSel                         
-0     0009b0da  _IDLE                                 
-0     0009b0e3  _STANDBY                              
-0     0009b0ee  _HALT                                 
-0     0009b107  _HIB                                  
-0     0009b124  _ConfigureTMXAnalogTrim               
-0     0009b311  _disk_initialize                      
-0     0009b3cf  _disk_status                          
-0     0009b3da  _disk_read                            
-0     0009b424  _disk_write                           
-0     0009b482  _disk_ioctl                           
-0     0009b557  _disk_timerproc                       
-0     0009b568  _get_fattime                          
-0     0009b56d  _updatePage                           
-0     0009b5db  _setSelector                          
-0     0009b61e  _setAck                               
-0     0009b65e  _setStatus                            
-0     0009b6d8  _setAMK_fl                            
-0     0009b717  _setAMK_fr                            
-0     0009b756  _setAMK_rl                            
-0     0009b795  _setAMK_rr                            
-0     0009b7d4  _setTemps                             
-0     0009b7f5  _setBMS_voltage                       
-0     0009b825  _setFLstatus                          
-0     0009b840  _setFRstatus                          
-0     0009b85b  _setRLstatus                          
-0     0009b876  _setRRstatus                          
-0     0009b891  _Cmd_ls                               
-0     0009b939  _Cmd_cd                               
-0     0009b949  _Cmd_pwd                              
-0     0009b94f  _Cmd_cat                              
-0     0009b9a4  _Cmd_write                            
-0     0009ba3a  _Cmd_mkdir                            
-0     0009ba75  _Cmd_rm                               
-0     0009bab0  _Cmd_help                             
-0     0009bac0  _setupSD                              
-0     0009bb0d  _writeSD                              
-0     0009bb34  _reverse                              
-0     0009bb56  _SysCtlPeripheralPresent              
-0     0009bb75  _SysCtlPeripheralReady                
-0     0009bbaf  _SysCtlPeripheralReset                
-0     0009bbdb  _SysCtlPeripheralEnable               
-0     0009bbf5  _SysCtlPeripheralDisable              
-0     0009bc10  _SysCtlReset                          
-0     0009bc1a  _SysCtlClockGet                       
-0     0009bc66  _SysCtlLowSpeedClockGet               
-0     0009bc7d  _SysCtlClockSet                       
-0     0009bd1d  _SysCtlAuxClockSet                    
-0     0009bd9f  _SysCtlUSBPLLEnable                   
-0     0009bda0  _SysCtlUSBPLLDisable                  
-0     0009bda1  _InitGpio                             
-0     0009bde1  _GPIO_SetupPinMux                     
-0     0009be6d  _GPIO_SetupPinOptions                 
-0     0009bf01  _GPIO_SetupLock                       
-0     0009bf2a  _GPIO_SetupXINT1Gpio                  
-0     0009bf34  _GPIO_SetupXINT2Gpio                  
-0     0009bf3e  _GPIO_SetupXINT3Gpio                  
-0     0009bf48  _GPIO_SetupXINT4Gpio                  
-0     0009bf52  _GPIO_SetupXINT5Gpio                  
-0     0009bf5c  _GPIO_EnableUnbondedIOPullupsFor176Pin
-0     0009bf75  _GPIO_EnableUnbondedIOPullupsFor100Pin
-0     0009bf9a  _GPIO_EnableUnbondedIOPullups         
-0     0009bfb0  _GPIO_ReadPin                         
-0     0009bfc7  _GPIO_WritePin                        
-0     0009bfe5  _IntMasterEnable                      
-0     0009bfed  _IntMasterDisable                     
-0     0009bff5  _IntRegister                          
-0     0009c008  _IntUnregister                        
-0     0009c01d  _IntEnable                            
-0     0009c0b0  _IntDisable                           
-0     0009c130  _IntIFRClear                          
-0     0009c1af  _cpu_timer1_isr                       
-0     0009c313  _cpu_timer2_isr                       
-0     0009c343  _main                                 
-0     0009c3b7  _cpu1_timer_setup                     
-0     0009c3e9  _send_can_to_cpu2                     
-0     0009c405  _Shared_Ram_dataRead_c1               
-0     0009c412  _compute_AMKStatus                    
-0     0009c494  LL$$DIV                               
-0     0009c4d0  LL$$MOD                               
-0     0009c50a  ULL$$DIV                              
-0     0009c539  ULL$$MOD                              
-0     0009c59b  _InitEPwmGpio                         
-0     0009c5b4  _InitEPwm1Gpio                        
-0     0009c5c6  _InitEPwm2Gpio                        
-0     0009c5d8  _InitEPwm3Gpio                        
-0     0009c5ec  _InitEPwm4Gpio                        
-0     0009c5f9  _InitEPwm5Gpio                        
-0     0009c60b  _InitEPwm6Gpio                        
-0     0009c617  _InitEPwm7Gpio                        
-0     0009c62b  _InitEPwm8Gpio                        
-0     0009c63f  _InitEPwm9Gpio                        
-0     0009c651  _InitEPwm10Gpio                       
-0     0009c664  _InitEPwm11Gpio                       
-0     0009c678  _InitEPwm12Gpio                       
-0     0009c68b  _GPIOSetup                            
-0     0009c73d  _ldexpl                               
-0     0009c73d  _scalbnl                              
-0     0009c7eb  FD$$ADD                               
-0     0009c887  FD$$DIV                               
-0     0009c912  FS$$DIV                               
-0     0009c99a  FD$$MPY                               
-0     0009ca1d  _InitCpuTimers                        
-0     0009ca5e  _ConfigCpuTimer                       
-0     0009ca99  _frexpl                               
-0     0009caf3  _c_int00                              
-0     0009cb49  _SysTickInit                          
-0     0009cb55  _SysTickEnable                        
-0     0009cb5c  _SysTickDisable                       
-0     0009cb61  _SysTickIntRegister                   
-0     0009cb70  _SysTickIntUnregister                 
-0     0009cb7b  _SysTickIntEnable                     
-0     0009cb85  _SysTickIntDisable                    
-0     0009cb8f  _SysTickPeriodSet                     
-0     0009cb96  _SysTickPeriodGet                     
-0     0009cb9a  _SysTickValueGet                      
-0     0009cb9e  _uart_setup                           
-0     0009cbb7  _scic_init                            
-0     0009cbca  _scic_xmit                            
-0     0009cbd8  _scic_msg                             
-0     0009cbeb  _scic_fifo_init                       
-0     0009cbf3  _CmdLineProcess                       
-0     0009cc3c  _sprintf                              
-0     0009cc6e  _SysTickHandler                       
-0     0009cc9f  _atoi                                 
-0     0009ccd0  ___TI_ltoa                            
-0     0009cd00  FD$$CMP                               
-0     0009cd2a  L$$DIV                                
-0     0009cd39  L$$MOD                                
-0     0009cd47  UL$$DIV                               
-0     0009cd4e  UL$$MOD                               
-0     0009cd54  C$$EXIT                               
-0     0009cd54  _abort                                
-0     0009cd56  _exit                                 
-0     0009cd7d  _InitPieCtrl                          
-0     0009cd9c  _EnableInterrupts                     
-0     0009cda5  _InitPieVectTable                     
-0     0009cdcb  _copysignl                            
-0     0009cdf0  _copy_in                              
-0     0009ce14  FD$$TOI                               
-0     0009ce35  FD$$TOL                               
-0     0009ce54  LL$$CMP                               
-0     0009ce66  ULL$$CMP                              
-0     0009ce72  I$$TOFD                               
-0     0009ce8f  _memcpy                               
-0     0009ceac  FS$$TOFD                              
-0     0009cec8  L$$TOFD                               
-0     0009cee4  LL$$AND                               
-0     0009ceec  LL$$OR                                
-0     0009cef4  LL$$XOR                               
-0     0009cefc  _strncpy                              
-0     0009cf11  _memcmp                               
-0     0009cf24  __args_main                           
-0     0009cf36  _memccpy                              
-0     0009cf46  _IntDefaultHandler                    
-0     0009cf55  FD$$SUB                               
-0     0009cf63  _strchr                               
-0     0009cf6f  _strcmp                               
-0     0009cf79  __register_unlock                     
-0     0009cf7d  __register_lock                       
-0     0009cf81  __nop                                 
-0     0009cf82  FD$$NEG                               
-0     0009cf8b  _strcat                               
-0     0009cf94  _wcslen                               
-0     0009cfa5  _strlen                               
-0     0009cfad  _memset                               
-0     0009cfb4  _strcpy                               
-0     0009cfb9  __system_pre_init                     
-0     0009cfbb  ___etext__                            
-0     0009cfbb  etext                                 
+0     0009ac8d  _updateValues                         
+0     0009acc3  _updatePage                           
+0     0009ad2f  _updatePage1                          
+0     0009ad9c  _updatePage2                          
+0     0009addb  _updatePage3                          
+0     0009ae44  _updatePage4                          
+0     0009ae83  _updatePage5                          
+0     0009aec2  _updatePage6                          
+0     0009af01  _updatePage7                          
+0     0009af40  _updatePage8                          
+0     0009af45  _updatePage9                          
+0     0009af4a  _setSelectorPowerControl              
+0     0009af8d  _setAckPowerControl                   
+0     0009afcd  _setSelectorRegen                     
+0     0009b010  _setAckRegen                          
+0     0009b050  _setAMK_fl                            
+0     0009b062  _setAMK_fr                            
+0     0009b083  _setAMK_rl                            
+0     0009b0b3  _setAMK_rr                            
+0     0009b0e3  _setTemps                             
+0     0009b104  _setFLstatus                          
+0     0009b11f  _setFRstatus                          
+0     0009b13a  _setRLstatus                          
+0     0009b155  _setRRstatus                          
+0     0009b170  _InitSysCtrl                          
+0     0009b199  _InitPeripheralClocks                 
+0     0009b21d  _DisablePeripheralClocks              
+0     0009b235  _SeizeFlashPump                       
+0     0009b244  _ReleaseFlashPump                     
+0     0009b24e  _ServiceDog                           
+0     0009b25c  _DisableDog                           
+0     0009b26a  _InitSysPll                           
+0     0009b459  _InitAuxPll                           
+0     0009b548  _CsmUnlock                            
+0     0009b569  _SysIntOsc1Sel                        
+0     0009b579  _SysIntOsc2Sel                        
+0     0009b58d  _SysXtalOscSel                        
+0     0009b59d  _AuxIntOsc2Sel                        
+0     0009b5a7  _AuxXtalOscSel                        
+0     0009b5b3  _AuxAuxClkSel                         
+0     0009b5bd  _IDLE                                 
+0     0009b5c6  _STANDBY                              
+0     0009b5d1  _HALT                                 
+0     0009b5ea  _HIB                                  
+0     0009b607  _ConfigureTMXAnalogTrim               
+0     0009b7f4  _disk_initialize                      
+0     0009b8b2  _disk_status                          
+0     0009b8bd  _disk_read                            
+0     0009b907  _disk_write                           
+0     0009b965  _disk_ioctl                           
+0     0009ba3a  _disk_timerproc                       
+0     0009ba4b  _get_fattime                          
+0     0009ba50  _Cmd_ls                               
+0     0009baf8  _Cmd_cd                               
+0     0009bb08  _Cmd_pwd                              
+0     0009bb0e  _Cmd_cat                              
+0     0009bb63  _Cmd_write                            
+0     0009bbf9  _Cmd_mkdir                            
+0     0009bc34  _Cmd_rm                               
+0     0009bc6f  _Cmd_help                             
+0     0009bc7f  _setupSD                              
+0     0009bccc  _writeSD                              
+0     0009bcf3  _reverse                              
+0     0009bd15  _SysCtlPeripheralPresent              
+0     0009bd34  _SysCtlPeripheralReady                
+0     0009bd6e  _SysCtlPeripheralReset                
+0     0009bd9a  _SysCtlPeripheralEnable               
+0     0009bdb4  _SysCtlPeripheralDisable              
+0     0009bdcf  _SysCtlReset                          
+0     0009bdd9  _SysCtlClockGet                       
+0     0009be25  _SysCtlLowSpeedClockGet               
+0     0009be3c  _SysCtlClockSet                       
+0     0009bedc  _SysCtlAuxClockSet                    
+0     0009bf5e  _SysCtlUSBPLLEnable                   
+0     0009bf5f  _SysCtlUSBPLLDisable                  
+0     0009bf60  _InitGpio                             
+0     0009bfa0  _GPIO_SetupPinMux                     
+0     0009c02c  _GPIO_SetupPinOptions                 
+0     0009c0c0  _GPIO_SetupLock                       
+0     0009c0e9  _GPIO_SetupXINT1Gpio                  
+0     0009c0f3  _GPIO_SetupXINT2Gpio                  
+0     0009c0fd  _GPIO_SetupXINT3Gpio                  
+0     0009c107  _GPIO_SetupXINT4Gpio                  
+0     0009c111  _GPIO_SetupXINT5Gpio                  
+0     0009c11b  _GPIO_EnableUnbondedIOPullupsFor176Pin
+0     0009c134  _GPIO_EnableUnbondedIOPullupsFor100Pin
+0     0009c159  _GPIO_EnableUnbondedIOPullups         
+0     0009c16f  _GPIO_ReadPin                         
+0     0009c186  _GPIO_WritePin                        
+0     0009c1a4  _IntMasterEnable                      
+0     0009c1ac  _IntMasterDisable                     
+0     0009c1b4  _IntRegister                          
+0     0009c1c7  _IntUnregister                        
+0     0009c1dc  _IntEnable                            
+0     0009c26f  _IntDisable                           
+0     0009c2ef  _IntIFRClear                          
+0     0009c36e  _cpu_timer1_isr                       
+0     0009c4d2  _cpu_timer2_isr                       
+0     0009c507  _main                                 
+0     0009c57b  _cpu1_timer_setup                     
+0     0009c5ad  _send_can_to_cpu2                     
+0     0009c5c9  _Shared_Ram_dataRead_c1               
+0     0009c5d6  _compute_AMKStatus                    
+0     0009c658  LL$$DIV                               
+0     0009c694  LL$$MOD                               
+0     0009c6ce  ULL$$DIV                              
+0     0009c6fd  ULL$$MOD                              
+0     0009c75f  _InitEPwmGpio                         
+0     0009c778  _InitEPwm1Gpio                        
+0     0009c78a  _InitEPwm2Gpio                        
+0     0009c79c  _InitEPwm3Gpio                        
+0     0009c7b0  _InitEPwm4Gpio                        
+0     0009c7bd  _InitEPwm5Gpio                        
+0     0009c7cf  _InitEPwm6Gpio                        
+0     0009c7db  _InitEPwm7Gpio                        
+0     0009c7ef  _InitEPwm8Gpio                        
+0     0009c803  _InitEPwm9Gpio                        
+0     0009c815  _InitEPwm10Gpio                       
+0     0009c828  _InitEPwm11Gpio                       
+0     0009c83c  _InitEPwm12Gpio                       
+0     0009c84f  _GPIOSetup                            
+0     0009c901  _ldexpl                               
+0     0009c901  _scalbnl                              
+0     0009c9af  FD$$ADD                               
+0     0009ca4b  FD$$DIV                               
+0     0009cad6  FS$$DIV                               
+0     0009cb5e  FD$$MPY                               
+0     0009cbe1  _InitCpuTimers                        
+0     0009cc22  _ConfigCpuTimer                       
+0     0009cc5d  _frexpl                               
+0     0009ccb7  _c_int00                              
+0     0009cd0d  _SysTickInit                          
+0     0009cd19  _SysTickEnable                        
+0     0009cd20  _SysTickDisable                       
+0     0009cd25  _SysTickIntRegister                   
+0     0009cd34  _SysTickIntUnregister                 
+0     0009cd3f  _SysTickIntEnable                     
+0     0009cd49  _SysTickIntDisable                    
+0     0009cd53  _SysTickPeriodSet                     
+0     0009cd5a  _SysTickPeriodGet                     
+0     0009cd5e  _SysTickValueGet                      
+0     0009cd62  _uart_setup                           
+0     0009cd7b  _scic_init                            
+0     0009cd8e  _scic_xmit                            
+0     0009cd9c  _scic_msg                             
+0     0009cdaf  _scic_fifo_init                       
+0     0009cdb7  _CmdLineProcess                       
+0     0009ce00  _sprintf                              
+0     0009ce32  _SysTickHandler                       
+0     0009ce63  _atoi                                 
+0     0009ce94  ___TI_ltoa                            
+0     0009cec4  FD$$CMP                               
+0     0009ceee  L$$DIV                                
+0     0009cefd  L$$MOD                                
+0     0009cf0b  UL$$DIV                               
+0     0009cf12  UL$$MOD                               
+0     0009cf18  C$$EXIT                               
+0     0009cf18  _abort                                
+0     0009cf1a  _exit                                 
+0     0009cf41  _InitPieCtrl                          
+0     0009cf60  _EnableInterrupts                     
+0     0009cf69  _InitPieVectTable                     
+0     0009cf8f  _copysignl                            
+0     0009cfb4  _copy_in                              
+0     0009cfd8  FD$$TOI                               
+0     0009cff9  FD$$TOL                               
+0     0009d018  LL$$CMP                               
+0     0009d02a  ULL$$CMP                              
+0     0009d036  I$$TOFD                               
+0     0009d053  _memcpy                               
+0     0009d070  FS$$TOFD                              
+0     0009d08c  L$$TOFD                               
+0     0009d0a8  LL$$AND                               
+0     0009d0b0  LL$$OR                                
+0     0009d0b8  LL$$XOR                               
+0     0009d0c0  _strncpy                              
+0     0009d0d5  _memcmp                               
+0     0009d0e8  __args_main                           
+0     0009d0fa  _memccpy                              
+0     0009d10a  _IntDefaultHandler                    
+0     0009d119  FD$$SUB                               
+0     0009d127  _strchr                               
+0     0009d133  _strcmp                               
+0     0009d13d  __register_unlock                     
+0     0009d141  __register_lock                       
+0     0009d145  __nop                                 
+0     0009d146  FD$$NEG                               
+0     0009d14f  _strcat                               
+0     0009d158  _wcslen                               
+0     0009d169  _strlen                               
+0     0009d171  _memset                               
+0     0009d178  _strcpy                               
+0     0009d17d  __system_pre_init                     
+0     0009d17f  ___etext__                            
+0     0009d17f  etext                                 
 1     00000b00  _AdcaResultRegs                       
 1     00000b20  _AdcbResultRegs                       
 1     00000b40  _AdccResultRegs                       
@@ -2248,4 +2268,4 @@ abs   ffffffff  ___pinit__
 abs   ffffffff  binit                                 
 abs   ffffffff  pinit                                 
 
-[550 symbols]
+[560 symbols]
