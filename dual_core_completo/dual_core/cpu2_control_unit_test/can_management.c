@@ -104,6 +104,13 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);
 
+        for(i = 0; i < 5; i++){
+            TXCANA_Smu_Message[i].ui32MsgID = MSG_ID_CALIBRATION_TO_SMU;
+            TXCANA_Smu_Message[i].ui32MsgIDMask = 0;                  // no mask needed for TX
+            TXCANA_Smu_Message[i].ui32Flags = MSG_OBJ_NO_FLAGS;
+            TXCANA_Smu_Message[i].ui32MsgLen = MSG_DATA_LENGTH;
+            TXCANA_Smu_Message[i].pucMsgData = TXA_Smu_Calibration[i];
+        }
 
         RXCANA_Sendyne_Message.ui32MsgID = MSG_ID_SENDYNE;
         RXCANA_Sendyne_Message.ui32MsgIDMask = 0x0;
