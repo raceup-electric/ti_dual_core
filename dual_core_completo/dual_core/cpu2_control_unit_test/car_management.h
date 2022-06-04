@@ -37,6 +37,8 @@ extern float omegas[3];
 extern Uint32 suspensions[4];
 extern float temperatures[5];
 
+extern float bms_lv_cell[8];
+
 extern char RTDS_STATE;  // RTDS
 extern char OIL_PUMP_STATE;
 extern char WAT_PUMP_STATE;
@@ -75,6 +77,7 @@ extern Uint16 Temps_shared[8];
 extern struct motorSetPoints motorSetP_shared[4];
 extern struct motorValues1 motorVal1_shared[4];
 extern struct motorValues2 motorVal2_shared[4];
+extern float bms_lv_shared[8];
 
 extern struct Display_command display;
 

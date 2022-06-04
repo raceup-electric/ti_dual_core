@@ -53,6 +53,7 @@ struct Share_struct sh;
 struct Share_struct local_sh;
 
 Uint16 Temps_shared[8];
+float bms_lv_shared[8];
 
 struct Status_Log status_log;
 

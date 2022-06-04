@@ -175,6 +175,7 @@ float omegas[3];        //rad/s
 float temperatures[5];
 Uint32 suspensions[4];
 
+float bms_lv_cell[8]; //gli ultimi due valori sono temperature
 
 //Calibration parameter
 float versx[3];
@@ -249,6 +250,7 @@ Uint16 TempRadInRC_temp;
 struct Share_struct sh;
 
 Uint16 Temps_shared[8];
+float bms_lv_shared[8];
 
 struct Status_Log status_log;
 

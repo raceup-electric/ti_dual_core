@@ -60,6 +60,7 @@ extern unsigned char RXA_BmsVol_Data[6];
 extern unsigned char RXA_BmsTemp_Data[6];
 extern unsigned char RXA_PwCtrl_Data[1];
 extern unsigned char RXA_Wheel_Data[1];
+extern unsigned char RXA_BmsLV_Data[8];
 
 extern tCANMsgObject TXCANB_Setpoints_Message[4];
 extern unsigned char TXB_Setpoints_Data[4][8];

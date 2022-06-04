@@ -105,6 +105,19 @@ void read_SMU_Message(Uint16 smu_values[], int id){
 
 void read_BMSLV_message(Uint16 bmslv_values[], int id){
     //TODO implement reading of the BMSLV packets
+    int i = 0;
+    if (id == 1)
+    {
+        for (i = 0; i < 8; i=i+2){
+            bms_lv_cell[i/2] = (bmslv_values[i] & 0xff) | ((bmslv_values[i+1] & 0xff) << 8);
+        }
+    } else if (id == 2) {
+        for (i = 0; i < 8; i=i+2){
+            bms_lv_cell[(i+8)/2] = (bmslv_values[i] & 0xff) | ((bmslv_values[i+1] & 0xff) << 8);
+        }
+        bms_lv_cell[6] = convert_temp_lv(bms_lv_cell[6]*0.0001);
+        bms_lv_cell[7] = convert_temp_lv(bms_lv_cell[7]*0.0001);
+    }
 }
 
 void read_BMS_VOLTAGE_message(Uint16 bms_values[]){
@@ -623,6 +636,11 @@ void update_log_values()
         Temps_shared[i] = Temps[i];
     }
 
+    for(i = 0; i < 8; i++)
+    {
+        bms_lv_shared[i] = bms_lv_cell[i];
+    }
+
     //MotorValues
     for(i = 0; i < 4; i++)
     {
@@ -674,6 +692,8 @@ void update_log_values()
     bms_log.mean_bms_voltage_shared = mean_bms_voltage;
     bms_log.min_bms_voltage_shared = min_bms_voltage;
 
+
+
     //Sendyne
     sendyne_log.sendyne_voltage_shared = sendyne_voltage;
     sendyne_log.sendyne_current_shared = sendyne_current;
@@ -709,6 +729,7 @@ void update_shared_mem()
         sh.motorSetP[index] = motorSetP_shared[index];
     }
     memcpy(sh.Temps, Temps_shared, 8);
+    memcpy(sh.bms_lv_cell, bms_lv_shared, 8);
     sh.imu = imu_log;
     sh.fanSpeed = fanspeed_log;
     sh.sendyne = sendyne_log;

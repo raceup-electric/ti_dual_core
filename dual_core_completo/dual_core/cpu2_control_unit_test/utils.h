@@ -98,6 +98,7 @@ struct Display_command{
 
 struct Share_struct {
     Uint16 Temps[8];
+    float bms_lv_cell[8];
     struct motorValues1 motorVal1[4];
     struct motorValues2 motorVal2[4];
     struct motorSetPoints motorSetP[4];
@@ -134,6 +135,8 @@ float saturateInt(int signal, int upperBound, int lowerBound);
 float torqueSetpointToNM(int setpoint);
 
 int NMtoTorqueSetpoint(float torqueNM);
+
+float convert_temp_lv(float cell_volt);
 
 float ConvertTempToKelvin(int adc_read);
 
