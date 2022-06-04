@@ -190,9 +190,9 @@ __interrupt void cpu_timer1_isr(void)
         writeSD(cmd);
 
         //TO USE
-        sprintf(cmd , "%d;%d;%d;%d "  //Actual velocity
-                      "%d;%d;%d;%d " //MotorSetPoints positive
-                      "%d;%d;%d;%d ", //MotorSetPoints negative
+        sprintf(cmd , "%d;%d;%d;%d;"  //Actual velocity
+                      "%d;%d;%d;%d;" //MotorSetPoints positive
+                      "%d;%d;%d;%d;", //MotorSetPoints negative
                         local_sh.motorVal1[0].AMK_ActualVelocity,local_sh.motorVal1[1].AMK_ActualVelocity,
                         local_sh.motorVal1[2].AMK_ActualVelocity,local_sh.motorVal1[3].AMK_ActualVelocity,
 
@@ -206,11 +206,12 @@ __interrupt void cpu_timer1_isr(void)
         sprintf(cmd ,
                 "%d;%d;%d;%d;%d;%d;"                //status
                 "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms
+                "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
                 "%.2f;%.2f;%.2f;%.2f;"              //sendyne
                 "%d;%d;"                           //fanSpeed
                 "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"   //imu
-                "%d;%d;%d;%d"                      //potenziometro acceleratore
-                "%.2f;%.2f;%.2f;%.2f;%.2f"        //temperatures per cooling
+                "%d;%d;%d;%d;"                      //potenziometro acceleratore
+                "%.2f;%.2f;%.2f;%.2f;%.2f;"        //temperatures per cooling
                 "%d;%d;%d;%d;%d;%d;%d;%d\n",
                         //status
                         local_sh.status.throttle_shared, local_sh.status.steering_shared,
@@ -220,6 +221,10 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
                         local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
                         local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
+                        //bms_lv
+                        local_sh.bms_lv_cell[0], local_sh.bms_lv_cell[1], local_sh.bms_lv_cell[2],
+                        local_sh.bms_lv_cell[3], local_sh.bms_lv_cell[4], local_sh.bms_lv_cell[5],
+                        local_sh.bms_lv_cell[6], local_sh.bms_lv_cell[7],
                         //sendyne
                         local_sh.sendyne.sendyne_voltage_shared, local_sh.sendyne.sendyne_current_shared,
                         local_sh.sendyne.curr_sens_shared, local_sh.sendyne.total_power_shared,
