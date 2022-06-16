@@ -36,7 +36,7 @@
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 5000 //15000               //Speed limit
+#define SPEED_LIMIT                 1000 //15000               //Speed limit
 #define M_N                         9.8f
 
 //

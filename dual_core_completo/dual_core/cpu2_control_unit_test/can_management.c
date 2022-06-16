@@ -30,11 +30,9 @@ void canSetup_phase1()
     CANClkSourceSelect(CANB_BASE, 0);
 
 //    CANBitRateSet(CANA_BASE, 200000000, 1000000);   //Manca un parametro rispetto al vecchio metodo
-//    CANBitRateSet(CANB_BASE, 200000000, 1000000);
-
-    //Prova con CAN a 500kbps
+    //Prova con CAN linea A a 500kbps
     CANBitRateSet(CANA_BASE, 200000000, 500000);
-    CANBitRateSet(CANB_BASE, 200000000, 500000);
+    CANBitRateSet(CANB_BASE, 200000000, 1000000);
 
     CANIntEnable(CANA_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);
     CANIntEnable(CANB_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);
@@ -161,6 +159,14 @@ void canSetup_phase2()
         RXCANA_Wheel_Message.pucMsgData = RXA_Wheel_Data;
 
         CANMessageSet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, MSG_OBJ_TYPE_RX);
+
+        RXCANA_Lem_Message.ui32MsgID = MSG_ID_LEM;
+        RXCANA_Lem_Message.ui32MsgIDMask = 0x0;
+        RXCANA_Lem_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
+        RXCANA_Lem_Message.ui32MsgLen = MSG_DATA_LENGTH;
+        RXCANA_Lem_Message.pucMsgData = RXA_Lem_Data;
+
+        CANMessageSet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, MSG_OBJ_TYPE_RX);
 
 
         CANEnable(CANA_BASE);

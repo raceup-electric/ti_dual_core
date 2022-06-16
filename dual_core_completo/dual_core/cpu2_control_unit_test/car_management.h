@@ -90,6 +90,8 @@ extern struct Display_command display;
 //
 void read_SENDYNE_message(unsigned char sendyne_values[]);
 
+void read_LEM_message(unsigned char lem_values[]);
+
 void read_IMU_message(Uint16 imu_values[], int id);
 
 void read_SMU_Message(Uint16 smu_values[], int id);

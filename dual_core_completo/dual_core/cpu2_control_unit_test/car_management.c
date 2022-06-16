@@ -202,7 +202,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
         }
 
     } else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == START_LAUNCH) {
-        // si vedrï¿½ quello che faremo
+        // si vedrà quello che faremo
     }
 
 }
