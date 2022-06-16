@@ -35,6 +35,8 @@ float sendyne_voltage;
 unsigned long int reassembled_data;
 unsigned char CAN_SENDYNE_ACT_VALUES[8];
 
+float lem_current;
+
 //bms
 float max_bms_voltage;
 float min_bms_voltage;
@@ -212,6 +214,7 @@ tCANMsgObject RXCANA_BmsTemp_Message;
 tCANMsgObject RXCANA_BmsLV_Message;
 tCANMsgObject RXCANA_PwCtrl_Message;
 tCANMsgObject RXCANA_Wheel_Message;
+tCANMsgObject RXCANA_Lem_Message; //aggiunto lem
 unsigned char RXA_Imu_Data[8];
 unsigned char RXA_Smu_Data[8];
 unsigned char RXA_Sendyne_Data[8];
@@ -221,6 +224,7 @@ unsigned char RXA_BmsLV_Data[8];
 unsigned char RXA_PwCtrl_Data[1];
 unsigned char RXA_Wheel_Data[1];
 float TXA_Smu_Calibration[5][2];
+unsigned char RXA_Lem_Data[8]; //aggiunto lem
 
 tCANMsgObject RXCANB_AmkVal1_Message[4];
 tCANMsgObject RXCANB_AmkVal2_Message[4];

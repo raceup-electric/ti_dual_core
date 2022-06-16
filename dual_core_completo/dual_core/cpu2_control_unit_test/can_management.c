@@ -29,13 +29,12 @@ void canSetup_phase1()
     CANClkSourceSelect(CANA_BASE, 0);
     CANClkSourceSelect(CANB_BASE, 0);
 
+//    CANBitRateSet(CANA_BASE, 200000000, 1000000);   //Manca un parametro rispetto al vecchio metodo
+//    CANBitRateSet(CANB_BASE, 200000000, 1000000);
 
-    //    CAN_setBitRate(CANB_BASE, DEVICE_SYSCLK_FREQ, 1000000, 10);
-    //    CAN_setBitRate(CANA_BASE, DEVICE_SYSCLK_FREQ, 1000000, 10);
-    CANBitRateSet(CANA_BASE, 200000000, 1000000);   //Manca un parametro rispetto al vecchio metodo
-    CANBitRateSet(CANB_BASE, 200000000, 1000000);
-
-
+    //Prova con CAN a 500kbps
+    CANBitRateSet(CANA_BASE, 200000000, 500000);
+    CANBitRateSet(CANB_BASE, 200000000, 500000);
 
     CANIntEnable(CANA_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);
     CANIntEnable(CANB_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);
@@ -200,7 +199,7 @@ __interrupt void canISR_B(void)
     {
         //Uint16 amk_temp[8];
 
-        CANMessageGet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal1_Message[0], true); //FORSE TRUE NON é GIUSTO
+        CANMessageGet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal1_Message[0], true); //FORSE TRUE NON ï¿½ GIUSTO
 
 
         int id = getMessageID(CANB_BASE,OBJ_ID_FROM_AMK);
@@ -359,8 +358,19 @@ __interrupt void canISR_A(void)
        rxAMsgCount++;
 
        CANIntClear(CANA_BASE, OBJ_ID_STEERING_WHEEL);
-   }
 
+    } else if (status == OBJ_ID_FROM_LEM)   //aggiunto  lem message
+    {
+
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, true);
+
+        read_LEM_message(RXA_Lem_Data);
+
+        rxAMsgCount++;
+
+        CANIntClear(CANA_BASE, OBJ_ID_FROM_LEM);
+
+    }
 
     CANGlobalIntClear(CANA_BASE, CAN_GLB_INT_CANINT0);
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;

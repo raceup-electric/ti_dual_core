@@ -145,6 +145,7 @@
 #define OBJ_ID_STEERING_WHEEL   23
 #define OBJ_ID_FROM_SMU         24
 #define OBJ_ID_FROM_BMS_LV      23
+#define OBJ_ID_FROM_LEM         21
 
 //Message IDs
 #define MSG_ID_CALIBRATION_TO_SMU 0x30
@@ -168,9 +169,10 @@
 #define MSG_ID_STEERING_WHEEL_BASE 0x90         //id dei buttons
 #define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90
 #define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91   //id del selector
-#define MSG_ID_SMU_BASE 0x93
-#define MSG_ID_SMU_TEMPERATURES 0x93
-#define MSG_ID_SMU_SUSPENSIONS 0x94
+#define MSG_ID_SMU_BASE                      0x93
+#define MSG_ID_SMU_TEMPERATURES              0x93
+#define MSG_ID_SMU_SUSPENSIONS               0x94
+#define MSG_ID_LEM                           0x3C2
 
 #define CONFIRMATION        0x1
 #define NEXT_PAGE           0x2
@@ -186,7 +188,7 @@
 //
 #define EPWM_CMP_UP             1U
 #define EPWM_CMP_DOWN           0U
-#define EPWM_TIMER_TBPRD        2000U       //più basso il numero, più alta la frequenza
+#define EPWM_TIMER_TBPRD        2000U       //piï¿½ basso il numero, piï¿½ alta la frequenza
                                             //vedi la guida per calcolare la frequenza
 #define VENTOLA_DX              1
 #define VENTOLA_SX              2

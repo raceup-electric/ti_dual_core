@@ -1,7 +1,7 @@
 #include "driver_input.h"
 
-unsigned char implausibilityCounter = 0;    //NOTA: per regolamento sono ammesse implausibilità per un massimo di 100ms.
-                                            //      Avendo il timer a 20ms bastano 5 implaususibilità consegutive per andare in fault
+unsigned char implausibilityCounter = 0;    //NOTA: per regolamento sono ammesse implausibilitï¿½ per un massimo di 100ms.
+                                            //      Avendo il timer a 20ms bastano 5 implaususibilitï¿½ consegutive per andare in fault
                                             //      IL NUMERO DI IMPLAUSIBILITA' VA CAMBIATO SE SI CAMBIA IL TEMPO DEL TIMER
 
 float AccPot1, AccPot2, BrkPot;
@@ -26,13 +26,14 @@ int Read_throttle(){
     acc2Pos = changeRange(acc2Pos, 0, 1, 0, 100);
 
     //DEBUG!!! Unsafe test configuration
-//    if (abs(acc1Pos - acc2Pos) > ACC_IMPL_THRES)
-//    {
-//        return 0;   //implausibility
-//    }
+    if (abs(acc1Pos - acc2Pos) > ACC_IMPL_THRES)
+    {
+        return 0;   //implausibility
+    }
 
 //    return saturateUnsigned((acc1Pos + acc2Pos)/2.0, 100, 0); //    //DEBUG!!! Unsafe test configuration
-    value = value - 0.2*(value - acc1Pos);
+//    value = value - 0.2*(value - (acc1Pos)); //usa solo potenziometro 1
+    value = value - 0.2*(value - ((acc1Pos + acc2Pos)/2.0)); 
     return saturateUnsigned(value, 100, 0);                   //DEBUG!!! Unsafe test configuration
 }
 

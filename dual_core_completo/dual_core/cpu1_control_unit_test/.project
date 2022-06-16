@@ -114,11 +114,11 @@
 	<variableList>
 		<variable>
 			<name>INSTALLROOT_F2837XD</name>
-			<value>file:/C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd</value>
+			<value>$%7BCOM_TI_C2000WARE_SOFTWARE_PACKAGE_INSTALL_DIR%7D/device_support/f2837xd</value>
 		</variable>
 		<variable>
 			<name>ORIGINAL_PROJECT_ROOT</name>
-			<value>file:/C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/examples/dual/RAM_management/cpu01/ccs</value>
+			<value>$%7BCOM_TI_C2000WARE_SOFTWARE_PACKAGE_INSTALL_DIR%7D/device_support/f2837xd/examples/dual/RAM_management/cpu01/ccs</value>
 		</variable>
 		<variable>
 			<name>copy_PARENT</name>

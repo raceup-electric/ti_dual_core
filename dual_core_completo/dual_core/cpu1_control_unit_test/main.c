@@ -82,7 +82,7 @@ void main(void)
     local_sh = sh;
     //DELAY_US(10000);
     char str_init[100];
-    sprintf(str_init , "throttle | steering | brake | brakePress | status | actualVelocityKMH \n");
+    usprintf(str_init , "throttle | steering | brake | brakePress | status | actualVelocityKMH \n");
     writeSD(str_init);
 
 #ifdef LORA_DEBUG
@@ -165,12 +165,12 @@ __interrupt void cpu_timer1_isr(void)
         char cmd[200];
         int index;
 
-        sprintf(cmd, "timestamp %d stop", (int)local_time_elapsed);
+        usprintf(cmd, "timestamp %d stop", (int)local_time_elapsed);
         writeSD(cmd);
 
         compute_AMKStatus();
 
-        sprintf(cmd, "%d;%d;%d;%d;"  //AMKStatus
+        usprintf(cmd, "%d;%d;%d;%d;"  //AMKStatus
                 "%.2f;%.2f;%.2f;%.2f;"   //MotorVal2
                 "%.2f;%.2f;%.2f;%.2f;"
                 "%.2f;%.2f;%.2f;%.2f;"
@@ -190,7 +190,7 @@ __interrupt void cpu_timer1_isr(void)
         writeSD(cmd);
 
         //TO USE
-        sprintf(cmd , "%d;%d;%d;%d;"  //Actual velocity
+        usprintf(cmd , "%d;%d;%d;%d;"  //Actual velocity
                       "%d;%d;%d;%d;" //MotorSetPoints positive
                       "%d;%d;%d;%d;", //MotorSetPoints negative
                         local_sh.motorVal1[0].AMK_ActualVelocity,local_sh.motorVal1[1].AMK_ActualVelocity,
@@ -203,31 +203,13 @@ __interrupt void cpu_timer1_isr(void)
                         );
         writeSD(cmd);
 
-        sprintf(cmd ,
-                "%d;%d;%d;%d;%d;%d;"                //status
-                "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms
-                "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
-                "%.2f;%.2f;%.2f;%.2f;"              //sendyne
+        usprintf(cmd ,
                 "%d;%d;"                           //fanSpeed
                 "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"   //imu
                 "%d;%d;%d;%d;"                      //potenziometro acceleratore
                 "%.2f;%.2f;%.2f;%.2f;%.2f;"        //temperatures per cooling
-                "%d;%d;%d;%d;%d;%d;%d;%d\n",
-                        //status
-                        local_sh.status.throttle_shared, local_sh.status.steering_shared,
-                        local_sh.status.brake_shared, local_sh.status.brakePress_shared,
-                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
-                        //bms
-                        local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
-                        local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
-                        local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
-                        //bms_lv
-                        local_sh.bms_lv_cell[0], local_sh.bms_lv_cell[1], local_sh.bms_lv_cell[2],
-                        local_sh.bms_lv_cell[3], local_sh.bms_lv_cell[4], local_sh.bms_lv_cell[5],
-                        local_sh.bms_lv_cell[6], local_sh.bms_lv_cell[7],
-                        //sendyne
-                        local_sh.sendyne.sendyne_voltage_shared, local_sh.sendyne.sendyne_current_shared,
-                        local_sh.sendyne.curr_sens_shared, local_sh.sendyne.total_power_shared,
+                "%d;%d;%d;%d;%d;%d;%d;%d;",
+
                         //fanSpeed
                         local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
                         //imu
@@ -247,13 +229,35 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.gpio.Sdc3_shared, local_sh.gpio.Sdc4_shared,
                         local_sh.gpio.Sdc5_shared, local_sh.gpio.Sdc6_shared);
         writeSD(cmd);
+
+        usprintf(cmd ,
+                        "%d;%d;%d;%d;%d;%d;"                //status
+                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms
+                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
+                        "%.2f;%.2f;%.2f;%.2f\n",              //sendyne
+                        //status
+                        local_sh.status.throttle_shared, local_sh.status.steering_shared,
+                        local_sh.status.brake_shared, local_sh.status.brakePress_shared,
+                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
+                        //bms
+                        local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
+                        local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
+                        local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
+                        //bms_lv
+                        local_sh.bms_lv_cell[0], local_sh.bms_lv_cell[1], local_sh.bms_lv_cell[2],
+                        local_sh.bms_lv_cell[3], local_sh.bms_lv_cell[4], local_sh.bms_lv_cell[5],
+                        local_sh.bms_lv_cell[6], local_sh.bms_lv_cell[7],
+                        //sendyne
+                        local_sh.sendyne.sendyne_voltage_shared, local_sh.sendyne.sendyne_current_shared,
+                        local_sh.sendyne.curr_sens_shared, local_sh.sendyne.total_power_shared);
+        writeSD(cmd);
 }
 
 //not necessary at the moment
 __interrupt void cpu_timer2_isr(void)
 {
-    updatePage(display.page);
-    updateValues(var_v);
+    updatePage(var_v);
+    //updateValues();
 //    var_v++;
 //    var_v = var_v % 9;
 //    setAck();

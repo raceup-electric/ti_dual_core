@@ -40,6 +40,18 @@ void read_SENDYNE_message(unsigned char sendyne_values[]){
 
 }
 
+void read_LEM_message(unsigned char lem_values[]){
+    reassembled_data= 0;
+    Uint16 tmp= lem_values[0];
+    tmp^= 1 <<7;
+    reassembled_data |= ((uint32_t)(tmp) << 24);
+    reassembled_data |= ((uint32_t)(lem_values[1]) << 16);
+    reassembled_data |= ((uint32_t)(lem_values[2]) << 8);
+    reassembled_data |= ((uint32_t)(lem_values[3]) << 0);
+    lem_current = (int32_t)(reassembled_data) / 1000.0;
+
+}
+
 void read_IMU_message(Uint16 imu_values[], int id)
 {
     uint32_t aux_1 = 0;
@@ -190,7 +202,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
         }
 
     } else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == START_LAUNCH) {
-        // si vedrà quello che faremo
+        // si vedrï¿½ quello che faremo
     }
 
 }
@@ -470,10 +482,10 @@ void fanControl()
 }
 
 //
-//  Velocità della ventola (duty cycle %) in funzione della temperatura:
-//  temperatura > 65°           ---> ventola spenta
-//  65° < temperatura < 75°     ---> velocità scala linearmente da 20% a 100%
-//  75° > temperatura           ---> 100%
+//  Velocitï¿½ della ventola (duty cycle %) in funzione della temperatura:
+//  temperatura > 65ï¿½           ---> ventola spenta
+//  65ï¿½ < temperatura < 75ï¿½     ---> velocitï¿½ scala linearmente da 20% a 100%
+//  75ï¿½ > temperatura           ---> 100%
 //
 
 Uint16 fanSpeedFunction(int temp){

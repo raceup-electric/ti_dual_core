@@ -237,14 +237,15 @@ __interrupt void cpu_timer1_isr(void)
                 stopAMK();
             }
         }
+        else if (throttle  < 5)   //REGOLA EV 2.3
+        {
+            implausibility_occurred = false;     //implausibility is cleared
+        }
         else
         {
             stopAMK();
         }
-    } else if (throttle  < 5)   //REGOLA EV 2.3
-        {
-            implausibility_occurred = false;     //implausibility is cleared
-        }
+    }
     else                        //REGOLA EV 2.3
     {
         stopAMK();

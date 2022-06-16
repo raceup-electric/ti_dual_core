@@ -121,19 +121,19 @@ void updatePage1()
     else scic_msg("main_dark.rf.bco=REDÿÿÿ\0");
 
 
-    sprintf(tmp, "main_dark.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
+    usprintf(tmp, "main_dark.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
     scic_msg(tmp);
 }
 
 void updatePage2()
 {
-    sprintf(tmp, "hv_val.voltage_HV.val=%.2fÿÿÿ\0",local_sh.sendyne.sendyne_voltage_shared);
+    usprintf(tmp, "hv_val.voltage_HV.val=%.2fÿÿÿ\0",local_sh.sendyne.sendyne_voltage_shared);
     scic_msg(tmp);
-    sprintf(tmp, "hv_val.lem.val=%.2fÿÿÿ\0",local_sh.sendyne.sendyne_current_shared);
+    usprintf(tmp, "hv_val.lem.val=%.2fÿÿÿ\0",local_sh.sendyne.sendyne_current_shared);
     scic_msg(tmp);
-    sprintf(tmp, "hv_val.curr_sens.val=%.2fÿÿÿ\0",local_sh.sendyne.curr_sens_shared);
+    usprintf(tmp, "hv_val.curr_sens.val=%.2fÿÿÿ\0",local_sh.sendyne.curr_sens_shared);
     scic_msg(tmp);
-    sprintf(tmp, "hv_val.tot_power.val=%.2fÿÿÿ\0",local_sh.sendyne.total_power_shared);
+    usprintf(tmp, "hv_val.tot_power.val=%.2fÿÿÿ\0",local_sh.sendyne.total_power_shared);
     scic_msg(tmp);
 }
 void updatePage3()
@@ -182,49 +182,49 @@ void updatePage3()
 
 void updatePage4()
 {
-    sprintf(tmp, "bms.high.val=%dÿÿÿ\0",local_sh.bms.max_bms_voltage_shared);
+    usprintf(tmp, "bms.high.val=%dÿÿÿ\0",local_sh.bms.max_bms_voltage_shared);
     scic_msg(tmp);
-    sprintf(tmp, "bms.medium.val=%dÿÿÿ\0",local_sh.bms.mean_bms_voltage_shared);
+    usprintf(tmp, "bms.medium.val=%dÿÿÿ\0",local_sh.bms.mean_bms_voltage_shared);
     scic_msg(tmp);
-    sprintf(tmp, "bms.low.val=%dÿÿÿ\0",local_sh.bms.min_bms_voltage_shared);
+    usprintf(tmp, "bms.low.val=%dÿÿÿ\0",local_sh.bms.min_bms_voltage_shared);
     scic_msg(tmp);
-    sprintf(tmp, "bms.highest_temp.val=%dÿÿÿ\0",local_sh.bms.max_bms_temp_shared);
+    usprintf(tmp, "bms.highest_temp.val=%dÿÿÿ\0",local_sh.bms.max_bms_temp_shared);
     scic_msg(tmp);
 }
 
 void updatePage5()
 {
-    sprintf(tmp, "tyre_motor_d.mot1.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempMotor);
+    usprintf(tmp, "tyre_motor_d.mot1.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempMotor);
     scic_msg(tmp);
-    sprintf(tmp, "tyre_motor_d.mot2.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempMotor);
+    usprintf(tmp, "tyre_motor_d.mot2.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempMotor);
     scic_msg(tmp);
-    sprintf(tmp, "tyre_motor_d.mot3.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempMotor);
+    usprintf(tmp, "tyre_motor_d.mot3.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempMotor);
     scic_msg(tmp);
-    sprintf(tmp, "tyre_motor_d.mot4.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempMotor);
+    usprintf(tmp, "tyre_motor_d.mot4.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempMotor);
     scic_msg(tmp);
 }
 
 void updatePage6()
 {
-    sprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempInverter);
+    usprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempInverter);
     scic_msg(tmp);
-    sprintf(tmp, "inverter.inv2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempInverter);
+    usprintf(tmp, "inverter.inv2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempInverter);
     scic_msg(tmp);
-    sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempInverter);
+    usprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempInverter);
     scic_msg(tmp);
-    sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempInverter);
+    usprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempInverter);
     scic_msg(tmp);
 }
 
 void updatePage7()
 {
-    sprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempIGBT);
+    usprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempIGBT);
     scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempIGBT);
+    usprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempIGBT);
     scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempIGBT);
+    usprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempIGBT);
     scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempIGBT);
+    usprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempIGBT);
     scic_msg(tmp);
 }
 
@@ -247,7 +247,7 @@ void setSelectorPowerControl(){
     if(old_setup != n_setup){
 
       if (old_setup != old_ack){
-          sprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", old_setup);
+          usprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", old_setup);
           scic_msg(tmp);
       }
 
@@ -255,7 +255,7 @@ void setSelectorPowerControl(){
       old_setup = n_setup;
 
       if (old_setup != old_ack){
-          sprintf(tmp, "powercontrol.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          usprintf(tmp, "powercontrol.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
           scic_msg(tmp);
       }
 
@@ -269,12 +269,12 @@ void setAckPowerControl(){
     if (old_ack != ack){
         for (i = 0; i < 8; i++){
             if (i == ack){
-                sprintf(tmp, "powercontrol.setup%d.bco=GREENÿÿÿ\0", i);
+                usprintf(tmp, "powercontrol.setup%d.bco=GREENÿÿÿ\0", i);
                 old_ack = ack;
                 scic_msg(tmp);
             }
             else {
-                sprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", i);
+                usprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", i);
                 scic_msg(tmp);
             }
         }
@@ -286,7 +286,7 @@ void setSelectorRegen(){
     if(old_setup != n_setup){
 
       if (old_setup != old_ack){
-          sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", old_setup);
+          usprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", old_setup);
           scic_msg(tmp);
       }
 
@@ -294,7 +294,7 @@ void setSelectorRegen(){
       old_setup = n_setup;
 
       if (old_setup != old_ack){
-          sprintf(tmp, "regen.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          usprintf(tmp, "regen.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
           scic_msg(tmp);
       }
 
@@ -308,12 +308,12 @@ void setAckRegen(){
     if (old_ack != ack){
         for (i = 0; i < 8; i++){
             if (i == ack){
-                sprintf(tmp, "regen.setup%d.bco=GREENÿÿÿ\0", i);
+                usprintf(tmp, "regen.setup%d.bco=GREENÿÿÿ\0", i);
                 old_ack = ack;
                 scic_msg(tmp);
             }
             else {
-                sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", i);
+                usprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", i);
                 scic_msg(tmp);
             }
         }
@@ -328,36 +328,36 @@ void setAMK_fl(){
 
 
 
-    sprintf(tmp, "motor_status.errorfl.txt=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_ErrorInfo);
+    usprintf(tmp, "motor_status.errorfl.txt=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
 void setAMK_fr(){
 
-    sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempIGBT);
+    usprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempIGBT);
     scic_msg(tmp);
 
-    sprintf(tmp, "motor_status.errorfr.txt=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_ErrorInfo);
+    usprintf(tmp, "motor_status.errorfr.txt=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
 void setAMK_rl(){
 
-    sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempIGBT);
+    usprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempIGBT);
     scic_msg(tmp);
-    sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempInverter);
+    usprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempInverter);
     scic_msg(tmp);
-    sprintf(tmp, "motor_status.errorrl.txt=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_ErrorInfo);
+    usprintf(tmp, "motor_status.errorrl.txt=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
 void setAMK_rr(){
 
-    sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempIGBT);
+    usprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempIGBT);
     scic_msg(tmp);
-    sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempInverter);
+    usprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempInverter);
     scic_msg(tmp);
-    sprintf(tmp, "motor_status.errorrr.txt=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_ErrorInfo);
+    usprintf(tmp, "motor_status.errorrr.txt=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
@@ -365,17 +365,17 @@ void setAMK_rr(){
 void setTemps(){
 
     //da sistemare le temperature dei radiatori nello schermo prima
-    /*sprintf(tmp, "fan_dark.rad1N.val=%dÿÿÿ\0",local_sh.Temps[0]);       //rad out L
+    /*usprintf(tmp, "fan_dark.rad1N.val=%dÿÿÿ\0",local_sh.Temps[0]);       //rad out L
     scic_msg(tmp);
-    sprintf(tmp, "fan_dark.rad2N.val=%dÿÿÿ\0",local_sh.Temps[1]);         //rad out R
+    usprintf(tmp, "fan_dark.rad2N.val=%dÿÿÿ\0",local_sh.Temps[1]);         //rad out R
     scic_msg(tmp);
-    sprintf(tmp, "fan_dark.rad3N.val=%dÿÿÿ\0",local_sh.Temps[2]);         //rad in L
+    usprintf(tmp, "fan_dark.rad3N.val=%dÿÿÿ\0",local_sh.Temps[2]);         //rad in L
     scic_msg(tmp);
-    sprintf(tmp, "fan_dark.rad4N.val=%dÿÿÿ\0",local_sh.Temps[3]);
+    usprintf(tmp, "fan_dark.rad4N.val=%dÿÿÿ\0",local_sh.Temps[3]);
     scic_msg(tmp);*/
-    sprintf(tmp, "fan_dark.n0.val=%dÿÿÿ\0",local_sh.Temps[6]);
+    usprintf(tmp, "fan_dark.n0.val=%dÿÿÿ\0",local_sh.Temps[6]);
     scic_msg(tmp);
-    sprintf(tmp, "fan_dark.n1.val=%dÿÿÿ\0",local_sh.Temps[7]);
+    usprintf(tmp, "fan_dark.n1.val=%dÿÿÿ\0",local_sh.Temps[7]);
     scic_msg(tmp);
 }
 

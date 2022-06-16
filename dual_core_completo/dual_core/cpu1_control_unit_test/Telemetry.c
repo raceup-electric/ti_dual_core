@@ -32,7 +32,7 @@ int send_Motors(){
     int counter = 2;
     int i;
     for(i = 0; i < 4; i++){
-        counter += sprintf(tempData, "%f;%.1f;%.1f;%.1f;%.1f;%04d;",
+        counter += usprintf(tempData, "%f;%.1f;%.1f;%.1f;%.1f;%04d;",
                 local_sh.motorVal1[i].AMK_ActualVelocity,
                 posTorquesNM[i], negTorquesNM[i],
                 local_sh.motorVal2[i].AMK_TempMotor,
@@ -53,7 +53,7 @@ int send_Status_Imu_BMS_Sendyne(){
     memset(toSendData, 0, 255 * sizeof *toSendData);
     toSendData[0] = '2';
     toSendData[1] = ';';
-    int counter = sprintf(tempData, "%d;%d;%d;%d;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.1f;%.1f;%.1f;%.1f\n",
+    int counter = usprintf(tempData, "%d;%d;%d;%d;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.1f;%.1f;%.1f;%.1f\n",
             local_sh.status.steering_shared,
             local_sh.status.actualVelocityKMH_shared,
             local_sh.status.throttle_shared,

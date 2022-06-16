@@ -9,7 +9,6 @@ void main(void)
     #ifdef _FLASH
         memcpy(&RamfuncsRunStart, &RamfuncsLoadStart, (size_t)&RamfuncsLoadSize);
     #endif
-
    setup();
 
    loop();

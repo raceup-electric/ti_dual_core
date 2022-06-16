@@ -21,6 +21,7 @@ extern bool implBrakeAndThrottle ;
 
 extern float sendyne_current;
 extern float sendyne_voltage;
+extern float lem_current;
 extern unsigned long int reassembled_data;
 extern unsigned char CAN_SENDYNE_ACT_VALUES[8];
 
