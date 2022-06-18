@@ -5,18 +5,6 @@ unsigned long gg;
 void canSetup_phase1()
 {
 
-    //DONT WORRY! Spostato nella CPU1
-//    GPIO_SetupPinMux(5, GPIO_MUX_CPU1, 6); //GPIO5 -  CANRXA
-//    GPIO_SetupPinOptions(5, GPIO_INPUT, GPIO_ASYNC);
-//    GPIO_SetupPinMux(4, GPIO_MUX_CPU1, 6); //GPIO4 - CANTXA
-//    GPIO_SetupPinOptions(4, GPIO_OUTPUT, GPIO_PUSHPULL);
-//    GPIO_SetupPinMux(17, GPIO_MUX_CPU1, 2); //GPIO17 -  CANRXB
-//    GPIO_SetupPinOptions(17, GPIO_INPUT, GPIO_ASYNC);
-//    GPIO_SetupPinMux(12, GPIO_MUX_CPU1, 2);  //GPIO12 - CANTXB
-//    GPIO_SetupPinOptions(12, GPIO_OUTPUT, GPIO_PUSHPULL);
-
-
-
     EALLOW;
     CpuSysRegs.PCLKCR10.bit.CAN_A = 1;
     CpuSysRegs.PCLKCR10.bit.CAN_B = 1;
@@ -109,15 +97,7 @@ void canSetup_phase2()
             TXCANA_Smu_Message[i].pucMsgData = TXA_Smu_Calibration[i];
         }
 
-        RXCANA_Sendyne_Message.ui32MsgID = MSG_ID_SENDYNE;
-        RXCANA_Sendyne_Message.ui32MsgIDMask = 0x0;
-        RXCANA_Sendyne_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
-        RXCANA_Sendyne_Message.ui32MsgLen = MSG_DATA_LENGTH;
-        RXCANA_Sendyne_Message.pucMsgData = RXA_Sendyne_Data;
-
-        CANMessageSet(CANA_BASE, OBJ_ID_FROM_SENDYNE, &RXCANA_Sendyne_Message, MSG_OBJ_TYPE_RX);
-
-
+        //Pacchetto BMS VOLTAGE
         RXCANA_BmsVol_Message.ui32MsgID = MSG_ID_BMS_VOLTAGE;
         RXCANA_BmsVol_Message.ui32MsgIDMask = 0x0;
         RXCANA_BmsVol_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
@@ -126,7 +106,7 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, MSG_OBJ_TYPE_RX);
 
-
+        //PACCHETTO BMS TEMPERATURE
         RXCANA_BmsTemp_Message.ui32MsgID = MSG_ID_BMS_TEMP;
         RXCANA_BmsTemp_Message.ui32MsgIDMask = 0x0;
         RXCANA_BmsTemp_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
@@ -135,6 +115,7 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, MSG_OBJ_TYPE_RX);
 
+        //PACCHETTO BMS LV
         RXCANA_BmsLV_Message.ui32MsgID = MSG_ID_BMS_BASE;
         RXCANA_BmsLV_Message.ui32MsgIDMask = 0x1FFFFFFC;
         RXCANA_BmsLV_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
@@ -143,6 +124,7 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, MSG_OBJ_TYPE_RX);
 
+        //PACCHETTO POWER CONTROL DAL VOLANTE
         RXCANA_PwCtrl_Message.ui32MsgID = MSG_ID_POWER_CONTROL;
         RXCANA_PwCtrl_Message.ui32MsgIDMask = 0x0;
         RXCANA_PwCtrl_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
@@ -151,7 +133,7 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_POWER_CONTROL, &RXCANA_PwCtrl_Message, MSG_OBJ_TYPE_RX);
 
-
+        //PACCHETTO DA VOLANTE
         RXCANA_Wheel_Message.ui32MsgID = MSG_ID_STEERING_WHEEL_BASE;
         RXCANA_Wheel_Message.ui32MsgIDMask = 0x1FFFFFF8;
         RXCANA_Wheel_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
@@ -160,6 +142,7 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, MSG_OBJ_TYPE_RX);
 
+        //PACCHETTO DA LEM
         RXCANA_Lem_Message.ui32MsgID = MSG_ID_LEM;
         RXCANA_Lem_Message.ui32MsgIDMask = 0x0;
         RXCANA_Lem_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;

@@ -24,20 +24,4 @@ void powerControl();
 
 float PIController(float pi_error);
 
-//DEPRECATED
-//float proportionalTerm(float power_diff);   //azione proporzionale
-//
-//float integralTerm(float power_diff);       //azione integrale
-//
-//float calculateUpperBound();         //calcolo del limite superiore
-//
-//void calculateTorque(int pedal_pressure);//calcolo del setpoint di coppia
-//
-//void simulateInverter(float torque_setpoint);//simula il consumo di corrente
-//                                             //degli inverter in funzione
-//                                             //della coppia
-//
-//int simulatePedal();        //simula la pressione del pedale
-//                            //dell'acceleratore
-
 #endif

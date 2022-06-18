@@ -126,8 +126,6 @@ bool readRF();
 
 void checkImplausibility();
 
-//void checkPumps();  //deprecated
-
 void checkTemps();
 
 void checkStatus();
@@ -135,14 +133,6 @@ void checkStatus();
 void update_shared_mem();
 
 void update_log_values();
-
-void sendDataToLogger();
-
-void sendStatusToLogger();
-
-void sendTempsToLogger();
-
-void sendSetpointsToLogger();
 
 Uint16 fanSpeedFunction(int temp);
 

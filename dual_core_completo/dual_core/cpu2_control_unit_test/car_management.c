@@ -404,8 +404,6 @@ bool isHVOn()
     for (i = 0; i < NUM_OF_MOTORS; i++)
     {
 
-//        hv &= motorVal1[i].AMK_bQuitDcOn;     codice vecchio
-
         hv |= inverterHV[i];
 
 #ifdef DEBUG_HV
@@ -427,7 +425,6 @@ bool readRF()
 
     int i;
     for (i = 0; i < NUM_OF_MOTORS; i++) {
-//        rf &= motorVal1[i].AMK_bQuitInverterOn;       //vecchio codice
         rf |= inverterRF[i];
 
 #ifdef DEBUG_HV
@@ -482,7 +479,7 @@ void fanControl()
 }
 
 //
-//  Velocitï¿½ della ventola (duty cycle %) in funzione della temperatura:
+//  Velocità della ventola (duty cycle %) in funzione della temperatura:
 //  temperatura > 65ï¿½           ---> ventola spenta
 //  65ï¿½ < temperatura < 75ï¿½     ---> velocitï¿½ scala linearmente da 20% a 100%
 //  75ï¿½ > temperatura           ---> 100%
@@ -503,45 +500,6 @@ Uint16 fanSpeedFunction(int temp){
 #endif
 
 }
-
-//void checkPumps(){      //deprecated
-//    //if car is standing for more than 150ms stop pumps
-//    if(actualVelocityKMH == 0){
-//            stopPumpLimit++;
-//
-//            if(stopPumpLimit >= 150){
-//                 WAT_PUMP_STATE = 0;
-//                 OIL_PUMP_STATE = 0;
-//                 stopPumpLimit = 160;
-//                 enablePumpLimit = 0;
-//                }
-//            }
-//    //if car is moving for more then 150ms restart pumps
-//            else{
-//                if(enablePumpLimit > 150){
-//                    WAT_PUMP_STATE = 1;
-//                    OIL_PUMP_STATE = 1;
-//                    stopPumpLimit = 0;
-//                    enablePumpLimit = 160;
-//                }
-//                else{
-//                    enablePumpLimit++;
-//                }
-//        }
-//    //pumps on if car is r2d
-//    if (R2D_state)
-//    {
-//        GPIO_WritePin(POMPA_DX_Abil, 1U);  // pompa dx on
-//        GPIO_WritePin(POMPA_SX_Abil, 1U);  // pompa sx on
-//    }
-//    else
-//    {
-//        GPIO_WritePin(POMPA_DX_Abil, 0U);  // pompa dx off
-//        GPIO_WritePin(POMPA_SX_Abil, 0U);  // pompa sx off
-//    }
-//
-//
-//}
 
 void checkTemps(){
 
@@ -567,17 +525,7 @@ void checkTemps(){
     Temps[5]=0;
     Temps[6]=leftFanSpeed;
     Temps[7]=rightFanSpeed;
-
-//    Temps[0]=getTempAvPT1000(readADC(TEMP_RAD_IN));
-//    Temps[1]=getTempAvPT1000(readADC(TEMP_RAD_OUT));
-//    Temps[2]=getTempZTP135SR(readADC(TEMP_TYRE_FRONT_L));
-//    Temps[3]=getTempZTP135SR(readADC(TEMP_TYRE_FRONT_R));
-//    Temps[4]=getTempZTP135SR(readADC(TEMP_TYRE_BACK_L));
-//    Temps[5]=getTempZTP135SR(readADC(TEMP_TYRE_BACK_R));
-//    Temps[6]=leftFanSpeed;
-//    Temps[7]=rightFanSpeed;
 }
-
 
 void checkStatus()
 {
@@ -755,38 +703,3 @@ void update_shared_mem()
     sh.gpio = gpio_log;
 }
 
-void sendStatusToLogger()
-{
-//    Uint16 tmp[7];
-//
-//    tmp[0] = throttle;
-//    tmp[1] = steering;
-//    tmp[2] = steering >>8;
-//    tmp[3] = brake;
-//    tmp[4] = getPressAvSP100(readADC(BRAKE_PRS_BACK)); //brake_pressure;
-//    tmp[5] = status;
-//    tmp[6] = (Uint16) ((int)actualVelocityKMH);
-//
-//    CAN_sendMessage(CANA_BASE, OBJ_ID_CAR_STATUS, 7, tmp);
-}
-
-void sendTempsToLogger()
-{
-//    CAN_sendMessage(CANA_BASE, OBJ_ID_TEMPS, 8, Temps);
-}
-
-void sendSetpointsToLogger(){
-
-//    Uint16 setpoints[8];
-//    setpoints[0]=(Uint16)(posTorquesNM[0]*10);
-//    setpoints[1]=(Uint16)(posTorquesNM[1]*10);
-//    setpoints[2]=(Uint16)(posTorquesNM[2]*10);
-//    setpoints[3]=(Uint16)(posTorquesNM[3]*10);
-//    setpoints[4]=(Uint16)(negTorquesNM[0]*-10);
-//    setpoints[5]=(Uint16)(negTorquesNM[1]*-10);
-//    setpoints[6]=(Uint16)(negTorquesNM[2]*-10);
-//    setpoints[7]=(Uint16)(negTorquesNM[3]*-10);
-//
-//    CAN_sendMessage(CANA_BASE, OBJ_ID_AMK_SETPOINTS, 8, setpoints);
-
-}

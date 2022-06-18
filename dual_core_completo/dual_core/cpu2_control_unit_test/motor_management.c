@@ -26,15 +26,6 @@ void read_AMK_Values1(Uint16 canMsg[], int indexMotor) {
     float curr = 0.243 * torqueCurr + 0.0009 * torqueCurr * magnCurr;
     motorVal1[indexMotor].AMK_Current = curr;
 
-    //Send data to logger
-//    if (amkVal1ForwardCounter[indexMotor] >= 20)
-//    {
-//        //CAN_sendMessage(CANA_BASE, (OBJ_ID_AMK1_DATA_BASE + indexMotor), MSG_DATA_LENGTH, canMsg);
-//        amkVal1ForwardCounter[indexMotor] = 0;
-//    }
-//    else
-//        amkVal1ForwardCounter[indexMotor]++;
-
 }
 
 
@@ -47,15 +38,6 @@ void read_AMK_Values2(Uint16 canMsg[], int indexMotor) {
     motorVal2[indexMotor].AMK_TempInverter = (canMsg[2] | canMsg[3] << 8) / 10;
     motorVal2[indexMotor].AMK_TempIGBT = (canMsg[6] | canMsg[7] << 8) / 10;
     motorVal2[indexMotor].AMK_ErrorInfo = (canMsg[4] | canMsg[5] << 8);
-
-    //Send data to logger once every 100 message received -> every second
-//    if (amkVal2ForwardCounter[indexMotor] >= 100)
-//    {
-//        //CAN_sendMessage(CANA_BASE, (OBJ_ID_AMK2_DATA_BASE + indexMotor), MSG_DATA_LENGTH, canMsg);
-//        amkVal2ForwardCounter[indexMotor] = 0;
-//    }
-//    else
-//        amkVal2ForwardCounter[indexMotor]++;
 }
 
 void send_AMK_SetPoints(int indexMotor, int velocity, int posTorque, int negTorque) {

@@ -188,27 +188,12 @@
 //
 #define EPWM_CMP_UP             1U
 #define EPWM_CMP_DOWN           0U
-#define EPWM_TIMER_TBPRD        2000U       //piï¿½ basso il numero, piï¿½ alta la frequenza
+#define EPWM_TIMER_TBPRD        2000U       //più basso il numero, più alta la frequenza
                                             //vedi la guida per calcolare la frequenza
 #define VENTOLA_DX              1
 #define VENTOLA_SX              2
 #define POMPA_DX                3
 #define POMPA_SX                4
-
-//
-// GPIOs
-//
-//#define POMPA_DX_Abil       95      //PIN 42
-//#define POMPA_SX_Abil       139     //PIN 43
-//#define AIR_1_STATE         56      //PIN 44    //INPUT
-//#define AIR_2_STATE         97      //PIN 45    //INPUT
-//#define RTDS                94      //PIN 46
-//#define SCS_FAULT           65      //PIN 47
-//#define R2D                 52      //PIN 48
-//#define AUX_SDC             41      //PIN 49    //INPUT
-//#define BRAKE_LIGHT_Abil    40      //PIN 50
-//#define VENTOLA_Abil        105     //PIN 9
-//#define LV_ALARM            104     //PIN 10    //INPUT
 
 #define IMD_STATE           14      //PIN74     //INPUT
 #define BMS_STATE           15      //PIN73     //INPUT
@@ -230,8 +215,8 @@
 #define DEBUG_LED1          105     //PIN9
 #define DEBUG_LED2          104     //PIN10
 
-#define R2D_LED_ON          0       //LED R2D ha la logica invertita!
-#define R2D_LED_OFF         1U      //GPIO ALTA -> LED SPENTO       GPIO BASSA -> LED ACCESO
+#define R2D_LED_OFF          0
+#define R2D_LED_ON           1U      //GPIO ALTA -> LED ACCESO       GPIO BASSA -> LED SPENSO
 
 #define RTDS_DURATION       15      //*100ms
 

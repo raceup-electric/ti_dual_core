@@ -154,11 +154,13 @@ void Shared_Ram_dataRead_c1(void)
 
 __interrupt void cpu_timer1_isr(void)
 {
-        EALLOW;
         CpuTimer1.InterruptCount++;
-        //GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-        //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
-        EDIS;
+        if(CpuTimer1.InterruptCount % 100 == 0){
+            EALLOW;
+            GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+//            GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
+            EDIS;
+        }
 
         Shared_Ram_dataRead_c1();
 
@@ -198,6 +200,7 @@ __interrupt void cpu_timer1_isr(void)
 
                         local_sh.motorSetP[0].AMK_TorqueLimitPositive,local_sh.motorSetP[1].AMK_TorqueLimitPositive,
                         local_sh.motorSetP[2].AMK_TorqueLimitPositive,local_sh.motorSetP[3].AMK_TorqueLimitPositive,
+
                         local_sh.motorSetP[0].AMK_TorqueLimitNegative,local_sh.motorSetP[1].AMK_TorqueLimitNegative,
                         local_sh.motorSetP[2].AMK_TorqueLimitNegative,local_sh.motorSetP[3].AMK_TorqueLimitNegative
                         );

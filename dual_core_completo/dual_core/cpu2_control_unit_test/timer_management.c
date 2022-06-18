@@ -81,9 +81,11 @@ void timerSetup()
 }
 
 __interrupt void cpu_timer0_isr(void){
-//    EALLOW;
-//    GpioDataRegs.GPATOGGLE.bit.GPIO6 = 1;
-//    EDIS;
+    if(CpuTimer0.InterruptCount % 50 == 0){
+        EALLOW;
+        GpioDataRegs.GPATOGGLE.bit.GPIO31 = 1;
+        EDIS;
+    }
     CpuTimer0.InterruptCount++;
     time_elapsed++;
 
@@ -113,8 +115,6 @@ __interrupt void cpu_timer1_isr(void)
     checkRF();
     R2D_init();
 #endif
-
-    //debugLight(20); //non funziona
 
 #if defined(DEBUG_NO_HV) || defined(DEBUG_HV)
 

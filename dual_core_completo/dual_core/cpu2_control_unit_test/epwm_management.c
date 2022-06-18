@@ -192,24 +192,6 @@ void initEPWM4()
     EPwm4Regs.ETPS.bit.INTPRD = ET_3RD;           // Generate INT on 3rd event
 }
 
-//deprecated
-//void setDutyCycle(Uint32 base, Uint16 module, int perc)
-//{
-//    //TO MODIFY
-//    if(base==1)
-//    {
-//        if (module == A)
-//            EPwm5Regs.CMPA.bit.CMPA=convertPercent(perc);
-//        else
-//            EPwm5Regs.CMPB.bit.CMPB=convertPercent(perc);
-//    }else
-//    {
-//        if (module == A)
-//            EPwm6Regs.CMPA.bit.CMPA=convertPercent(perc);
-//        else
-//            EPwm2Regs.CMPB.bit.CMPB=convertPercent(perc);
-//    }
-//}
 
 Uint16 convertPercent(int perc)
 {

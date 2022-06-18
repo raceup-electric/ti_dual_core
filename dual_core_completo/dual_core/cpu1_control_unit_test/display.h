@@ -129,6 +129,18 @@ struct Share_struct {
 void updateValues();
 void updatePage(Uint16 page);
 
+void updatePage1();
+void updatePage2();
+void updatePage3();
+void updatePage4();
+void updatePage5();
+void updatePage6();
+void updatePage7();
+void updatePage8();
+void updatePage9();
+
+
+
 void changePreset(Uint16 preset, Uint16 page, Uint16 ack);
 
 

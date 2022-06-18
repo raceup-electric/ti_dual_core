@@ -90,19 +90,5 @@ void torqueRepartition();
 void regBrake();
 
 void onePedalDriving();
-//DEPRECATED
-//float getMotorScale(int motor);
-//
-//bool isInnerMotor(int motor);
-//
-//bool isOuterMotor(int motor);
-//
-//bool isLeftTurn();
-//
-//bool isRightTurn();
-//
-//float getInnerTorque(float requestedTorque, float speed, float delta, float k);
-//
-//float getOuterTorque(float requestedTorque, float speed, float delta, float k);
 
 #endif
