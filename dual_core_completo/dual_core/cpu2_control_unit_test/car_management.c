@@ -209,7 +209,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
 
 void brakeLight()
 {
-    if (brake > BRAKE_LIGHT_MIN) {
+    if (brake > BRAKE_LIGHT_MIN || brakeReq > BRAKE_LIGHT_MIN ) {
         GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_ON);  // ON
     } else {
         GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);  // OFF

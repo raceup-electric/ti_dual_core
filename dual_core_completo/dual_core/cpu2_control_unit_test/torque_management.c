@@ -249,46 +249,30 @@ void regBrake()
 void onePedalDriving()
 {
     float brake_point_limit = 35;
-    //int var_min = 1;
 
-/*    dacc = throttleReq - old_throttleReq2;
-    old_throttleReq2 = old_throttleReq1;
-    old_throttleReq1 = old_throttleReq;
-    old_throttleReq = throttleReq;
+    if(throttleReq > brake_point_limit){
+            throttleReq = ((throttleReq - brake_point_limit)*100)/(100-brake_point_limit);
+            brakeReq = 0;
 
+    }
+    else if(throttleReq==0 && brake > 5){
+        brakeReq = 100;
+        velocityRef = 0;    //per setpoint AMK4
+    }
+    else{
+        if(actualVelocityKMH > 5){
 
-    /*if(dacc > var_min)
-        slope = abs(slope);
-    else if( dacc < -var_min)
-        slope = -abs(slope);*/
-
-    //slope = -1;
-
-
-     //if(slope == -1)
-
-        if(throttleReq > brake_point_limit)
-        {
-                throttleReq = ((throttleReq - brake_point_limit)*100)/(100-brake_point_limit);
-                brakeReq = 0;
-
+            brakeReq = (100 - throttleReq*100/brake_point_limit);
+            throttleReq = 0;
+            velocityRef = 0;    //per setpoint AMK4
         }
-        else
-        {
-            if(actualVelocityKMH > 5)
-            {
-
-                brakeReq = (100 - throttleReq*100/brake_point_limit);
-                throttleReq = 0;
-
-                velocityRef = 0;    //per setpoint AMK4
-            }else
-            {
-                throttleReq = 0;
-                brakeReq = 0;
-            }
-
+        else{
+            //sotto i 35 con throttle e velocità < 5 --> brake when slow --> solo freno meccanico
+            throttleReq = 0;
+            brakeReq = 0;
         }
+
+    }
 
 }
 
