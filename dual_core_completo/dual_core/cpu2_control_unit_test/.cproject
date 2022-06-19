@@ -148,7 +148,6 @@
 									<listOptionValue builtIn="false" value="${COM_TI_C2000WARE_SOFTWARE_PACKAGE_SYMBOLS}"/>
 									<listOptionValue builtIn="false" value="NO_ONE_PEDAL"/>
 									<listOptionValue builtIn="false" value="NO_REG_BRAKE"/>
-									<listOptionValue builtIn="false" value="DEBUG_NO_HV"/>
 									<listOptionValue builtIn="false" value="CPU2"/>
 									<listOptionValue builtIn="false" value="NO_TORQUE_VECTORING"/>
 									<listOptionValue builtIn="false" value="NO_POWER_CONTROL"/>

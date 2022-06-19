@@ -15,13 +15,13 @@
 
 
 // acc1
-#define ACC1_LOW_TH    1900
-#define ACC1_HIGH_TH   3200
+#define ACC1_LOW_TH    2580
+#define ACC1_HIGH_TH   3950
 #define ACC1_INPUT_RANGE (ACC1_HIGH_TH - ACC1_LOW_TH)
 
 // acc2
-#define ACC2_LOW_TH    2670
-#define ACC2_HIGH_TH   3850
+#define ACC2_LOW_TH    1825
+#define ACC2_HIGH_TH   3200
 #define ACC2_INPUT_RANGE (ACC2_HIGH_TH - ACC2_LOW_TH)
 
 // acc
@@ -30,7 +30,7 @@
 #define ACC_IMPL_THRES 10 // implausibility threshold 10%
 
 // brake
-#define BRK_LOW_TH    2030
+#define BRK_LOW_TH    1687
 #define BRK_HIGH_TH   3800
 #define BRK_INPUT_RANGE (BRK_HIGH_TH-BRK_LOW_TH)
 
