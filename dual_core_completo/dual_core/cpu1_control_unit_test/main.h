@@ -41,11 +41,14 @@ char filename[20];
 
 //Schermo
 Uint16 currentPage=99;
-char tmp[50];
-Uint16 n_setup;
-Uint16 old_setup;
-Uint16 ack = 0;
-Uint16 old_ack = 0;
+char tmp[TMP_SIZE];
+Uint16 n_setup = 0;
+Uint16 old_setup_power = 99;
+Uint16 old_setup_regen = 99;
+
+Uint16 ack = 99;
+Uint16 old_ack_power = 99;
+Uint16 old_ack_regen = 99;
 Uint16 sel; //for debug
 
 

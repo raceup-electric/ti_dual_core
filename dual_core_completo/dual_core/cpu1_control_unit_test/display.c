@@ -48,7 +48,7 @@ void updatePage(Uint16 page){
           scic_msg("page 1ÿÿÿ\0");
         break;
         case PAGE_2:
-            currentPage=PAGE_3;
+            currentPage=PAGE_2;
             scic_msg("page 2ÿÿÿ\0");
           break;
         case PAGE_3:
@@ -121,19 +121,19 @@ void updatePage1()
     else scic_msg("main_dark.rf.bco=REDÿÿÿ\0");
 
 
-    usprintf(tmp, "main_dark.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
+    sprintf(tmp, "main_dark.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
     scic_msg(tmp);
 }
 
 void updatePage2()
 {
-    usprintf(tmp, "hv_val.voltage_HV.val=%.2fÿÿÿ\0",local_sh.sendyne.sendyne_voltage_shared);
+    sprintf(tmp, "hv_val.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.sendyne.sendyne_voltage_shared);
     scic_msg(tmp);
-    usprintf(tmp, "hv_val.lem.val=%.2fÿÿÿ\0",local_sh.sendyne.sendyne_current_shared);
+    sprintf(tmp, "hv_val.lem.val=%dfÿÿÿ\0", (int)local_sh.sendyne.sendyne_current_shared);
     scic_msg(tmp);
-    usprintf(tmp, "hv_val.curr_sens.val=%.2fÿÿÿ\0",local_sh.sendyne.curr_sens_shared);
+    sprintf(tmp, "hv_val.curr_sens.val=%dÿÿÿ\0", (int)local_sh.sendyne.curr_sens_shared);
     scic_msg(tmp);
-    usprintf(tmp, "hv_val.tot_power.val=%.2fÿÿÿ\0",local_sh.sendyne.total_power_shared);
+    sprintf(tmp, "hv_val.tot_power.val=%dÿÿÿ\0", (int)local_sh.sendyne.total_power_shared);
     scic_msg(tmp);
 }
 void updatePage3()
@@ -182,49 +182,49 @@ void updatePage3()
 
 void updatePage4()
 {
-    usprintf(tmp, "bms.high.val=%dÿÿÿ\0",local_sh.bms.max_bms_voltage_shared);
+    sprintf(tmp, "bms.high.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_voltage_shared);
     scic_msg(tmp);
-    usprintf(tmp, "bms.medium.val=%dÿÿÿ\0",local_sh.bms.mean_bms_voltage_shared);
+    sprintf(tmp, "bms.medium.val=%dÿÿÿ\0", (int)local_sh.bms.mean_bms_voltage_shared);
     scic_msg(tmp);
-    usprintf(tmp, "bms.low.val=%dÿÿÿ\0",local_sh.bms.min_bms_voltage_shared);
+    sprintf(tmp, "bms.low.val=%dÿÿÿ\0", (int)local_sh.bms.min_bms_voltage_shared);
     scic_msg(tmp);
-    usprintf(tmp, "bms.highest_temp.val=%dÿÿÿ\0",local_sh.bms.max_bms_temp_shared);
+    sprintf(tmp, "bms.highest_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
     scic_msg(tmp);
 }
 
 void updatePage5()
 {
-    usprintf(tmp, "tyre_motor_d.mot1.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempMotor);
+    sprintf(tmp, "tyre_motor_d.mot1.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempMotor);
     scic_msg(tmp);
-    usprintf(tmp, "tyre_motor_d.mot2.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempMotor);
+    sprintf(tmp, "tyre_motor_d.mot2.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempMotor);
     scic_msg(tmp);
-    usprintf(tmp, "tyre_motor_d.mot3.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempMotor);
+    sprintf(tmp, "tyre_motor_d.mot3.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempMotor);
     scic_msg(tmp);
-    usprintf(tmp, "tyre_motor_d.mot4.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempMotor);
+    sprintf(tmp, "tyre_motor_d.mot4.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempMotor);
     scic_msg(tmp);
 }
 
 void updatePage6()
 {
-    usprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempInverter);
     scic_msg(tmp);
-    usprintf(tmp, "inverter.inv2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv2n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempInverter);
     scic_msg(tmp);
-    usprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempInverter);
     scic_msg(tmp);
-    usprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempInverter);
     scic_msg(tmp);
 }
 
 void updatePage7()
 {
-    usprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempIGBT);
     scic_msg(tmp);
-    usprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempIGBT);
     scic_msg(tmp);
-    usprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempIGBT);
     scic_msg(tmp);
-    usprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempIGBT);
     scic_msg(tmp);
 }
 
@@ -244,18 +244,26 @@ void updatePage9()
 
 void setSelectorPowerControl(){
     n_setup = display.selector;
-    if(old_setup != n_setup){
+    if(old_setup_power != n_setup){
 
-      if (old_setup != old_ack){
-          usprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", old_setup);
+        /*int v;
+        for(v = 0; v < 8; v++){
+            if(v != old_setup_power || v != old_ack_power){
+                sprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", v);
+                scic_msg(tmp);
+            }
+        }*/
+
+      if (old_setup_power != old_ack_power){
+          sprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", old_setup_power);
           scic_msg(tmp);
       }
 
 
-      old_setup = n_setup;
+      old_setup_power = n_setup;
 
-      if (old_setup != old_ack){
-          usprintf(tmp, "powercontrol.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+      if (old_setup_power != old_ack_power){
+          sprintf(tmp, "powercontrol.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
           scic_msg(tmp);
       }
 
@@ -266,15 +274,15 @@ void setAckPowerControl(){
     //Serial.println(String(msg.buf[0]));
     int i;
     ack = display.ack;
-    if (old_ack != ack){
+    if (old_ack_power != ack){
         for (i = 0; i < 8; i++){
             if (i == ack){
-                usprintf(tmp, "powercontrol.setup%d.bco=GREENÿÿÿ\0", i);
-                old_ack = ack;
+                sprintf(tmp, "powercontrol.setup%d.bco=GREENÿÿÿ\0", i);
+                old_ack_power = ack;
                 scic_msg(tmp);
             }
             else {
-                usprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", i);
+                sprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", i);
                 scic_msg(tmp);
             }
         }
@@ -283,18 +291,26 @@ void setAckPowerControl(){
 }
 void setSelectorRegen(){
     n_setup = display.selector;
-    if(old_setup != n_setup){
+    if(old_setup_regen != n_setup){
 
-      if (old_setup != old_ack){
-          usprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", old_setup);
+        /*int v;
+        for(v = 0; v < 6; v++){
+            if(v != old_setup_regen || v != old_ack_regen){
+                sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", v);
+                scic_msg(tmp);
+            }
+        }*/
+
+      if (old_setup_regen != old_ack_regen){
+          sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", old_setup_regen);
           scic_msg(tmp);
       }
 
 
-      old_setup = n_setup;
+      old_setup_regen = n_setup;
 
-      if (old_setup != old_ack){
-          usprintf(tmp, "regen.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+      if (old_setup_regen != old_ack_regen){
+          sprintf(tmp, "regen.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
           scic_msg(tmp);
       }
 
@@ -305,15 +321,15 @@ void setAckRegen(){
     //Serial.println(String(msg.buf[0]));
     int i;
     ack = display.ack;
-    if (old_ack != ack){
-        for (i = 0; i < 8; i++){
+    if (old_ack_regen != ack){
+        for (i = 0; i < 6; i++){
             if (i == ack){
-                usprintf(tmp, "regen.setup%d.bco=GREENÿÿÿ\0", i);
-                old_ack = ack;
+                sprintf(tmp, "regen.setup%d.bco=GREENÿÿÿ\0", i);
+                old_ack_regen = ack;
                 scic_msg(tmp);
             }
             else {
-                usprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", i);
+                sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", i);
                 scic_msg(tmp);
             }
         }
@@ -328,36 +344,36 @@ void setAMK_fl(){
 
 
 
-    usprintf(tmp, "motor_status.errorfl.txt=%dÿÿÿ\0",local_sh.motorVal2[0].AMK_ErrorInfo);
+    sprintf(tmp, "motor_status.errorfl.txt=%dÿÿÿ\0",(int)local_sh.motorVal2[0].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
 void setAMK_fr(){
 
-    usprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[1].AMK_TempIGBT);
     scic_msg(tmp);
 
-    usprintf(tmp, "motor_status.errorfr.txt=%dÿÿÿ\0",local_sh.motorVal2[1].AMK_ErrorInfo);
+    sprintf(tmp, "motor_status.errorfr.txt=%dÿÿÿ\0",(int)local_sh.motorVal2[1].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
 void setAMK_rl(){
 
-    usprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[2].AMK_TempIGBT);
     scic_msg(tmp);
-    usprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[2].AMK_TempInverter);
     scic_msg(tmp);
-    usprintf(tmp, "motor_status.errorrl.txt=%dÿÿÿ\0",local_sh.motorVal2[2].AMK_ErrorInfo);
+    sprintf(tmp, "motor_status.errorrl.txt=%dÿÿÿ\0",(int)local_sh.motorVal2[2].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
 void setAMK_rr(){
 
-    usprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[3].AMK_TempIGBT);
     scic_msg(tmp);
-    usprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[3].AMK_TempInverter);
     scic_msg(tmp);
-    usprintf(tmp, "motor_status.errorrr.txt=%dÿÿÿ\0",local_sh.motorVal2[3].AMK_ErrorInfo);
+    sprintf(tmp, "motor_status.errorrr.txt=%dÿÿÿ\0",(int)local_sh.motorVal2[3].AMK_ErrorInfo);
     scic_msg(tmp);
 }
 
@@ -365,17 +381,17 @@ void setAMK_rr(){
 void setTemps(){
 
     //da sistemare le temperature dei radiatori nello schermo prima
-    /*usprintf(tmp, "fan_dark.rad1N.val=%dÿÿÿ\0",local_sh.Temps[0]);       //rad out L
+    /*sprintf(tmp, "fan_dark.rad1N.val=%dÿÿÿ\0",local_sh.Temps[0]);       //rad out L
     scic_msg(tmp);
-    usprintf(tmp, "fan_dark.rad2N.val=%dÿÿÿ\0",local_sh.Temps[1]);         //rad out R
+    sprintf(tmp, "fan_dark.rad2N.val=%dÿÿÿ\0",local_sh.Temps[1]);         //rad out R
     scic_msg(tmp);
-    usprintf(tmp, "fan_dark.rad3N.val=%dÿÿÿ\0",local_sh.Temps[2]);         //rad in L
+    sprintf(tmp, "fan_dark.rad3N.val=%dÿÿÿ\0",local_sh.Temps[2]);         //rad in L
     scic_msg(tmp);
-    usprintf(tmp, "fan_dark.rad4N.val=%dÿÿÿ\0",local_sh.Temps[3]);
+    sprintf(tmp, "fan_dark.rad4N.val=%dÿÿÿ\0",local_sh.Temps[3]);
     scic_msg(tmp);*/
-    usprintf(tmp, "fan_dark.n0.val=%dÿÿÿ\0",local_sh.Temps[6]);
+    sprintf(tmp, "fan_dark.n0.val=%dÿÿÿ\0",local_sh.Temps[6]);
     scic_msg(tmp);
-    usprintf(tmp, "fan_dark.n1.val=%dÿÿÿ\0",local_sh.Temps[7]);
+    sprintf(tmp, "fan_dark.n1.val=%dÿÿÿ\0",local_sh.Temps[7]);
     scic_msg(tmp);
 }
 

@@ -40,12 +40,18 @@ void scic_init()
     // @LSPCLK = 50 MHz (200 MHz SYSCLK) HBAUD = 0x02 and LBAUD = 0x8B.
     // @LSPCLK = 30 MHz (120 MHz SYSCLK) HBAUD = 0x01 and LBAUD = 0x86.
     //
-    ScicRegs.SCIHBAUD.all = 0x0002;
+
+    /* baudrate 9600
+     ScicRegs.SCIHBAUD.all = 0x0002;
     ScicRegs.SCILBAUD.all = 0x008a;
-
+     */
+    //baudrate 115200
+    ScicRegs.SCIHBAUD.all = 0x0000;
+    ScicRegs.SCILBAUD.all = 0x0035;
     ScicRegs.SCICTL1.all = 0x0023;  // Relinquish SCI from Reset
-}
 
+
+}
 //
 // scia_xmit - Transmit a character from the SCI
 //

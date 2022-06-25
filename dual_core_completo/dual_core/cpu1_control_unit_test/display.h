@@ -12,15 +12,19 @@
 #include "stdio.h"
 #include "global_definitions.h"
 
+#define TMP_SIZE 50
+
 extern Uint16 currentPage;
-extern Uint16 old_ack;
 extern char tmp[50];
 extern struct Share_struct local_sh;
 extern struct Display_command display;
 extern Uint16 n_setup;
-extern Uint16 old_setup;
 extern Uint16 ack;
-extern Uint16 old_ack;
+
+extern Uint16 old_setup_power;
+extern Uint16 old_setup_regen;
+extern Uint16 old_ack_power;
+extern Uint16 old_ack_regen;
 
 struct Display_command{
     Uint16 page;
@@ -163,5 +167,13 @@ void setFRstatus();
 void setRLstatus();
 
 void setRRstatus();
+
+void setSelectorPowerControl();
+
+void setAckPowerControl();
+
+void setSelectorRegen();
+
+void setAckRegen();
 
 #endif /* DISPLAY_H_ */

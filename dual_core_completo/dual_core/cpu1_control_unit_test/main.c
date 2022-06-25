@@ -81,8 +81,24 @@ void main(void)
 
     local_sh = sh;
     //DELAY_US(10000);
-    char str_init[100];
-    usprintf(str_init , "throttle | steering | brake | brakePress | status | actualVelocityKMH \n");
+    char str_init[200];
+    sprintf(str_init , "timestamp;AmkStatusFL;AmkStatusFR;AmkStatusRL;AmkStatusRR;TempMotor;ErrorInfo;TempIGBT;TempInverter;TempMotor;");
+    writeSD(str_init);
+    sprintf(str_init , "ErrorInfo;TempIGBT;TempInverter;TempMotor;ErrorInfo;TempIGBT;TempInverter;TempMotor;ErrorInfo;TempIGBT;TempInverter;");
+    writeSD(str_init);
+    sprintf(str_init , "ActualVelocityFL;ActualVelocityFR;ActualVelocityRL;ActualVelocityRR;TorqueLimitPositiveFL;TorqueLimitPositiveFR;");
+    writeSD(str_init);
+    sprintf(str_init , "TorqueLimitPositiveRL;TorqueLimitPositiveRR;TorqueLimitNegativeFL;TorqueLimitNegativeFR;TorqueLimitNegativeRL;");
+    writeSD(str_init);
+    sprintf(str_init , "TorqueLimitNegativeRR;throttle;steering angle;brake;brake_press;status;actualVelocityKMH;max voltage;min voltage;");
+    writeSD(str_init);
+    sprintf(str_init , "avg voltage;max temp;min temp;avg temp;bms_lv[0];bms_lv[1];bms_lv[2];bms_lv[3];bms_lv[4];bms_lv[5];bms_lv[6];bms_lv[7];");
+    writeSD(str_init);
+    sprintf(str_init , "Car voltage;Lem current;current sensor;total power;acceleration x;acceleration y;acceleration z;omega x;omega y;omega z;");
+    writeSD(str_init);
+    sprintf(str_init , "SuspensionsFL;SuspensionsFR;SuspensionsRL;SuspensionsRR;temp pre rad;temp pre cold;temp post cold;temp pre mot;temp post mot;");
+    writeSD(str_init);
+    sprintf(str_init , "Gpio bms;Gpio imd;Gpio sdc 1;Gpio sdc 2;Gpio sdc 3;Gpio sdc 4;Gpio sdc 5;Gpio sdc 6\n");
     writeSD(str_init);
 
 #ifdef LORA_DEBUG
@@ -93,7 +109,7 @@ void main(void)
 #endif
 
           //start timer1
-    CpuTimer2Regs.TCR.bit.TSS = 0;        //Start timer 2
+    CpuTimer2Regs.TCR.bit.TSS = 1;        //Start timer 2
 
 
 
@@ -155,29 +171,23 @@ void Shared_Ram_dataRead_c1(void)
 __interrupt void cpu_timer1_isr(void)
 {
         CpuTimer1.InterruptCount++;
-        if(CpuTimer1.InterruptCount % 100 == 0){
-            EALLOW;
-            GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-//            GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
-            EDIS;
-        }
+
 
         Shared_Ram_dataRead_c1();
-
+#ifdef LOGGING
         char cmd[200];
-        int index;
 
-        usprintf(cmd, "timestamp %d stop", (int)local_time_elapsed);
+        sprintf(cmd, "%d;", (int)local_time_elapsed);
         writeSD(cmd);
 
         compute_AMKStatus();
 
-        usprintf(cmd, "%d;%d;%d;%d;"  //AMKStatus
-                "%.2f;%.2f;%.2f;%.2f;"   //MotorVal2
-                "%.2f;%.2f;%.2f;%.2f;"
-                "%.2f;%.2f;%.2f;%.2f;"
-                "%.2f;%.2f;%.2f;%.2f;",
-                AmkStatus[0], AmkStatus[1], AmkStatus[2], AmkStatus[3],
+        sprintf(cmd, "%d;%d;%d;%d;"  //AMKStatus
+                "%.2f;%u;%.2f;%.2f;"   //MotorVal2
+                "%.2f;%u;%.2f;%.2f;"
+                "%.2f;%u;%.2f;%.2f;"
+                "%.2f;%u;%.2f;%.2f;",
+                (int)AmkStatus[0], (int)AmkStatus[1], (int)AmkStatus[2], (int)AmkStatus[3],
 
                 local_sh.motorVal2[0].AMK_TempMotor, local_sh.motorVal2[0].AMK_ErrorInfo,
                 local_sh.motorVal2[0].AMK_TempIGBT, local_sh.motorVal2[0].AMK_TempInverter,
@@ -192,7 +202,7 @@ __interrupt void cpu_timer1_isr(void)
         writeSD(cmd);
 
         //TO USE
-        usprintf(cmd , "%d;%d;%d;%d;"  //Actual velocity
+        sprintf(cmd , "%.1f;%.1f;%.1f;%.1f;"  //Actual velocity
                       "%d;%d;%d;%d;" //MotorSetPoints positive
                       "%d;%d;%d;%d;", //MotorSetPoints negative
                         local_sh.motorVal1[0].AMK_ActualVelocity,local_sh.motorVal1[1].AMK_ActualVelocity,
@@ -206,15 +216,37 @@ __interrupt void cpu_timer1_isr(void)
                         );
         writeSD(cmd);
 
-        usprintf(cmd ,
-                "%d;%d;"                           //fanSpeed
+        sprintf(cmd ,
+                        "%d;%d;%d;%d;%d;%d;"                //status
+                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms
+                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f"    //bms_lv
+                        "%.2f;%.2f;%.2f;%.2f\n",              //sendyne
+                        //status
+                        local_sh.status.throttle_shared, local_sh.status.steering_shared,
+                        local_sh.status.brake_shared, local_sh.status.brakePress_shared,
+                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
+                        //bms
+                        local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
+                        local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
+                        local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
+                        //bms_lv
+                        local_sh.bms_lv_cell[0], local_sh.bms_lv_cell[1], local_sh.bms_lv_cell[2],
+                        local_sh.bms_lv_cell[3], local_sh.bms_lv_cell[4], local_sh.bms_lv_cell[5],
+                        local_sh.bms_lv_cell[6], local_sh.bms_lv_cell[7],
+                        //sendyne
+                        local_sh.sendyne.sendyne_voltage_shared, local_sh.sendyne.sendyne_current_shared,
+                        local_sh.sendyne.curr_sens_shared, local_sh.sendyne.total_power_shared);
+        writeSD(cmd);
+
+        sprintf(cmd ,
+//                "%d;%d;"                           //fanSpeed
                 "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"   //imu
-                "%d;%d;%d;%d;"                      //potenziometro acceleratore
+                "%.2f;%.2f;%.2f;%.2f;"                   //suspensions
                 "%.2f;%.2f;%.2f;%.2f;%.2f;"        //temperatures per cooling
                 "%d;%d;%d;%d;%d;%d;%d;%d;",
 
-                        //fanSpeed
-                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
+//                        //fanSpeed
+//                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
                         //imu
                         local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
                         local_sh.imu.accelerations_shared[2], local_sh.imu.omegas_shared[0],
@@ -233,33 +265,26 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.gpio.Sdc5_shared, local_sh.gpio.Sdc6_shared);
         writeSD(cmd);
 
-        usprintf(cmd ,
-                        "%d;%d;%d;%d;%d;%d;"                //status
-                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms
-                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
-                        "%.2f;%.2f;%.2f;%.2f\n",              //sendyne
-                        //status
-                        local_sh.status.throttle_shared, local_sh.status.steering_shared,
-                        local_sh.status.brake_shared, local_sh.status.brakePress_shared,
-                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
-                        //bms
-                        local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
-                        local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
-                        local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
-                        //bms_lv
-                        local_sh.bms_lv_cell[0], local_sh.bms_lv_cell[1], local_sh.bms_lv_cell[2],
-                        local_sh.bms_lv_cell[3], local_sh.bms_lv_cell[4], local_sh.bms_lv_cell[5],
-                        local_sh.bms_lv_cell[6], local_sh.bms_lv_cell[7],
-                        //sendyne
-                        local_sh.sendyne.sendyne_voltage_shared, local_sh.sendyne.sendyne_current_shared,
-                        local_sh.sendyne.curr_sens_shared, local_sh.sendyne.total_power_shared);
-        writeSD(cmd);
+
+#endif
+        if(CpuTimer1.InterruptCount % 5 == 0)
+        {
+            EALLOW;
+            GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+            updatePage(display.page);
+            updateValues();
+            //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
+            EDIS;
+        }
 }
 
 //not necessary at the moment
 __interrupt void cpu_timer2_isr(void)
 {
-    updatePage(var_v);
+#ifdef DISPLAY
+    updatePage(display.page);
+    updateValues();
+    //updatePage(display.page);
     //updateValues();
 //    var_v++;
 //    var_v = var_v % 9;
@@ -274,7 +299,7 @@ __interrupt void cpu_timer2_isr(void)
 //        sel = sel + 2;
 //        sel = sel % 8;
 //    }
-
+#endif
 #ifndef NO_LORA
     if(LoRa_Packet_Counter == 0){
         send_Motors();

@@ -12,8 +12,8 @@
 #define NUM_OF_MOTORS       4
 #define KMH2MS              (1 / 3.6)
 #ifdef NO_TORQUE_VECTORING
-#define REAR_MOTOR_SCALE    0.3f
-#define FRONT_MOTOR_SCALE   0.3f
+#define REAR_MOTOR_SCALE    1.00f
+#define FRONT_MOTOR_SCALE   1.00f
 #else
 #define REAR_MOTOR_SCALE    1.0f
 #define FRONT_MOTOR_SCALE   1.0f

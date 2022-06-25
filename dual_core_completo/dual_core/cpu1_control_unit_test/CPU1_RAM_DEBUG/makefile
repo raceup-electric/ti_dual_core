@@ -4,7 +4,7 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := C:/ti/ccs1110/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS
+CG_TOOL_ROOT := C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -39,6 +39,17 @@ ORDERED_OBJS += \
 "./systick.obj" \
 "./uart.obj" \
 "./ustdlib.obj" \
+"./ff14b/documents/res/app1.obj" \
+"./ff14b/documents/res/app2.obj" \
+"./ff14b/documents/res/app3.obj" \
+"./ff14b/documents/res/app4.obj" \
+"./ff14b/documents/res/app5.obj" \
+"./ff14b/documents/res/app6.obj" \
+"./ff14b/source/diskio.obj" \
+"./ff14b/source/ff.obj" \
+"./ff14b/source/ffsystem.obj" \
+"./ff14b/source/ffunicode.obj" \
+"../2837xD_FLASH_lnk_cpu1.cmd" \
 $(GEN_CMDS__FLAG) \
 -lrts2800_fpu32.lib \
 -l2837xD_RAM_lnk_shared_cpu1.cmd \
@@ -53,7 +64,11 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include ff14b/documents/res/subdir_vars.mk
+-include ff14b/source/subdir_vars.mk
 -include subdir_rules.mk
+-include ff14b/documents/res/subdir_rules.mk
+-include ff14b/source/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -160,18 +175,18 @@ EXE_OUTPUTS__QUOTED += \
 all: cpu1_control_unit_test.out
 
 # Tool invocations
-cpu1_control_unit_test.out: $(OBJS) $(GEN_CMDS)
+cpu1_control_unit_test.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccs1110/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --cla_support=cla1 --tmu_support=tmu0 --vcu_support=vcu2 --advice:performance=all -g --define=CPU1 --display_error_number --diag_warning=225 -z -m"cpu1_control_unit_test.map" --heap_size=0x400 --stack_size=0x3F8 --warn_sections -i"C:/ti/ccs1110/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/cmd" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/cmd" --reread_libs --display_error_number --xml_link_info="cpu1_control_unit_test_linkInfo.xml" --rom_model -o "cpu1_control_unit_test.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --cla_support=cla1 --tmu_support=tmu0 --vcu_support=vcu2 --advice:performance=all -g --define=CPU1 --display_error_number --diag_warning=225 -z -m"cpu1_control_unit_test.map" --heap_size=0x400 --stack_size=0x3F8 --warn_sections -i"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/lib" -i"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/cmd" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/cmd" --reread_libs --display_error_number --xml_link_info="cpu1_control_unit_test_linkInfo.xml" --rom_model -o "cpu1_control_unit_test.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "F2837xD_Adc.obj" "F2837xD_CodeStartBranch.obj" "F2837xD_CpuTimers.obj" "F2837xD_DefaultISR.obj" "F2837xD_EPwm.obj" "F2837xD_GlobalVariableDefs.obj" "F2837xD_Gpio.obj" "F2837xD_Ipc.obj" "F2837xD_Ipc_Driver_Util.obj" "F2837xD_PieCtrl.obj" "F2837xD_PieVect.obj" "F2837xD_SysCtrl.obj" "F2837xD_usDelay.obj" "GPIO_management.obj" "LoRa.obj" "SPI_LoRa.obj" "Telemetry.obj" "can.obj" "cmdline.obj" "display.obj" "ff.obj" "interrupt.obj" "main.obj" "mmc_F2837x.obj" "sd_card.obj" "sysctl.obj" "systick.obj" "uart.obj" "ustdlib.obj" 
-	-$(RM) "F2837xD_Adc.d" "F2837xD_CpuTimers.d" "F2837xD_DefaultISR.d" "F2837xD_EPwm.d" "F2837xD_GlobalVariableDefs.d" "F2837xD_Gpio.d" "F2837xD_Ipc.d" "F2837xD_Ipc_Driver_Util.d" "F2837xD_PieCtrl.d" "F2837xD_PieVect.d" "F2837xD_SysCtrl.d" "GPIO_management.d" "LoRa.d" "SPI_LoRa.d" "Telemetry.d" "can.d" "cmdline.d" "display.d" "ff.d" "interrupt.d" "main.d" "mmc_F2837x.d" "sd_card.d" "sysctl.d" "systick.d" "uart.d" "ustdlib.d" 
+	-$(RM) "F2837xD_Adc.obj" "F2837xD_CodeStartBranch.obj" "F2837xD_CpuTimers.obj" "F2837xD_DefaultISR.obj" "F2837xD_EPwm.obj" "F2837xD_GlobalVariableDefs.obj" "F2837xD_Gpio.obj" "F2837xD_Ipc.obj" "F2837xD_Ipc_Driver_Util.obj" "F2837xD_PieCtrl.obj" "F2837xD_PieVect.obj" "F2837xD_SysCtrl.obj" "F2837xD_usDelay.obj" "GPIO_management.obj" "LoRa.obj" "SPI_LoRa.obj" "Telemetry.obj" "can.obj" "cmdline.obj" "display.obj" "ff.obj" "interrupt.obj" "main.obj" "mmc_F2837x.obj" "sd_card.obj" "sysctl.obj" "systick.obj" "uart.obj" "ustdlib.obj" "ff14b\documents\res\app1.obj" "ff14b\documents\res\app2.obj" "ff14b\documents\res\app3.obj" "ff14b\documents\res\app4.obj" "ff14b\documents\res\app5.obj" "ff14b\documents\res\app6.obj" "ff14b\source\diskio.obj" "ff14b\source\ff.obj" "ff14b\source\ffsystem.obj" "ff14b\source\ffunicode.obj" 
+	-$(RM) "F2837xD_Adc.d" "F2837xD_CpuTimers.d" "F2837xD_DefaultISR.d" "F2837xD_EPwm.d" "F2837xD_GlobalVariableDefs.d" "F2837xD_Gpio.d" "F2837xD_Ipc.d" "F2837xD_Ipc_Driver_Util.d" "F2837xD_PieCtrl.d" "F2837xD_PieVect.d" "F2837xD_SysCtrl.d" "GPIO_management.d" "LoRa.d" "SPI_LoRa.d" "Telemetry.d" "can.d" "cmdline.d" "display.d" "ff.d" "interrupt.d" "main.d" "mmc_F2837x.d" "sd_card.d" "sysctl.d" "systick.d" "uart.d" "ustdlib.d" "ff14b\documents\res\app1.d" "ff14b\documents\res\app2.d" "ff14b\documents\res\app3.d" "ff14b\documents\res\app4.d" "ff14b\documents\res\app5.d" "ff14b\documents\res\app6.d" "ff14b\source\diskio.d" "ff14b\source\ff.d" "ff14b\source\ffsystem.d" "ff14b\source\ffunicode.d" 
 	-$(RM) "F2837xD_CodeStartBranch.d" "F2837xD_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

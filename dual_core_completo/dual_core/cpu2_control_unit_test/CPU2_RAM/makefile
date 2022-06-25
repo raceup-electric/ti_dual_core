@@ -4,7 +4,7 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := C:/ti/ccs1110/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS
+CG_TOOL_ROOT := C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -38,6 +38,7 @@ ORDERED_OBJS += \
 "./torque_management.obj" \
 "./ustdlib.obj" \
 "./utils.obj" \
+"../2837xD_FLASH_lnk_cpu2.cmd" \
 $(GEN_CMDS__FLAG) \
 -lrts2800_fpu32.lib \
 -l2837xD_RAM_lnk_shared_cpu2.cmd \
@@ -159,10 +160,10 @@ EXE_OUTPUTS__QUOTED += \
 all: cpu2_control_unit_test.out
 
 # Tool invocations
-cpu2_control_unit_test.out: $(OBJS) $(GEN_CMDS)
+cpu2_control_unit_test.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccs1110/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --cla_support=cla1 --tmu_support=tmu0 --vcu_support=vcu2 -g --define=CPU2 --define=_FLASH --display_error_number --diag_warning=225 -z -m"cpu2_control_unit_test.map" --heap_size=0x400 --stack_size=0x3F8 --warn_sections -i"C:/ti/ccs1110/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/cmd" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/cmd" --reread_libs --display_error_number --xml_link_info="cpu2_control_unit_test_linkInfo.xml" --rom_model -o "cpu2_control_unit_test.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --cla_support=cla1 --tmu_support=tmu0 --vcu_support=vcu2 -g --define=CPU2 --define=_FLASH --display_error_number --diag_warning=225 -z -m"cpu2_control_unit_test.map" --heap_size=0x400 --stack_size=0x3F8 --warn_sections -i"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/lib" -i"C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/cmd" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/cmd" --reread_libs --display_error_number --xml_link_info="cpu2_control_unit_test_linkInfo.xml" --rom_model -o "cpu2_control_unit_test.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 

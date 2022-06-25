@@ -815,11 +815,11 @@ setupSD(void)
 
     file_counter = CmdLineProcess("ls") - 2;
     char temp[20];
-    usprintf(temp, "test%d.txt ", file_counter);
+    sprintf(temp, "test%d.txt ", file_counter);
     memcpy(filename, temp, 20);
 
-    char cmd[40] = "\t \t SD init completed \n";
-    writeSD(cmd);
+    //char cmd[40] = "\t \t SD init completed \n";
+    //writeSD(cmd);
 
 
 }
