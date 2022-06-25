@@ -289,7 +289,7 @@ Uint16 increment;
 //#pragma DATA_SECTION(c2_r_w_array,"SHARERAMGS1");
 #pragma DATA_SECTION(sh,"SHARERAMGS1");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS2");
-#pragma DATA_SECTION(display,"SHARERAMGS14");
+#pragma DATA_SECTION(display,"SHARERAMGS3");
 
 
 //

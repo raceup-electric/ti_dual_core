@@ -28,8 +28,10 @@ extern Uint16 old_ack_regen;
 
 struct Display_command{
     Uint16 page;
-    Uint16 selector;
-    Uint16 ack; //non è un bool, ma il valore della selezione 0-7
+    Uint16 selector_p;
+    Uint16 ack_p; //non è un bool, ma il valore della selezione 0-7
+    Uint16 selector_r;
+    Uint16 ack_r; //non è un bool, ma il valore della selezione 0-7
 };
 
 //Logging

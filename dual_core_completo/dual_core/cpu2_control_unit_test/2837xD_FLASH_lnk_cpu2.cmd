@@ -49,6 +49,7 @@ PAGE 1 :
    RAMGS0          : origin = 0x00C000, length = 0x001000
    RAMGS1          : origin = 0x00D000, length = 0x001000
    RAMGS2          : origin = 0x00E000, length = 0x001000
+   RAMGS3      	   : origin = 0x00F000, length = 0x001000
    CPU2TOCPU1RAM   : origin = 0x03F800, length = 0x000400
    CPU1TOCPU2RAM   : origin = 0x03FC00, length = 0x000400
 }
@@ -88,6 +89,7 @@ SECTIONS
    SHARERAMGS0		: > RAMGS0,		PAGE = 1
    SHARERAMGS1		: > RAMGS1,		PAGE = 1
    SHARERAMGS2		: > RAMGS2,		PAGE = 1
+   SHARERAMGS3		: > RAMGS3, 	PAGE = 1
 
 #ifdef __TI_COMPILER_VERSION__
     #if __TI_COMPILER_VERSION__ >= 15009000

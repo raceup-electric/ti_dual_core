@@ -243,7 +243,7 @@ void updatePage9()
 
 
 void setSelectorPowerControl(){
-    n_setup = display.selector;
+    n_setup = display.selector_p;
     if(old_setup_power != n_setup){
 
         /*int v;
@@ -273,7 +273,7 @@ void setSelectorPowerControl(){
 void setAckPowerControl(){
     //Serial.println(String(msg.buf[0]));
     int i;
-    ack = display.ack;
+    ack = display.ack_p;
     if (old_ack_power != ack){
         for (i = 0; i < 8; i++){
             if (i == ack){
@@ -290,7 +290,7 @@ void setAckPowerControl(){
     }
 }
 void setSelectorRegen(){
-    n_setup = display.selector;
+    n_setup = display.selector_r;
     if(old_setup_regen != n_setup){
 
         /*int v;
@@ -320,7 +320,7 @@ void setSelectorRegen(){
 void setAckRegen(){
     //Serial.println(String(msg.buf[0]));
     int i;
-    ack = display.ack;
+    ack = display.ack_r;
     if (old_ack_regen != ack){
         for (i = 0; i < 6; i++){
             if (i == ack){

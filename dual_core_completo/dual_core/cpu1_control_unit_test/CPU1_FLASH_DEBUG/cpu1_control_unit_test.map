@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v21.6.0                     
 ******************************************************************************
->> Linked Sat Jun 25 15:52:06 2022
+>> Linked Sat Jun 25 17:27:08 2022
 
 OUTPUT FILE NAME:   <cpu1_control_unit_test.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0009cd56
@@ -39,7 +39,7 @@ PAGE 0:
   RESET                 003fffc0   00000002  00000000  00000002  RWIX
 
 PAGE 1:
-  BOOT_RSVD             00000002   00000121  00000003  0000011e  RWIX
+  BOOT_RSVD             00000002   00000121  00000000  00000121  RWIX
   RAMM1                 00000400   000003f8  00000000  000003f8  RWIX
   ADCARESULT            00000b00   00000018  00000018  00000000  RWIX
   ADCBRESULT            00000b20   00000018  00000018  00000000  RWIX
@@ -131,7 +131,7 @@ PAGE 1:
   RAMGS0                0000c000   00001000  000000ca  00000f36  RWIX
   RAMGS1                0000d000   00001000  000000d6  00000f2a  RWIX
   RAMGS2                0000e000   00001000  00000002  00000ffe  RWIX
-  RAMGS3                0000f000   00001000  00000000  00001000  RWIX
+  RAMGS3                0000f000   00001000  00000005  00000ffb  RWIX
   RAMGS4                00010000   00001000  00000000  00001000  RWIX
   RAMGS5                00011000   00001000  00000000  00001000  RWIX
   RAMGS6                00012000   00001000  00000000  00001000  RWIX
@@ -276,6 +276,10 @@ SHARERAMGS1
 SHARERAMGS2 
 *          1    0000e000    00000002     UNINITIALIZED
                   0000e000    00000002     main.obj (SHARERAMGS2)
+
+SHARERAMGS3 
+*          1    0000f000    00000005     UNINITIALIZED
+                  0000f000    00000005     main.obj (SHARERAMGS3)
 
 .TI.ramfunc 
 *          0    00086000    0000003f     RUN ADDR = 00008000
@@ -758,10 +762,6 @@ RomWaitStateRegsFile
 *          1    0005f540    00000002     UNINITIALIZED
                   0005f540    00000002     F2837xD_GlobalVariableDefs.obj (RomWaitStateRegsFile)
 
-SHARERAMGS14 
-*          1    00000002    00000003     UNINITIALIZED
-                  00000002    00000003     main.obj (SHARERAMGS14)
-
 .ebss.1    1    0000a800    000007d0     UNINITIALIZED
                   0000a800    0000049a     sd_card.obj (.ebss)
                   0000ac9a    00000018     F2837xD_CpuTimers.obj (.ebss)
@@ -800,7 +800,7 @@ MODULE SUMMARY
        ff.obj                           5377    35                 3                 
        display.obj                      1351    2295               0                 
        sd_card.obj                      746     1000               1462              
-       main.obj                         817     1404               635               
+       main.obj                         817     1404               637               
        F2837xD_DefaultISR.obj           1413    0                  0                 
        can.obj                          1314    9                  0                 
        F2837xD_SysCtrl.obj              1314    0                  0                 
@@ -822,7 +822,7 @@ MODULE SUMMARY
        F2837xD_usDelay.obj              8       0                  0                 
        LoRa.obj                         0       4                  3                 
     +--+--------------------------------+-------+------------------+--------------------+
-       Total:                           15928   5360               12263             
+       Total:                           15928   5360               12265             
                                                                                      
     C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib/rts2800_fpu32.lib
        _printfi.c.obj                   3300    66                 0                 
@@ -873,15 +873,13 @@ MODULE SUMMARY
                                                                                      
        Stack:                           0       0                  2048              
     +--+--------------------------------+-------+------------------+--------------------+
-       Grand Total:                     21149   5747               14322             
+       Grand Total:                     21149   5747               14324             
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
 
 address     data page           name
 --------    ----------------    ----
-00000002       0 (00000000)     _display
-
 00000b00      2c (00000b00)     _AdcaResultRegs
 00000b20      2c (00000b00)     _AdcbResultRegs
 
@@ -1092,6 +1090,8 @@ address     data page           name
 0000d000     340 (0000d000)     _sh
 
 0000e000     380 (0000e000)     _time_elapsed
+
+0000f000     3c0 (0000f000)     _display
 
 00047000    11c0 (00047000)     _Emif1Regs
 
@@ -1599,7 +1599,7 @@ abs   ffffffff  ___pinit__
 0     0009b916  _disk_status                          
 0     0009ba9e  _disk_timerproc                       
 0     0009b96b  _disk_write                           
-1     00000002  _display                              
+1     0000f000  _display                              
 1     0000af7d  _errno                                
 1     0000accd  _error                                
 0     0009cfb8  _exit                                 
@@ -2104,7 +2104,6 @@ page  address   name
 0     0009d21b  __system_pre_init                     
 0     0009d21d  ___etext__                            
 0     0009d21d  etext                                 
-1     00000002  _display                              
 1     00000b00  _AdcaResultRegs                       
 1     00000b20  _AdcbResultRegs                       
 1     00000b40  _AdccResultRegs                       
@@ -2240,6 +2239,7 @@ page  address   name
 1     0000c0c8  _tmp                                  
 1     0000d000  _sh                                   
 1     0000e000  _time_elapsed                         
+1     0000f000  _display                              
 1     00047000  _Emif1Regs                            
 1     00047800  _Emif2Regs                            
 1     00048000  _CanaRegs                             

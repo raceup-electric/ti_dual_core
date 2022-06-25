@@ -94,6 +94,10 @@ void setup()
        sh.gpio = gpio_log;
 
 
+       display.ack_p = 99;
+       display.ack_r = 99;
+//       display.page = 5;
+
        setupOk = 1;    //debug
 
        CpuTimer1Regs.TCR.bit.TSS = 0;  //start timer1

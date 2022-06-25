@@ -187,18 +187,21 @@ void read_steering_wheel_message(Uint16 val[], int id){
 
     }
 
-    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP){
-        display.selector = val[0];
+    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == 7){
+        display.selector_p = val[0];
+    }
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == 8){
+        display.selector_r = val[0];
     }
     else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == CONFIRMATION){
         if(display.page == POWER_CONTROL_PAGE && !R2D_state){
-            display.ack = display.selector;
+            display.ack_p = display.selector_p;
             //manca mandare il messaggio
-            powersetup[0]=presets_power[display.ack];
+            powersetup[0]=presets_power[display.ack_p];
             power_limit = powersetup[0]*1000.0f;
         }else if(display.page == REGEN_PAGE && !R2D_state){
-             display.ack = display.selector;
-             max_regen_current = presets_regen[display.ack];
+             display.ack_r = display.selector_r;
+             max_regen_current = presets_regen[display.ack_r];
         }
 
     } else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == START_LAUNCH) {
