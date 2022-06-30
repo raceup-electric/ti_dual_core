@@ -2,6 +2,32 @@
 
 
 //attenzione passare 8 bit
+//void read_AMK_Values1(Uint16 canMsg[], int indexMotor) {
+//
+//    if (indexMotor != 0 && indexMotor != 1 && indexMotor != 2 && indexMotor != 3)
+//        return ;
+//
+//    motorVal1[indexMotor].AMK_bSystemReady = getBit(canMsg[1],0);
+//    motorVal1[indexMotor].AMK_bError = getBit(canMsg[1],1);
+//    motorVal1[indexMotor].AMK_bWarn = getBit(canMsg[1],2);
+//    motorVal1[indexMotor].AMK_bQuitDcOn = getBit(canMsg[1],3);
+//    motorVal1[indexMotor].AMK_bDcOn = getBit(canMsg[1],4);
+//    motorVal1[indexMotor].AMK_bQuitInverterOn = getBit(canMsg[1],5);
+//    motorVal1[indexMotor].AMK_bInverterOn = getBit(canMsg[1],6);
+//    motorVal1[indexMotor].AMK_bDerating = getBit(canMsg[1],7);
+//
+//    motorVal1[indexMotor].AMK_ActualVelocity = canMsg[2] | canMsg[3] << 8;
+//    motorVal1[indexMotor].AMK_TorqueCurrent = (canMsg[4] | canMsg[5] << 8) * AMK_CURR_SCALE;
+//    motorVal1[indexMotor].AMK_MagnetizingCurrent = (canMsg[6] | canMsg[7] << 8) * AMK_CURR_SCALE;
+//
+//    // see PDK
+//    float torqueCurr = motorVal1[indexMotor].AMK_TorqueCurrent;
+//    float magnCurr = motorVal1[indexMotor].AMK_MagnetizingCurrent;
+//    float curr = 0.243 * torqueCurr + 0.0009 * torqueCurr * magnCurr;
+//    motorVal1[indexMotor].AMK_Current = curr;
+//
+//}
+
 void read_AMK_Values1(Uint16 canMsg[], int indexMotor) {
 
     if (indexMotor != 0 && indexMotor != 1 && indexMotor != 2 && indexMotor != 3)
@@ -18,13 +44,13 @@ void read_AMK_Values1(Uint16 canMsg[], int indexMotor) {
 
     motorVal1[indexMotor].AMK_ActualVelocity = canMsg[2] | canMsg[3] << 8;
     motorVal1[indexMotor].AMK_TorqueCurrent = (canMsg[4] | canMsg[5] << 8) * AMK_CURR_SCALE;
-    motorVal1[indexMotor].AMK_MagnetizingCurrent = (canMsg[6] | canMsg[7] << 8) * AMK_CURR_SCALE;
+    motorVal1[indexMotor].AMK_Voltage = (canMsg[6] | canMsg[7] << 8);
 
     // see PDK
     float torqueCurr = motorVal1[indexMotor].AMK_TorqueCurrent;
-    float magnCurr = motorVal1[indexMotor].AMK_MagnetizingCurrent;
-    float curr = 0.243 * torqueCurr + 0.0009 * torqueCurr * magnCurr;
-    motorVal1[indexMotor].AMK_Current = curr;
+    //float magnCurr = motorVal1[indexMotor].AMK_MagnetizingCurrent;
+    //float curr = 0.243 * torqueCurr + 0.0009 * torqueCurr * magnCurr;
+    motorVal1[indexMotor].AMK_Current = torqueCurr;
 
 }
 

@@ -47,7 +47,7 @@ struct motorValues1 {
 
     float AMK_ActualVelocity;       //Signed - Unit: rpm - Actual speed value
     float AMK_TorqueCurrent;        //Signed - Raw data for calculating 'actual torque current'Iq See 'Units'on page 61
-    float AMK_MagnetizingCurrent;   //Signed - Raw data for calculating 'actual magnetizing current'Id See 'Units'on page 1
+    Uint16 AMK_Voltage;   //Signed - Raw data for calculating 'actual magnetizing current'Id See 'Units'on page 1
     float AMK_Current;  // see PDK
 };
 

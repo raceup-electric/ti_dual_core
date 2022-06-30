@@ -292,7 +292,7 @@ void computeBatteryPackTension()
     for (j=0; j < 4; j++)
     {
         active[j] = 1;
-        tensions[j] = motorVal1[j].AMK_MagnetizingCurrent;
+        tensions[j] = motorVal1[j].AMK_Voltage;
         if ( tensions[j] > max)
         {
             max = tensions[j];
@@ -652,7 +652,7 @@ void update_log_values()
     {
         motorVal1_shared[i].AMK_ActualVelocity = motorVal1[i].AMK_ActualVelocity;
         motorVal1_shared[i].AMK_Current = motorVal1[i].AMK_Current;
-        motorVal1_shared[i].AMK_MagnetizingCurrent  = motorVal1[i].AMK_MagnetizingCurrent;
+        motorVal1_shared[i].AMK_Voltage  = motorVal1[i].AMK_Voltage;
         motorVal1_shared[i].AMK_TorqueCurrent = motorVal1[i].AMK_TorqueCurrent;
         motorVal1_shared[i].AMK_bDcOn = motorVal1[i].AMK_bDcOn;
         motorVal1_shared[i].AMK_bDerating = motorVal1[i].AMK_bDerating;

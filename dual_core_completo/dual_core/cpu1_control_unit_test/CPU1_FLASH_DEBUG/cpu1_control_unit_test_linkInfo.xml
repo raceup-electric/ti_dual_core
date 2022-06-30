@@ -2,7 +2,7 @@
 <link_info>
    <banner>TMS320C2000 Linker PC v21.6.0.LTS</banner>
    <copyright>Copyright (c) 1996-2018 Texas Instruments Incorporated</copyright>
-   <link_time>0x62b7294c</link_time>
+   <link_time>0x62bc50a5</link_time>
    <link_errors>0x0</link_errors>
    <output_file>cpu1_control_unit_test.out</output_file>
    <entry_point>
@@ -1194,104 +1194,104 @@
          <name>.econst:.string</name>
          <load_address>0x908f8</load_address>
          <run_address>0x908f8</run_address>
-         <size>0x558</size>
+         <size>0x559</size>
          <input_file_ref idref="fl-18"/>
       </object_component>
       <object_component id="oc-18e">
          <name>.econst:.string</name>
-         <load_address>0x90e50</load_address>
-         <run_address>0x90e50</run_address>
+         <load_address>0x90e52</load_address>
+         <run_address>0x90e52</run_address>
          <size>0x236</size>
          <input_file_ref idref="fl-1a"/>
       </object_component>
       <object_component id="oc-2b5">
          <name>.econst:_PieVectTableInit</name>
-         <load_address>0x91086</load_address>
-         <run_address>0x91086</run_address>
+         <load_address>0x91088</load_address>
+         <run_address>0x91088</run_address>
          <size>0x1c0</size>
          <input_file_ref idref="fl-c"/>
       </object_component>
       <object_component id="oc-2b0">
          <name>.econst:.string:_$P$T0$1</name>
-         <load_address>0x91246</load_address>
-         <run_address>0x91246</run_address>
+         <load_address>0x91248</load_address>
+         <run_address>0x91248</run_address>
          <size>0x122</size>
          <input_file_ref idref="fl-1a"/>
       </object_component>
       <object_component id="oc-2c6">
          <name>.econst:.string:__ctypes_</name>
-         <load_address>0x91368</load_address>
-         <run_address>0x91368</run_address>
+         <load_address>0x9136a</load_address>
+         <run_address>0x9136a</run_address>
          <size>0x101</size>
          <input_file_ref idref="fl-4b"/>
       </object_component>
       <object_component id="oc-155">
          <name>.econst:.string</name>
-         <load_address>0x9146a</load_address>
-         <run_address>0x9146a</run_address>
+         <load_address>0x9146c</load_address>
+         <run_address>0x9146c</run_address>
          <size>0x67</size>
          <input_file_ref idref="fl-12"/>
       </object_component>
       <object_component id="oc-21c">
          <name>.econst:.string</name>
-         <load_address>0x914d2</load_address>
-         <run_address>0x914d2</run_address>
+         <load_address>0x914d4</load_address>
+         <run_address>0x914d4</run_address>
          <size>0x26</size>
          <input_file_ref idref="fl-3a"/>
       </object_component>
       <object_component id="oc-21b">
          <name>.econst</name>
-         <load_address>0x914f8</load_address>
-         <run_address>0x914f8</run_address>
+         <load_address>0x914fa</load_address>
+         <run_address>0x914fa</run_address>
          <size>0x1c</size>
          <input_file_ref idref="fl-3a"/>
       </object_component>
       <object_component id="oc-228">
          <name>.econst</name>
-         <load_address>0x91514</load_address>
-         <run_address>0x91514</run_address>
+         <load_address>0x91516</load_address>
+         <run_address>0x91516</run_address>
          <size>0x1c</size>
          <input_file_ref idref="fl-3c"/>
       </object_component>
       <object_component id="oc-16c">
          <name>.econst:.string</name>
-         <load_address>0x91530</load_address>
-         <run_address>0x91530</run_address>
+         <load_address>0x91532</load_address>
+         <run_address>0x91532</run_address>
          <size>0x19</size>
          <input_file_ref idref="fl-16"/>
       </object_component>
       <object_component id="oc-1a9">
          <name>.econst:.string</name>
-         <load_address>0x9154a</load_address>
-         <run_address>0x9154a</run_address>
+         <load_address>0x9154c</load_address>
+         <run_address>0x9154c</run_address>
          <size>0x18</size>
          <input_file_ref idref="fl-1e"/>
       </object_component>
       <object_component id="oc-2c0">
          <name>.econst:.string:_DbcTbl</name>
-         <load_address>0x91562</load_address>
-         <run_address>0x91562</run_address>
+         <load_address>0x91564</load_address>
+         <run_address>0x91564</run_address>
          <size>0xa</size>
          <input_file_ref idref="fl-16"/>
       </object_component>
       <object_component id="oc-2ba">
          <name>.econst:_g_ui16CANBitValues</name>
-         <load_address>0x9156c</load_address>
-         <run_address>0x9156c</run_address>
+         <load_address>0x9156e</load_address>
+         <run_address>0x9156e</run_address>
          <size>0x9</size>
          <input_file_ref idref="fl-13"/>
       </object_component>
       <object_component id="oc-222">
          <name>.econst</name>
-         <load_address>0x91576</load_address>
-         <run_address>0x91576</run_address>
+         <load_address>0x91578</load_address>
+         <run_address>0x91578</run_address>
          <size>0x8</size>
          <input_file_ref idref="fl-3b"/>
       </object_component>
       <object_component id="oc-1a8">
          <name>.econst</name>
-         <load_address>0x9157e</load_address>
-         <run_address>0x9157e</run_address>
+         <load_address>0x91580</load_address>
+         <run_address>0x91580</run_address>
          <size>0x2</size>
          <input_file_ref idref="fl-1e"/>
       </object_component>
@@ -4629,7 +4629,7 @@
          <name>.econst</name>
          <load_address>0x90000</load_address>
          <run_address>0x90000</run_address>
-         <size>0x1580</size>
+         <size>0x1582</size>
          <contents>
             <object_component_ref idref="oc-165"/>
             <object_component_ref idref="oc-17e"/>
@@ -6317,18 +6317,18 @@
          <page_id>0x0</page_id>
          <origin>0x90000</origin>
          <length>0x8000</length>
-         <used_space>0x1580</used_space>
-         <unused_space>0x6a80</unused_space>
+         <used_space>0x1582</used_space>
+         <unused_space>0x6a7e</unused_space>
          <attributes>RWIX</attributes>
          <usage_details>
             <allocated_space>
                <start_address>0x90000</start_address>
-               <size>0x1580</size>
+               <size>0x1582</size>
                <logical_group_ref idref="lg-36a"/>
             </allocated_space>
             <available_space>
-               <start_address>0x91580</start_address>
-               <size>0x6a80</size>
+               <start_address>0x91582</start_address>
+               <size>0x6a7e</size>
             </available_space>
          </usage_details>
       </memory_area>
@@ -10130,7 +10130,7 @@
       </symbol>
       <symbol id="sm-4f8">
          <name>_PieVectTableInit</name>
-         <value>0x91086</value>
+         <value>0x91088</value>
          <object_component_ref idref="oc-2b5"/>
       </symbol>
       <symbol id="sm-4f9">
@@ -11390,7 +11390,7 @@
       </symbol>
       <symbol id="sm-fad">
          <name>__ctypes_</name>
-         <value>0x91368</value>
+         <value>0x9136a</value>
          <object_component_ref idref="oc-2c6"/>
       </symbol>
       <symbol id="sm-fbc">
