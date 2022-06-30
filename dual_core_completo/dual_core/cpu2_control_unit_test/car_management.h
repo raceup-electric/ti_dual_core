@@ -21,6 +21,7 @@ extern bool implBrakeAndThrottle ;
 
 extern float sendyne_current;
 extern float sendyne_voltage;
+extern Uint16 batteryPackTension;
 extern float lem_current;
 extern unsigned long int reassembled_data;
 extern unsigned char CAN_SENDYNE_ACT_VALUES[8];
@@ -84,6 +85,8 @@ extern float bms_lv_shared[8];
 
 extern struct Display_command display;
 
+extern struct motorValues1 motorVal1[4];  //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
+
 
 //
 // prototypes
@@ -137,5 +140,9 @@ void update_log_values();
 Uint16 fanSpeedFunction(int temp);
 
 void fanControl();
+
+void sendDataToLogger();
+
+void computeBatteryPackTension();
 
 #endif

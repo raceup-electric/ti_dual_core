@@ -13,6 +13,12 @@ dist/
 # Compiled Python bytecode
 *.py[cod]
 
+# Copiled CCS project
+*.obj
+*.d
+*.mk
+*.out
+
 # Log files
 *.log
 

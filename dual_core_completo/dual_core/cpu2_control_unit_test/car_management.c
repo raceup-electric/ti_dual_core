@@ -282,6 +282,44 @@ void R2D_init()
     }
 }
 
+void computeBatteryPackTension()
+{
+    int j = 0, active_motors = 0;
+    Uint16 tensions[4];
+    Uint16 active[4];
+    Uint16 mean, mean_of_squared, max = 0;
+
+    for (j=0; j < 4; j++)
+    {
+        active[j] = 1;
+        tensions[j] = motorVal1[j].AMK_MagnetizingCurrent;
+        if ( tensions[j] > max)
+        {
+            max = tensions[j];
+        }
+    }
+
+    for (j = 0; j < 4; j++)
+    {
+        if(tensions[j] < max - 40)
+        {
+            active[j] = 0;
+        }
+    }
+
+    for (j=0; j < 4; j++)
+    {
+        if(active[j] > 0)
+            active_motors++;
+        mean += tensions[j]*active[j];
+        mean_of_squared += tensions[j]*tensions[j]*active[j];
+    }
+
+    mean /= active_motors;
+    mean_of_squared /= active_motors;
+    batteryPackTension = mean;
+}
+
 
 //void checkHV()      //HV COUNTER OFF-->ON ON-->OFF
 //{

@@ -32,6 +32,7 @@ Uint32 time_elapsed;
 // sendyne
 float sendyne_current;
 float sendyne_voltage;
+Uint16 batteryPackTension;
 unsigned long int reassembled_data;
 unsigned char CAN_SENDYNE_ACT_VALUES[8];
 
