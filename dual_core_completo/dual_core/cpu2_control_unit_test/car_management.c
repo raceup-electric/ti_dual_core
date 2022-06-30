@@ -34,7 +34,7 @@ void read_SENDYNE_message(unsigned char sendyne_values[]){
     reassembled_data |= ((uint32_t)(sendyne_values[5]) << 16);
     reassembled_data |= ((uint32_t)(sendyne_values[6]) << 8);
     reassembled_data |= ((uint32_t)(sendyne_values[7]) << 0);
-    sendyne_voltage = (-1)*(int32_t)(reassembled_data) / 1000000.0;
+    //sendyne_voltage = (-1)*(int32_t)(reassembled_data) / 1000000.0;
 
     total_power = sendyne_voltage*sendyne_current;
 
@@ -317,7 +317,7 @@ void computeBatteryPackTension()
 
     mean /= active_motors;
     mean_of_squared /= active_motors;
-    batteryPackTension = mean;
+    sendyne_voltage = batteryPackTension = mean;
 }
 
 
