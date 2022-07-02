@@ -29,9 +29,9 @@ int counter;    //for debug
 //timestamp
 Uint32 time_elapsed;
 
-// sendyne
-float sendyne_current;
-float sendyne_voltage;
+// sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
+//float sendyne_current;
+//float sendyne_voltage;
 Uint16 batteryPackTension;
 unsigned long int reassembled_data;
 unsigned char CAN_SENDYNE_ACT_VALUES[8];
@@ -134,7 +134,7 @@ float reduction_factor;
 Uint16 regensetup[8];
 float max_regen_current=-20.0f;
 
-float power_limit; //quello che gli arriva dal volante
+float power_limit=POWER_LIMIT; //quello che gli arriva dal volante
 bool powerOK = false;
 Uint16 powersetup[8];
 
@@ -272,7 +272,8 @@ struct motorSetPoints motorSetP_shared[4];
 
 struct BMS_Log bms_log;
 
-struct Sendyne_Log sendyne_log;
+//struct Sendyne_Log sendyne_log;
+struct Power_Log power_log;
 
 struct FanSpeed_Log fanspeed_log;
 

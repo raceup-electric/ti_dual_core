@@ -127,13 +127,13 @@ void updatePage1()
 
 void updatePage2()
 {
-    sprintf(tmp, "hv_val.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.sendyne.sendyne_voltage_shared);
+    sprintf(tmp, "hv_val.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
     scic_msg(tmp);
-    sprintf(tmp, "hv_val.lem.val=%dfÿÿÿ\0", (int)local_sh.sendyne.sendyne_current_shared);
+    sprintf(tmp, "hv_val.lem.val=%dfÿÿÿ\0", (int)local_sh.power.lem_current_shared);
     scic_msg(tmp);
-    sprintf(tmp, "hv_val.curr_sens.val=%dÿÿÿ\0", (int)local_sh.sendyne.curr_sens_shared);
+    sprintf(tmp, "hv_val.curr_sens.val=%dÿÿÿ\0", (int)local_sh.power.curr_sens_shared);
     scic_msg(tmp);
-    sprintf(tmp, "hv_val.tot_power.val=%dÿÿÿ\0", (int)local_sh.sendyne.total_power_shared);
+    sprintf(tmp, "hv_val.tot_power.val=%dÿÿÿ\0", (int)local_sh.power.total_power_shared);
     scic_msg(tmp);
 }
 void updatePage3()

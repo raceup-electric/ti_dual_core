@@ -19,8 +19,10 @@ extern bool R2D_state;
 extern bool brk_disconnected;
 extern bool implBrakeAndThrottle ;
 
-extern float sendyne_current;
-extern float sendyne_voltage;
+// sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
+//extern float sendyne_current;
+//extern float sendyne_voltage;
+
 extern Uint16 batteryPackTension;
 extern float lem_current;
 extern unsigned long int reassembled_data;
@@ -73,7 +75,7 @@ extern float presets_regen[6];
 extern struct Share_struct sh;
 extern struct Status_Log status_log;
 extern struct BMS_Log bms_log;
-extern struct Sendyne_Log sendyne_log;
+extern struct Power_Log power_log;
 extern struct FanSpeed_Log fanspeed_log;
 extern struct Imu_Log imu_log;
 extern struct Gpio_Log gpio_log;

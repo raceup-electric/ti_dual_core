@@ -64,8 +64,8 @@ int send_Status_Imu_BMS_Sendyne(){
             local_sh.imu.omegas_shared[0],
             local_sh.imu.omegas_shared[1],
             local_sh.imu.omegas_shared[2],
-            local_sh.sendyne.sendyne_voltage_shared,
-            local_sh.sendyne.sendyne_current_shared,
+            local_sh.power.batteryPack_voltage_shared,
+            local_sh.power.lem_current_shared,
             local_sh.bms.max_bms_temp_shared,
             local_sh.bms.min_bms_temp_shared,
             local_sh.bms.max_bms_voltage_shared,
@@ -93,8 +93,8 @@ void debugSet(){
      local_sh.imu.omegas_shared[1] = 23.456;
      local_sh.imu.omegas_shared[2] = 67.987;
 
-     local_sh.sendyne.sendyne_voltage_shared = 458.67;
-     local_sh.sendyne.sendyne_current_shared = 20.89;
+     local_sh.power.batteryPack_voltage_shared = 458.67;
+     local_sh.power.lem_current_shared = 20.89;
      local_sh.bms.max_bms_temp_shared = 71.2;
      local_sh.bms.min_bms_temp_shared  =52.4;
      local_sh.bms.max_bms_voltage_shared = 3.76;

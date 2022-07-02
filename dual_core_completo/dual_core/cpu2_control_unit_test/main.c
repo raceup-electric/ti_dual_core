@@ -88,7 +88,7 @@ void setup()
        memcpy(sh.Temps, Temps_shared, 8);
        sh.imu = imu_log;
        sh.fanSpeed = fanspeed_log;
-       sh.sendyne = sendyne_log;
+       sh.power = power_log;
        sh.bms = bms_log;
        sh.status = status_log;
        sh.gpio = gpio_log;

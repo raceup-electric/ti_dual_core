@@ -1,7 +1,7 @@
 ******************************************************************************
-             TMS320C2000 Linker PC v21.6.0                     
+             TMS320C2000 Linker PC v20.2.1                     
 ******************************************************************************
->> Linked Wed Jun 29 15:16:21 2022
+>> Linked Sat Jul  2 10:21:12 2022
 
 OUTPUT FILE NAME:   <cpu1_control_unit_test.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0009cd56
@@ -49,7 +49,7 @@ PAGE 1:
   CPUTIMER1             00000c08   00000008  00000008  00000000  RWIX
   CPUTIMER2             00000c10   00000008  00000008  00000000  RWIX
   PIECTRL               00000ce0   0000001a  0000001a  00000000  RWIX
-  PIEVECTTABLE          00000d00   00000200  000001c0  00000040  RWIX
+  PIEVECTTABLE          00000d00   00000200  00000000  00000200  RWIX
   DMA                   00001000   00000200  000000e0  00000120  RWIX
   CLA1                  00001400   00000080  0000003e  00000042  RWIX
   CLB1LOGICCFG          00003000   00000052  0000003e  00000014  RWIX
@@ -197,8 +197,7 @@ codestart
 .text      0    00098000    0000521d     
                   00098000    00001501     ff.obj (.text)
                   00099501    00000001     rts2800_fpu32.lib : startup.c.obj (.text)
-                  00099502    000006da                       : _printfi.c.obj (.text)
-                  00099bdc    0000060a                       : _printfi.c.obj (.text:__TI_printfi)
+                  00099502    00000ce4                       : _printfi.c.obj (.text)
                   0009a1e6    00000585     F2837xD_DefaultISR.obj (.text:retain)
                   0009a76b    00000547     display.obj (.text)
                   0009acb2    00000522     can.obj (.text)
@@ -296,6 +295,25 @@ GETWRITEIDX
 PUTREADIDX 
 *          0    0003f800    00000000     DSECT
 
+PieVectTableFile 
+*          0    00000d00    000001c0     DSECT
+                  00000d00    000001c0     F2837xD_GlobalVariableDefs.obj (PieVectTableFile)
+
+EmuKeyVar 
+*          0    00000d00    00000000     DSECT
+
+EmuBModeVar 
+*          0    00000d00    00000000     DSECT
+
+EmuBootPinsVar 
+*          0    00000d00    00000000     DSECT
+
+FlashCallbackVar 
+*          0    00000d00    00000000     DSECT
+
+FlashScalingVar 
+*          0    00000d00    00000000     DSECT
+
 .econst    0    00090000    00001582     
                   00090000    000008f7     display.obj (.econst:.string)
                   000908f7    00000001     --HOLE-- [fill = 0]
@@ -351,25 +369,6 @@ CpuTimer2RegsFile
 PieCtrlRegsFile 
 *          1    00000ce0    0000001a     UNINITIALIZED
                   00000ce0    0000001a     F2837xD_GlobalVariableDefs.obj (PieCtrlRegsFile)
-
-PieVectTableFile 
-*          1    00000d00    000001c0     UNINITIALIZED
-                  00000d00    000001c0     F2837xD_GlobalVariableDefs.obj (PieVectTableFile)
-
-EmuKeyVar 
-*          1    00000d00    00000000     UNINITIALIZED
-
-EmuBModeVar 
-*          1    00000d00    00000000     UNINITIALIZED
-
-EmuBootPinsVar 
-*          1    00000d00    00000000     UNINITIALIZED
-
-FlashCallbackVar 
-*          1    00000d00    00000000     UNINITIALIZED
-
-FlashScalingVar 
-*          1    00000d00    00000000     UNINITIALIZED
 
 DmaRegsFile 
 *          1    00001000    000000e0     UNINITIALIZED
@@ -797,7 +796,7 @@ MODULE SUMMARY
        Module                           code    initialized data   uninitialized data
        ------                           ----    ----------------   ------------------
     .\
-       F2837xD_GlobalVariableDefs.obj   0       0                  9854              
+       F2837xD_GlobalVariableDefs.obj   0       0                  9406              
        ff.obj                           5377    35                 3                 
        display.obj                      1351    2295               0                 
        sd_card.obj                      746     1000               1462              
@@ -823,9 +822,9 @@ MODULE SUMMARY
        F2837xD_usDelay.obj              8       0                  0                 
        LoRa.obj                         0       4                  3                 
     +--+--------------------------------+-------+------------------+--------------------+
-       Total:                           15928   5361               12265             
+       Total:                           15928   5361               11817             
                                                                                      
-    C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib/rts2800_fpu32.lib
+    C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/lib/rts2800_fpu32.lib
        _printfi.c.obj                   3300    66                 0                 
        ll_div28.asm.obj                 263     0                  0                 
        ctype.c.obj                      0       257                0                 
@@ -874,7 +873,7 @@ MODULE SUMMARY
                                                                                      
        Stack:                           0       0                  2048              
     +--+--------------------------------+-------+------------------+--------------------+
-       Grand Total:                     21149   5748               14324             
+       Grand Total:                     21149   5748               13876             
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -1060,7 +1059,7 @@ address     data page           name
 0000acd0     2b3 (0000acc0)     _local_time_elapsed
 0000acd2     2b3 (0000acc0)     _fanspeed_log
 0000acd4     2b3 (0000acc0)     _status_log
-0000acda     2b3 (0000acc0)     _sendyne_log
+0000acda     2b3 (0000acc0)     _power_log
 0000ace2     2b3 (0000acc0)     _gpio_log
 0000acea     2b3 (0000acc0)     _bms_log
 
@@ -1454,7 +1453,7 @@ page  address   name
 1     00007a80  _OutputXbarRegs                       
 0     0009a74a  _PIE_RESERVED_ISR                     
 1     00000ce0  _PieCtrlRegs                          
-1     00000d00  _PieVectTable                         
+0     00000d00  _PieVectTable                         
 0     00091088  _PieVectTableInit                     
 0     0009a718  _RAM_ACCESS_VIOLATION_ISR             
 0     0009a704  _RAM_CORRECTABLE_ERROR_ISR            
@@ -1650,6 +1649,7 @@ abs   ffffffff  ___pinit__
 1     0000acc7  _old_setup_power                      
 1     0000acc8  _old_setup_regen                      
 1     0000ae3f  _onTxDone                             
+1     0000acda  _power_log                            
 0     0009bd4b  _reverse                              
 0     0009c9a0  _scalbnl                              
 0     0009ce4d  _scic_fifo_init                       
@@ -1658,7 +1658,6 @@ abs   ffffffff  ___pinit__
 0     0009ce2c  _scic_xmit                            
 1     0000accc  _sel                                  
 0     0009c31d  _send_can_to_cpu2                     
-1     0000acda  _sendyne_log                          
 0     0009ab7e  _setAMK_fl                            
 0     0009ab90  _setAMK_fr                            
 0     0009abb5  _setAMK_rl                            
@@ -1712,6 +1711,7 @@ GLOBAL SYMBOLS: SORTED BY Symbol Address
 
 page  address   name                                  
 ----  -------   ----                                  
+0     00000d00  _PieVectTable                         
 0     00008000  _InitFlash                            
 0     00008000  _RamfuncsRunStart                     
 0     00008029  _FlashOff                             
@@ -2113,7 +2113,6 @@ page  address   name
 1     00000c08  _CpuTimer1Regs                        
 1     00000c10  _CpuTimer2Regs                        
 1     00000ce0  _PieCtrlRegs                          
-1     00000d00  _PieVectTable                         
 1     00001000  _DmaRegs                              
 1     00001400  _Cla1Regs                             
 1     00003000  _Clb1LogicCfgRegs                     
@@ -2217,7 +2216,7 @@ page  address   name
 1     0000acd0  _local_time_elapsed                   
 1     0000acd2  _fanspeed_log                         
 1     0000acd4  _status_log                           
-1     0000acda  _sendyne_log                          
+1     0000acda  _power_log                            
 1     0000ace2  _gpio_log                             
 1     0000acea  _bms_log                              
 1     0000ad00  _imu_log                              

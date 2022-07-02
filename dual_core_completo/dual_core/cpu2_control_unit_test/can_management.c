@@ -242,7 +242,8 @@ __interrupt void canISR_A(void)
 
         CANIntClear(CANA_BASE, CAN_INT_INT0ID_STATUS);
 
-    } else if (status == OBJ_ID_FROM_SENDYNE)
+    }/* else if (status == OBJ_ID_FROM_SENDYNE) // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
+
     {
 
         CANMessageGet(CANA_BASE, OBJ_ID_FROM_SENDYNE, &RXCANA_Sendyne_Message, true);
@@ -254,7 +255,7 @@ __interrupt void canISR_A(void)
 
         CANIntClear(CANA_BASE, OBJ_ID_FROM_SENDYNE);
 
-    }
+    }*/
     else if (status == OBJ_ID_FROM_IMU){
         //Uint16 imu_msg_temp[8];
         CANMessageGet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, true);

@@ -233,9 +233,9 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.bms_lv_cell[0], local_sh.bms_lv_cell[1], local_sh.bms_lv_cell[2],
                         local_sh.bms_lv_cell[3], local_sh.bms_lv_cell[4], local_sh.bms_lv_cell[5],
                         local_sh.bms_lv_cell[6], local_sh.bms_lv_cell[7],
-                        //sendyne
-                        local_sh.sendyne.sendyne_voltage_shared, local_sh.sendyne.sendyne_current_shared,
-                        local_sh.sendyne.curr_sens_shared, local_sh.sendyne.total_power_shared);
+                        //power
+                        local_sh.power.batteryPack_voltage_shared, local_sh.power.lem_current_shared,
+                        local_sh.power.curr_sens_shared, local_sh.power.total_power_shared);
         writeSD(cmd);
 
         sprintf(cmd ,

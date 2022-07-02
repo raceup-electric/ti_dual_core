@@ -87,9 +87,16 @@ struct BMS_Log {
     float mean_bms_temp_shared;
 };
 
-struct Sendyne_Log {
+//Deprecated
+/*struct Sendyne_Log {
     float sendyne_current_shared;
     float sendyne_voltage_shared;
+    float curr_sens_shared;
+    float total_power_shared;
+};*/
+struct Power_Log {
+    float lem_current_shared;
+    float batteryPack_voltage_shared;
     float curr_sens_shared;
     float total_power_shared;
 };
@@ -125,7 +132,7 @@ struct Share_struct {
     struct motorSetPoints motorSetP[4];
     struct Imu_Log imu;
     struct FanSpeed_Log fanSpeed;
-    struct Sendyne_Log sendyne;
+    struct Power_Log power;
     struct BMS_Log bms;
     struct Status_Log status;
     struct Gpio_Log gpio;

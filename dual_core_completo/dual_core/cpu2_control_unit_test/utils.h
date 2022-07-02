@@ -18,7 +18,7 @@ struct motorValues1 {
 
     float AMK_ActualVelocity;       //Signed - Unit: rpm - Actual speed value
     float AMK_TorqueCurrent;        //Signed - Raw data for calculating 'actual torque current'Iq See 'Units'on page 61
-    Uint16 AMK_Voltage;   //Signed - Raw data for calculating 'actual magnetizing current'Id See 'Units'on page 1
+    Uint16 AMK_Voltage;   //unSigned - Raw data for calculating 'actual dc_bus voltage
     float AMK_Current;  // see PDK
 };
 
@@ -57,10 +57,16 @@ struct BMS_Log {
     float min_bms_temp_shared;
     float mean_bms_temp_shared;
 };
-
-struct Sendyne_Log {
+//Sendyne Deprecated
+/*struct Sendyne_Log {
     float sendyne_current_shared;
     float sendyne_voltage_shared;
+    float curr_sens_shared;
+    float total_power_shared;
+};*/
+struct Power_Log {
+    float lem_current_shared;
+    float batteryPack_voltage_shared;
     float curr_sens_shared;
     float total_power_shared;
 };
@@ -106,7 +112,7 @@ struct Share_struct {
     struct motorSetPoints motorSetP[4];
     struct Imu_Log imu;
     struct FanSpeed_Log fanSpeed;
-    struct Sendyne_Log sendyne;
+    struct Power_Log power;
     struct BMS_Log bms;
     struct Status_Log status;
     struct Gpio_Log gpio;

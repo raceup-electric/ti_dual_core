@@ -66,7 +66,7 @@ struct motorSetPoints motorSetP_shared[4];
 
 struct BMS_Log bms_log;
 
-struct Sendyne_Log sendyne_log;
+struct Power_Log power_log;
 
 struct FanSpeed_Log fanspeed_log;
 

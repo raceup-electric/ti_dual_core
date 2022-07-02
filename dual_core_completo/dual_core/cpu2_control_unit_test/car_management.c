@@ -19,7 +19,8 @@ bool rfGoneWrong[4] = {1,1,1,1};
     int rightFanDebug = 0;
 #endif
 
-void read_SENDYNE_message(unsigned char sendyne_values[]){
+// sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
+/*void read_SENDYNE_message(unsigned char sendyne_values[]){
     reassembled_data= 0;
     Uint16 tmp= sendyne_values[0];
     tmp^= 1 <<7;
@@ -38,7 +39,7 @@ void read_SENDYNE_message(unsigned char sendyne_values[]){
 
     total_power = sendyne_voltage*sendyne_current;
 
-}
+}*/
 
 void read_LEM_message(unsigned char lem_values[]){
     reassembled_data= 0;
@@ -317,7 +318,9 @@ void computeBatteryPackTension()
 
     mean /= active_motors;
     mean_of_squared /= active_motors;
-    sendyne_voltage = batteryPackTension = mean;
+    batteryPackTension = mean;
+    total_power = batteryPackTension*lem_current;
+
 }
 
 
@@ -700,11 +703,16 @@ void update_log_values()
 
 
 
-    //Sendyne
-    sendyne_log.sendyne_voltage_shared = sendyne_voltage;
-    sendyne_log.sendyne_current_shared = sendyne_current;
-    sendyne_log.curr_sens_shared = 0; //nuovo da aggiungere
-    sendyne_log.total_power_shared = total_power;
+    //Sendyne  DEPRECATED. IL SENDYNE NON VIENE PIU USATO
+    //sendyne_log.sendyne_voltage_shared = sendyne_voltage;
+    //sendyne_log.sendyne_current_shared = sendyne_current;
+    //sendyne_log.curr_sens_shared = 0; //nuovo da aggiungere
+    //sendyne_log.total_power_shared = total_power;
+
+    power_log.batteryPack_voltage_shared = batteryPackTension;
+    power_log.lem_current_shared = lem_current;
+    power_log.curr_sens_shared = 0; //nuovo da aggiungere
+    power_log.total_power_shared = total_power;
 
     //FanSpeed
     fanspeed_log.leftFanSpeed_shared = leftFanSpeed;
@@ -738,7 +746,7 @@ void update_shared_mem()
     memcpy(sh.bms_lv_cell, bms_lv_shared, 8);
     sh.imu = imu_log;
     sh.fanSpeed = fanspeed_log;
-    sh.sendyne = sendyne_log;
+    sh.power = power_log;
     sh.bms = bms_log;
     sh.status = status_log;
     sh.gpio = gpio_log;
