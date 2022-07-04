@@ -118,7 +118,7 @@ void read_SMU_Message(Uint16 smu_values[], int id){
 
 void read_BMSLV_message(Uint16 bmslv_values[], int id){
     //TODO implement reading of the BMSLV packets
-    int i = 0;
+    /*int i = 0;
     if (id == 1)
     {
         for (i = 0; i < 8; i=i+2){
@@ -127,6 +127,20 @@ void read_BMSLV_message(Uint16 bmslv_values[], int id){
     } else if (id == 2) {
         for (i = 0; i < 8; i=i+2){
             bms_lv_cell[(i+8)/2] = (bmslv_values[i] & 0xff) | ((bmslv_values[i+1] & 0xff) << 8);
+        }
+        bms_lv_cell[6] = convert_temp_lv(bms_lv_cell[6]*0.0001);
+        bms_lv_cell[7] = convert_temp_lv(bms_lv_cell[7]*0.0001);
+    }*/
+
+    int i = 0;
+    if (id == 1)
+    {
+        for (i = 0; i < 4; i++){
+            bms_lv_cell[i] = bmslv_values[i]*0.0001;
+        }
+    } else if (id == 2) {
+        for (i = 0; i < 2; i++){
+            bms_lv_cell[i+4] = bmslv_values[i]*0.0001;
         }
         bms_lv_cell[6] = convert_temp_lv(bms_lv_cell[6]*0.0001);
         bms_lv_cell[7] = convert_temp_lv(bms_lv_cell[7]*0.0001);
@@ -316,8 +330,15 @@ void computeBatteryPackTension()
         mean_of_squared += tensions[j]*tensions[j]*active[j];
     }
 
-    mean /= active_motors;
-    mean_of_squared /= active_motors;
+    if(active_motors != 0)
+    {
+        mean /= active_motors;
+        mean_of_squared /= active_motors;
+    }else{
+        mean = 0;
+        mean_of_squared = 0;
+    }
+
     batteryPackTension = mean;
     total_power = batteryPackTension*lem_current;
 
