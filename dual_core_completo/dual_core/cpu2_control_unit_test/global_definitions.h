@@ -143,8 +143,8 @@
 #define OBJ_ID_FROM_IMU         28
 #define OBJ_ID_SENDYNE_FORWARD  29
 #define OBJ_ID_STEERING_WHEEL   23
-#define OBJ_ID_FROM_SMU         24
-#define OBJ_ID_FROM_BMS_LV      23
+#define OBJ_ID_FROM_SMU         22
+#define OBJ_ID_FROM_BMS_LV      7
 #define OBJ_ID_FROM_LEM         21
 
 //Message IDs

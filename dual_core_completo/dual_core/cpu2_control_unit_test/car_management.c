@@ -105,8 +105,8 @@ void read_SMU_Message(Uint16 smu_values[], int id){
             temperatures[i] = ConvertTempToKelvin(0x3FF & aux );
             aux>>=10;
         }
-
-    }else if(id == MSG_ID_SMU_SUSPENSIONS){
+    }
+    else if (id == MSG_ID_SMU_SUSPENSIONS){
         for(i = 0; i < NUM_SMU_SUSP; i++)
         {
             suspensions[i] = (Uint32)(0x3FF & aux );

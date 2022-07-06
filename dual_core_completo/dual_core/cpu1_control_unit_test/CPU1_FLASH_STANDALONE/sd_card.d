@@ -83,9 +83,9 @@ sd_card.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/ab
 sd_card.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/timespec.h
 sd_card.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_timespec.h
 sd_card.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_time.h
-sd_card.obj: D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ff.h
-sd_card.obj: D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ffconf.h
-sd_card.obj: D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/diskio.h
+sd_card.obj: D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ff.h
+sd_card.obj: D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ffconf.h
+sd_card.obj: D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/diskio.h
 sd_card.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdio.h
 
 ../sd_card.c:
@@ -254,11 +254,11 @@ C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_timespec.h
 
 C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_time.h:
 
-D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ff.h:
+D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ff.h:
 
-D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ffconf.h:
+D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ffconf.h:
 
-D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/diskio.h:
+D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/diskio.h:
 
 C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdio.h:
 

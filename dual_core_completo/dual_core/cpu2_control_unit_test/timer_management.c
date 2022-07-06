@@ -182,8 +182,9 @@ __interrupt void cpu_timer1_isr(void)
     {
 
         brakeWhenSlow = brake > 10 && actualVelocityKMH <= 5;
-        brakeReg = brake > 10 && brake < REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
-        brakeMec = brake >= REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
+        /*brakeReg = brake > 10 && brake < REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
+        brakeMec = brake >= REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;*/
+        brakeReg = brake > 10 && actualVelocityKMH > 5.f;
         noBrake = brake <= 10;
         checkImplausibility();
 
@@ -219,7 +220,7 @@ __interrupt void cpu_timer1_isr(void)
                 stopAMK();
     #else
                 //brakeAMK((REGENERATIVE_BRAKE_LIMIT - (brake - REGENERATIVE_BRAKE_LIMIT) * (REGENERATIVE_BRAKE_LIMIT)/(100-REGENERATIVE_BRAKE_LIMIT)) * (NEGATIVE_TORQUE_LIMIT /10));
-                if(sendyne_current > max_regen_current){
+                if(lem_current > max_regen_current){
                     brakeAMK(brake);
                 }
                 else {

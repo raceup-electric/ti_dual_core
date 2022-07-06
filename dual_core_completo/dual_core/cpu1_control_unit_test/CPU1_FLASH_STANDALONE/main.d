@@ -89,9 +89,9 @@ main.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/abi_p
 main.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/timespec.h
 main.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_timespec.h
 main.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_time.h
-main.obj: D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ff.h
-main.obj: D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ffconf.h
-main.obj: D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/diskio.h
+main.obj: D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ff.h
+main.obj: D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ffconf.h
+main.obj: D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/diskio.h
 main.obj: ../display.h
 main.obj: ../uart.h
 main.obj: ../global_definitions.h
@@ -276,11 +276,11 @@ C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_timespec.h
 
 C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_time.h:
 
-D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ff.h:
+D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ff.h:
 
-D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ffconf.h:
+D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ffconf.h:
 
-D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/diskio.h:
+D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/diskio.h:
 
 ../display.h:
 

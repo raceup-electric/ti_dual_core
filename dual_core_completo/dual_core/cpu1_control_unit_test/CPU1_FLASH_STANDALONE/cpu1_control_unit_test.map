@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v21.6.0                     
 ******************************************************************************
->> Linked Thu Jun 30 12:04:37 2022
+>> Linked Wed Jul  6 17:14:32 2022
 
 OUTPUT FILE NAME:   <cpu1_control_unit_test.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0009cec7
@@ -300,8 +300,7 @@ PUTREADIDX
 .econst    0    00090000    00001582     
                   00090000    000008f7     display.obj (.econst:.string)
                   000908f7    00000001     --HOLE-- [fill = 0]
-                  000908f8    00000559     main.obj (.econst:.string)
-                  00090e51    00000001     --HOLE-- [fill = 0]
+                  000908f8    0000055a     main.obj (.econst:.string)
                   00090e52    00000236     sd_card.obj (.econst:.string)
                   00091088    000001c0     F2837xD_PieVect.obj (.econst:_PieVectTableInit)
                   00091248    00000122     sd_card.obj (.econst:.string:_$P$T0$1)
@@ -802,7 +801,7 @@ MODULE SUMMARY
        ff.obj                           5377    35                 3                 
        display.obj                      1351    2295               0                 
        sd_card.obj                      746     1000               1462              
-       main.obj                         820     1405               637               
+       main.obj                         820     1406               637               
        F2837xD_DefaultISR.obj           1413    0                  0                 
        can.obj                          1314    9                  0                 
        F2837xD_SysCtrl.obj              1314    0                  0                 
@@ -825,7 +824,7 @@ MODULE SUMMARY
        F2837xD_usDelay.obj              8       0                  0                 
        LoRa.obj                         0       4                  3                 
     +--+--------------------------------+-------+------------------+--------------------+
-       Total:                           16297   5361               12265             
+       Total:                           16297   5362               12265             
                                                                                      
     C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib/rts2800_fpu32.lib
        _printfi.c.obj                   3300    66                 0                 
@@ -876,7 +875,7 @@ MODULE SUMMARY
                                                                                      
        Stack:                           0       0                  1016              
     +--+--------------------------------+-------+------------------+--------------------+
-       Grand Total:                     21518   5748               13292             
+       Grand Total:                     21518   5749               13292             
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -1062,7 +1061,7 @@ address     data page           name
 0000acd0     2b3 (0000acc0)     _local_time_elapsed
 0000acd2     2b3 (0000acc0)     _fanspeed_log
 0000acd4     2b3 (0000acc0)     _status_log
-0000acda     2b3 (0000acc0)     _sendyne_log
+0000acda     2b3 (0000acc0)     _power_log
 0000ace2     2b3 (0000acc0)     _gpio_log
 0000acea     2b3 (0000acc0)     _bms_log
 
@@ -1659,6 +1658,7 @@ abs   ffffffff  ___pinit__
 1     0000acc7  _old_setup_power                      
 1     0000acc8  _old_setup_regen                      
 1     0000ae3f  _onTxDone                             
+1     0000acda  _power_log                            
 0     0009bd4b  _reverse                              
 0     0009cb11  _scalbnl                              
 0     0009cfbe  _scic_fifo_init                       
@@ -1667,7 +1667,6 @@ abs   ffffffff  ___pinit__
 0     0009cf9d  _scic_xmit                            
 1     0000accc  _sel                                  
 0     0009c320  _send_can_to_cpu2                     
-1     0000acda  _sendyne_log                          
 0     0009ab7e  _setAMK_fl                            
 0     0009ab90  _setAMK_fr                            
 0     0009abb5  _setAMK_rl                            
@@ -2233,7 +2232,7 @@ page  address   name
 1     0000acd0  _local_time_elapsed                   
 1     0000acd2  _fanspeed_log                         
 1     0000acd4  _status_log                           
-1     0000acda  _sendyne_log                          
+1     0000acda  _power_log                            
 1     0000ace2  _gpio_log                             
 1     0000acea  _bms_log                              
 1     0000ad00  _imu_log                              

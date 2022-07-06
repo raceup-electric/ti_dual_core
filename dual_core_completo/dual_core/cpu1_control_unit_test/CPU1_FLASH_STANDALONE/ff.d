@@ -6,9 +6,9 @@ ff.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_ti_con
 ff.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/linkage.h
 ff.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h
 ff.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_string.h
-ff.obj: D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ff.h
-ff.obj: D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ffconf.h
-ff.obj: D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/diskio.h
+ff.obj: D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ff.h
+ff.obj: D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ffconf.h
+ff.obj: D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/diskio.h
 
 ../ff.c:
 
@@ -22,9 +22,9 @@ C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h:
 
 C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_string.h:
 
-D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ff.h:
+D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ff.h:
 
-D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/ffconf.h:
+D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/ffconf.h:
 
-D:/Desktop/raceup/tmpws/cpu1_control_unit_test/ff14b/source/diskio.h:
+D:/Desktop/raceup/ecu/ti_dual_core/ti_dual_core/dual_core_completo/dual_core/cpu1_control_unit_test/ff14b/source/diskio.h:
 

@@ -89,6 +89,14 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);
 
+        /*RXCANA_Smu_Message.ui32MsgID = MSG_ID_SMU_BASE;
+        RXCANA_Smu_Message.ui32MsgIDMask = 0x0;
+        RXCANA_Smu_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
+        RXCANA_Smu_Message.ui32MsgLen = MSG_DATA_LENGTH;
+        RXCANA_Smu_Message.pucMsgData = RXA_Smu_Data;
+
+        CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);*/
+
         for(i = 0; i < 5; i++){
             TXCANA_Smu_Message[i].ui32MsgID = MSG_ID_CALIBRATION_TO_SMU;
             TXCANA_Smu_Message[i].ui32MsgIDMask = 0;                  // no mask needed for TX
@@ -280,6 +288,18 @@ __interrupt void canISR_A(void)
 
         CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
     }
+    /*else if(status == OBJ_ID_FROM_SMU){
+            //Ricevuto pacchetto da mailbox dello SMU
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, true);
+
+            int id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
+
+            read_SMU_Message_temp((Uint16 *)RXA_Smu_Data, id);
+
+            rxAMsgCount++;
+
+            CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
+    }*/
     else if (status == OBJ_ID_BMS_VOLTAGE){
        //Uint16 bms_msg_temp[6];
 

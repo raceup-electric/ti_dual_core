@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v21.6.0                     
 ******************************************************************************
->> Linked Mon Jul  4 16:46:27 2022
+>> Linked Wed Jul  6 15:44:56 2022
 
 OUTPUT FILE NAME:   <cpu1_control_unit_test.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0009cd56
@@ -299,8 +299,7 @@ PUTREADIDX
 .econst    0    00090000    00001582     
                   00090000    000008f7     display.obj (.econst:.string)
                   000908f7    00000001     --HOLE-- [fill = 0]
-                  000908f8    00000559     main.obj (.econst:.string)
-                  00090e51    00000001     --HOLE-- [fill = 0]
+                  000908f8    0000055a     main.obj (.econst:.string)
                   00090e52    00000236     sd_card.obj (.econst:.string)
                   00091088    000001c0     F2837xD_PieVect.obj (.econst:_PieVectTableInit)
                   00091248    00000122     sd_card.obj (.econst:.string:_$P$T0$1)
@@ -801,7 +800,7 @@ MODULE SUMMARY
        ff.obj                           5377    35                 3                 
        display.obj                      1351    2295               0                 
        sd_card.obj                      746     1000               1462              
-       main.obj                         817     1405               637               
+       main.obj                         817     1406               637               
        F2837xD_DefaultISR.obj           1413    0                  0                 
        can.obj                          1314    9                  0                 
        F2837xD_SysCtrl.obj              1314    0                  0                 
@@ -823,7 +822,7 @@ MODULE SUMMARY
        F2837xD_usDelay.obj              8       0                  0                 
        LoRa.obj                         0       4                  3                 
     +--+--------------------------------+-------+------------------+--------------------+
-       Total:                           15928   5361               12265             
+       Total:                           15928   5362               12265             
                                                                                      
     C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib/rts2800_fpu32.lib
        _printfi.c.obj                   3300    66                 0                 
@@ -874,7 +873,7 @@ MODULE SUMMARY
                                                                                      
        Stack:                           0       0                  2048              
     +--+--------------------------------+-------+------------------+--------------------+
-       Grand Total:                     21149   5748               14324             
+       Grand Total:                     21149   5749               14324             
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
