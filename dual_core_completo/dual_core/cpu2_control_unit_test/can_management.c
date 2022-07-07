@@ -82,7 +82,7 @@ void canSetup_phase2()
 
         //Pacchetto generico SMU
         RXCANA_Smu_Message.ui32MsgID = MSG_ID_SMU_BASE;
-        RXCANA_Smu_Message.ui32MsgIDMask = 0x1FFFFFF8;
+        RXCANA_Smu_Message.ui32MsgIDMask = 0x1FFFFFFC;
         RXCANA_Smu_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
         RXCANA_Smu_Message.ui32MsgLen = MSG_DATA_LENGTH;
         RXCANA_Smu_Message.pucMsgData = RXA_Smu_Data;
@@ -125,7 +125,7 @@ void canSetup_phase2()
 
         //PACCHETTO BMS LV
         RXCANA_BmsLV_Message.ui32MsgID = MSG_ID_BMS_BASE;
-        RXCANA_BmsLV_Message.ui32MsgIDMask = 0x1FFFFFFC;
+        RXCANA_BmsLV_Message.ui32MsgIDMask = 0x1FFFFFF0;
         RXCANA_BmsLV_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
         RXCANA_BmsLV_Message.ui32MsgLen = 8;
         RXCANA_BmsLV_Message.pucMsgData = RXA_BmsLV_Data;
@@ -143,7 +143,7 @@ void canSetup_phase2()
 
         //PACCHETTO DA VOLANTE
         RXCANA_Wheel_Message.ui32MsgID = MSG_ID_STEERING_WHEEL_BASE;
-        RXCANA_Wheel_Message.ui32MsgIDMask = 0x1FFFFFF8;
+        RXCANA_Wheel_Message.ui32MsgIDMask = 0x1FFFFFFC;
         RXCANA_Wheel_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
         RXCANA_Wheel_Message.ui32MsgLen = 1;
         RXCANA_Wheel_Message.pucMsgData = RXA_Wheel_Data;
@@ -330,7 +330,7 @@ __interrupt void canISR_A(void)
 
    }else if(status == OBJ_ID_FROM_BMS_LV){
 
-       CANMessageGet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsTemp_Message, true);
+       CANMessageGet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, true);
 
        int id = getMessageID(CANA_BASE, OBJ_ID_FROM_BMS_LV);
 

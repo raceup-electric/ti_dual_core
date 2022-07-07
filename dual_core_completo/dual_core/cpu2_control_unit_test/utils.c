@@ -75,7 +75,8 @@ float uint32_to_float(Uint32 u)
 float convert_temp_lv(float cell_volt)
 {
   float x = ((log((5 - cell_volt)/cell_volt))/3435);
-  return 1/((1/298.15) - x);
+  x = 1/((1/298.15) - x);
+  return x -273.15;
 }
 
 float ConvertTempToKelvin(int adc_read)

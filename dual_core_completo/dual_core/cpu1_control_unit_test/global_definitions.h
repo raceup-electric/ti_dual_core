@@ -184,6 +184,7 @@
 #define PAGE_8 0x07
 #define PAGE_9 0x08
 #define PAGE_10 0x09
+#define PAGE_11 0x0A
 
 
 //

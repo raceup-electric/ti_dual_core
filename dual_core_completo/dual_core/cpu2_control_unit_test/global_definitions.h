@@ -136,16 +136,20 @@
 #define OBJ_ID_AMK2_DATA_BASE   9
 #define OBJ_ID_BMS_VOLTAGE      10
 #define OBJ_ID_BMS_TEMP         11
-#define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_AMK_SETPOINTS    13
+#define OBJ_ID_STEERING_WHEEL   15
+#define OBJ_ID_FROM_BMS_LV      18
+#define OBJ_ID_FROM_LEM         21
+#define OBJ_ID_FROM_SMU         28
+#define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_FROM_AMK         26
 #define OBJ_ID_FROM_SENDYNE     27
-#define OBJ_ID_FROM_IMU         28
-#define OBJ_ID_SENDYNE_FORWARD  29
-#define OBJ_ID_STEERING_WHEEL   23
-#define OBJ_ID_FROM_SMU         22
-#define OBJ_ID_FROM_BMS_LV      7
-#define OBJ_ID_FROM_LEM         21
+#define OBJ_ID_FROM_IMU         22
+//#define OBJ_ID_SENDYNE_FORWARD  29
+
+
+
+
 
 //Message IDs
 #define MSG_ID_CALIBRATION_TO_SMU 0x30
@@ -169,9 +173,9 @@
 #define MSG_ID_STEERING_WHEEL_BASE 0x90         //id dei buttons
 #define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90
 #define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91   //id del selector
-#define MSG_ID_SMU_BASE                      0x93
-#define MSG_ID_SMU_TEMPERATURES              0x93
-#define MSG_ID_SMU_SUSPENSIONS               0x94
+#define MSG_ID_SMU_BASE                      0x100
+#define MSG_ID_SMU_TEMPERATURES              0x100
+#define MSG_ID_SMU_SUSPENSIONS               0x101
 #define MSG_ID_LEM                           0x3C2
 
 #define CONFIRMATION        0x1
@@ -180,8 +184,8 @@
 #define PREVIOUS_PAGE       0x4
 #define START_LAUNCH        0x8
 
-#define POWER_CONTROL_PAGE   0x8
-#define REGEN_PAGE          0x9
+#define POWER_CONTROL_PAGE   0x7
+#define REGEN_PAGE          0x8
 
 //
 // ePWM

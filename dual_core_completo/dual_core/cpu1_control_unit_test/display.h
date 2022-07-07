@@ -151,6 +151,8 @@ void updatePage6();
 void updatePage7();
 void updatePage8();
 void updatePage9();
+void updatePage10();
+void updatePage11();
 
 
 

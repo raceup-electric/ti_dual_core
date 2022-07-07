@@ -118,33 +118,35 @@ void read_SMU_Message(Uint16 smu_values[], int id){
 
 void read_BMSLV_message(Uint16 bmslv_values[], int id){
     //TODO implement reading of the BMSLV packets
-    /*int i = 0;
-    if (id == 1)
+    int i = 0;
+    if (id == MSG_ID_BMS_LV_1)
     {
         for (i = 0; i < 8; i=i+2){
             bms_lv_cell[i/2] = (bmslv_values[i] & 0xff) | ((bmslv_values[i+1] & 0xff) << 8);
+            bms_lv_cell[i/2] *= 0.0001;
         }
-    } else if (id == 2) {
+    } else if (id == MSG_ID_BMS_LV_2) {
         for (i = 0; i < 8; i=i+2){
             bms_lv_cell[(i+8)/2] = (bmslv_values[i] & 0xff) | ((bmslv_values[i+1] & 0xff) << 8);
+            bms_lv_cell[(i+8)/2] *= 0.0001;
         }
-        bms_lv_cell[6] = convert_temp_lv(bms_lv_cell[6]*0.0001);
-        bms_lv_cell[7] = convert_temp_lv(bms_lv_cell[7]*0.0001);
-    }*/
+        bms_lv_cell[6] = convert_temp_lv(bms_lv_cell[6]);
+        bms_lv_cell[7] = convert_temp_lv(bms_lv_cell[7]);
+    }
 
-    int i = 0;
-    if (id == 1)
+    /*int i = 0;
+    if (id == MSG_ID_BMS_LV_1)
     {
         for (i = 0; i < 4; i++){
             bms_lv_cell[i] = bmslv_values[i]*0.0001;
         }
-    } else if (id == 2) {
+    } else if (id == MSG_ID_BMS_LV_2) {
         for (i = 0; i < 2; i++){
             bms_lv_cell[i+4] = bmslv_values[i]*0.0001;
         }
         bms_lv_cell[6] = convert_temp_lv(bms_lv_cell[6]*0.0001);
         bms_lv_cell[7] = convert_temp_lv(bms_lv_cell[7]*0.0001);
-    }
+    }*/
 }
 
 void read_BMS_VOLTAGE_message(Uint16 bms_values[]){
@@ -179,12 +181,12 @@ void read_steering_wheel_message(Uint16 val[], int id){
     if (id == MSG_ID_STEERING_WHEEL_BASE){
         if(val[0] == NEXT_PAGE){
             currentPage++;
-            currentPage = currentPage % 10;
+            currentPage = currentPage % 11;
             display.page = currentPage;
         }
         else if(val[0] == PREVIOUS_PAGE){
-            currentPage = currentPage - 1 + 10;
-            currentPage = currentPage % 10;
+            currentPage = currentPage - 1 + 11;
+            currentPage = currentPage % 11;
             display.page = currentPage;
         }else if(val[0] == CALIBRATION){
             if(calibration_status){

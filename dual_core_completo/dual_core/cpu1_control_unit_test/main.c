@@ -44,12 +44,12 @@ void main(void)
 
 
     while( !(
-            MemCfgRegs.GSxMSEL.bit.MSEL_GS14 &
+            MemCfgRegs.GSxMSEL.bit.MSEL_GS3 &
             MemCfgRegs.GSxMSEL.bit.MSEL_GS2 &
              MemCfgRegs.GSxMSEL.bit.MSEL_GS1))
     {
         EALLOW;
-        MemCfgRegs.GSxMSEL.bit.MSEL_GS14 = 1;
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS3 = 1;
         MemCfgRegs.GSxMSEL.bit.MSEL_GS2 = 1;
         MemCfgRegs.GSxMSEL.bit.MSEL_GS1 = 1;
         EDIS;
