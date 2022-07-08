@@ -253,21 +253,21 @@ void updatePage9()
 
 void updatePage10()
 {
-    sprintf(tmp, "debug_lv.lv0.val=%dÿÿÿ\0", (int)local_sh.bms_lv_cell[0]);
+    sprintf(tmp, "debug_lv.lv0.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[0]*1000));
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv1.val=%dfÿÿÿ\0", (int)local_sh.bms_lv_cell[1]);
+    sprintf(tmp, "debug_lv.lv1.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[1]*1000));
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv2.val=%dfÿÿÿ\0", (int)local_sh.bms_lv_cell[2]);
+    sprintf(tmp, "debug_lv.lv2.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[2]*1000));
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv3.val=%dfÿÿÿ\0",(int) local_sh.bms_lv_cell[3]);
+    sprintf(tmp, "debug_lv.lv3.txt=%dÿÿÿ\0",(int)(local_sh.bms_lv_cell[3]*1000));
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv4.val=%.1fÿÿÿ\0", local_sh.bms_lv_cell[4]);
+    sprintf(tmp, "debug_lv.lv4.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[4]*1000));
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv5.val=%.1fÿÿÿ\0", local_sh.bms_lv_cell[5]);
+    sprintf(tmp, "debug_lv.lv5.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[5]*1000));
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.temp1.val=%.1fÿÿÿ\0", local_sh.bms_lv_cell[6]);
+    sprintf(tmp, "debug_lv.temp1.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[6]*1000));
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.temp2.val=%.1fÿÿÿ\0", local_sh.bms_lv_cell[7]);
+    sprintf(tmp, "debug_lv.temp2.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[7]*1000));
     scic_msg(tmp);
 
     float sum = 0;
@@ -282,15 +282,15 @@ void updatePage10()
 
 void updatePage11()
 {
-    sprintf(tmp, "debug_smu.prerad.val=%.1fÿÿÿ\0", local_sh.imu.temperatures_shared[0] - 273.15);
+    sprintf(tmp, "debug_smu.prerad.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[0] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "debug_smu.precold.val=%.1fÿÿÿ\0", local_sh.imu.temperatures_shared[1] - 273.15);
+    sprintf(tmp, "debug_smu.precold.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[1] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "debug_smu.postcold.val=%.1fÿÿÿ\0", local_sh.imu.temperatures_shared[2] - 273.15);
+    sprintf(tmp, "debug_smu.postcold.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[2] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "debug_smu.premot.val=%.1fÿÿÿ\0", local_sh.imu.temperatures_shared[3] - 273.15);
+    sprintf(tmp, "debug_smu.premot.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[3] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "debug_smu.postmot.val=%.1fÿÿÿ\0", local_sh.imu.temperatures_shared[4] - 273.15);
+    sprintf(tmp, "debug_smu.postmot.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
     scic_msg(tmp);
 }
 

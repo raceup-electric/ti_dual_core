@@ -36,7 +36,7 @@
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 15000 //15000               //Speed limit
+#define SPEED_LIMIT                 17000 //15000               //Speed limit
 #define M_N                         9.8f
 
 //
@@ -158,8 +158,8 @@
 #define MSG_ID_TEMPS            0x49
 #define MSG_ID_SENDYNE          0x50
 #define MSG_ID_CAR_STATUS       0x52
-#define MSG_ID_BMS_VOLTAGE      0x53
-#define MSG_ID_BMS_TEMP         0x54
+#define MSG_ID_BMS_VOLTAGE      0x110
+#define MSG_ID_BMS_TEMP         0x111
 #define MSG_ID_BMS_BASE         0x55
 #define MSG_ID_BMS_LV_1         0x55
 #define MSG_ID_BMS_LV_2         0x56
