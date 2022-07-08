@@ -125,7 +125,7 @@ void canSetup_phase2()
 
         //PACCHETTO BMS LV
         RXCANA_BmsLV_Message.ui32MsgID = MSG_ID_BMS_BASE;
-        RXCANA_BmsLV_Message.ui32MsgIDMask = 0x1FFFFFF0;
+        RXCANA_BmsLV_Message.ui32MsgIDMask = 0x1FFFFFFC;
         RXCANA_BmsLV_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
         RXCANA_BmsLV_Message.ui32MsgLen = 8;
         RXCANA_BmsLV_Message.pucMsgData = RXA_BmsLV_Data;

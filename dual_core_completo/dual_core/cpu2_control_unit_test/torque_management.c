@@ -261,7 +261,7 @@ void onePedalDriving()
         velocityRef = 0;    //per setpoint AMK4
     }
     else{
-        if(actualVelocityKMH > 5){
+        if(actualVelocityKMH > 5.f){
 
             brakeReq = (100 - throttleReq*100/brake_point_limit);
             throttleReq = 0;

@@ -541,8 +541,8 @@ void fanControl()
         rightFanSpeed = rightFanDebug;
 #endif
 
-    setFanSpeed(VENTOLA_SX, leftFanSpeed);
-    setFanSpeed(VENTOLA_DX, rightFanSpeed);
+    setFanSpeed(VENTOLA_SX, 100 - leftFanSpeed);
+    setFanSpeed(VENTOLA_DX, 100 - rightFanSpeed);
 }
 
 //

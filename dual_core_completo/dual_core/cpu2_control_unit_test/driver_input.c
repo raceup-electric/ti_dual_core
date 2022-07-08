@@ -26,10 +26,10 @@ int Read_throttle(){
     acc2Pos = changeRange(acc2Pos, 0, 1, 0, 100);
 
     //DEBUG!!! Unsafe test configuration
-    if (abs(acc1Pos - acc2Pos) > ACC_IMPL_THRES)
-    {
-        return 0;   //implausibility
-    }
+    //if (abs(acc1Pos - acc2Pos) > ACC_IMPL_THRES)
+    //{
+      //  return 0;   //implausibility
+    //}
 
 //    return saturateUnsigned((acc1Pos + acc2Pos)/2.0, 100, 0); //    //DEBUG!!! Unsafe test configuration
 //    value = value - 0.2*(value - (acc1Pos)); //usa solo potenziometro 1

@@ -253,13 +253,13 @@ void updatePage9()
 
 void updatePage10()
 {
-    sprintf(tmp, "debug_lv.lv0.val=%.1fÿÿÿ\0", local_sh.bms_lv_cell[0]);
+    sprintf(tmp, "debug_lv.lv0.val=%dÿÿÿ\0", (int)local_sh.bms_lv_cell[0]);
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv1.val=%.1fÿÿÿ\0", local_sh.bms_lv_cell[1]);
+    sprintf(tmp, "debug_lv.lv1.val=%dfÿÿÿ\0", (int)local_sh.bms_lv_cell[1]);
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv2.val=%.1fÿÿÿ\0", local_sh.bms_lv_cell[2]);
+    sprintf(tmp, "debug_lv.lv2.val=%dfÿÿÿ\0", (int)local_sh.bms_lv_cell[2]);
     scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv3.val=%.1fÿÿÿ\0", local_sh.bms_lv_cell[3]);
+    sprintf(tmp, "debug_lv.lv3.val=%dfÿÿÿ\0",(int) local_sh.bms_lv_cell[3]);
     scic_msg(tmp);
     sprintf(tmp, "debug_lv.lv4.val=%.1fÿÿÿ\0", local_sh.bms_lv_cell[4]);
     scic_msg(tmp);

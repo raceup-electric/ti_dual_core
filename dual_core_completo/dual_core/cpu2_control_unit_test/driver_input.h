@@ -15,13 +15,13 @@
 
 
 // acc1
-#define ACC1_LOW_TH    2580
-#define ACC1_HIGH_TH   3950
+#define ACC1_LOW_TH    2490
+#define ACC1_HIGH_TH   3935
 #define ACC1_INPUT_RANGE (ACC1_HIGH_TH - ACC1_LOW_TH)
 
 // acc2
-#define ACC2_LOW_TH    1825
-#define ACC2_HIGH_TH   3200
+#define ACC2_LOW_TH    1725
+#define ACC2_HIGH_TH   3150
 #define ACC2_INPUT_RANGE (ACC2_HIGH_TH - ACC2_LOW_TH)
 
 // acc
@@ -30,8 +30,8 @@
 #define ACC_IMPL_THRES 10 // implausibility threshold 10%
 
 // brake
-#define BRK_LOW_TH    1687
-#define BRK_HIGH_TH   3800
+#define BRK_LOW_TH    1770
+#define BRK_HIGH_TH   2800
 #define BRK_INPUT_RANGE (BRK_HIGH_TH-BRK_LOW_TH)
 
 #define BRK_DISC_THRES 200  //ABSOLUTE VAL
@@ -44,7 +44,7 @@
 #define IMPL_LIMIT 5
 
 #define THROTTLE_IMPL_THRESHOLD     35      //% of throttle
-#define BRAKE_IMPL_THRESHOLD        15      //% of brake
+#define BRAKE_IMPL_THRESHOLD        30      //% of brake
 
 //
 // variables

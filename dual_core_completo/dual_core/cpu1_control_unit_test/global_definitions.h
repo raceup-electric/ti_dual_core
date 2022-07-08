@@ -74,7 +74,7 @@
 #define MAX_POS_TORQUE              21.0f
 #define MAX_NEG_TORQUE              -1.5f
 
-#define MAX_REGEN_CURRENT           -20.0f
+#define MAX_REGEN_CURRENT           -45.0f
 //
 
 // POWER CONTROL

@@ -105,6 +105,8 @@ __interrupt void cpu_timer1_isr(void)
     brakeLight();
     readVelocity();
     fanControl();
+    setPumpSpeed(POMPA_SX, 0);
+    setPumpSpeed(POMPA_DX, 0);
     checkTemps();                   //rewrite
 
     updateGPIOState();
@@ -181,7 +183,7 @@ __interrupt void cpu_timer1_isr(void)
     if(canSendAMK)
     {
 
-        brakeWhenSlow = brake > 10 && actualVelocityKMH <= 5;
+        brakeWhenSlow = brake > 10 && actualVelocityKMH <= 5.f;
         /*brakeReg = brake > 10 && brake < REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
         brakeMec = brake >= REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;*/
         brakeReg = brake > 10 && actualVelocityKMH > 5.f;

@@ -132,7 +132,7 @@ float anti_wind_up = 0;
 float reduction_factor;
 
 Uint16 regensetup[8];
-float max_regen_current=-20.0f;
+float max_regen_current=-45.0f;
 
 float power_limit=POWER_LIMIT; //quello che gli arriva dal volante
 bool powerOK = false;
