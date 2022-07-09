@@ -5,10 +5,9 @@
  *      Author: ludon
  */
 #include "display.h"
-
+int counter = 0;
 void updateValues()
 {
-
     switch(currentPage){
            case PAGE_1:
              updatePage1();
@@ -253,44 +252,45 @@ void updatePage9()
 
 void updatePage10()
 {
-    sprintf(tmp, "debug_lv.lv0.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[0]*1000));
-    scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv1.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[1]*1000));
-    scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv2.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[2]*1000));
-    scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv3.txt=%dÿÿÿ\0",(int)(local_sh.bms_lv_cell[3]*1000));
-    scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv4.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[4]*1000));
-    scic_msg(tmp);
-    sprintf(tmp, "debug_lv.lv5.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[5]*1000));
-    scic_msg(tmp);
-    sprintf(tmp, "debug_lv.temp1.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[6]*1000));
-    scic_msg(tmp);
-    sprintf(tmp, "debug_lv.temp2.txt=%dÿÿÿ\0", (int)(local_sh.bms_lv_cell[7]*1000));
-    scic_msg(tmp);
+        sprintf(tmp, "debug_lv.lv0.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[0]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "debug_lv.lv1.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[1]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "debug_lv.lv2.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[2]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "debug_lv.lv3.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[3]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "debug_lv.lv4.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[4]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "debug_lv.lv5.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[5]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "debug_lv.temp1.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[6]));
+        scic_msg(tmp);
+        sprintf(tmp, "debug_lv.temp2.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[7]));
+        scic_msg(tmp);
 
-    float sum = 0;
-    int i = 0;
-    for (; i < 6; i++)
-    {
-        sum += local_sh.bms_lv_cell[i];
-    }
-    sprintf(tmp, "debug_lv.tot.val=%.1fÿÿÿ\0", sum);
-    scic_msg(tmp);
+        float sum = 0;
+        int i = 0;
+        for (; i < 6; i++)
+        {
+            sum += local_sh.bms_lv[i];
+        }
+        sprintf(tmp, "debug_lv.tot.val=%dÿÿÿ\0", (int)(sum*1000));
+        scic_msg(tmp);
+
 }
 
 void updatePage11()
 {
-    sprintf(tmp, "debug_smu.prerad.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[0] - 273.15));
+    sprintf(tmp, "debug_smu.prerad.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[0] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "debug_smu.precold.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[1] - 273.15));
+    sprintf(tmp, "debug_smu.precold.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[1] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "debug_smu.postcold.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[2] - 273.15));
+    sprintf(tmp, "debug_smu.postcold.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[2] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "debug_smu.premot.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[3] - 273.15));
+    sprintf(tmp, "debug_smu.premot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[3] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "debug_smu.postmot.txt=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
+    sprintf(tmp, "debug_smu.postmot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
     scic_msg(tmp);
 }
 

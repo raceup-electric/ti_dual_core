@@ -1,7 +1,7 @@
 #include "utils.h"
 
 float convertBMSvoltage(Uint16 voltage){
-  return 3000 + (1.2*voltage);
+  return (3000 + (1.2 * voltage));
 }
 
 float convertBMStemp(Uint16 temp){

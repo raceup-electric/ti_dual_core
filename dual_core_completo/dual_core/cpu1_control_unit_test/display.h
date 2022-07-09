@@ -126,7 +126,7 @@ struct Gpio_Log{
 
 struct Share_struct {
     Uint16 Temps[8];
-    float bms_lv_cell[8];
+    float bms_lv[8];
     struct motorValues1 motorVal1[4];
     struct motorValues2 motorVal2[4];
     struct motorSetPoints motorSetP[4];

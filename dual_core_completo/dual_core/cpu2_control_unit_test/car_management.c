@@ -151,22 +151,22 @@ void read_BMSLV_message(Uint16 bmslv_values[], int id){
 
 void read_BMS_VOLTAGE_message(Uint16 bms_values[]){
     Uint16 tmp = 0;
-    tmp=(bms_values[0] | bms_values[1]<<8);
+    tmp=(bms_values[0] | (bms_values[1]<<8));
     max_bms_voltage = convertBMSvoltage(tmp);
-    tmp=(bms_values[2] | bms_values[3]<<8);
+    tmp=(bms_values[2] | (bms_values[3]<<8));
     min_bms_voltage = convertBMSvoltage(tmp);
-    tmp=(bms_values[4] | bms_values[5]<<8);
+    tmp=(bms_values[4] | (bms_values[5]<<8));
     mean_bms_voltage = convertBMSvoltage(tmp);
 
 }
 
 void read_BMS_TEMP_message(Uint16 bms_values[]){
     Uint16 tmp = 0;
-      tmp=(bms_values[0] | bms_values[1]<<8);
+      tmp=(bms_values[0] | (bms_values[1]<<8));
       max_bms_temp = convertBMStemp(tmp);
-      tmp=(bms_values[2] | bms_values[3]<<8);
+      tmp=(bms_values[2] | (bms_values[3]<<8));
       min_bms_temp = convertBMStemp(tmp);
-      tmp=(bms_values[4] | bms_values[5]<<8);
+      tmp=(bms_values[4] | (bms_values[5]<<8));
       mean_bms_temp = convertBMStemp(tmp);
 }
 
@@ -766,7 +766,10 @@ void update_shared_mem()
         sh.motorSetP[index] = motorSetP_shared[index];
     }
     memcpy(sh.Temps, Temps_shared, 8);
-    memcpy(sh.bms_lv_cell, bms_lv_shared, 8);
+    int i;
+    for(i = 0; i < 8; i++){
+        sh.bms_lv[i] = bms_lv_shared[i];
+    }
     sh.imu = imu_log;
     sh.fanSpeed = fanspeed_log;
     sh.power = power_log;

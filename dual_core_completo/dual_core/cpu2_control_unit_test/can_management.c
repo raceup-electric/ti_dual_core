@@ -303,7 +303,7 @@ __interrupt void canISR_A(void)
     else if (status == OBJ_ID_BMS_VOLTAGE){
        //Uint16 bms_msg_temp[6];
 
-       CANMessageGet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_Imu_Message, true);
+       CANMessageGet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, true);
 
        int id = getMessageID(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
 

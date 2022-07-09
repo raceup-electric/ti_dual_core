@@ -230,9 +230,9 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
                         local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
                         //bms_lv
-                        local_sh.bms_lv_cell[0], local_sh.bms_lv_cell[1], local_sh.bms_lv_cell[2],
-                        local_sh.bms_lv_cell[3], local_sh.bms_lv_cell[4], local_sh.bms_lv_cell[5],
-                        local_sh.bms_lv_cell[6], local_sh.bms_lv_cell[7],
+                        local_sh.bms_lv[0], local_sh.bms_lv[1], local_sh.bms_lv[2],
+                        local_sh.bms_lv[3], local_sh.bms_lv[4], local_sh.bms_lv[5],
+                        local_sh.bms_lv[6], local_sh.bms_lv[7],
                         //power
                         local_sh.power.batteryPack_voltage_shared, local_sh.power.lem_current_shared,
                         local_sh.power.curr_sens_shared, local_sh.power.total_power_shared);
