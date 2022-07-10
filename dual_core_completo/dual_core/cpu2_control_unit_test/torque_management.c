@@ -202,7 +202,7 @@ void regBrake()
     float rads = rpm*PI/30;
 
     //float Pemax = (sendyne_voltage+RBATT*max_regen_current)*max_regen_current/ETA_INV; //sendyne_deprecated
-    float Pemax = (batteryPackTension+RBATT*max_regen_current)*max_regen_current/ETA_INV; //sendyne_deprecated
+    float Pemax = (batteryPackTension+RBATT*max_regen_current)*max_regen_current/ETA_INV;
 
     float Pmot = 0;
     float a = 0;

@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v21.6.0                     
 ******************************************************************************
->> Linked Sat Jul  9 16:15:26 2022
+>> Linked Sun Jul 10 12:53:37 2022
 
 OUTPUT FILE NAME:   <cpu1_control_unit_test.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0009cec6
@@ -825,7 +825,7 @@ MODULE SUMMARY
     +--+--------------------------------+-------+------------------+--------------------+
        Total:                           16296   5744               12266             
                                                                                      
-    C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib/rts2800_fpu32.lib
+    C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib/rts2800_fpu32.lib
        _printfi.c.obj                   3300    66                 0                 
        ll_div28.asm.obj                 263     0                  0                 
        ctype.c.obj                      0       257                0                 

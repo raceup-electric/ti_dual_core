@@ -188,15 +188,15 @@ void read_steering_wheel_message(Uint16 val[], int id){
             currentPage = currentPage - 1 + 11;
             currentPage = currentPage % 11;
             display.page = currentPage;
-        }else if(val[0] == CALIBRATION){
+        }else if(val[0] == START_LAUNCH){
             if(calibration_status){
                 //Z-axe calibration
                 //reset_calibration();
-                imu_calibration_1(&accelerations);
+                imu_calibration_1(accelerations);
                 calibration_status++;
             }else{
                //Other axes calibration
-                imu_calibration_2(&accelerations);
+                imu_calibration_2(accelerations);
                 send_calibration(V);
                 calibration_status--;
             }

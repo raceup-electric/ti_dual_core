@@ -2,28 +2,28 @@
 
 driver_input.obj: ../driver_input.c
 driver_input.obj: ../driver_input.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/math.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_ti_config.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/linkage.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_defs.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_types.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_types.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_limits.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/math.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_ti_config.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/linkage.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_defs.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_types.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_types.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_limits.h
 driver_input.obj: ../utils.h
 driver_input.obj: ../motor_management.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F28x_Project.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_Cla_typedefs.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_device.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/assert.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdarg.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdbool.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stddef.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdint.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_stdint40.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/stdint.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_stdint.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_stdint.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/assert.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdarg.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdbool.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stddef.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdint.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_stdint40.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/stdint.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_stdint.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_stdint.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_adc.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_analogsubsys.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_cla.h
@@ -74,8 +74,8 @@ driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_Upp_defines.h
 driver_input.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_defaultisr.h
 driver_input.obj: ../global_definitions.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/string.h
-driver_input.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_string.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/string.h
+driver_input.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_string.h
 driver_input.obj: ../can_management.h
 driver_input.obj: ../timer_management.h
 driver_input.obj: ../can_management.h
@@ -97,21 +97,21 @@ driver_input.obj: ../torque_management.h
 
 ../driver_input.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/math.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/math.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_ti_config.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_ti_config.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/linkage.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/linkage.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_defs.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_defs.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_types.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_types.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_types.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_types.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_limits.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_limits.h:
 
 ../utils.h:
 
@@ -123,23 +123,23 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_C
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_device.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/assert.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/assert.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdarg.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdarg.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdbool.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdbool.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stddef.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stddef.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdint.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdint.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_stdint40.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_stdint40.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/stdint.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/stdint.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_stdint.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_stdint.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_stdint.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_stdint.h:
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_adc.h:
 
@@ -241,9 +241,9 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_d
 
 ../global_definitions.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/string.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/string.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_string.h:
+C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_string.h:
 
 ../can_management.h:
 

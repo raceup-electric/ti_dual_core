@@ -102,7 +102,7 @@ void canSetup_phase2()
             TXCANA_Smu_Message[i].ui32MsgIDMask = 0;                  // no mask needed for TX
             TXCANA_Smu_Message[i].ui32Flags = MSG_OBJ_NO_FLAGS;
             TXCANA_Smu_Message[i].ui32MsgLen = MSG_DATA_LENGTH;
-            TXCANA_Smu_Message[i].pucMsgData = TXA_Smu_Calibration[i];
+            TXCANA_Smu_Message[i].pucMsgData = (unsigned char*)TXA_Smu_Calibration[i];
         }
 
         //Pacchetto BMS VOLTAGE

@@ -220,7 +220,7 @@ __interrupt void cpu_timer1_isr(void)
                         "%d;%d;%d;%d;%d;%d;"                //status
                         "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms
                         "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
-                        "%.2f;%.2f;%.2f;%.2f;",              //sendyne
+                        "%.1f;%.3f;%.2f;%.2f;",              //sendyne
                         //status
                         local_sh.status.throttle_shared, local_sh.status.steering_shared,
                         local_sh.status.brake_shared, local_sh.status.brakePress_shared,
@@ -240,9 +240,9 @@ __interrupt void cpu_timer1_isr(void)
 
         sprintf(cmd ,
 //                "%d;%d;"                           //fanSpeed
-                "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"   //imu
-                "%.2f;%.2f;%.2f;%.2f;"                   //suspensions
-                "%.2f;%.2f;%.2f;%.2f;%.2f;"        //temperatures per cooling
+                "%.4f;%.4f;%.4f;%.4f;%.4f;%.4f;"   //imu
+                "%.1f;%.1f;%.1f;%.1f;"                   //suspensions
+                "%.1f;%.1f;%.1f;%.1f;%.1f;"        //temperatures per cooling
                 "%d;%d;%d;%d;%d;%d;%d;%d\n",
 
 //                        //fanSpeed

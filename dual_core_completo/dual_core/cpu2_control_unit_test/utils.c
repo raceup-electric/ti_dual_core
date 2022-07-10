@@ -76,7 +76,7 @@ float convert_temp_lv(float cell_volt)
 {
   float x = ((log((5 - cell_volt)/cell_volt))/3435);
   x = 1/((1/298.15) - x);
-  return x -273.15;
+  return x - 273.15;
 }
 
 float ConvertTempToKelvin(int adc_read)
@@ -144,15 +144,52 @@ void send_calibration(float V[3][3]){
     for(i = 0; i < 3; i++){
         for(j = 0; j < 3; j++){
             if((i+j)%2 == 0){
-                TXA_Smu_Calibration[c][0];
+                TXA_Smu_Calibration[c][0] = V[i][j];
             }else{
-                TXA_Smu_Calibration[c][1];
+                TXA_Smu_Calibration[c][1] = V[i][j];
                 c++;
             }
         }
     }
 
     for(c = 0; c < 5; c++){
-        CANMessageSet(CANA_BASE, TX_OBJ_ID, &TXA_Smu_Calibration, MSG_OBJ_TYPE_TX);
+        CANMessageSet(CANA_BASE, TX_OBJ_ID, &TXCANA_Smu_Message[c], MSG_OBJ_TYPE_TX);
     }
+}
+
+//void send_calibration(float V[3][3]){
+//    //Loads floats of the correction matrix in the packets arrays
+//    //with the following logic:
+//    //Value with a pair sum of indices must be placed in position 0 of the i-esim array
+//    //Value with a odd sum must be in position 1
+//    //Every time a pair of value is loaded the the number of row 'c' is increased by +1
+//    int i, j,c;
+//    unsigned char tmp[4];
+//    for(i = 0; i < 3; i++){
+//        for(j = 0; j < 3; j++){
+//            if((i+j)%2 == 0){
+//                float2Bytes(tmp, V[i][j]);
+//                TXA_Smu_Calibration[c][0] = tmp[0];
+//                TXA_Smu_Calibration[c][1] = tmp[1];
+//                TXA_Smu_Calibration[c][2] = tmp[2];
+//                TXA_Smu_Calibration[c][3] = tmp[3];
+//            }else{
+//                float2Bytes(tmp, V[i][j]);
+//                TXA_Smu_Calibration[c][0] = tmp[0];
+//                TXA_Smu_Calibration[c][1] = tmp[1];
+//                TXA_Smu_Calibration[c][2] = tmp[2];
+//                TXA_Smu_Calibration[c][3] = tmp[3];
+//                c++;
+//            }
+//        }
+//    }
+//
+//    for(c = 0; c < 5; c++){
+//        CANMessageSet(CANA_BASE, TX_OBJ_ID, &TXCANA_Smu_Message[c], MSG_OBJ_TYPE_TX);
+//    }
+//}
+
+void float2Bytes(unsigned char* bytes_temp, float float_variable)
+{
+    memcpy(bytes_temp, &float_variable, sizeof(float_variable));
 }

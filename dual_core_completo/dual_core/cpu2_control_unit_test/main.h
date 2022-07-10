@@ -116,7 +116,15 @@ float steers[4];
 float speedTv = 0;
 float fz[4] = {0,0,0,0};
 float re[4];
+
+#ifdef NO_TORQUE_VECTORING
+float repFz[4] = {0.6,0.6,0.4,0.4};
+#endif
+
+#ifndef NO_TORQUE_VECTORING
 float repFz[4];
+#endif
+
 float posTorqueCandidate[4][4];      //[MotorIndex][CandidateIndex]
 float negTorqueCandidate[4];      //[MotorIndex][CandidateIndex]
 float Torque_max[4];
@@ -132,7 +140,7 @@ float anti_wind_up = 0;
 float reduction_factor;
 
 Uint16 regensetup[8];
-float max_regen_current=-45.0f;
+float max_regen_current=-40.0f;
 
 float power_limit=POWER_LIMIT; //quello che gli arriva dal volante
 bool powerOK = false;
@@ -225,6 +233,7 @@ unsigned char RXA_BmsLV_Data[8];
 unsigned char RXA_PwCtrl_Data[1];
 unsigned char RXA_Wheel_Data[1];
 float TXA_Smu_Calibration[5][2];
+//unsigned char TXA_Smu_Calibration[5][8];
 unsigned char RXA_Lem_Data[8]; //aggiunto lem
 
 tCANMsgObject RXCANB_AmkVal1_Message[4];
