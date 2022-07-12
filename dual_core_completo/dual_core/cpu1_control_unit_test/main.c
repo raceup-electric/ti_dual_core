@@ -177,7 +177,7 @@ __interrupt void cpu_timer1_isr(void)
 #ifdef LOGGING
         char cmd[200];
 
-        sprintf(cmd, "%d;", (int)local_time_elapsed);
+        sprintf(cmd, "%lu;", local_time_elapsed);
         writeSD(cmd);
 
         compute_AMKStatus();
