@@ -32,7 +32,7 @@
 #define RPM_TO_RADS         (PI/30)
 
 #define THROTTLE_POWER_SCALE        10
-#define REG_POWER_SCALE             -5
+#define REG_POWER_SCALE             0
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N

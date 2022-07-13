@@ -281,25 +281,7 @@ __interrupt void cpu_timer1_isr(void)
 //not necessary at the moment
 __interrupt void cpu_timer2_isr(void)
 {
-#ifdef DISPLAY
-    updatePage(display.page);
-    updateValues();
-    //updatePage(display.page);
-    //updateValues();
-//    var_v++;
-//    var_v = var_v % 9;
-//    setAck();
-//    display.page++;
-//    display.selector++;
-//    display.page = display.page % 9;
-//    display.selector = display.selector % 8;
-//    if(display.selector == sel){
-//        display.ack = display.selector;
-//        display.ack = display.ack % 8;
-//        sel = sel + 2;
-//        sel = sel % 8;
-//    }
-#endif
+
 #ifndef NO_LORA
     if(LoRa_Packet_Counter == 0){
         send_Motors();

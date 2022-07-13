@@ -309,12 +309,12 @@ void sendAMKData() {
         if (i == MOTOR_FL || i == MOTOR_FR)
         {
             posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*FRONT_MOTOR_SCALE, MAX_POS_TORQUE, 0.0f));
-            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*FRONT_MOTOR_SCALE,0,MAX_NEG_TORQUE));
+            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*FRONT_MOTOR_SCALE,0.0f,MAX_NEG_TORQUE));
         }
         else if (i == MOTOR_RR || i == MOTOR_RL)
         {
             posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*REAR_MOTOR_SCALE, MAX_POS_TORQUE, 0.0f));
-            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*REAR_MOTOR_SCALE,0,MAX_NEG_TORQUE));
+            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*REAR_MOTOR_SCALE,0.0f,MAX_NEG_TORQUE));
         }
 
         sendAMKDataMotor(i, posTorque, negTorque);

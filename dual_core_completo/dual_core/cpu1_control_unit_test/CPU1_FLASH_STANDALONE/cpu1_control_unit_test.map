@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v21.6.0                     
 ******************************************************************************
->> Linked Sun Jul 10 13:01:37 2022
+>> Linked Tue Jul 12 20:09:34 2022
 
 OUTPUT FILE NAME:   <cpu1_control_unit_test.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0009d037
@@ -27,7 +27,7 @@ PAGE 0:
   FLASHC                00084000   00002000  00000000  00002000  RWIX
   FLASHD                00086000   00002000  0000003f  00001fc1  RWIX
   FLASHE                00088000   00008000  00000000  00008000  RWIX
-  FLASHF                00090000   00008000  000016fc  00006904  RWIX
+  FLASHF                00090000   00008000  000016fe  00006902  RWIX
   FLASHG                00098000   00008000  000054fe  00002b02  RWIX
   FLASHH                000a0000   00008000  00000000  00008000  RWIX
   FLASHI                000a8000   00008000  00000000  00008000  RWIX
@@ -298,28 +298,28 @@ GETWRITEIDX
 PUTREADIDX 
 *          0    0003f800    00000000     DSECT
 
-.econst    0    00090000    000016fc     
+.econst    0    00090000    000016fe     
                   00090000    00000a71     display.obj (.econst:.string)
                   00090a71    00000001     --HOLE-- [fill = 0]
-                  00090a72    0000055a     main.obj (.econst:.string)
-                  00090fcc    00000236     sd_card.obj (.econst:.string)
-                  00091202    000001c0     F2837xD_PieVect.obj (.econst:_PieVectTableInit)
-                  000913c2    00000122     sd_card.obj (.econst:.string:_$P$T0$1)
-                  000914e4    00000101     rts2800_fpu32.lib : ctype.c.obj (.econst:.string:__ctypes_)
-                  000915e5    00000001     --HOLE-- [fill = 0]
-                  000915e6    00000067     Telemetry.obj (.econst:.string)
-                  0009164d    00000001     --HOLE-- [fill = 0]
-                  0009164e    00000026     rts2800_fpu32.lib : _printfi.c.obj (.econst:.string)
-                  00091674    0000001c                       : _printfi.c.obj (.econst)
-                  00091690    0000001c                       : s_scalbn.c.obj (.econst)
-                  000916ac    00000019     ff.obj (.econst:.string)
-                  000916c5    00000001     --HOLE-- [fill = 0]
-                  000916c6    00000018     ustdlib.obj (.econst:.string)
-                  000916de    0000000a     ff.obj (.econst:.string:_DbcTbl)
-                  000916e8    00000009     can.obj (.econst:_g_ui16CANBitValues)
-                  000916f1    00000001     --HOLE-- [fill = 0]
-                  000916f2    00000008     rts2800_fpu32.lib : s_frexp.c.obj (.econst)
-                  000916fa    00000002     ustdlib.obj (.econst)
+                  00090a72    0000055c     main.obj (.econst:.string)
+                  00090fce    00000236     sd_card.obj (.econst:.string)
+                  00091204    000001c0     F2837xD_PieVect.obj (.econst:_PieVectTableInit)
+                  000913c4    00000122     sd_card.obj (.econst:.string:_$P$T0$1)
+                  000914e6    00000101     rts2800_fpu32.lib : ctype.c.obj (.econst:.string:__ctypes_)
+                  000915e7    00000001     --HOLE-- [fill = 0]
+                  000915e8    00000067     Telemetry.obj (.econst:.string)
+                  0009164f    00000001     --HOLE-- [fill = 0]
+                  00091650    00000026     rts2800_fpu32.lib : _printfi.c.obj (.econst:.string)
+                  00091676    0000001c                       : _printfi.c.obj (.econst)
+                  00091692    0000001c                       : s_scalbn.c.obj (.econst)
+                  000916ae    00000019     ff.obj (.econst:.string)
+                  000916c7    00000001     --HOLE-- [fill = 0]
+                  000916c8    00000018     ustdlib.obj (.econst:.string)
+                  000916e0    0000000a     ff.obj (.econst:.string:_DbcTbl)
+                  000916ea    00000009     can.obj (.econst:_g_ui16CANBitValues)
+                  000916f3    00000001     --HOLE-- [fill = 0]
+                  000916f4    00000008     rts2800_fpu32.lib : s_frexp.c.obj (.econst)
+                  000916fc    00000002     ustdlib.obj (.econst)
 
 AdcaResultRegsFile 
 *          1    00000b00    00000018     UNINITIALIZED
@@ -802,7 +802,7 @@ MODULE SUMMARY
        ff.obj                           5377    35                 3                 
        display.obj                      1719    2677               1                 
        sd_card.obj                      746     1000               1462              
-       main.obj                         820     1406               637               
+       main.obj                         820     1408               637               
        F2837xD_DefaultISR.obj           1413    0                  0                 
        can.obj                          1314    9                  0                 
        F2837xD_SysCtrl.obj              1314    0                  0                 
@@ -825,9 +825,9 @@ MODULE SUMMARY
        F2837xD_usDelay.obj              8       0                  0                 
        LoRa.obj                         0       4                  3                 
     +--+--------------------------------+-------+------------------+--------------------+
-       Total:                           16665   5744               12266             
+       Total:                           16665   5746               12266             
                                                                                      
-    C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib/rts2800_fpu32.lib
+    C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib/rts2800_fpu32.lib
        _printfi.c.obj                   3300    66                 0                 
        ll_div28.asm.obj                 263     0                  0                 
        ctype.c.obj                      0       257                0                 
@@ -876,7 +876,7 @@ MODULE SUMMARY
                                                                                      
        Stack:                           0       0                  1016              
     +--+--------------------------------+-------+------------------+--------------------+
-       Grand Total:                     21886   6131               13293             
+       Grand Total:                     21886   6133               13293             
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -1138,9 +1138,9 @@ address     data page           name
 
 0005fb00    17ec (0005fb00)     _Flash0EccRegs
 
-00091202    2448 (00091200)     _PieVectTableInit
+00091204    2448 (00091200)     _PieVectTableInit
 
-000914e4    2453 (000914c0)     __ctypes_
+000914e6    2453 (000914c0)     __ctypes_
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
@@ -1465,7 +1465,7 @@ page  address   name
 0     0009ae01  _PIE_RESERVED_ISR                     
 1     00000ce0  _PieCtrlRegs                          
 1     00000d00  _PieVectTable                         
-0     00091202  _PieVectTableInit                     
+0     00091204  _PieVectTableInit                     
 0     0009adcf  _RAM_ACCESS_VIOLATION_ISR             
 0     0009adbb  _RAM_CORRECTABLE_ERROR_ISR            
 0     0009a8bb  _RTOS_ISR                             
@@ -1581,7 +1581,7 @@ abs   ffffffff  ___c_args__
 abs   ffffffff  ___pinit__                            
 0     00098000  ___text__                             
 0     0009d467  __args_main                           
-0     000914e4  __ctypes_                             
+0     000914e6  __ctypes_                             
 1     0000af78  __lock                                
 0     0009d4c4  __nop                                 
 0     0009d4c0  __register_lock                       
@@ -1736,8 +1736,8 @@ page  address   name
 0     00082000  cinit                                 
 0     00086000  _RamfuncsLoadStart                    
 0     0008603f  _RamfuncsLoadEnd                      
-0     00091202  _PieVectTableInit                     
-0     000914e4  __ctypes_                             
+0     00091204  _PieVectTableInit                     
+0     000914e6  __ctypes_                             
 0     00098000  .text                                 
 0     00098000  ___text__                             
 0     00098b33  _f_mount                              

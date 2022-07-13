@@ -197,7 +197,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
             }else{
                //Other axes calibration
                 imu_calibration_2(accelerations);
-                send_calibration(V);
+                //send_calibration(V);
                 calibration_status--;
             }
         }
