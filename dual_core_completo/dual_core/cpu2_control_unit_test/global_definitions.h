@@ -234,4 +234,6 @@
 //
 #define BRAKE_LIGHT_MIN                 5   //valore minimo di brake per attivare la brake light
 
+//SCHERMO
+#define MAX_PAGE_NUMBER 13
 #endif

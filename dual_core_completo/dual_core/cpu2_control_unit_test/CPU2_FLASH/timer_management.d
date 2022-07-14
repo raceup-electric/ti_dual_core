@@ -5,20 +5,20 @@ timer_management.obj: ../timer_management.h
 timer_management.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F28x_Project.h
 timer_management.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_Cla_typedefs.h
 timer_management.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_device.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/assert.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_ti_config.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/linkage.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdarg.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_types.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_types.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdbool.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stddef.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdint.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_stdint40.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/stdint.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_stdint.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_stdint.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/assert.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_ti_config.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/linkage.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdarg.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/_types.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/cdefs.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_types.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdbool.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stddef.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdint.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_stdint40.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/stdint.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_stdint.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/_stdint.h
 timer_management.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_adc.h
 timer_management.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_analogsubsys.h
 timer_management.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_cla.h
@@ -72,16 +72,15 @@ timer_management.obj: ../global_definitions.h
 timer_management.obj: ../can_management.h
 timer_management.obj: ../timer_management.h
 timer_management.obj: ../motor_management.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/string.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_string.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h
 timer_management.obj: ../can_management.h
 timer_management.obj: ../utils.h
 timer_management.obj: ../motor_management.h
 timer_management.obj: ../power_controller.h
 timer_management.obj: ../torque_management.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/math.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_defs.h
-timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_limits.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/math.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_defs.h
+timer_management.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_limits.h
 timer_management.obj: ../adc_management.h
 timer_management.obj: ../car_management.h
 timer_management.obj: ../driver_input.h
@@ -102,33 +101,33 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_C
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_device.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/assert.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/assert.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_ti_config.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_ti_config.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/linkage.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/linkage.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdarg.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdarg.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_types.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/_types.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/cdefs.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_types.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_types.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdbool.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdbool.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stddef.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stddef.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdint.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdint.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_stdint40.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_stdint40.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/stdint.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/stdint.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_stdint.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_stdint.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_stdint.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/_stdint.h:
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_adc.h:
 
@@ -236,9 +235,7 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/include/F2837xD_d
 
 ../motor_management.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/string.h:
-
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_string.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/string.h:
 
 ../can_management.h:
 
@@ -250,11 +247,11 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/xlocale/_string
 
 ../torque_management.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/math.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/math.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_defs.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_defs.h:
 
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_limits.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_limits.h:
 
 ../adc_management.h:
 

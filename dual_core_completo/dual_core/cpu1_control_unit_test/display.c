@@ -42,6 +42,12 @@ void updateValues()
            case PAGE_11:
                updatePage11();
            break;
+           case PAGE_12:
+               updatePage12();
+           break;
+           case PAGE_13:
+               updatePage13();
+           break;
          }
 }
 void updatePage(Uint16 page){
@@ -91,6 +97,14 @@ void updatePage(Uint16 page){
         case PAGE_11:
           currentPage=PAGE_11;
           scic_msg("page 11ÿÿÿ\0");
+        break;
+        case PAGE_12:
+            currentPage=PAGE_12;
+            scic_msg("page 12ÿÿÿ\0");
+        break;
+        case PAGE_13:
+            currentPage=PAGE_13;
+            scic_msg("page 13ÿÿÿ\0");
         break;
       }
     }
@@ -201,7 +215,7 @@ void updatePage4()
     scic_msg(tmp);
 }
 
-void updatePage5()
+void updatePage6()
 {
     sprintf(tmp, "tyre_motor_d.mot1.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempMotor);
     scic_msg(tmp);
@@ -213,7 +227,7 @@ void updatePage5()
     scic_msg(tmp);
 }
 
-void updatePage6()
+void updatePage7()
 {
     sprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempInverter);
     scic_msg(tmp);
@@ -225,7 +239,7 @@ void updatePage6()
     scic_msg(tmp);
 }
 
-void updatePage7()
+void updatePage8()
 {
     sprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempIGBT);
     scic_msg(tmp);
@@ -238,19 +252,19 @@ void updatePage7()
 }
 
 
-void updatePage8()
+void updatePage9()
 {
     setSelectorPowerControl();
     setAckPowerControl();
 }
 
-void updatePage9()
+void updatePage10()
 {
     setSelectorRegen();
     setAckRegen();
 }
 
-void updatePage10()
+void updatePage5()
 {
         sprintf(tmp, "debug_lv.lv0.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[0]*1000));
         scic_msg(tmp);
@@ -293,7 +307,42 @@ void updatePage11()
     sprintf(tmp, "debug_smu.postmot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
     scic_msg(tmp);
 }
+void updatePage12(){
+    float sum = 0;
+    int i = 0;
+    for (; i < 6; i++)
+    {
+        sum += local_sh.bms_lv[i];
+     }
+    sprintf(tmp, "endurance.tot.val=%dÿÿÿ\0", (int)(sum*1000));
+    scic_msg(tmp);
+    sprintf(tmp, "endurance.lowest_lv.val=%dÿÿÿ\0", (int)(getLowestLvVoltage()*1000));
+    scic_msg(tmp);
+    sprintf(tmp, "endurance.highest_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "endurance.low.val=%dÿÿÿ\0",(int)local_sh.bms.min_bms_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "endurance.medium.val=%dÿÿÿ\0",(int)local_sh.bms.mean_bms_voltage_shared);
+    scic_msg(tmp);
+}
 
+void updatePage13(){
+    sprintf(tmp, "debug_pedals.throttle.val=%dÿÿÿ\0", local_sh.status.throttle_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "debug_pedals.brake.val=%dÿÿÿ\0", local_sh.status.brake_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "debug_pedals.acc_pot1.val=%dÿÿÿ\0", (int)local_sh.pedals.acc_pot1_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "debug_pedals.acc_pot2.val=%dÿÿÿ\0", (int)local_sh.pedals.acc_pot2_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "debug_pedals.brk_pot.val=%dÿÿÿ\0", (int)local_sh.pedals.brk_pot_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "debug_pedals.throttle_req.val=%dÿÿÿ\0", local_sh.pedals.throttle_req_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "debug_pedals.brk_req.val=%dÿÿÿ\0", local_sh.pedals.brk_req_shared);
+    scic_msg(tmp);
+
+}
 
 void setSelectorPowerControl(){
     n_setup = display.selector_p;
@@ -517,4 +566,13 @@ void setRRstatus(){
       scic_msg("motor_status.derrr.bco=GREEN");
 
   }
+}
+float getLowestLvVoltage()
+{
+    float min=4300.0f;
+    int i;
+    for(i =0;i<6;i++)
+        if(min>local_sh.bms_lv[i])
+            min=local_sh.bms_lv[i];
+    return min;
 }

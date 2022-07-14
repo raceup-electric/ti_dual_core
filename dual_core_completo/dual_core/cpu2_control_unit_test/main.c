@@ -93,6 +93,7 @@ void setup()
        sh.status = status_log;
        sh.gpio = gpio_log;
 
+       sh.pedals = pedals_log;
 
        display.ack_p = 99;
        display.ack_r = 99;

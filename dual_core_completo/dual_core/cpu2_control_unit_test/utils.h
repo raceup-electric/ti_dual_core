@@ -49,6 +49,13 @@ struct Status_Log {
     int actualVelocityKMH_shared;
 };
 
+struct Pedals_Log{
+   float  acc_pot1_shared;
+   float  acc_pot2_shared;
+   float  brk_pot_shared;
+   int brk_req_shared;
+   int throttle_req_shared;
+};
 struct BMS_Log {
     float max_bms_voltage_shared;
     float min_bms_voltage_shared;
@@ -116,6 +123,8 @@ struct Share_struct {
     struct BMS_Log bms;
     struct Status_Log status;
     struct Gpio_Log gpio;
+    struct Pedals_Log pedals;
+
 };
 
 extern float versx[3];

@@ -4,7 +4,7 @@ unsigned char implausibilityCounter = 0;    //NOTA: per regolamento sono ammesse
                                             //      Avendo il timer a 20ms bastano 5 implaususibilit� consegutive per andare in fault
                                             //      IL NUMERO DI IMPLAUSIBILITA' VA CAMBIATO SE SI CAMBIA IL TEMPO DEL TIMER
 
-float AccPot1, AccPot2, BrkPot;
+
 float acc1Pos, acc2Pos, brkPos, strPot, brkAbsPos;
 float currSensVal, analogMuxVal;
 int temp;

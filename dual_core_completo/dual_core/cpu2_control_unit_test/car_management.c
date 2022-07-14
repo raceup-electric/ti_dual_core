@@ -181,12 +181,12 @@ void read_steering_wheel_message(Uint16 val[], int id){
     if (id == MSG_ID_STEERING_WHEEL_BASE){
         if(val[0] == NEXT_PAGE){
             currentPage++;
-            currentPage = currentPage % 11;
+            currentPage = currentPage % MAX_PAGE_NUMBER;
             display.page = currentPage;
         }
         else if(val[0] == PREVIOUS_PAGE){
-            currentPage = currentPage - 1 + 11;
-            currentPage = currentPage % 11;
+            currentPage = currentPage - 1 + MAX_PAGE_NUMBER;
+            currentPage = currentPage % MAX_PAGE_NUMBER;
             display.page = currentPage;
         }else if(val[0] == START_LAUNCH){
             if(calibration_status){
@@ -754,6 +754,13 @@ void update_log_values()
 
     imu_log.temperatures_shared[4] = temperatures[4];
 
+
+    //Pedals update
+    pedals_log.acc_pot1_shared = AccPot1;
+    pedals_log.acc_pot2_shared = AccPot2;
+    pedals_log.brk_pot_shared = BrkPot;
+    pedals_log.throttle_req_shared = throttleReq;
+    pedals_log.brk_req_shared = brakeReq;
 }
 
 void update_shared_mem()
@@ -776,5 +783,6 @@ void update_shared_mem()
     sh.bms = bms_log;
     sh.status = status_log;
     sh.gpio = gpio_log;
+    sh.pedals = pedals_log;
 }
 

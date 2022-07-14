@@ -112,6 +112,14 @@ struct Imu_Log{
     float temperatures_shared[5];
     float suspensions_shared[4];
 };
+struct Pedals_Log{
+   float  acc_pot1_shared;
+   float  acc_pot2_shared;
+   float  brk_pot_shared;
+   int brk_req_shared;
+   int throttle_req_shared;
+};
+
 
 struct Gpio_Log{
     bool Imd_shared;
@@ -136,7 +144,9 @@ struct Share_struct {
     struct BMS_Log bms;
     struct Status_Log status;
     struct Gpio_Log gpio;
+    struct Pedals_Log pedals;
 };
+
 
 
 void updateValues();
@@ -153,6 +163,8 @@ void updatePage8();
 void updatePage9();
 void updatePage10();
 void updatePage11();
+void updatePage12();
+void updatePage13();
 
 
 
@@ -186,5 +198,7 @@ void setAckPowerControl();
 void setSelectorRegen();
 
 void setAckRegen();
+
+float getLowestLvVoltage();
 
 #endif /* DISPLAY_H_ */

@@ -3,20 +3,20 @@
 SPI_LoRa.obj: ../SPI_LoRa.c
 SPI_LoRa.obj: ../SPI_LoRa.h
 SPI_LoRa.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_device.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/assert.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_ti_config.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/linkage.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdarg.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_types.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_types.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdbool.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stddef.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdint.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_stdint40.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/stdint.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_stdint.h
-SPI_LoRa.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_stdint.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/assert.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_ti_config.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/linkage.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdarg.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/_types.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/cdefs.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_types.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdbool.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stddef.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdint.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_stdint40.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/stdint.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_stdint.h
+SPI_LoRa.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/_stdint.h
 SPI_LoRa.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_adc.h
 SPI_LoRa.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_analogsubsys.h
 SPI_LoRa.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_cla.h
@@ -73,33 +73,33 @@ SPI_LoRa.obj: C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/inc
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_device.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/assert.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/assert.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_ti_config.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_ti_config.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/linkage.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/linkage.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdarg.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdarg.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_types.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/_types.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/cdefs.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/cdefs.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_types.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_types.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdbool.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdbool.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stddef.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stddef.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/stdint.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/stdint.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/_stdint40.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/_stdint40.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/stdint.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/stdint.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/machine/_stdint.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/machine/_stdint.h:
 
-C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/sys/_stdint.h:
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/include/sys/_stdint.h:
 
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/include/F2837xD_adc.h:
 

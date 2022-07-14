@@ -23,6 +23,15 @@ typedef uint16_t uint8_t;
 #define PA_OUTPUT_RFO_PIN          0
 #define PA_OUTPUT_PA_BOOST_PIN     1
 
+//LoRa parameters
+#define LORA_SIGNAL_BANDWIDTH 125E3
+#define LORA_CODING_RATE 1
+#define LORA_SF 6
+#define LORA_TX_POWER 14
+#define LORA_IMPLICIT_HEADER 1
+#define LORA_EXPLICIT_HEADER 0
+#define LORA_IMPLICIT_SIZE 5
+
 void GPIO_LoRa_Setup();
 
 int LoRa_begin(long frequency);

@@ -173,8 +173,10 @@ int LoRa_begin(long frequency){
     writeRegister(REG_MODEM_CONFIG_3, 0x04);
 
     // set output power to 20 dBm
-    setTxPower(20,  PA_OUTPUT_PA_BOOST_PIN);
-    setSignalBandwidth(500E3);
+    setTxPower(LORA_TX_POWER,  PA_OUTPUT_RFO_PIN);
+    setSignalBandwidth(LORA_SIGNAL_BANDWIDTH);
+    setSpreadingFactor(LORA_SF);
+    setCodingRate(LORA_CODING_RATE);
 
     // put in standby mode
     idle();

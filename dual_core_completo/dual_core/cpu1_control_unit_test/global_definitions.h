@@ -185,6 +185,10 @@
 #define PAGE_9 0x08
 #define PAGE_10 0x09
 #define PAGE_11 0x0A
+#define PAGE_12 0x0B
+#define PAGE_13 0x0C
+
+#define MAX_PAGE_NUMBER 13
 
 
 //

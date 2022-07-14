@@ -20,8 +20,10 @@
 int send_Motors();
 int send_Status_Imu_BMS_Sendyne();
 
+int send_Single_Data();
 void debugSet();
 
+uint32_t float_to_uint32(float value);
 
 
 #endif /* TELEMETRY_H_ */

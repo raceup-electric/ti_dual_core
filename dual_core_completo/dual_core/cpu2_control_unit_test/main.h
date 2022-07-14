@@ -104,6 +104,10 @@ bool checkPower = false;
 int posTorques[4];
 int negTorques[4];
 
+float AccPot1;
+float AccPot2;
+float BrkPot;
+
 float posTorquesNM[4];
 float negTorquesNM[4];
 
@@ -291,6 +295,8 @@ struct Imu_Log imu_log;
 struct Gpio_Log gpio_log;
 
 struct Display_command display;
+
+struct Pedals_Log pedals_log;
 
 
 //shard ram

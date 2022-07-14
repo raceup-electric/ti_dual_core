@@ -32,7 +32,7 @@ int send_Motors(){
     int counter = 2;
     int i;
     for(i = 0; i < 4; i++){
-        counter += usprintf(tempData, "%f;%.1f;%.1f;%.1f;%.1f;%04d;",
+        counter += sprintf(tempData, "%f;%.1f;%.1f;%.1f;%.1f;%04d;",
                 local_sh.motorVal1[i].AMK_ActualVelocity,
                 posTorquesNM[i], negTorquesNM[i],
                 local_sh.motorVal2[i].AMK_TempMotor,
@@ -53,7 +53,7 @@ int send_Status_Imu_BMS_Sendyne(){
     memset(toSendData, 0, 255 * sizeof *toSendData);
     toSendData[0] = '2';
     toSendData[1] = ';';
-    int counter = usprintf(tempData, "%d;%d;%d;%d;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.1f;%.1f;%.1f;%.1f\n",
+    int counter = sprintf(tempData, "%d;%d;%d;%d;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%.1f;%.1f;%.1f;%.1f\n",
             local_sh.status.steering_shared,
             local_sh.status.actualVelocityKMH_shared,
             local_sh.status.throttle_shared,
@@ -112,3 +112,25 @@ void debugSet(){
      }
 }
 
+int send_Single_Data(){
+    uint8_t toSendBuffer[LORA_IMPLICIT_SIZE];
+    toSendBuffer[0] = 0x01;
+    uint32_t toSendBytes = float_to_uint32(32.15);
+    int i;
+    for(i = 1; i < LORA_IMPLICIT_SIZE;i++){
+        toSendBuffer[i] = (0x00FF & (toSendBytes >> ((i-1)*8)));
+    }
+
+    beginPacket(LORA_IMPLICIT_HEADER);
+    LoRa_writeBuffer(toSendBuffer,LORA_IMPLICIT_SIZE);
+    endPacket(true);
+}
+
+uint32_t float_to_uint32(float value){
+    union{
+        uint32_t u;
+        float f;
+    }temp;
+    temp.f = value;
+    return temp.u;
+}

@@ -96,7 +96,7 @@ void main(void)
     writeSD(str_init);
     sprintf(str_init , "Car voltage;Lem current;current sensor;total power;acceleration x;acceleration y;acceleration z;omega x;omega y;omega z;");
     writeSD(str_init);
-    sprintf(str_init , "SuspensionsFL;SuspensionsFR;SuspensionsRL;SuspensionsRR;temp pre rad;temp pre cold;temp post cold;temp pre mot;temp post mot;");
+    sprintf(str_init , "SuspensionsRL;SuspensionsRR;SuspensionsFR;SuspensionsFL;temp pre rad;temp pre cold;temp post cold;temp pre mot;temp post mot;");
     writeSD(str_init);
     sprintf(str_init , "Gpio bms;Gpio imd;Gpio sdc 1;Gpio sdc 2;Gpio sdc 3;Gpio sdc 4;Gpio sdc 5;Gpio sdc 6\n");
     writeSD(str_init);
@@ -109,7 +109,7 @@ void main(void)
 #endif
 
           //start timer1
-    CpuTimer2Regs.TCR.bit.TSS = 1;        //Start timer 2
+    CpuTimer2Regs.TCR.bit.TSS = 0;        //Start timer 2
 
 
 
@@ -133,7 +133,7 @@ void cpu1_timer_setup(void)
     InitCpuTimers();
 
     ConfigCpuTimer(&CpuTimer1, 200, 20000);
-    ConfigCpuTimer(&CpuTimer2, 200, 150000);
+    ConfigCpuTimer(&CpuTimer2, 200, 500000);
 
     CpuTimer1Regs.TCR.all = 0x4000;
     CpuTimer2Regs.TCR.all = 0x4000;
@@ -283,13 +283,7 @@ __interrupt void cpu_timer2_isr(void)
 {
 
 #ifndef NO_LORA
-    if(LoRa_Packet_Counter == 0){
-        send_Motors();
-        LoRa_Packet_Counter++;
-    }else{
-        send_Status_Imu_BMS_Sendyne();
-        LoRa_Packet_Counter--;
-    }
+    send_Single_Data();
 
 #endif
 

@@ -36,6 +36,15 @@ extern float max_bms_temp;
 extern float min_bms_temp;
 extern float mean_bms_temp;
 
+//Pedals
+extern float AccPot1;
+extern float AccPot2;
+extern float BrkPot;
+
+extern int brakeReq;
+extern int throttleReq;
+
+
 extern float accelerations[3];
 extern float omegas[3];
 extern Uint32 suspensions[4];
@@ -84,6 +93,7 @@ extern struct motorSetPoints motorSetP_shared[4];
 extern struct motorValues1 motorVal1_shared[4];
 extern struct motorValues2 motorVal2_shared[4];
 extern float bms_lv_shared[8];
+extern struct Pedals_Log pedals_log;
 
 extern struct Display_command display;
 
