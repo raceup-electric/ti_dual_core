@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/com.ti.ccstudio.buildDefinitions.C2000.Debug.2121059750.472576693/COM_TI_C2000WARE_SOFTWARE_PACKAGE_INSTALL_DIR/delimiter=;
+environment/project/com.ti.ccstudio.buildDefinitions.C2000.Debug.2121059750.472576693/COM_TI_C2000WARE_SOFTWARE_PACKAGE_INSTALL_DIR/operation=replace
+environment/project/com.ti.ccstudio.buildDefinitions.C2000.Debug.2121059750.472576693/COM_TI_C2000WARE_SOFTWARE_PACKAGE_INSTALL_DIR/value=C\:\\ti\\c2000\\C2000Ware_3_04_00_00
+environment/project/com.ti.ccstudio.buildDefinitions.C2000.Debug.2121059750.472576693/PATH/delimiter=;
+environment/project/com.ti.ccstudio.buildDefinitions.C2000.Debug.2121059750.472576693/PATH/operation=replace
+environment/project/com.ti.ccstudio.buildDefinitions.C2000.Debug.2121059750.472576693/PATH/value=C\:\\ti\\c2000\\C2000Ware_3_04_00_00
+environment/project/com.ti.ccstudio.buildDefinitions.C2000.Debug.2121059750.472576693/append=true
+environment/project/com.ti.ccstudio.buildDefinitions.C2000.Debug.2121059750.472576693/appendContributed=true

@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v20.2.1                     
 ******************************************************************************
->> Linked Thu Jul 14 19:19:05 2022
+>> Linked Fri Jul 15 12:02:05 2022
 
 OUTPUT FILE NAME:   <cpu1_control_unit_test.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0009d64b
@@ -49,7 +49,7 @@ PAGE 1:
   CPUTIMER1             00000c08   00000008  00000008  00000000  RWIX
   CPUTIMER2             00000c10   00000008  00000008  00000000  RWIX
   PIECTRL               00000ce0   0000001a  0000001a  00000000  RWIX
-  PIEVECTTABLE          00000d00   00000200  000001c0  00000040  RWIX
+  PIEVECTTABLE          00000d00   00000200  00000000  00000200  RWIX
   DMA                   00001000   00000200  000000e0  00000120  RWIX
   CLA1                  00001400   00000080  0000003e  00000042  RWIX
   CLB1LOGICCFG          00003000   00000052  0000003e  00000014  RWIX
@@ -304,6 +304,25 @@ GETWRITEIDX
 PUTREADIDX 
 *          0    0003f800    00000000     DSECT
 
+PieVectTableFile 
+*          0    00000d00    000001c0     DSECT
+                  00000d00    000001c0     F2837xD_GlobalVariableDefs.obj (PieVectTableFile)
+
+EmuKeyVar 
+*          0    00000d00    00000000     DSECT
+
+EmuBModeVar 
+*          0    00000d00    00000000     DSECT
+
+EmuBootPinsVar 
+*          0    00000d00    00000000     DSECT
+
+FlashCallbackVar 
+*          0    00000d00    00000000     DSECT
+
+FlashScalingVar 
+*          0    00000d00    00000000     DSECT
+
 .econst    0    00090000    00001892     
                   00090000    00000c05     display.obj (.econst:.string)
                   00090c05    00000001     --HOLE-- [fill = 0]
@@ -358,25 +377,6 @@ CpuTimer2RegsFile
 PieCtrlRegsFile 
 *          1    00000ce0    0000001a     UNINITIALIZED
                   00000ce0    0000001a     F2837xD_GlobalVariableDefs.obj (PieCtrlRegsFile)
-
-PieVectTableFile 
-*          1    00000d00    000001c0     UNINITIALIZED
-                  00000d00    000001c0     F2837xD_GlobalVariableDefs.obj (PieVectTableFile)
-
-EmuKeyVar 
-*          1    00000d00    00000000     UNINITIALIZED
-
-EmuBModeVar 
-*          1    00000d00    00000000     UNINITIALIZED
-
-EmuBootPinsVar 
-*          1    00000d00    00000000     UNINITIALIZED
-
-FlashCallbackVar 
-*          1    00000d00    00000000     UNINITIALIZED
-
-FlashScalingVar 
-*          1    00000d00    00000000     UNINITIALIZED
 
 DmaRegsFile 
 *          1    00001000    000000e0     UNINITIALIZED
@@ -810,7 +810,7 @@ MODULE SUMMARY
        Module                           code    initialized data   uninitialized data
        ------                           ----    ----------------   ------------------
     .\
-       F2837xD_GlobalVariableDefs.obj   0       0                  9854              
+       F2837xD_GlobalVariableDefs.obj   0       0                  9406              
        ff.obj                           5377    35                 3                 
        display.obj                      1984    3133               1                 
        sd_card.obj                      746     1000               1462              
@@ -838,9 +838,9 @@ MODULE SUMMARY
        F2837xD_CodeStartBranch.obj      10      0                  0                 
        F2837xD_usDelay.obj              8       0                  0                 
     +--+--------------------------------+-------+------------------+--------------------+
-       Total:                           18280   6202               12808             
+       Total:                           18280   6202               12360             
                                                                                      
-    C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/lib/rts2800_fpu32.lib
+    C:/ti/ccs1011/ccs/tools/compiler/ti-cgt-c2000_20.2.1.LTS/lib/rts2800_fpu32.lib
        _printfi.c.obj                   3300    66                 0                 
        ll_div28.asm.obj                 263     0                  0                 
        ctype.c.obj                      0       257                0                 
@@ -889,7 +889,7 @@ MODULE SUMMARY
                                                                                      
        Stack:                           0       0                  1016              
     +--+--------------------------------+-------+------------------+--------------------+
-       Grand Total:                     23501   6589               13835             
+       Grand Total:                     23501   6589               13387             
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -1490,7 +1490,7 @@ page  address   name
 1     00007a80  _OutputXbarRegs                       
 0     0009af0a  _PIE_RESERVED_ISR                     
 1     00000ce0  _PieCtrlRegs                          
-1     00000d00  _PieVectTable                         
+0     00000d00  _PieVectTable                         
 0     00091398  _PieVectTableInit                     
 0     0009aed8  _RAM_ACCESS_VIOLATION_ISR             
 0     0009aec4  _RAM_CORRECTABLE_ERROR_ISR            
@@ -1786,6 +1786,7 @@ GLOBAL SYMBOLS: SORTED BY Symbol Address
 
 page  address   name                                  
 ----  -------   ----                                  
+0     00000d00  _PieVectTable                         
 0     00008000  _InitFlash                            
 0     00008000  _RamfuncsRunStart                     
 0     00008029  _FlashOff                             
@@ -2233,7 +2234,6 @@ page  address   name
 1     00000c08  _CpuTimer1Regs                        
 1     00000c10  _CpuTimer2Regs                        
 1     00000ce0  _PieCtrlRegs                          
-1     00000d00  _PieVectTable                         
 1     00001000  _DmaRegs                              
 1     00001400  _Cla1Regs                             
 1     00003000  _Clb1LogicCfgRegs                     

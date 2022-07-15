@@ -12,8 +12,8 @@
 #define NUM_OF_MOTORS       4
 #define KMH2MS              (1 / 3.6)
 #ifdef NO_TORQUE_VECTORING
-#define REAR_MOTOR_SCALE    1.4f
-#define FRONT_MOTOR_SCALE   0.5f
+#define REAR_MOTOR_SCALE    1.5f
+#define FRONT_MOTOR_SCALE   0.7f
 #else
 #define REAR_MOTOR_SCALE    1.0f
 #define FRONT_MOTOR_SCALE   1.0f
@@ -79,7 +79,7 @@
 
 // POWER CONTROL
 //
-#define POWER_LIMIT         45000.0f       //Watt
+#define POWER_LIMIT         50000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               20.0f
