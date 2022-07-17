@@ -41,6 +41,8 @@ void LoRa_end();
 int beginPacket(int implicitHeader);
 int endPacket(bool async);
 
+int parsePacket(int size);
+
 void idle();
 void sleep();
 
@@ -60,6 +62,9 @@ void setLdoFlag();
 
 long getSignalBandwidth();
 uint8_t getSpredingFactor();
+
+int available();
+int read();
 
 void setOCP(uint8_t mA); // Over Current Protection control
 

@@ -69,8 +69,9 @@
 #define MAX_PKT_LENGTH           255
 
 uint16_t version;
-uint8_t implicitHeaderFlag;
+uint8_t implicitHeaderFlag = 0;
 uint8_t onTxDone = 0x01;
+uint8_t packetIndex = 0;
 
 //Function definitions
 extern void ResetRxFIFOSpia();
@@ -250,6 +251,55 @@ int endPacket(bool async){
 
     return 1;
 
+}
+//-------------------------------------------------------------------
+//
+//Function to parse the length of a packet and it's availability
+//
+//-------------------------------------------------------------------
+int parsePacket(int size)
+{
+  int packetLength = 0;
+  int irqFlags = readRegister(REG_IRQ_FLAGS);
+
+  if (size > 0) {
+    implicitHeaderMode();
+
+    writeRegister(REG_PAYLOAD_LENGTH, size & 0xff);
+  } else {
+    explicitHeaderMode();
+  }
+
+  // clear IRQ's
+  writeRegister(REG_IRQ_FLAGS, irqFlags);
+
+  if ((irqFlags & IRQ_RX_DONE_MASK) && (irqFlags & IRQ_PAYLOAD_CRC_ERROR_MASK) == 0) {
+    // received a packet
+    packetIndex = 0;
+
+    // read packet length
+    if (implicitHeaderFlag) {
+      packetLength = readRegister(REG_PAYLOAD_LENGTH);
+    } else {
+      packetLength = readRegister(REG_RX_NB_BYTES);
+    }
+
+    // set FIFO address to current RX address
+    writeRegister(REG_FIFO_ADDR_PTR, readRegister(REG_FIFO_RX_CURRENT_ADDR));
+
+    // put in standby mode
+    idle();
+  } else if (readRegister(REG_OP_MODE) != (MODE_LONG_RANGE_MODE | MODE_RX_SINGLE)) {
+    // not currently in RX mode
+
+    // reset FIFO address
+    writeRegister(REG_FIFO_ADDR_PTR, 0);
+
+    // put in single RX mode
+    writeRegister(REG_OP_MODE, MODE_LONG_RANGE_MODE | MODE_RX_SINGLE);
+  }
+
+  return packetLength;
 }
 
 //-------------------------------------------------------------------
@@ -516,6 +566,32 @@ void setLdoFlag(){
 void setPreambleLength(long length){
     writeRegister(REG_PREAMBLE_MSB, (uint8_t)(length >> 8));
     writeRegister(REG_PREAMBLE_LSB, (uint8_t)(length >> 0));
+}
+
+//-------------------------------------------------------------------
+//
+//Checks LoRa availability to reception
+//
+//-------------------------------------------------------------------
+
+int available()
+{
+  return (readRegister(REG_RX_NB_BYTES) - packetIndex);
+}
+//-------------------------------------------------------------------
+//
+//Read a byte from the LoRa FIFO
+//
+//-------------------------------------------------------------------
+int read()
+{
+  if (!available()) {
+    return -1;
+  }
+
+  packetIndex++;
+
+  return readRegister(REG_FIFO);
 }
 
 //-------------------------------------------------------------------
