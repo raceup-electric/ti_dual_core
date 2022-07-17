@@ -204,10 +204,10 @@ void read_steering_wheel_message(Uint16 val[], int id){
 
     }
 
-    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == 7){
+    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == 8){
         display.selector_p = val[0];
     }
-    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == 8){
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == 9){
         display.selector_r = val[0];
     }
     else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == CONFIRMATION){

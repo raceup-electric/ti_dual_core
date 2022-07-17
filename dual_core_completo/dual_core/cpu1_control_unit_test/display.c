@@ -217,13 +217,13 @@ void updatePage4()
 
 void updatePage6()
 {
-    sprintf(tmp, "tyre_motor_d.mot1.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempMotor);
+    sprintf(tmp, "motor.mot1.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempMotor);
     scic_msg(tmp);
-    sprintf(tmp, "tyre_motor_d.mot2.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempMotor);
+    sprintf(tmp, "motor.mot2.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempMotor);
     scic_msg(tmp);
-    sprintf(tmp, "tyre_motor_d.mot3.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempMotor);
+    sprintf(tmp, "motor.mot3.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempMotor);
     scic_msg(tmp);
-    sprintf(tmp, "tyre_motor_d.mot4.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempMotor);
+    sprintf(tmp, "motor.mot4.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempMotor);
     scic_msg(tmp);
 }
 

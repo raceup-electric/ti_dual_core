@@ -305,18 +305,22 @@ void sendAMKData() {
     for (i = 0; i < NUM_OF_MOTORS; i++) {
         int posTorque, negTorque;
 
+        float Torque_max = MAX_POS_TORQUE - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - ((21.0f - MAX_POS_TORQUE)/0.000857) - 13000.0f);
+        Torque_max=saturateFloat(Torque_max,MAX_POS_TORQUE,15.0f);
+
+        //Torque_max=MAX_POS_TORQUE; //SKIDPAD
+
         //RIPARTIZIONE DI COPPIA SEMPLICE
         if (i == MOTOR_FL || i == MOTOR_FR)
         {
-            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*FRONT_MOTOR_SCALE, MAX_POS_TORQUE, 0.0f));
+            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*FRONT_MOTOR_SCALE, Torque_max, 0.0f));
             negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*FRONT_MOTOR_SCALE,0.0f,MAX_NEG_TORQUE));
         }
         else if (i == MOTOR_RR || i == MOTOR_RL)
         {
-            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*REAR_MOTOR_SCALE, MAX_POS_TORQUE, 0.0f));
+            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*REAR_MOTOR_SCALE, Torque_max, 0.0f));
             negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*REAR_MOTOR_SCALE,0.0f,MAX_NEG_TORQUE));
         }
-
         sendAMKDataMotor(i, posTorque, negTorque);
     }
 }
