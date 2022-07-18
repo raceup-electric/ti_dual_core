@@ -313,13 +313,13 @@ void sendAMKData() {
         //RIPARTIZIONE DI COPPIA SEMPLICE
         if (i == MOTOR_FL || i == MOTOR_FR)
         {
-            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*FRONT_MOTOR_SCALE, Torque_max, 0.0f));
-            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*FRONT_MOTOR_SCALE,0.0f,MAX_NEG_TORQUE));
+            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*front_motor_scale, Torque_max, 0.0f));
+            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*front_motor_scale,0.0f,MAX_NEG_TORQUE));
         }
         else if (i == MOTOR_RR || i == MOTOR_RL)
         {
-            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*REAR_MOTOR_SCALE, Torque_max, 0.0f));
-            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*REAR_MOTOR_SCALE,0.0f,MAX_NEG_TORQUE));
+            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*rear_motor_scale, Torque_max, 0.0f));
+            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*rear_motor_scale,0.0f,MAX_NEG_TORQUE));
         }
         sendAMKDataMotor(i, posTorque, negTorque);
     }
@@ -341,5 +341,5 @@ void brakeAMK(int negTorqueLim) {
 }
 
 void throttleAMK(int posTorqueLim) {
-    setAMK(SPEED_LIMIT, posTorqueLim, 0);
+    setAMK(max_speed, posTorqueLim, 0);
 }

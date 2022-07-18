@@ -48,6 +48,18 @@ void updateValues()
            case PAGE_13:
                updatePage13();
            break;
+           case PAGE_14:
+                updatePage14();
+           break;
+           case PAGE_15:
+                updatePage15();
+           break;
+           case PAGE_16:
+                updatePage16();
+           break;
+           case PAGE_17:
+                updatePage17();
+           break;
          }
 }
 void updatePage(Uint16 page){
@@ -105,6 +117,22 @@ void updatePage(Uint16 page){
         case PAGE_13:
             currentPage=PAGE_13;
             scic_msg("page 13ÿÿÿ\0");
+        break;
+        case PAGE_14:
+            currentPage=PAGE_14;
+            scic_msg("page 14ÿÿÿ\0");
+        break;
+        case PAGE_15:
+            currentPage=PAGE_15;
+            scic_msg("page 15ÿÿÿ\0");
+        break;
+        case PAGE_16:
+            currentPage=PAGE_16;
+            scic_msg("page 16ÿÿÿ\0");
+        break;
+        case PAGE_17:
+            currentPage=PAGE_17;
+            scic_msg("page 17ÿÿÿ\0");
         break;
       }
     }
@@ -344,17 +372,30 @@ void updatePage13(){
 
 }
 
+void updatePage14(){
+
+}
+
+void updatePage15(){
+    setSelectorSpeed();
+    setAckSpeed();
+}
+
+void updatePage16(){
+    setSelectorCoppiaFront();
+    setAckCoppiaFront();
+}
+
+void updatePage17(){
+    setSelectorCoppiaRear();
+    setAckCoppiaRear();
+}
+
+
 void setSelectorPowerControl(){
     n_setup = display.selector_p;
     if(old_setup_power != n_setup){
 
-        /*int v;
-        for(v = 0; v < 8; v++){
-            if(v != old_setup_power || v != old_ack_power){
-                sprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", v);
-                scic_msg(tmp);
-            }
-        }*/
 
       if (old_setup_power != old_ack_power){
           sprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", old_setup_power);
@@ -373,7 +414,6 @@ void setSelectorPowerControl(){
 }
 
 void setAckPowerControl(){
-    //Serial.println(String(msg.buf[0]));
     int i;
     ack = display.ack_p;
     if (old_ack_power != ack){
@@ -391,17 +431,11 @@ void setAckPowerControl(){
 
     }
 }
+
 void setSelectorRegen(){
     n_setup = display.selector_r;
     if(old_setup_regen != n_setup){
 
-        /*int v;
-        for(v = 0; v < 6; v++){
-            if(v != old_setup_regen || v != old_ack_regen){
-                sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", v);
-                scic_msg(tmp);
-            }
-        }*/
 
       if (old_setup_regen != old_ack_regen){
           sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", old_setup_regen);
@@ -420,7 +454,6 @@ void setSelectorRegen(){
 }
 
 void setAckRegen(){
-    //Serial.println(String(msg.buf[0]));
     int i;
     ack = display.ack_r;
     if (old_ack_regen != ack){
@@ -432,6 +465,126 @@ void setAckRegen(){
             }
             else {
                 sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", i);
+                scic_msg(tmp);
+            }
+        }
+
+    }
+}
+
+void setSelectorSpeed(){
+    n_setup = display.selector_speed;
+    if(old_setup_speed != n_setup){
+
+
+      if (old_setup_speed != old_ack_speed){
+          sprintf(tmp, "spd_lim.setup%d.bco=54938ÿÿÿ\0", old_setup_speed);
+          scic_msg(tmp);
+      }
+
+
+      old_setup_speed = n_setup;
+
+      if (old_setup_speed != old_ack_speed){
+          sprintf(tmp, "spd_lim.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          scic_msg(tmp);
+      }
+
+    }
+}
+
+void setAckSpeed(){
+    int i;
+    ack = display.ack_speed;
+    if (old_ack_speed != ack){
+        for (i = 0; i < 6; i++){
+            if (i == ack){
+                sprintf(tmp, "spd_lim.setup%d.bco=GREENÿÿÿ\0", i);
+                old_ack_speed = ack;
+                scic_msg(tmp);
+            }
+            else {
+                sprintf(tmp, "spd_lim.setup%d.bco=54938ÿÿÿ\0", i);
+                scic_msg(tmp);
+            }
+        }
+
+    }
+}
+
+void setSelectorCoppiaFront(){
+    n_setup = display.selector_coppie_front;
+    if(old_setup_coppia_front != n_setup){
+
+
+      if (old_setup_coppia_front != old_ack_coppia_front){
+          sprintf(tmp, "trq_F.setup%d.bco=54938ÿÿÿ\0", old_setup_coppia_front);
+          scic_msg(tmp);
+      }
+
+
+      old_setup_coppia_front = n_setup;
+
+      if (old_setup_coppia_front != old_ack_coppia_front){
+          sprintf(tmp, "trq_F.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          scic_msg(tmp);
+      }
+
+    }
+}
+
+void setAckCoppiaFront(){
+    int i;
+    ack = display.ack_coppie_front;
+    if (old_ack_coppia_front != ack){
+        for (i = 0; i < 6; i++){
+            if (i == ack){
+                sprintf(tmp, "trq_F.setup%d.bco=GREENÿÿÿ\0", i);
+                old_ack_coppia_front = ack;
+                scic_msg(tmp);
+            }
+            else {
+                sprintf(tmp, "trq_F.setup%d.bco=54938ÿÿÿ\0", i);
+                scic_msg(tmp);
+            }
+        }
+
+    }
+}
+
+void setSelectorCoppiaRear(){
+    n_setup = display.selector_coppie_rear;
+    if(old_setup_coppia_rear != n_setup){
+
+
+      if (old_setup_coppia_rear != old_ack_coppia_rear){
+          sprintf(tmp, "trq_R.setup%d.bco=54938ÿÿÿ\0", old_setup_coppia_rear);
+          scic_msg(tmp);
+      }
+
+
+      old_setup_coppia_rear = n_setup;
+
+      if (old_setup_coppia_rear != old_ack_coppia_rear){
+          sprintf(tmp, "trq_R.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          scic_msg(tmp);
+      }
+
+    }
+}
+
+void setAckCoppiaRear(){
+    int i;
+    ack = display.ack_coppie_rear;
+    if (old_ack_coppia_rear != ack){
+        for (i = 0; i < 6; i++){
+            if (i == ack){
+                sprintf(tmp, "trq_R.setup%d.bco=GREENÿÿÿ\0", i);
+                old_ack_coppia_rear = ack;
+                scic_msg(tmp);
+            }
+            else {
+                sprintf(tmp, "trq_R.setup%d.bco=54938ÿÿÿ\0", i);
                 scic_msg(tmp);
             }
         }

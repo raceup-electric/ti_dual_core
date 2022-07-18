@@ -26,12 +26,27 @@ extern Uint16 old_setup_regen;
 extern Uint16 old_ack_power;
 extern Uint16 old_ack_regen;
 
+extern Uint16 old_setup_speed;
+extern Uint16 old_setup_coppia_front;
+extern Uint16 old_setup_coppia_rear;
+
+extern Uint16 old_ack_speed;
+extern Uint16 old_ack_coppia_front;
+extern Uint16 old_ack_coppia_rear;
+
 struct Display_command{
     Uint16 page;
     Uint16 selector_p;
     Uint16 ack_p; //non è un bool, ma il valore della selezione 0-7
     Uint16 selector_r;
     Uint16 ack_r; //non è un bool, ma il valore della selezione 0-7
+    Uint16 selector_speed;
+    Uint16 ack_speed; //non è un bool, ma il valore della selezione 0-7
+    Uint16 selector_coppie_rear;
+    Uint16 ack_coppie_rear; //non è un bool, ma il valore della selezione 0-7
+    Uint16 selector_coppie_front;
+    Uint16 ack_coppie_front; //non è un bool, ma il valore della selezione 0-7
+
 };
 
 //Logging
@@ -165,6 +180,10 @@ void updatePage10();
 void updatePage11();
 void updatePage12();
 void updatePage13();
+void updatePage14();
+void updatePage15();
+void updatePage16();
+void updatePage17();
 
 
 
@@ -198,6 +217,18 @@ void setAckPowerControl();
 void setSelectorRegen();
 
 void setAckRegen();
+
+void setSelectorSpeed();
+
+void setAckSpeed();
+
+void setSelectorCoppiaFront();
+
+void setAckCoppiaFront();
+
+void setSelectorCoppiaRear();
+
+void setAckCoppiaRear();
 
 float getLowestLvVoltage();
 

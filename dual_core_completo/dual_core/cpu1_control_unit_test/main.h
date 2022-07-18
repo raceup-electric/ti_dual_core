@@ -45,10 +45,16 @@ char tmp[TMP_SIZE];
 Uint16 n_setup = 0;
 Uint16 old_setup_power = 99;
 Uint16 old_setup_regen = 99;
+Uint16 old_setup_speed = 99;
+Uint16 old_setup_coppia_front = 99;
+Uint16 old_setup_coppia_rear = 99;
 
 Uint16 ack = 99;
 Uint16 old_ack_power = 99;
 Uint16 old_ack_regen = 99;
+Uint16 old_ack_speed = 99;
+Uint16 old_ack_coppia_front = 99;
+Uint16 old_ack_coppia_rear = 99;
 Uint16 sel; //for debug
 
 

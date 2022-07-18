@@ -204,11 +204,20 @@ void read_steering_wheel_message(Uint16 val[], int id){
 
     }
 
-    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == 8){
-        display.selector_p = val[0];
+    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == POWER_CONTROL_PAGE){
+        display.selector_p = val[0] % 8;
     }
-    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == 9){
-        display.selector_r = val[0];
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == REGEN_PAGE){
+        display.selector_r = val[0] % 6;
+    }
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == SPEED_LIMIT_PAGE){
+        display.selector_speed = val[0] % 6;
+    }
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == COPPIE_PAGE_FRONT){
+        display.selector_coppie_front = val[0] % 6;
+    }
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == COPPIE_PAGE_REAR){
+        display.selector_coppie_rear = val[0] % 6;
     }
     else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == CONFIRMATION){
         if(display.page == POWER_CONTROL_PAGE && !R2D_state){
@@ -220,6 +229,18 @@ void read_steering_wheel_message(Uint16 val[], int id){
              display.ack_r = display.selector_r;
              max_regen_current = presets_regen[display.ack_r];
         }
+        else if(display.page == SPEED_LIMIT_PAGE && !R2D_state){
+             display.ack_speed = display.selector_speed;
+             max_speed = presets_speed[display.ack_speed];
+        }
+        else if(display.page == COPPIE_PAGE_FRONT && !R2D_state){
+             display.ack_coppie_front = display.selector_coppie_front;
+             front_motor_scale = presets_coppie_front[display.ack_coppie_front];
+        }
+        else if(display.page == COPPIE_PAGE_REAR && !R2D_state){
+            display.ack_coppie_rear = display.selector_coppie_rear;
+            rear_motor_scale = presets_coppie_rear[display.ack_coppie_rear];
+       }
 
     } else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == START_LAUNCH) {
         // si vedrà quello che faremo

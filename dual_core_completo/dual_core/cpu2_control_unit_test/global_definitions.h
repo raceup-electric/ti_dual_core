@@ -178,14 +178,21 @@
 #define MSG_ID_SMU_SUSPENSIONS               0x101
 #define MSG_ID_LEM                           0x3C2
 
+
+//SCHERMO
+#define MAX_PAGE_NUMBER     17
+
 #define CONFIRMATION        0x1
 #define NEXT_PAGE           0x2
 #define CALIBRATION         0x3//TO REVIEW
 #define PREVIOUS_PAGE       0x4
 #define START_LAUNCH        0x8
 
-#define POWER_CONTROL_PAGE   0x8
-#define REGEN_PAGE          0x9
+#define POWER_CONTROL_PAGE   0x08
+#define REGEN_PAGE          0x09
+#define SPEED_LIMIT_PAGE     0x0E
+#define COPPIE_PAGE_FRONT    0x0F
+#define COPPIE_PAGE_REAR     0x10
 
 //
 // ePWM
@@ -234,6 +241,5 @@
 //
 #define BRAKE_LIGHT_MIN                 5   //valore minimo di brake per attivare la brake light
 
-//SCHERMO
-#define MAX_PAGE_NUMBER 13
+
 #endif

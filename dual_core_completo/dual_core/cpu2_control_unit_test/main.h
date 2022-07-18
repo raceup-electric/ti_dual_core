@@ -211,6 +211,13 @@ volatile Uint32 pinValue;
 int presets_power[8] = {3, 30, 40, 50, 60, 65, 70, 75};
 
 float presets_regen[6]={1.5f,3.0f,5.0f,10.0f,15.0f,20.0f};
+int presets_speed[6]={5000, 10000, 14000, 15000, 18000, 20000};
+float presets_coppie_front[6]={0.3f, 0.4f, 0.5f, 0.63f, 0.7f, 0.8f};
+float presets_coppie_rear[6]={0.5f, 1.f, 1.3f, 1.5f, 1.7f, 1.8f};
+
+int max_speed = SPEED_LIMIT;
+float rear_motor_scale = REAR_MOTOR_SCALE;
+float front_motor_scale = FRONT_MOTOR_SCALE;
 
 //CAN
 volatile Uint32 errorFlag = 0;

@@ -80,6 +80,14 @@ extern int presets_power[8];
 extern float max_regen_current;
 extern float presets_regen[6];
 
+extern int presets_speed[6];
+extern float presets_coppie_front[6];
+extern float presets_coppie_rear[6];
+
+extern int max_speed;
+extern float rear_motor_scale;
+extern float front_motor_scale;
+
 //logging
 extern struct Share_struct sh;
 extern struct Status_Log status_log;

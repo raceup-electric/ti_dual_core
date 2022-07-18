@@ -50,6 +50,10 @@ extern int throttleReq;
 extern int brakeReq;
 extern float anti_wind_up;
 
+extern int max_speed;
+extern float rear_motor_scale;
+extern float front_motor_scale;
+
 
 //
 // prototypes
