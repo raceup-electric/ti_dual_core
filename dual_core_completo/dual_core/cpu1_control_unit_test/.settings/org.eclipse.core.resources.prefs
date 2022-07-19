@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
+encoding//CPU1_FLASH_STANDALONE/makefile=UTF-8
+encoding//CPU1_FLASH_STANDALONE/sources.mk=UTF-8
+encoding//CPU1_FLASH_STANDALONE/subdir_rules.mk=UTF-8
+encoding//CPU1_FLASH_STANDALONE/subdir_vars.mk=UTF-8
 encoding//CPU1_RAM_DEBUG/ff14b/documents/res/subdir_rules.mk=UTF-8
 encoding//CPU1_RAM_DEBUG/ff14b/documents/res/subdir_vars.mk=UTF-8
 encoding//CPU1_RAM_DEBUG/ff14b/source/subdir_rules.mk=UTF-8
