@@ -112,10 +112,75 @@ void debugSet(){
      }
 }
 
-int send_Single_Data(){
+int send_Single_Data(int counter){
     uint8_t toSendBuffer[LORA_IMPLICIT_SIZE];
-    toSendBuffer[0] = 0x01;
-    uint32_t toSendBytes = float_to_uint32(32.15);
+    toSendBuffer[0] = counter;
+    //uint32_t toSendBytes = float_to_uint32(32.15);
+    uint32_t toSendBytes = 0;
+    switch(counter){
+        //CASE TO SEND THE MOTORS TEMPERATURES
+        case 1:
+            toSendBytes = float_to_uint32(local_sh.motorVal2[0].AMK_TempMotor);
+        break;
+        case 2:
+            toSendBytes = float_to_uint32(local_sh.motorVal2[0].AMK_TempInverter);
+        break;
+        case 3:
+            toSendBytes = float_to_uint32(local_sh.motorVal2[0].AMK_TempIGBT);
+        break;
+        case 4:
+           toSendBytes = float_to_uint32(local_sh.motorVal2[1].AMK_TempMotor);
+        break;
+        case 5:
+           toSendBytes = float_to_uint32(local_sh.motorVal2[1].AMK_TempInverter);
+        break;
+        case 6:
+           toSendBytes = float_to_uint32(local_sh.motorVal2[1].AMK_TempIGBT);
+        break;
+        case 7:
+            toSendBytes = float_to_uint32(local_sh.motorVal2[2].AMK_TempMotor);
+        break;
+        case 8:
+            toSendBytes = float_to_uint32(local_sh.motorVal2[2].AMK_TempInverter);
+        break;
+        case 9:
+            toSendBytes = float_to_uint32(local_sh.motorVal2[2].AMK_TempIGBT);
+        break;
+        case 10:
+           toSendBytes = float_to_uint32(local_sh.motorVal2[3].AMK_TempMotor);
+        break;
+        case 11:
+           toSendBytes = float_to_uint32(local_sh.motorVal2[3].AMK_TempInverter);
+        break;
+        case 12:
+           toSendBytes = float_to_uint32(local_sh.motorVal2[3].AMK_TempIGBT);
+        break;
+        //Send status of the motors
+        case 13:
+           toSendBytes = ((uint32_t)AmkStatus[0] << 24 ) | ((uint32_t)AmkStatus[1] << 16 ) | ((uint32_t)AmkStatus[2] << 8 ) | ((uint32_t)AmkStatus[3] << 0 );
+        break;
+        //Sending ActualVel of the motors
+        case 14:
+            toSendBytes = float_to_uint32(local_sh.motorVal1[0].AMK_ActualVelocity);
+        break;
+        case 15:
+            toSendBytes = float_to_uint32(local_sh.motorVal1[1].AMK_ActualVelocity);
+        break;
+        case 16:
+            toSendBytes = float_to_uint32(local_sh.motorVal1[2].AMK_ActualVelocity);
+        break;
+        case 17:
+            toSendBytes = float_to_uint32(local_sh.motorVal1[3].AMK_ActualVelocity);
+        break;
+        case 18:
+
+        break;
+    }
+
+    counter++;
+
+
+
     int i;
     for(i = 1; i < LORA_IMPLICIT_SIZE;i++){
         toSendBuffer[i] = (0x00FF & (toSendBytes >> ((i-1)*8)));
@@ -124,6 +189,7 @@ int send_Single_Data(){
     beginPacket(LORA_IMPLICIT_HEADER);
     LoRa_writeBuffer(toSendBuffer,LORA_IMPLICIT_SIZE);
     endPacket(true);
+    return counter;
 }
 
 uint32_t float_to_uint32(float value){

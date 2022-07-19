@@ -677,7 +677,7 @@ uint16_t LoRa_write(char byte)
   return LoRa_writeBuffer(&byte, sizeof(byte));
 }
 
-uint16_t LoRa_writeBuffer(char* buffer, uint16_t size)
+uint16_t LoRa_writeBuffer(uint8_t* buffer, uint16_t size)
 {
     uint8_t currentLength = (0x00FF) & readRegister(REG_PAYLOAD_LENGTH);
 

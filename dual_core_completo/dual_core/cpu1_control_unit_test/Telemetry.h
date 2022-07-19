@@ -10,7 +10,7 @@
 
 #include "LoRa.h"
 
-
+extern char AmkStatus[4];
 //-------------------------------------------------------------
 //
 //Functions to send and formats packets
@@ -20,7 +20,7 @@
 int send_Motors();
 int send_Status_Imu_BMS_Sendyne();
 
-int send_Single_Data();
+int send_Single_Data(int counter);
 void debugSet();
 
 uint32_t float_to_uint32(float value);

@@ -24,7 +24,7 @@ typedef uint16_t uint8_t;
 #define PA_OUTPUT_PA_BOOST_PIN     1
 
 //LoRa parameters
-#define LORA_SIGNAL_BANDWIDTH 125E3
+#define LORA_SIGNAL_BANDWIDTH 250E3
 #define LORA_CODING_RATE 1
 #define LORA_SF 6
 #define LORA_TX_POWER 14
@@ -72,6 +72,6 @@ uint8_t readRegister(uint8_t address);
 void writeRegister(uint8_t address, uint8_t value);
 
 uint16_t LoRa_write(char byte);
-uint16_t LoRa_writeBuffer(char* buffer, uint16_t size);
+uint16_t LoRa_writeBuffer(uint8_t* buffer, uint16_t size);
 
 #endif /* LORA_H_ */
