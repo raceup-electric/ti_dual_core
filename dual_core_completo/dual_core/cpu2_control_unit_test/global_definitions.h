@@ -137,6 +137,7 @@
 #define OBJ_ID_BMS_VOLTAGE      10
 #define OBJ_ID_BMS_TEMP         11
 #define OBJ_ID_AMK_SETPOINTS    13
+#define TX_OBJ_TO_HOST          14
 #define OBJ_ID_STEERING_WHEEL   15
 #define OBJ_ID_FROM_BMS_LV      18
 #define OBJ_ID_FROM_LEM         21
@@ -158,8 +159,6 @@
 #define MSG_ID_TEMPS            0x49
 #define MSG_ID_SENDYNE          0x50
 #define MSG_ID_CAR_STATUS       0x52
-#define MSG_ID_BMS_VOLTAGE      0x110
-#define MSG_ID_BMS_TEMP         0x111
 #define MSG_ID_BMS_BASE         0x55
 #define MSG_ID_BMS_LV_1         0x55
 #define MSG_ID_BMS_LV_2         0x56
@@ -176,6 +175,9 @@
 #define MSG_ID_SMU_BASE                      0x100
 #define MSG_ID_SMU_TEMPERATURES              0x100
 #define MSG_ID_SMU_SUSPENSIONS               0x101
+#define MSG_ID_BMS_VOLTAGE                   0x110
+#define MSG_ID_BMS_TEMP                      0x111
+#define MSG_ID_HOST_SEND                     0x120
 #define MSG_ID_LEM                           0x3C2
 
 

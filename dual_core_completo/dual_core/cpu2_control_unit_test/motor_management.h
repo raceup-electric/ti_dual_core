@@ -73,6 +73,7 @@ void removeError(int);
 char getByte(int);
 bool getBit(char, int);
 void int2Bytes(unsigned char* bytes_temp, int int_variable);
+void float2Bytes(unsigned char* bytes_temp, float float_variable);
 void set_SetPoint(int, int, int, int);
 
 int getMotorIndex(int id);      //restitusice il numero (0-4) dell'inverter a seconda dell'ID

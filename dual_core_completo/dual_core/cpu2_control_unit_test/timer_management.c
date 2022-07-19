@@ -255,6 +255,7 @@ __interrupt void cpu_timer1_isr(void)
     }
 
     sendAMKData();
+    sendHostData();
     checkStatus();
     computeBatteryPackTension();
     sendDataToLogger();
