@@ -101,6 +101,13 @@ struct Gpio_Log{
     bool Sdc6_shared;
 };
 
+struct Power_Setup_Log{
+    int max_speed_shared;
+    float rear_motor_scale_shared;
+    float front_motor_scale_shared;
+    float power_limit_shared;
+};
+
 struct Display_command{
     Uint16 page;
     Uint16 selector_p;
@@ -131,7 +138,7 @@ struct Share_struct {
     struct Status_Log status;
     struct Gpio_Log gpio;
     struct Pedals_Log pedals;
-
+    struct Power_Setup_Log power_setup;
 };
 
 extern float versx[3];

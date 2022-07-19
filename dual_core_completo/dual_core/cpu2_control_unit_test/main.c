@@ -92,12 +92,14 @@ void setup()
        sh.bms = bms_log;
        sh.status = status_log;
        sh.gpio = gpio_log;
-
        sh.pedals = pedals_log;
+       sh.power_setup = power_setup_log;
 
        display.ack_p = 99;
        display.ack_r = 99;
-//       display.page = 5;
+       display.ack_speed = 99;
+       display.ack_coppie_front = 99;
+       display.ack_coppie_rear = 99;
 
        setupOk = 1;    //debug
 

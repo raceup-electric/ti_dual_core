@@ -147,6 +147,13 @@ struct Gpio_Log{
     bool Sdc6_shared;
 };
 
+struct Power_Setup_Log{
+    int max_speed_shared;
+    float rear_motor_scale_shared;
+    float front_motor_scale_shared;
+    float power_limit_shared;
+};
+
 struct Share_struct {
     Uint16 Temps[8];
     float bms_lv[8];
@@ -160,6 +167,7 @@ struct Share_struct {
     struct Status_Log status;
     struct Gpio_Log gpio;
     struct Pedals_Log pedals;
+    struct Power_Setup_Log power_setup;
 };
 
 
@@ -189,24 +197,7 @@ void updatePage17();
 
 void changePreset(Uint16 preset, Uint16 page, Uint16 ack);
 
-
-void setAMK_fl();
-
-void setAMK_fr();
-
-void setAMK_rl();
-
-void setAMK_rr();
-
-void setTemps();
-
 void setBMS_voltage();
-
-void setFLstatus();
-
-void setFRstatus();
-
-void setRLstatus();
 
 void setRRstatus();
 

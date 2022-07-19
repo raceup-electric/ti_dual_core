@@ -61,25 +61,6 @@ Uint16 sel; //for debug
 struct Share_struct sh;
 struct Share_struct local_sh;
 
-Uint16 Temps_shared[8];
-float bms_lv_shared[8];
-
-struct Status_Log status_log;
-
-struct motorValues1 motorVal1_shared[4];
-struct motorValues2 motorVal2_shared[4];  //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
-struct motorSetPoints motorSetP_shared[4];
-
-struct BMS_Log bms_log;
-
-struct Power_Log power_log;
-
-struct FanSpeed_Log fanspeed_log;
-
-struct Imu_Log imu_log;
-
-struct Gpio_Log gpio_log;
-
 struct Display_command display;
 
 char AmkStatus[4];

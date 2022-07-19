@@ -305,6 +305,7 @@ struct Display_command display;
 
 struct Pedals_Log pedals_log;
 
+struct Power_Setup_Log power_setup_log;
 
 //shard ram
 Uint16 c2_r_w_array[256];

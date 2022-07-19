@@ -373,7 +373,14 @@ void updatePage13(){
 }
 
 void updatePage14(){
-
+    sprintf(tmp, "pwr_set.spd.val=%dÿÿÿ\0", local_sh.power_setup.max_speed_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.trqf.val=%dÿÿÿ\0", (int)(local_sh.power_setup.front_motor_scale_shared*10));
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.trqr.val=%dÿÿÿ\0", (int)(local_sh.power_setup.rear_motor_scale_shared*10));
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.pow.val=%dÿÿÿ\0", (int)local_sh.power_setup.power_limit_shared);
+    scic_msg(tmp);
 }
 
 void updatePage15(){
@@ -590,115 +597,6 @@ void setAckCoppiaRear(){
         }
 
     }
-}
-
-
-
-
-void setAMK_fl(){
-
-
-
-    sprintf(tmp, "motor_status.errorfl.txt=%dÿÿÿ\0",(int)local_sh.motorVal2[0].AMK_ErrorInfo);
-    scic_msg(tmp);
-}
-
-void setAMK_fr(){
-
-    sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[1].AMK_TempIGBT);
-    scic_msg(tmp);
-
-    sprintf(tmp, "motor_status.errorfr.txt=%dÿÿÿ\0",(int)local_sh.motorVal2[1].AMK_ErrorInfo);
-    scic_msg(tmp);
-}
-
-void setAMK_rl(){
-
-    sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[2].AMK_TempIGBT);
-    scic_msg(tmp);
-    sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[2].AMK_TempInverter);
-    scic_msg(tmp);
-    sprintf(tmp, "motor_status.errorrl.txt=%dÿÿÿ\0",(int)local_sh.motorVal2[2].AMK_ErrorInfo);
-    scic_msg(tmp);
-}
-
-void setAMK_rr(){
-
-    sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[3].AMK_TempIGBT);
-    scic_msg(tmp);
-    sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0",(int)local_sh.motorVal2[3].AMK_TempInverter);
-    scic_msg(tmp);
-    sprintf(tmp, "motor_status.errorrr.txt=%dÿÿÿ\0",(int)local_sh.motorVal2[3].AMK_ErrorInfo);
-    scic_msg(tmp);
-}
-
-
-void setTemps(){
-
-    //da sistemare le temperature dei radiatori nello schermo prima
-    /*sprintf(tmp, "fan_dark.rad1N.val=%dÿÿÿ\0",local_sh.Temps[0]);       //rad out L
-    scic_msg(tmp);
-    sprintf(tmp, "fan_dark.rad2N.val=%dÿÿÿ\0",local_sh.Temps[1]);         //rad out R
-    scic_msg(tmp);
-    sprintf(tmp, "fan_dark.rad3N.val=%dÿÿÿ\0",local_sh.Temps[2]);         //rad in L
-    scic_msg(tmp);
-    sprintf(tmp, "fan_dark.rad4N.val=%dÿÿÿ\0",local_sh.Temps[3]);
-    scic_msg(tmp);*/
-    sprintf(tmp, "fan_dark.n0.val=%dÿÿÿ\0",local_sh.Temps[6]);
-    scic_msg(tmp);
-    sprintf(tmp, "fan_dark.n1.val=%dÿÿÿ\0",local_sh.Temps[7]);
-    scic_msg(tmp);
-}
-
-
-
-void setFLstatus(){
-  if(local_sh.motorVal1[0].AMK_bInverterOn){
- scic_msg("motor_status.invonfl.bco=GREENÿÿÿ\0");
-  }
-  else{
- scic_msg("motor_status.invonfl.bco=REDÿÿÿ\0");
-  }
-
-  if(local_sh.motorVal1[0].AMK_bDerating){
- scic_msg("motor_status.derfl.bco=REDÿÿÿ\0");
-  }
-  else{
- scic_msg("motor_status.derfl.bco=GREENÿÿÿ\0");
-  }
-}
-
-void setFRstatus(){
-  if(local_sh.motorVal1[1].AMK_bInverterOn){
-      scic_msg("motor_status.invonfr.bco=GREENÿÿÿ\0");
-  }
-  else{
-      scic_msg("motor_status.invonfr.bco=REDÿÿÿ\0");
-  }
-
-  if(local_sh.motorVal1[1].AMK_bDerating){
-      scic_msg("motor_status.derfr.bco=REDÿÿÿ\0");
-  }
-  else{
-      scic_msg("motor_status.derfr.bco=GREENÿÿÿ\0");
-  }
-}
-
-void setRLstatus(){
-  if(local_sh.motorVal1[2].AMK_bInverterOn){
-      scic_msg("motor_status.invonrl.bco=GREEN");
-
-  }
-  else{
-      scic_msg("motor_status.invonrl.bco=RED");
-  }
-
-  if(local_sh.motorVal1[2].AMK_bDerating){
-      scic_msg("motor_status.derrl.bco=RED");
-  }
-  else{
-      scic_msg("motor_status.derrl.bco=GREEN");
-  }
 }
 
 void setRRstatus(){

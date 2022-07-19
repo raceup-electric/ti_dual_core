@@ -102,6 +102,7 @@ extern struct motorValues1 motorVal1_shared[4];
 extern struct motorValues2 motorVal2_shared[4];
 extern float bms_lv_shared[8];
 extern struct Pedals_Log pedals_log;
+extern struct Power_Setup_Log power_setup_log;
 
 extern struct Display_command display;
 

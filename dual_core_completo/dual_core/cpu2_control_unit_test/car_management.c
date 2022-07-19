@@ -782,6 +782,12 @@ void update_log_values()
     pedals_log.brk_pot_shared = BrkPot;
     pedals_log.throttle_req_shared = throttleReq;
     pedals_log.brk_req_shared = brakeReq;
+
+    //Power setup update
+    power_setup_log.max_speed_shared = max_speed;
+    power_setup_log.rear_motor_scale_shared = rear_motor_scale;
+    power_setup_log.front_motor_scale_shared = front_motor_scale;
+    power_setup_log.power_limit_shared = power_limit;
 }
 
 void update_shared_mem()
