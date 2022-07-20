@@ -46,14 +46,14 @@ void main(void)
 
 
     while( !(
-            MemCfgRegs.GSxMSEL.bit.MSEL_GS3 &
-            MemCfgRegs.GSxMSEL.bit.MSEL_GS2 &
-             MemCfgRegs.GSxMSEL.bit.MSEL_GS1))
+            MemCfgRegs.GSxMSEL.bit.MSEL_GS13 &
+            MemCfgRegs.GSxMSEL.bit.MSEL_GS12 &
+             MemCfgRegs.GSxMSEL.bit.MSEL_GS11))
     {
         EALLOW;
-        MemCfgRegs.GSxMSEL.bit.MSEL_GS3 = 1;
-        MemCfgRegs.GSxMSEL.bit.MSEL_GS2 = 1;
-        MemCfgRegs.GSxMSEL.bit.MSEL_GS1 = 1;
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS13 = 1;
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS12 = 1;
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS11 = 1;
         EDIS;
     }
 

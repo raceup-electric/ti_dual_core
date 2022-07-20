@@ -50,6 +50,10 @@ PAGE 1 :
    RAMGS1          : origin = 0x00D000, length = 0x001000
    RAMGS2          : origin = 0x00E000, length = 0x001000
    RAMGS3      	   : origin = 0x00F000, length = 0x001000
+
+   RAMGS11     : origin = 0x017000, length = 0x001000     /* Only Available on F28379D, F28377D, F28375D devices. Remove line on other devices. */
+   RAMGS12     : origin = 0x018000, length = 0x001000     /* Only Available on F28379D, F28377D, F28375D devices. Remove line on other devices. */
+   RAMGS13     : origin = 0x019000, length = 0x001000
    CPU2TOCPU1RAM   : origin = 0x03F800, length = 0x000400
    CPU1TOCPU2RAM   : origin = 0x03FC00, length = 0x000400
 }
@@ -90,6 +94,10 @@ SECTIONS
    SHARERAMGS1		: > RAMGS1,		PAGE = 1
    SHARERAMGS2		: > RAMGS2,		PAGE = 1
    SHARERAMGS3		: > RAMGS3, 	PAGE = 1
+
+   SHARERAMGS11		: > RAMGS11,		PAGE = 1
+   SHARERAMGS12		: > RAMGS12,		PAGE = 1
+   SHARERAMGS13		: > RAMGS13, 	PAGE = 1
 
 #ifdef __TI_COMPILER_VERSION__
     #if __TI_COMPILER_VERSION__ >= 15009000

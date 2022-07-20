@@ -79,7 +79,7 @@ SECTIONS
    .text               : > FLASHG 	   PAGE = 0, ALIGN(8)
    codestart           : > BEGIN       PAGE = 0, ALIGN(8)
    /* Allocate uninitalized data sections: */
-   .stack              : > RAMD1	PAGE = 1
+   .stack              : > RAMGS2	PAGE = 1
    .switch             : > FLASHB      PAGE = 0, ALIGN(8)
    .reset              : > RESET,      PAGE = 0, TYPE = DSECT /* not used, */
 
@@ -94,9 +94,9 @@ SECTIONS
    .const              : > FLASHF,       PAGE = 0,       ALIGN(8)
 #else
    .pinit              : > FLASHB,       PAGE = 0,       ALIGN(8)
-   .ebss               : >> RAMLS5 | RAMGS0 | RAMGS1,    PAGE = 1
-   .esysmem            : > RAMLS5,       PAGE = 1
-   .cio                : > RAMLS5,       PAGE = 1
+   .ebss               : >> RAMLS5 | RAMGS0,    PAGE = 1
+   .esysmem            : >> RAMGS0 | RAMGS1,       PAGE = 1
+   .cio                : >> RAMGS0 | RAMGS1,       PAGE = 1
    /* Initalized sections go in Flash */
    .econst             : >> FLASHF      PAGE = 0, ALIGN(8)
 #endif
@@ -107,6 +107,9 @@ SECTIONS
    SHARERAMGS1		: > RAMGS1,		PAGE = 1
    SHARERAMGS2		: > RAMGS2,		PAGE = 1
    SHARERAMGS3		: > RAMGS3, 	PAGE = 1
+   SHARERAMGS11		: > RAMGS11, 	PAGE = 1
+   SHARERAMGS12		: > RAMGS12, 	PAGE = 1
+   SHARERAMGS13		: > RAMGS13, 	PAGE = 1
    ramgs0           : > RAMGS0,     PAGE = 1
    ramgs1           : > RAMGS1,     PAGE = 1
 
@@ -163,11 +166,11 @@ SECTIONS
     }
 
    /* The following section definition are for SDFM examples */
-   Filter1_RegsFile : > RAMGS1,	PAGE = 1, fill=0x1111
-   Filter2_RegsFile : > RAMGS2,	PAGE = 1, fill=0x2222
-   Filter3_RegsFile : > RAMGS3,	PAGE = 1, fill=0x3333
-   Filter4_RegsFile : > RAMGS4,	PAGE = 1, fill=0x4444
-   Difference_RegsFile : >RAMGS5, 	PAGE = 1, fill=0x3333
+   Filter1_RegsFile : > RAMGS5,	PAGE = 1, fill=0x1111
+   Filter2_RegsFile : > RAMGS6,	PAGE = 1, fill=0x2222
+   Filter3_RegsFile : > RAMGS7,	PAGE = 1, fill=0x3333
+   Filter4_RegsFile : > RAMGS8,	PAGE = 1, fill=0x4444
+   Difference_RegsFile : >RAMGS9, 	PAGE = 1, fill=0x3333
 }
 
 /*
