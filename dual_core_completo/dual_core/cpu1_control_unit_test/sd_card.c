@@ -813,7 +813,7 @@ setupSD(void)
     f_mount(&g_sFatFs, "0:", 1);
     diskResult = disk_initialize(0);
 
-    file_counter = CmdLineProcess("ls") - 2;
+    file_counter = CmdLineProcess("ls");
     char temp[20];
     sprintf(temp, "test%d.txt ", file_counter);
     memcpy(filename, temp, 20);
@@ -821,6 +821,54 @@ setupSD(void)
     //char cmd[40] = "\t \t SD init completed \n";
     //writeSD(cmd);
 
+
+}
+void newSetupSD(void)
+{
+       //
+       // Mount the file system, using logical disk 0.
+       //
+       f_mount(&g_sFatFs, "0:", 1);
+       diskResult = disk_initialize(0);
+
+}
+void writeHeader()
+{
+    char str_init[200];
+        sprintf(str_init , "timestamp;AmkStatusFL;AmkStatusFR;AmkStatusRL;AmkStatusRR;TempMotor;ErrorInfo;TempIGBT;TempInverter;TempMotor;");
+        writeSD(str_init);
+        sprintf(str_init , "ErrorInfo;TempIGBT;TempInverter;TempMotor;ErrorInfo;TempIGBT;TempInverter;TempMotor;ErrorInfo;TempIGBT;TempInverter;");
+        writeSD(str_init);
+        sprintf(str_init , "ActualVelocityFL;ActualVelocityFR;ActualVelocityRL;ActualVelocityRR;TorqueLimitPositiveFL;TorqueLimitPositiveFR;");
+        writeSD(str_init);
+        sprintf(str_init , "TorqueLimitPositiveRL;TorqueLimitPositiveRR;TorqueLimitNegativeFL;TorqueLimitNegativeFR;TorqueLimitNegativeRL;");
+        writeSD(str_init);
+        sprintf(str_init , "TorqueLimitNegativeRR;throttle;steering angle;brake;brake_press;status;actualVelocityKMH;max voltage;min voltage;");
+        writeSD(str_init);
+        sprintf(str_init , "avg voltage;max temp;min temp;avg temp;bms_lv[0];bms_lv[1];bms_lv[2];bms_lv[3];bms_lv[4];bms_lv[5];bms_lv[6];bms_lv[7];");
+        writeSD(str_init);
+        sprintf(str_init , "Car voltage;Lem current;current sensor;total power;acceleration x;acceleration y;acceleration z;omega x;omega y;omega z;");
+        writeSD(str_init);
+        sprintf(str_init , "SuspensionsRL;SuspensionsRR;SuspensionsFR;SuspensionsFL;temp pre rad;temp pre cold;temp post cold;temp pre mot;temp post mot;");
+        writeSD(str_init);
+        sprintf(str_init , "Gpio bms;Gpio imd;Gpio sdc 1;Gpio sdc 2;Gpio sdc 3;Gpio sdc 4;Gpio sdc 5;Gpio sdc 6\n");
+        writeSD(str_init);
+
+}
+void createFile()
+{
+    char temp[20];
+    sprintf(temp, "test%d.txt ", file_counter);
+    memcpy(filename, temp, 20);
+    file_counter++;
+
+}
+void createFirstFile()
+{
+    char temp[20];
+    sprintf(temp, "Stest%d.txt ", file_counter);
+    memcpy(filename, temp, 20);
+    file_counter++;
 
 }
 

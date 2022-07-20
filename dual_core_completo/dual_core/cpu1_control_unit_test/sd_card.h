@@ -66,6 +66,10 @@ static const char *StringFromFresult(FRESULT fresult);
 extern int file_counter;
 extern char filename[20];
 
+void newSetupSD(void);
+void createFile(void);
+void createFirstFile(void);
+void writeHeader(void);
 void setupSD(void);
 void writeSD(char *str);
 

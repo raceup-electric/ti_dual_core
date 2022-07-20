@@ -144,8 +144,8 @@ void updatePage1()
     else scic_msg("main.hv.bco=REDÿÿÿ\0");
 
 
-    if(local_sh.status.status_shared & 0b00000010) scic_msg("main.lv.bco=REDÿÿÿ\0");
-    else scic_msg("main.lv.bco=GREENÿÿÿ\0");
+    if(local_sh.status.status_shared & 0b00000010) scic_msg("main.lv.bco=GREENÿÿÿ\0");
+    else scic_msg("main.lv.bco=REDÿÿÿ\0");
 
     // DA Sostituire con fault hv
     //if(local_sh.status.status_shared & 0b00000100) scic_msg("main.temp.bco=REDÿÿÿ\0");
@@ -379,7 +379,7 @@ void updatePage14(){
     scic_msg(tmp);
     sprintf(tmp, "pwr_set.trqr.val=%dÿÿÿ\0", (int)(local_sh.power_setup.rear_motor_scale_shared*10));
     scic_msg(tmp);
-    sprintf(tmp, "pwr_set.pow.val=%dÿÿÿ\0", (int)local_sh.power_setup.power_limit_shared);
+    sprintf(tmp, "pwr_set.pow.val=%luÿÿÿ\0", (Uint32)local_sh.power_setup.power_limit_shared);
     scic_msg(tmp);
 }
 

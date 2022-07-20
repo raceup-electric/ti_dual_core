@@ -618,18 +618,18 @@ void checkTemps(){
 void checkStatus()
 {
     //STATUS
-    //bit       | 7  |    6    |    5     |  4  |     3     |    2    |    1     | 0  |
-    //meaning   | RF | imp_b_t | brk_disc | r2d | PRECHARGE | TEMP_OK | LV_ALARM | HV |
+    //bit       | 7  |    6    |    5     |  4  |     3     |    2        |    1     | 0  |
+    //meaning   | RF | imp_b_t | brk_disc | r2d | PRECHARGE | Fault check | LV_ALARM | HV |
 
     Uint16 mstatus = 0b00000000;
     if (isHVOn())
         mstatus |= 0b00000001;
 //    if (GPIO_readPin(LV_ALARM))
 //        mstatus |= 0b00000010;
-    mstatus |= 0b00000000;
+    mstatus |= 0b00000010;      //LV is always on xD
 
-    if (temp_warning)
-        mstatus |= 0b00000100;
+    //TODO: fault check is not implemented
+
     if (enableMotor)
         mstatus |= 0b00001000;
     if (R2D_state)
@@ -811,5 +811,6 @@ void update_shared_mem()
     sh.status = status_log;
     sh.gpio = gpio_log;
     sh.pedals = pedals_log;
+    sh.power_setup = power_setup_log;
 }
 

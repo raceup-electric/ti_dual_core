@@ -27,7 +27,7 @@
 int counter;    //for debug
 
 //timestamp
-Uint32 time_elapsed;
+Uint32 time_elapsed = 0;
 
 // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
 //float sendyne_current;

@@ -34,6 +34,8 @@ void main(void)
 
     GPIOSetup();
     setupSD();
+    createFirstFile();
+    writeHeader();
     uart_setup();
 
 #ifndef NO_LORA
@@ -81,25 +83,7 @@ void main(void)
 
     local_sh = sh;
     //DELAY_US(10000);
-    char str_init[200];
-    sprintf(str_init , "timestamp;AmkStatusFL;AmkStatusFR;AmkStatusRL;AmkStatusRR;TempMotor;ErrorInfo;TempIGBT;TempInverter;TempMotor;");
-    writeSD(str_init);
-    sprintf(str_init , "ErrorInfo;TempIGBT;TempInverter;TempMotor;ErrorInfo;TempIGBT;TempInverter;TempMotor;ErrorInfo;TempIGBT;TempInverter;");
-    writeSD(str_init);
-    sprintf(str_init , "ActualVelocityFL;ActualVelocityFR;ActualVelocityRL;ActualVelocityRR;TorqueLimitPositiveFL;TorqueLimitPositiveFR;");
-    writeSD(str_init);
-    sprintf(str_init , "TorqueLimitPositiveRL;TorqueLimitPositiveRR;TorqueLimitNegativeFL;TorqueLimitNegativeFR;TorqueLimitNegativeRL;");
-    writeSD(str_init);
-    sprintf(str_init , "TorqueLimitNegativeRR;throttle;steering angle;brake;brake_press;status;actualVelocityKMH;max voltage;min voltage;");
-    writeSD(str_init);
-    sprintf(str_init , "avg voltage;max temp;min temp;avg temp;bms_lv[0];bms_lv[1];bms_lv[2];bms_lv[3];bms_lv[4];bms_lv[5];bms_lv[6];bms_lv[7];");
-    writeSD(str_init);
-    sprintf(str_init , "Car voltage;Lem current;current sensor;total power;acceleration x;acceleration y;acceleration z;omega x;omega y;omega z;");
-    writeSD(str_init);
-    sprintf(str_init , "SuspensionsRL;SuspensionsRR;SuspensionsFR;SuspensionsFL;temp pre rad;temp pre cold;temp post cold;temp pre mot;temp post mot;");
-    writeSD(str_init);
-    sprintf(str_init , "Gpio bms;Gpio imd;Gpio sdc 1;Gpio sdc 2;Gpio sdc 3;Gpio sdc 4;Gpio sdc 5;Gpio sdc 6\n");
-    writeSD(str_init);
+
 
 #ifdef LORA_DEBUG
     debugSet();
@@ -109,7 +93,7 @@ void main(void)
 #endif
 
           //start timer1
-    CpuTimer2Regs.TCR.bit.TSS = 0;        //Start timer 2
+    CpuTimer2Regs.TCR.bit.TSS = 1;        //Start timer 2
 
 
 
@@ -266,6 +250,16 @@ __interrupt void cpu_timer1_isr(void)
         writeSD(cmd);
 
 
+#ifdef MORE_FILES
+        if(CpuTimer1.InterruptCount % 2000 == 0 && CpuTimer1.InterruptCount != 0)
+        {
+            //DA TESTARE SE USARE O MENO
+            newSetupSD();
+            createFile();
+            writeHeader();
+
+        }
+#endif
 #endif
         if(CpuTimer1.InterruptCount % 5 == 0)
         {
