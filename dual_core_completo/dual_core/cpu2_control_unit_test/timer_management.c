@@ -111,6 +111,8 @@ __interrupt void cpu_timer1_isr(void)
 
     updateGPIOState();
 
+    emergencyScreen();
+
 
 #ifndef DEBUG_NO_HV
     checkHV();

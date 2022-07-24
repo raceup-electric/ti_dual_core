@@ -154,6 +154,8 @@ void checkTemps();
 
 void checkStatus();
 
+void emergencyScreen();
+
 void update_shared_mem();
 
 void update_log_values();

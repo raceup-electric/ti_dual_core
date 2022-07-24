@@ -84,5 +84,6 @@ void stopAMK();
 void brakeAMK(int);
 void throttleAMK(int);
 
+void sendHostData();
 
 #endif

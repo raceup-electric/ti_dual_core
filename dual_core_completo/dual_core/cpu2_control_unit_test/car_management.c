@@ -644,6 +644,12 @@ void checkStatus()
     status = mstatus;
 }
 
+void emergencyScreen()
+{
+    if (Air2_State && actualVelocityKMH > 10 && batteryPackTension > 60)
+        display.page = BRAKE_PAGE;
+}
+
 void sendDataToLogger()
 {
     update_log_values();

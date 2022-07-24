@@ -195,6 +195,7 @@
 #define SPEED_LIMIT_PAGE     0x0E
 #define COPPIE_PAGE_FRONT    0x0F
 #define COPPIE_PAGE_REAR     0x10
+#define BRAKE_PAGE          0x11
 
 //
 // ePWM
