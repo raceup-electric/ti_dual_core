@@ -91,14 +91,14 @@ struct Imu_Log{
 };
 
 struct Gpio_Log{
-    bool Imd_shared;
-    bool Bms_shared;
-    bool Sdc1_shared;
-    bool Sdc2_shared;
-    bool Sdc3_shared;
-    bool Sdc4_shared;
-    bool Sdc5_shared;
-    bool Sdc6_shared;
+    int Imd_shared;
+    int Bms_shared;
+    int Sdc1_shared;
+    int Sdc2_shared;
+    int Sdc3_shared;
+    int Sdc4_shared;
+    int Sdc5_shared;
+    int Sdc6_shared;
 };
 
 struct Power_Setup_Log{

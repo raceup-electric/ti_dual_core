@@ -102,13 +102,6 @@ struct BMS_Log {
     float mean_bms_temp_shared;
 };
 
-//Deprecated
-/*struct Sendyne_Log {
-    float sendyne_current_shared;
-    float sendyne_voltage_shared;
-    float curr_sens_shared;
-    float total_power_shared;
-};*/
 struct Power_Log {
     float lem_current_shared;
     float batteryPack_voltage_shared;
@@ -137,14 +130,14 @@ struct Pedals_Log{
 
 
 struct Gpio_Log{
-    bool Imd_shared;
-    bool Bms_shared;
-    bool Sdc1_shared;
-    bool Sdc2_shared;
-    bool Sdc3_shared;
-    bool Sdc4_shared;
-    bool Sdc5_shared;
-    bool Sdc6_shared;
+    int Imd_shared;
+    int Bms_shared;
+    int Sdc1_shared;
+    int Sdc2_shared;
+    int Sdc3_shared;
+    int Sdc4_shared;
+    int Sdc5_shared;
+    int Sdc6_shared;
 };
 
 struct Power_Setup_Log{
