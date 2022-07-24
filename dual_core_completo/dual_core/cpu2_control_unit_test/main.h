@@ -257,16 +257,16 @@ tCANMsgObject TXCANB_Setpoints_Message[4];
 unsigned char TXB_Setpoints_Data[4][8];
 
 //Hardware debug variables
-int Air1_State;
-int Air2_State;
-int Imd_State;
-int Bms_State;
-int Sdc1_State;
-int Sdc2_State;
-int Sdc3_State;
-int Sdc4_State;
-int Sdc5_State;
-int Sdc6_State;
+Uint16 Air1_State;
+Uint16 Air2_State;
+Uint16 Imd_State;
+Uint16 Bms_State;
+Uint16 Sdc1_State;
+Uint16 Sdc2_State;
+Uint16 Sdc3_State;
+Uint16 Sdc4_State;
+Uint16 Sdc5_State;
+Uint16 Sdc6_State;
 
 //ADC
 Uint16 Acc2_temp;

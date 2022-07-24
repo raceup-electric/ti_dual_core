@@ -5,14 +5,16 @@
 #include "global_definitions.h"
 
 
-extern bool Imd_State;
-extern bool Bms_State;
-extern bool Sdc1_State;
-extern bool Sdc2_State;
-extern bool Sdc3_State;
-extern bool Sdc4_State;
-extern bool Sdc5_State;
-extern bool Sdc6_State;
+extern Uint16 Air1_State;
+extern Uint16 Air2_State;
+extern Uint16 Imd_State;
+extern Uint16 Bms_State;
+extern Uint16 Sdc1_State;
+extern Uint16 Sdc2_State;
+extern Uint16 Sdc3_State;
+extern Uint16 Sdc4_State;
+extern Uint16 Sdc5_State;
+extern Uint16 Sdc6_State;
 
 void GPIOSetup();
 void updateGPIOState();

@@ -130,14 +130,14 @@ struct Pedals_Log{
 
 
 struct Gpio_Log{
-    int Imd_shared;
-    int Bms_shared;
-    int Sdc1_shared;
-    int Sdc2_shared;
-    int Sdc3_shared;
-    int Sdc4_shared;
-    int Sdc5_shared;
-    int Sdc6_shared;
+    Uint16 Imd_shared;
+    Uint16 Bms_shared;
+    Uint16 Sdc1_shared;
+    Uint16 Sdc2_shared;
+    Uint16 Sdc3_shared;
+    Uint16 Sdc4_shared;
+    Uint16 Sdc5_shared;
+    Uint16 Sdc6_shared;
 };
 
 struct Power_Setup_Log{
