@@ -100,6 +100,7 @@ void setup()
        display.ack_speed = 99;
        display.ack_coppie_front = 99;
        display.ack_coppie_rear = 99;
+       display.emergencyBrk_isNotSet = 1;
 
        setupOk = 1;    //debug
 

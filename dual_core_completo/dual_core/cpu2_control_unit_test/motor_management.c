@@ -42,7 +42,7 @@ void read_AMK_Values1(Uint16 canMsg[], int indexMotor) {
     motorVal1[indexMotor].AMK_bInverterOn = getBit(canMsg[1],6);
     motorVal1[indexMotor].AMK_bDerating = getBit(canMsg[1],7);
 
-    motorVal1[indexMotor].AMK_ActualVelocity = canMsg[2] | canMsg[3] << 8;
+    motorVal1[indexMotor].AMK_ActualVelocity = unsigned_to_signed((canMsg[2] | canMsg[3] << 8));
     motorVal1[indexMotor].AMK_TorqueCurrent = (canMsg[4] | canMsg[5] << 8) * AMK_CURR_SCALE;
     motorVal1[indexMotor].AMK_Voltage = (canMsg[6] | canMsg[7] << 8);
 

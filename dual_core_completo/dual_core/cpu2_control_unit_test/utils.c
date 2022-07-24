@@ -71,6 +71,14 @@ float uint32_to_float(Uint32 u)
 
     return temp.f;
 }
+int16_t unsigned_to_signed(Uint16 value){
+    union{
+        Uint16 u;
+        int16_t s;
+    }temp;
+    temp.u = value;
+    return temp.s;
+}
 
 float convert_temp_lv(float cell_volt)
 {

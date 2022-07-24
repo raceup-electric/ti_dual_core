@@ -2,6 +2,7 @@
 
 
 int LoRa_Packet_Counter = 0;
+int LoRa_initialized = 0;
 
 void main(void)
 {
@@ -41,7 +42,7 @@ void main(void)
 #ifndef NO_LORA
 
     GPIO_LoRa_Setup();
-    LoRa_begin(LORA_DEFAULT_SPI_FREQUENCY);
+    LoRa_initialized = LoRa_begin(LORA_DEFAULT_SPI_FREQUENCY);
 #endif
 
 
@@ -85,7 +86,7 @@ void main(void)
     //DELAY_US(10000);
 
 
-#ifdef LORA_DEBUG
+#ifndef NO_LORA_DEBUG
     debugSet();
     CpuTimer1Regs.TCR.bit.TSS = 1;      //Do not start timer 1 (SD) in LORA_DEBUG
 #else
@@ -263,12 +264,20 @@ __interrupt void cpu_timer1_isr(void)
 #endif
         if(CpuTimer1.InterruptCount % 5 == 0)
         {
-            EALLOW;
-            GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-            updatePage(display.page);
-            updateValues();
-            //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
-            EDIS;
+            if(display.emergencyBrk_active){
+                if(display.emergencyBrk_isNotSet){
+                    scic_msg("page 18ÿÿÿ\0");
+                    display.emergencyBrk_isNotSet = 0;
+                }
+            }else{
+                EALLOW;
+                GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+                updatePage(display.page);
+                updateValues();
+                display.emergencyBrk_isNotSet = 1;
+                //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
+                EDIS;
+            }
         }
 }
 
@@ -277,7 +286,7 @@ __interrupt void cpu_timer2_isr(void)
 {
 
 #ifndef NO_LORA
-    send_Single_Data();
+    LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
 
 #endif
 

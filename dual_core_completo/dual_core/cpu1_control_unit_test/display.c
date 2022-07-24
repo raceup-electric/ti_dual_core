@@ -144,8 +144,8 @@ void updatePage1()
     else scic_msg("main.hv.bco=REDÿÿÿ\0");
 
 
-    if(local_sh.status.status_shared & 0b00000010) scic_msg("main.lv.bco=GREENÿÿÿ\0");
-    else scic_msg("main.lv.bco=REDÿÿÿ\0");
+    if(local_sh.status.status_shared & 0b00000010) scic_msg("main.air2.bco=GREENÿÿÿ\0");
+    else scic_msg("main.air2.bco=REDÿÿÿ\0");
 
     // DA Sostituire con fault hv
     //if(local_sh.status.status_shared & 0b00000100) scic_msg("main.temp.bco=REDÿÿÿ\0");

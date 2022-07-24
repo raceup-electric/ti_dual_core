@@ -120,6 +120,8 @@ struct Display_command{
     Uint16 ack_coppie_rear; //non è un bool, ma il valore della selezione 0-7
     Uint16 selector_coppie_front;
     Uint16 ack_coppie_front; //non è un bool, ma il valore della selezione 0-7
+    int emergencyBrk_active;
+    int emergencyBrk_isNotSet;
 
 };
 
@@ -174,6 +176,8 @@ float ConvertTempToKelvin(int adc_read);
 //void debugLight(int period);
 
 float uint32_to_float(Uint32 u);
+int16_t unsigned_to_signed(Uint16 value);
+
 
 void send_calibration(float V[3][3]);
 void imu_calibration_1(float accelerations[3]);

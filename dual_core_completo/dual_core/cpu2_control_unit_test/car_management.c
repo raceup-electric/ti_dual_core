@@ -626,7 +626,9 @@ void checkStatus()
         mstatus |= 0b00000001;
 //    if (GPIO_readPin(LV_ALARM))
 //        mstatus |= 0b00000010;
-    mstatus |= 0b00000010;      //LV is always on xD
+    if(Air2_State){
+        mstatus |= 0b00000010;
+    }
 
     //TODO: fault check is not implemented
 
@@ -646,8 +648,12 @@ void checkStatus()
 
 void emergencyScreen()
 {
-    if (Air1_State && actualVelocityKMH > 10 && batteryPackTension > 60)
-        display.page = BRAKE_PAGE;
+    if (Air1_State && actualVelocityKMH > 10 && batteryPackTension > 60){
+        display.emergencyBrk_active = 1;
+    }else{
+        display.emergencyBrk_active = 0;
+    }
+        //display.page = BRAKE_PAGE;
 }
 
 void sendDataToLogger()
