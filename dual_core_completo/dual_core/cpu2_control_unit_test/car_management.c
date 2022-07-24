@@ -646,7 +646,7 @@ void checkStatus()
 
 void emergencyScreen()
 {
-    if (Air2_State && actualVelocityKMH > 10 && batteryPackTension > 60)
+    if (Air1_State && actualVelocityKMH > 10 && batteryPackTension > 60)
         display.page = BRAKE_PAGE;
 }
 
