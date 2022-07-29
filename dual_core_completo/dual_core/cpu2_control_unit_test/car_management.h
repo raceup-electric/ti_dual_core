@@ -35,6 +35,7 @@ extern float mean_bms_voltage;
 extern float max_bms_temp;
 extern float min_bms_temp;
 extern float mean_bms_temp;
+extern uint16_t max_temp_nslave;
 
 //Pedals
 extern float AccPot1;

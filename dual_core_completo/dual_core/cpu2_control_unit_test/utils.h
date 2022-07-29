@@ -63,6 +63,7 @@ struct BMS_Log {
     float max_bms_temp_shared;
     float min_bms_temp_shared;
     float mean_bms_temp_shared;
+    uint16_t max_bms_temp_nslave_shared;
 };
 //Sendyne Deprecated
 /*struct Sendyne_Log {
@@ -182,5 +183,7 @@ int16_t unsigned_to_signed(Uint16 value);
 void send_calibration(float V[3][3]);
 void imu_calibration_1(float accelerations[3]);
 void imu_calibration_2(float accelerations[3]);
+
+void apply_calibration();
 
 #endif

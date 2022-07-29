@@ -118,7 +118,7 @@ void canSetup_phase2()
         RXCANA_BmsTemp_Message.ui32MsgID = MSG_ID_BMS_TEMP;
         RXCANA_BmsTemp_Message.ui32MsgIDMask = 0x0;
         RXCANA_BmsTemp_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
-        RXCANA_BmsTemp_Message.ui32MsgLen = 6;
+        RXCANA_BmsTemp_Message.ui32MsgLen = 7;
         RXCANA_BmsTemp_Message.pucMsgData = RXA_BmsTemp_Data;
 
         CANMessageSet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, MSG_OBJ_TYPE_RX);

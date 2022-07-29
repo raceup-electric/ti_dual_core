@@ -44,7 +44,7 @@ void performancePack()
         float Torque_max[4];
 
         for(i = 0; i < NUM_OF_MOTORS; i++){
-            Torque_max[i] = MAX_POS_TORQUE - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - ((21.0f - MAX_POS_TORQUE)/0.000857) - 13000.0f);
+            Torque_max[i] = 21.0f - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - 13000.0f);
         }
 
         for(i = 0; i < NUM_OF_MOTORS; i++){
@@ -171,27 +171,37 @@ void torqueVectoring()
    int i;
    for (i = 0; i < 4; i++)
    {
-       posTorqueCandidate[i][1] = repFz[i]*th*2*AMK_TorqueLimitPositive[i];
-       negTorqueCandidate[i] = repFz[i]*brk*2*AMK_TorqueLimitNegative[i];
+       posTorqueCandidate[i][1] = repFz[i]*th*4*AMK_TorqueLimitPositive[i];
+       negTorqueCandidate[i] = repFz[i]*brk*4*AMK_TorqueLimitNegative[i];
    }
 
 }
 
 void torqueRepartition()
 {
-    repFz[0] = fz[0]/(fz[0] + fz[1]);
-    repFz[1] = 1 - repFz[0];
-
+    //Sum of forces
     float fzSum = 0;
     int i;
     for (i = 0; i < 4; i++)
         fzSum+= fz[i];
 
+    float fzSumDef = fzSum;
+    //front repartition
+    float repF = (fz[0] + fz[1])/fzSumDef;
+    //Lateral front repartition
+    repFz[0] = (fz[0]/(fz[0] + fz[1]))*repF;
+    repFz[1] = (fz[1]/(fz[0] + fz[1]))*repF;
+
     fzSum = fzSum - (fz[0] + fz[1]);
     fzSum = fz[3]/fzSum;
 
-    repFz[2] = 1 - fzSum;
-    repFz[3] = fzSum;
+    //Lateral rear repartition
+    repFz[2] = (1 - fzSum)*(1-repF);
+    repFz[3] = fzSum*(1-repF);
+
+
+
+
 }
 
 //torque_reg_IPM in uscita é POSITIVO
@@ -233,18 +243,17 @@ void regBrake()
         float T_max_an_IPM = Pw/rads;
 
         //T_lim = 21-0.000857*(rpm-13000); da matlab
-        float T_lim = MAX_POS_TORQUE - 0.000857*(fabsf(motorVal1[mot].AMK_ActualVelocity) -
-                ((21.0f - MAX_POS_TORQUE)/0.000857) - 13000.0f); //da riga 47
-        if(T_lim > 21)
-            T_lim = 21;
+        float T_lim = 21.0f - 0.000857*(fabsf(motorVal1[mot].AMK_ActualVelocity) - 13000.0f); //da riga 47
+        T_lim=saturateFloat(T_lim,-MAX_NEG_TORQUE,0.0f);
 
         if(T_max_an_IPM > T_lim)
             torque_reg_IPM[mot] = T_lim;
         else
             torque_reg_IPM[mot] = T_max_an_IPM;
-#ifdef NO_TORQUE_VECTORING
+//#ifdef NO_TORQUE_VECTORING
+        //Sovrascrive il valore sia che ci sia o no TV
         negTorquesNM[mot] = -((brakeReq/100.0)*torque_reg_IPM[mot]);
-#endif
+//#endif
     }
 
 

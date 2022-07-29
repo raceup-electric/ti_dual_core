@@ -64,7 +64,7 @@ void updateValues()
 }
 void updatePage(Uint16 page){
 
-    if (currentPage!=page){
+    if (currentPage!=page || !display.emergencyBrk_isNotSet){
     switch(page){
         case PAGE_1:
           currentPage=PAGE_1;

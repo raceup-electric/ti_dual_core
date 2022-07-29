@@ -71,11 +71,12 @@ void read_IMU_message(Uint16 imu_values[], int id)
     if (id == MSG_ID_IMU_1)
     {
         accelerations[X] = uint32_to_float(aux_1);
-        accelerations[Y] = uint32_to_float(aux_2);
+        accelerations[Y] = -uint32_to_float(aux_2);
     }
     else if (id == MSG_ID_IMU_2)
     {
         accelerations[Z] = uint32_to_float(aux_1);
+
         omegas[X] = uint32_to_float(aux_2);
     }
     else if (id == MSG_ID_IMU_3)
@@ -168,6 +169,8 @@ void read_BMS_TEMP_message(Uint16 bms_values[]){
       min_bms_temp = convertBMStemp(tmp);
       tmp=(bms_values[4] | (bms_values[5]<<8));
       mean_bms_temp = convertBMStemp(tmp);
+      max_temp_nslave = bms_values[6];
+
 }
 
 void read_power_control_message(Uint16 val[]){
@@ -756,6 +759,7 @@ void update_log_values()
     bms_log.max_bms_voltage_shared = max_bms_voltage;
     bms_log.mean_bms_voltage_shared = mean_bms_voltage;
     bms_log.min_bms_voltage_shared = min_bms_voltage;
+    bms_log.max_bms_temp_nslave_shared = max_temp_nslave;
 
 
 

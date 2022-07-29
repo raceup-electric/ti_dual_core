@@ -45,6 +45,7 @@ float mean_bms_voltage;
 float max_bms_temp;
 float min_bms_temp;
 float mean_bms_temp;
+uint16_t max_temp_nslave;
 
 
 
@@ -144,7 +145,7 @@ float anti_wind_up = 0;
 float reduction_factor;
 
 Uint16 regensetup[8];
-float max_regen_current=40.0f;
+float max_regen_current=MAX_REGEN_CURRENT;
 
 float power_limit=POWER_LIMIT; //quello che gli arriva dal volante
 bool powerOK = false;
@@ -199,7 +200,7 @@ float bms_lv_cell[8]; //gli ultimi due valori sono temperature
 float versx[3];
 float versy[3];
 float versz[3];
-float V[3][3];
+float V[3][3] = {{1.0f,0.0f,0.0f},{0.0f,1.0f,0.0f},{0.0f,0.0f,1.0f}};
 
 //timer
 volatile uint16_t cpuTimer0IntCount;
@@ -240,7 +241,7 @@ unsigned char RXA_Imu_Data[8];
 unsigned char RXA_Smu_Data[8];
 unsigned char RXA_Sendyne_Data[8];
 unsigned char RXA_BmsVol_Data[6];
-unsigned char RXA_BmsTemp_Data[6];
+unsigned char RXA_BmsTemp_Data[7];
 unsigned char RXA_BmsLV_Data[8];
 unsigned char RXA_PwCtrl_Data[1];
 unsigned char RXA_Wheel_Data[1];

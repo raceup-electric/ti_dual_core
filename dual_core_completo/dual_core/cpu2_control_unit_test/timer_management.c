@@ -210,12 +210,7 @@ __interrupt void cpu_timer1_isr(void)
                 stopAMK();
     #else
                 //brakeAMK(brake * (NEGATIVE_TORQUE_LIMIT /10));
-                if(lem_current > max_regen_current){
-                    brakeAMK(brake);
-                }
-                else {
-                    stopAMK();
-                }
+                 brakeAMK(brake);       //Elimintated the if-else statement with lem_curr < max_reg
     #endif
             }
             else if(brakeMec)
@@ -257,7 +252,7 @@ __interrupt void cpu_timer1_isr(void)
     }
 
     sendAMKData();
-    sendHostData();
+    //sendHostData();
     checkStatus();
     computeBatteryPackTension();
     sendDataToLogger();

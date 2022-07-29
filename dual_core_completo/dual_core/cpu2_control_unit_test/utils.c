@@ -165,37 +165,11 @@ void send_calibration(float V[3][3]){
     }
 }
 
-//void send_calibration(float V[3][3]){
-//    //Loads floats of the correction matrix in the packets arrays
-//    //with the following logic:
-//    //Value with a pair sum of indices must be placed in position 0 of the i-esim array
-//    //Value with a odd sum must be in position 1
-//    //Every time a pair of value is loaded the the number of row 'c' is increased by +1
-//    int i, j,c;
-//    unsigned char tmp[4];
-//    for(i = 0; i < 3; i++){
-//        for(j = 0; j < 3; j++){
-//            if((i+j)%2 == 0){
-//                float2Bytes(tmp, V[i][j]);
-//                TXA_Smu_Calibration[c][0] = tmp[0];
-//                TXA_Smu_Calibration[c][1] = tmp[1];
-//                TXA_Smu_Calibration[c][2] = tmp[2];
-//                TXA_Smu_Calibration[c][3] = tmp[3];
-//            }else{
-//                float2Bytes(tmp, V[i][j]);
-//                TXA_Smu_Calibration[c][0] = tmp[0];
-//                TXA_Smu_Calibration[c][1] = tmp[1];
-//                TXA_Smu_Calibration[c][2] = tmp[2];
-//                TXA_Smu_Calibration[c][3] = tmp[3];
-//                c++;
-//            }
-//        }
-//    }
-//
-//    for(c = 0; c < 5; c++){
-//        CANMessageSet(CANA_BASE, TX_OBJ_ID, &TXCANA_Smu_Message[c], MSG_OBJ_TYPE_TX);
-//    }
-//}
+void apply_calibration(){
+    accelerations[X] = accelerations[X] * V[0][0] + accelerations[Y] * V[0][1] + accelerations[Z] * V[0][2];
+    accelerations[Y] = accelerations[X] * V[1][0] + accelerations[Y] * V[1][1] + accelerations[Z] * V[1][2];
+    accelerations[Z] = accelerations[X] * V[2][0] + accelerations[Y] * V[2][1] + accelerations[Z] * V[2][2];
+}
 
 void float2Bytes(unsigned char* bytes_temp, float float_variable)
 {

@@ -102,6 +102,7 @@ struct BMS_Log {
     float max_bms_temp_shared;
     float min_bms_temp_shared;
     float mean_bms_temp_shared;
+    uint16_t max_bms_temp_nslave_shared;
 };
 
 struct Power_Log {

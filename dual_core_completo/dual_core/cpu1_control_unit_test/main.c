@@ -228,7 +228,7 @@ __interrupt void cpu_timer1_isr(void)
                 "%.4f;%.4f;%.4f;%.4f;%.4f;%.4f;"   //imu
                 "%.1f;%.1f;%.1f;%.1f;"                   //suspensions
                 "%.1f;%.1f;%.1f;%.1f;%.1f;"        //temperatures per cooling
-                "%d;%d;%d;%d;%d;%d;%d;%d\n",
+                "%d;%d;%d;%d;%d;%d;%d;%d;%d\n",
 
 //                        //fanSpeed
 //                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
@@ -247,7 +247,8 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
                         local_sh.gpio.Sdc1_shared, local_sh.gpio.Sdc2_shared,
                         local_sh.gpio.Sdc3_shared, local_sh.gpio.Sdc4_shared,
-                        local_sh.gpio.Sdc5_shared, local_sh.gpio.Sdc6_shared);
+                        local_sh.gpio.Sdc5_shared, local_sh.gpio.Sdc6_shared,
+                        local_sh.bms.max_bms_temp_nslave_shared);
         writeSD(cmd);
 
 
@@ -264,12 +265,12 @@ __interrupt void cpu_timer1_isr(void)
 #endif
         if(CpuTimer1.InterruptCount % 5 == 0)
         {
-            if(display.emergencyBrk_active){
+            /*if(display.emergencyBrk_active){
                 if(display.emergencyBrk_isNotSet){
                     scic_msg("page 18ÿÿÿ\0");
                     display.emergencyBrk_isNotSet = 0;
                 }
-            }else{
+            }else{*/
                 EALLOW;
                 GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
                 updatePage(display.page);
@@ -277,7 +278,7 @@ __interrupt void cpu_timer1_isr(void)
                 display.emergencyBrk_isNotSet = 1;
                 //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
                 EDIS;
-            }
+           // }
         }
 }
 

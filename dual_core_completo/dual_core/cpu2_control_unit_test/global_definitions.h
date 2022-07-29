@@ -36,7 +36,7 @@
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 14000 //15000               //Speed limit
+#define SPEED_LIMIT                 14500 //15000               //Speed limit
 #define M_N                         9.8f
 
 //
@@ -58,23 +58,23 @@
 #define TAU                         (1.0f/14.4f)
 #define K_DELTA                     0.2776853f
 #define R0                          0.228f
-#define FZR                         62.0f
+#define FZR                         72.0f
 #define FZF                         58.0f
-#define W                           1.525f
-#define MASS                        280.0f
+#define W                           1.535f
+#define MASS                        260.0f
 #define Z_G                         0.3f
 #define T_F                         1.23f
 #define T_R                         1.2f
 #define K_F                         0.53f
 #define K_R                         (1-K_F)
-#define C_Z_A                       3.04f
+#define C_Z_A                       3.94f
 #define RHO                         1.1352f
 #define A_A                         1.087f
 
-#define MAX_POS_TORQUE              21.0f
-#define MAX_NEG_TORQUE              -15.0f
+#define MAX_POS_TORQUE              12.0f
+#define MAX_NEG_TORQUE              -10.0f
 
-#define MAX_REGEN_CURRENT           40.0f
+#define MAX_REGEN_CURRENT           40.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!!!!! xd RIcjy
 //
 
 // POWER CONTROL

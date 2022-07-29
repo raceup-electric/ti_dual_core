@@ -851,7 +851,7 @@ void writeHeader()
         writeSD(str_init);
         sprintf(str_init , "SuspensionsRL;SuspensionsRR;SuspensionsFR;SuspensionsFL;temp pre rad;temp pre cold;temp post cold;temp pre mot;temp post mot;");
         writeSD(str_init);
-        sprintf(str_init , "Gpio bms;Gpio imd;Gpio sdc 1;Gpio sdc 2;Gpio sdc 3;Gpio sdc 4;Gpio sdc 5;Gpio sdc 6\n");
+        sprintf(str_init , "Gpio bms;Gpio imd;Gpio sdc 1;Gpio sdc 2;Gpio sdc 3;Gpio sdc 4;Gpio sdc 5;Gpio sdc 6;MaxtempNslave\n");
         writeSD(str_init);
 
 }

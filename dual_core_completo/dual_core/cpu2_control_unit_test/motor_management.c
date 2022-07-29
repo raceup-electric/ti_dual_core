@@ -305,8 +305,8 @@ void sendAMKData() {
     for (i = 0; i < NUM_OF_MOTORS; i++) {
         int posTorque, negTorque;
 
-        float Torque_max = MAX_POS_TORQUE - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - ((21.0f - MAX_POS_TORQUE)/0.000857) - 13000.0f);
-        Torque_max=saturateFloat(Torque_max,MAX_POS_TORQUE,15.0f);
+        float Torque_max = 21.0f - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - 13000.0f);
+        Torque_max=saturateFloat(Torque_max,MAX_POS_TORQUE,0.0f);
 
         //Torque_max=MAX_POS_TORQUE; //SKIDPAD
 

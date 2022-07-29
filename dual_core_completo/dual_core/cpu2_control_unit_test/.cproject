@@ -150,7 +150,6 @@
 									<listOptionValue builtIn="false" value="NO_REG_BRAKE"/>
 									<listOptionValue builtIn="false" value="NO_ONE_PEDAL"/>
 									<listOptionValue builtIn="false" value="CPU2"/>
-									<listOptionValue builtIn="false" value="NO_TORQUE_VECTORING"/>
 									<listOptionValue builtIn="false" value="_LAUNCHXL_F28379D"/>
 									<listOptionValue builtIn="false" value="_FLASH"/>
 								</option>
@@ -162,6 +161,7 @@
 								<option id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.ABI.1945475544" name="Application binary interface [See 'General' page to edit] (--abi)" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.ABI" value="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.ABI.coffabi" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.UNDEFINE.1660513860" name="Undefine NAME (--undefine, -U)" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.UNDEFINE" valueType="stringList">
 									<listOptionValue builtIn="false" value="NO_POWER_CONTROL"/>
+									<listOptionValue builtIn="false" value="NO_TORQUE_VECTORING"/>
 								</option>
 								<inputType id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compiler.inputType__C_SRCS.989539797" name="C Sources" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compiler.inputType__C_SRCS"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compiler.inputType__CPP_SRCS.363237694" name="C++ Sources" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compiler.inputType__CPP_SRCS"/>
