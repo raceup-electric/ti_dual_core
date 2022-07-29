@@ -651,7 +651,7 @@ void checkStatus()
 
 void emergencyScreen()
 {
-    if (Air1_State && actualVelocityKMH > 10 && batteryPackTension > 60){
+    if (!Air1_State && actualVelocityKMH > 10 && batteryPackTension > 60){
         display.emergencyBrk_active = 1;
     }else{
         display.emergencyBrk_active = 0;

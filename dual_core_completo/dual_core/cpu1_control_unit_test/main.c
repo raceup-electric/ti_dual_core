@@ -265,12 +265,12 @@ __interrupt void cpu_timer1_isr(void)
 #endif
         if(CpuTimer1.InterruptCount % 5 == 0)
         {
-            /*if(display.emergencyBrk_active){
+            if(display.emergencyBrk_active){
                 if(display.emergencyBrk_isNotSet){
                     scic_msg("page 18ÿÿÿ\0");
                     display.emergencyBrk_isNotSet = 0;
                 }
-            }else{*/
+            }else{
                 EALLOW;
                 GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
                 updatePage(display.page);
@@ -278,7 +278,7 @@ __interrupt void cpu_timer1_isr(void)
                 display.emergencyBrk_isNotSet = 1;
                 //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
                 EDIS;
-           // }
+           }
         }
 }
 
