@@ -94,7 +94,7 @@ void send_AMK_SetPoints(int indexMotor, int velocity, int posTorque, int negTorq
     CAN_AMK_SET_POINT[indexMotor][7] = tmp[1];
     TXB_Setpoints_Data[indexMotor][7] = tmp[1];
 
-    CANMessageSet(CANB_BASE, (14 + indexMotor), &TXCANB_Setpoints_Message[indexMotor], MSG_OBJ_TYPE_TX);
+    CANMessageSet(CANB_BASE, (TX_OBJ_AMK_SETPOINTS + indexMotor), &TXCANB_Setpoints_Message[indexMotor], MSG_OBJ_TYPE_TX);
 
 }
 

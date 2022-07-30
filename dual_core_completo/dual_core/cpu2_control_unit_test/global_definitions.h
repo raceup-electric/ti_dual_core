@@ -130,23 +130,20 @@
 
 #define MSG_DATA_LENGTH         8
 
-#define OBJ_ID_TEMPS            3
-#define OBJ_ID_CAR_STATUS       4
-#define OBJ_ID_AMK1_DATA_BASE   5
-#define OBJ_ID_AMK2_DATA_BASE   9
+//Used Mailboxes
+#define TX_OBJ_TO_HOST          8
+#define OBJ_ID_STEERING_WHEEL   9
 #define OBJ_ID_BMS_VOLTAGE      10
 #define OBJ_ID_BMS_TEMP         11
-#define OBJ_ID_AMK_SETPOINTS    13
-#define TX_OBJ_TO_HOST          14
-#define OBJ_ID_STEERING_WHEEL   15
+#define TX_OBJ_AMK_SETPOINTS    14      //Occupa da 14 a 14 + motorIndex = 17
 #define OBJ_ID_FROM_BMS_LV      18
 #define OBJ_ID_FROM_LEM         21
-#define OBJ_ID_FROM_SMU         28
+#define OBJ_ID_FROM_IMU         22
 #define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_FROM_AMK         26
 #define OBJ_ID_FROM_SENDYNE     27
-#define OBJ_ID_FROM_IMU         22
-//#define OBJ_ID_SENDYNE_FORWARD  29
+#define OBJ_ID_FROM_SMU         28
+
 
 
 

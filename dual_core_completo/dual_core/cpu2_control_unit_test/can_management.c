@@ -256,20 +256,7 @@ __interrupt void canISR_A(void)
 
         CANIntClear(CANA_BASE, CAN_INT_INT0ID_STATUS);
 
-    }/* else if (status == OBJ_ID_FROM_SENDYNE) // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
-
-    {
-
-        CANMessageGet(CANA_BASE, OBJ_ID_FROM_SENDYNE, &RXCANA_Sendyne_Message, true);
-//        CAN_readMessage(CANA_BASE, OBJ_ID_FROM_SENDYNE, (uint16_t *) CAN_SENDYNE_ACT_VALUES);
-
-        read_SENDYNE_message(RXA_Sendyne_Data);
-
-        rxAMsgCount++;
-
-        CANIntClear(CANA_BASE, OBJ_ID_FROM_SENDYNE);
-
-    }*/
+    }
     else if (status == OBJ_ID_FROM_IMU){
         //Uint16 imu_msg_temp[8];
         CANMessageGet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, true);
@@ -294,18 +281,6 @@ __interrupt void canISR_A(void)
 
         CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
     }
-    /*else if(status == OBJ_ID_FROM_SMU){
-            //Ricevuto pacchetto da mailbox dello SMU
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, true);
-
-            int id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
-
-            read_SMU_Message_temp((Uint16 *)RXA_Smu_Data, id);
-
-            rxAMsgCount++;
-
-            CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
-    }*/
     else if (status == OBJ_ID_BMS_VOLTAGE){
        //Uint16 bms_msg_temp[6];
 
