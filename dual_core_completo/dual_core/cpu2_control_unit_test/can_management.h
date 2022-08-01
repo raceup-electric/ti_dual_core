@@ -66,7 +66,7 @@ extern unsigned char RXA_Wheel_Data[1];
 extern unsigned char RXA_BmsLV_Data[8];
 extern float TXA_Smu_Calibration[5][2];
 extern unsigned char RXA_Lem_Data[8]; //aggiunto lem
-extern float TXA_Host_Data;
+extern unsigned char TXA_Host_Data[4];
 
 extern tCANMsgObject TXCANB_Setpoints_Message[4];
 extern unsigned char TXB_Setpoints_Data[4][8];

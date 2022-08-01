@@ -245,7 +245,7 @@ unsigned char RXA_BmsTemp_Data[7];
 unsigned char RXA_BmsLV_Data[8];
 unsigned char RXA_PwCtrl_Data[1];
 unsigned char RXA_Wheel_Data[1];
-float TXA_Host_Data;
+unsigned char TXA_Host_Data[4];
 float TXA_Smu_Calibration[5][2];
 //unsigned char TXA_Smu_Calibration[5][8];
 unsigned char RXA_Lem_Data[8]; //aggiunto lem

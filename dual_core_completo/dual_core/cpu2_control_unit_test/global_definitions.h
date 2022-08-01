@@ -12,8 +12,8 @@
 #define NUM_OF_MOTORS       4
 #define KMH2MS              (1 / 3.6)
 #ifdef NO_TORQUE_VECTORING
-#define REAR_MOTOR_SCALE    1.3f
-#define FRONT_MOTOR_SCALE   0.5f
+#define REAR_MOTOR_SCALE    1.2f
+#define FRONT_MOTOR_SCALE   0.8f
 #else
 #define REAR_MOTOR_SCALE    1.0f
 #define FRONT_MOTOR_SCALE   1.0f
@@ -71,18 +71,18 @@
 #define RHO                         1.1352f
 #define A_A                         1.087f
 
-#define MAX_POS_TORQUE              12.0f
+#define MAX_POS_TORQUE              13.0f
 #define MAX_NEG_TORQUE              -10.0f
 
-#define MAX_REGEN_CURRENT           40.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!!!!! xd RIcjy
+#define MAX_REGEN_CURRENT           50.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!!!!! xd RIcjy
 //
 
 // POWER CONTROL
 //
-#define POWER_LIMIT         30000.0f       //Watt
+#define POWER_LIMIT         35000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
-#define KI_PI               20.0f
+#define KI_PI               10.0f
 #define T_SAMPLING_ECU      0.010f       //seconds
 #define PI_UPPER_BOUND      175929.2f
 

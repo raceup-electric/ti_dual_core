@@ -1,5 +1,9 @@
 #include "torque_management.h"
 
+//Save of last state
+float posTorqueNM_last[4] = {0, 0, 0 ,0};
+float negTorqueNM_last[4] = {0, 0, 0 ,0};
+
 void readVelocity()
 {
     actualVelocityRPM = readRPMVelocity();
@@ -20,6 +24,7 @@ float readRPMVelocity()
 
 void performancePack()
 {
+
     int i;
     for(i=0; i<4; i++){
         AMK_TorqueLimitPositive[i] = MAX_POS_TORQUE;
@@ -60,8 +65,16 @@ void performancePack()
 
         for (i = 0; i < NUM_OF_MOTORS; i++)
         {
-            posTorquesNM[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1]);
-            negTorquesNM[i] = negTorqueCandidate[i];
+            //Save last setting of pos and neg troque
+            posTorqueNM_last[i] = posTorqueNM_last[i] - 0.2*(posTorqueNM_last[i] - (fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1])));
+            negTorqueNM_last[i] = negTorqueNM_last[i] - 0.2*(negTorqueNM_last[i] - (negTorqueCandidate[i]));
+            //posTorquesNM[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1]);
+            //negTorquesNM[i] = negTorqueCandidate[i];
+
+            //Send them out of TV
+            posTorquesNM[i] = posTorqueNM_last[i];
+            negTorquesNM[i] = negTorqueNM_last[i];
+
         }
 
 }

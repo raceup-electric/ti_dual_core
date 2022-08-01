@@ -346,13 +346,8 @@ void throttleAMK(int posTorqueLim) {
 
 
 void sendHostData() {
-//    unsigned char tmp[4];
 
-//    float2Bytes(tmp, batteryPackTension);
-//    TXA_Host_Data[0] = tmp[0];
-//    TXA_Host_Data[1] = tmp[1];
-//    TXA_Host_Data[2] = tmp[2];
-//    TXA_Host_Data[3] = tmp[3];
-    TXA_Host_Data = batteryPackTension;
+    TXA_Host_Data[0] = batteryPackTension & 0x00FF;
+    TXA_Host_Data[1] = (batteryPackTension >> 8) & 0x00FF;
     CANMessageSet(CANA_BASE, TX_OBJ_TO_HOST, &TXCANA_BmsHost_Message, MSG_OBJ_TYPE_TX);
 }

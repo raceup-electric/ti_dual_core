@@ -70,12 +70,12 @@ void read_IMU_message(Uint16 imu_values[], int id)
 
     if (id == MSG_ID_IMU_1)
     {
-        accelerations[X] = uint32_to_float(aux_1);
-        accelerations[Y] = -uint32_to_float(aux_2);
+        accelerations[X] = accelerations[X] - 0.2*(accelerations[X] - (uint32_to_float(aux_1)));
+        accelerations[Y] = accelerations[Y] - 0.2*(accelerations[Y] - (-uint32_to_float(aux_2)));
     }
     else if (id == MSG_ID_IMU_2)
     {
-        accelerations[Z] = uint32_to_float(aux_1);
+        accelerations[Z] = accelerations[Z] - 0.2*(accelerations[Z] - (uint32_to_float(aux_1)));
 
         omegas[X] = uint32_to_float(aux_2);
     }

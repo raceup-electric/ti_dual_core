@@ -127,7 +127,7 @@ void canSetup_phase2()
         TXCANA_BmsHost_Message.ui32MsgIDMask = 0;
         TXCANA_BmsHost_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
         TXCANA_BmsHost_Message.ui32MsgLen = 4;
-        TXCANA_BmsHost_Message.pucMsgData = (unsigned char*) &TXA_Host_Data;
+        TXCANA_BmsHost_Message.pucMsgData = TXA_Host_Data;
 
         //PACCHETTO BMS LV
         RXCANA_BmsLV_Message.ui32MsgID = MSG_ID_BMS_BASE;
