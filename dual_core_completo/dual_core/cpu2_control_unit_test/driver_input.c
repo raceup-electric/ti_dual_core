@@ -18,7 +18,7 @@ int Read_throttle(){
     //return 0 throttle if one APPS is disconnected
     if ((AccPot1 < ACC1_DISC_THRES) && (AccPot2 < ACC1_DISC_THRES))
         return 0;
-    else if (((AccPot1 < ACC1_DISC_THRES) || (AccPot2 < ACC1_DISC_THRES)))
+    else if (((AccPot1 < ACC1_DISC_THRES) || (AccPot2 < ACC2_DISC_THRES)))
         media_acc_on = 0;
     else
         media_acc_on = 1;
@@ -30,10 +30,10 @@ int Read_throttle(){
     acc2Pos = changeRange(acc2Pos, 0, 1, 0, 100);
 
     //DEBUG!!! Unsafe test configuration
-    //if (abs(acc1Pos - acc2Pos) > ACC_IMPL_THRES)
-    //{
-      //  return 0;   //implausibility
-    //}
+    if (abs(acc1Pos - acc2Pos) > ACC_IMPL_THRES)
+    {
+        return 0;   //implausibility
+    }
 
 //    return saturateUnsigned((acc1Pos + acc2Pos)/2.0, 100, 0); //    //DEBUG!!! Unsafe test configuration
     if(media_acc_on){
