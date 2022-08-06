@@ -70,12 +70,12 @@ void read_IMU_message(Uint16 imu_values[], int id)
 
     if (id == MSG_ID_IMU_1)
     {
-        accelerations[X] = accelerations[X] - 0.2*(accelerations[X] - (uint32_to_float(aux_1)));
-        accelerations[Y] = accelerations[Y] - 0.2*(accelerations[Y] - (-uint32_to_float(aux_2)));
+        accelerations[X] = accelerations[X] - 0.5*(accelerations[X] - (uint32_to_float(aux_1)));
+        accelerations[Y] = accelerations[Y] - 0.5*(accelerations[Y] - (-uint32_to_float(aux_2)));
     }
     else if (id == MSG_ID_IMU_2)
     {
-        accelerations[Z] = accelerations[Z] - 0.2*(accelerations[Z] - (uint32_to_float(aux_1)));
+        accelerations[Z] = accelerations[Z] - 0.5*(accelerations[Z] - (uint32_to_float(aux_1)));
 
         omegas[X] = uint32_to_float(aux_2);
     }
@@ -537,16 +537,17 @@ void fanControl()
 {
     if (!R2D_state)
     {
-        leftFanSpeed = 0;
-        rightFanSpeed = 0;
+       leftFanSpeed = 0;
+       rightFanSpeed = 0;
     }
     else
     {
         int leftTemp = fmax(motorVal2[0].AMK_TempInverter, motorVal2[2].AMK_TempInverter);
         int rightTemp = fmax(motorVal2[1].AMK_TempInverter, motorVal2[3].AMK_TempInverter);
+        int maxTemp = fmax(leftTemp, rightTemp);
 
-        leftFanSpeed = fanSpeedFunction(leftTemp);
-        rightFanSpeed = fanSpeedFunction(rightTemp);
+        leftFanSpeed = fanSpeedFunction(maxTemp);
+        rightFanSpeed = fanSpeedFunction(maxTemp);
 
     }
 
@@ -568,12 +569,13 @@ void fanControl()
 
 Uint16 fanSpeedFunction(int temp){
 #ifndef CONST_FAN_SPEED
-    if (temp < 65)
+    if (temp < 50)
         return 0;
     else if (temp > 75)
         return 100;
     else
-        return (8*temp) - 500;
+        //return (4*temp) - 200;
+        return 100;
 #endif
 
 #ifdef CONST_FAN_SPEED

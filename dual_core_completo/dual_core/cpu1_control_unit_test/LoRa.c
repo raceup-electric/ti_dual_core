@@ -238,8 +238,6 @@ int endPacket(bool async){
 
     //Put in TX mode
     writeRegister(REG_OP_MODE, MODE_LONG_RANGE_MODE | MODE_TX);
-    DELAY_US(1000);
-    readRegister(REG_OP_MODE);
 
     if (!async) {
         // wait for TX done

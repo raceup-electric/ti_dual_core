@@ -117,7 +117,6 @@ int send_Single_Data(int counter){
     int j = 0;
     uint8_t toSendBuffer[LORA_IMPLICIT_SIZE];
     toSendBuffer[0] = counter;
-    //uint32_t toSendBytes = float_to_uint32(32.15);
     uint32_t toSendBytes = 0;
     switch(counter){
         //CASE TO SEND THE MOTORS TEMPERATURES
@@ -200,7 +199,6 @@ int send_Single_Data(int counter){
            for(; j < 6; j++){
                sum += local_sh.bms_lv[j];
            }
-           sum /= 6;
            toSendBytes = float_to_uint32(sum);
        break;
        case 26:
@@ -216,19 +214,19 @@ int send_Single_Data(int counter){
            toSendBytes = float_to_uint32(local_sh.power.total_power_shared);
        break;
        case 30:
-           toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[0]);
+           toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[0] - 273.15);
        break;
        case 31:
-          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[1]);
+          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[1] - 273.15);
       break;
        case 32:
-          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[2]);
+          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[2] - 273.15);
       break;
        case 33:
-          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[3]);
+          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[3] - 273.15);
       break;
        case 34:
-          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[4]);
+          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[4] - 273.15);
       break;
       case 35:
           toSendBytes = float_to_uint32(local_sh.imu.accelerations_shared[0]);
@@ -243,10 +241,10 @@ int send_Single_Data(int counter){
           toSendBytes = float_to_uint32(local_sh.imu.omegas_shared[0]);
       break;
       case 39:
-          toSendBytes = float_to_uint32(local_sh.imu.omegas_shared[0]);
+          toSendBytes = float_to_uint32(local_sh.imu.omegas_shared[1]);
       break;
       case 40:
-          toSendBytes = float_to_uint32(local_sh.imu.omegas_shared[0]);
+          toSendBytes = float_to_uint32(local_sh.imu.omegas_shared[2]);
           counter = 0;
       break;
     }

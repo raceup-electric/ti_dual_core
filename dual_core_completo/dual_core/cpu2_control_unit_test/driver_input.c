@@ -18,10 +18,10 @@ int Read_throttle(){
     //return 0 throttle if one APPS is disconnected
     if ((AccPot1 < ACC1_DISC_THRES) && (AccPot2 < ACC1_DISC_THRES))
         return 0;
-    else if (((AccPot1 < ACC1_DISC_THRES) || (AccPot2 < ACC1_DISC_THRES)))
+    /*else if (((AccPot1 < ACC1_DISC_THRES) || (AccPot2 < ACC1_DISC_THRES)))
         media_acc_on = 0;
     else
-        media_acc_on = 1;
+        media_acc_on = 1;*/
 
     acc1Pos = (AccPot1 - ACC1_LOW_TH) / ACC1_INPUT_RANGE;  // posizione in 0-1 range acc1
     acc2Pos = (AccPot2 - ACC2_LOW_TH) / ACC2_INPUT_RANGE;  // posizione in 0-1 range acc2
@@ -30,17 +30,17 @@ int Read_throttle(){
     acc2Pos = changeRange(acc2Pos, 0, 1, 0, 100);
 
     //DEBUG!!! Unsafe test configuration
-    //if (abs(acc1Pos - acc2Pos) > ACC_IMPL_THRES)
-    //{
-      //  return 0;   //implausibility
-    //}
+    if (abs(acc1Pos - acc2Pos) > ACC_IMPL_THRES)
+    {
+      return 0;   //implausibility
+    }
 
 //    return saturateUnsigned((acc1Pos + acc2Pos)/2.0, 100, 0); //    //DEBUG!!! Unsafe test configuration
-    if(media_acc_on){
+    /*if(media_acc_on){
        value = value - 0.2*(value - ((acc1Pos + acc2Pos)/2.0));
-    }else{
+    }else{*/
         value = value - 0.2*(value - (acc1Pos)); //usa solo potenziometro 1
-    }
+   // }
 
     return saturateUnsigned(value, 100, 0);                   //DEBUG!!! Unsafe test configuration
 }

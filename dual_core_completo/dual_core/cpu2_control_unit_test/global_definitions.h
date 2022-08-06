@@ -79,7 +79,7 @@
 
 // POWER CONTROL
 //
-#define POWER_LIMIT         35000.0f       //Watt
+#define POWER_LIMIT         30000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f

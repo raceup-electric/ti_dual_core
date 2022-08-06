@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-int LoRa_Packet_Counter = 0;
+int LoRa_Packet_Counter = 1;
 int LoRa_initialized = 0;
 
 void main(void)
@@ -118,7 +118,7 @@ void cpu1_timer_setup(void)
     InitCpuTimers();
 
     ConfigCpuTimer(&CpuTimer1, 200, 20000);
-    ConfigCpuTimer(&CpuTimer2, 200, 500000);
+    ConfigCpuTimer(&CpuTimer2, 200, 8000);
 
     CpuTimer1Regs.TCR.all = 0x4000;
     CpuTimer2Regs.TCR.all = 0x4000;
@@ -200,7 +200,9 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.motorSetP[2].AMK_TorqueLimitNegative,local_sh.motorSetP[3].AMK_TorqueLimitNegative
                         );
         writeSD(cmd);
-
+#ifndef NO_LORA
+        LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
+#endif
         sprintf(cmd ,
                         "%d;%d;%d;%d;%d;%d;"                //status
                         "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms
@@ -281,19 +283,14 @@ __interrupt void cpu_timer1_isr(void)
                 EDIS;
           // }
         }
+#ifndef NO_LORA
+        LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
+#endif
 }
 
 //not necessary at the moment
 __interrupt void cpu_timer2_isr(void)
 {
-
-#ifndef NO_LORA
-    int k = 0;
-    for(; k < 5; k++){
-        LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
-    }
-#endif
-
 }
 
 void compute_AMKStatus(){
