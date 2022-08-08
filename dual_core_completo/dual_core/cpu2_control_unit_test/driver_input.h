@@ -43,7 +43,7 @@
 
 #define IMPL_LIMIT 5
 
-#define THROTTLE_IMPL_THRESHOLD     35      //% of throttle
+#define THROTTLE_IMPL_THRESHOLD     25      //% of throttle
 #define BRAKE_IMPL_THRESHOLD        30      //% of brake
 
 //
