@@ -15,10 +15,12 @@ int Read_throttle(){
 //    AccPot2 = readADC(ACC_2);
 //    AccPot1 = readADC(ACC_1);
 
-    //return 0 throttle if one APPS is disconnected
-    if ((AccPot1 < ACC1_DISC_THRES) && (AccPot2 < ACC1_DISC_THRES))
+    if ((AccPot1 < ACC1_DISC_THRES) || (AccPot2 < ACC2_DISC_THRES))
         return 0;
-    /*else if (((AccPot1 < ACC1_DISC_THRES) || (AccPot2 < ACC1_DISC_THRES)))
+    //return 0 throttle if one APPS is disconnected
+    /*if ((AccPot1 < ACC1_DISC_THRES) && (AccPot2 < ACC1_DISC_THRES))
+        return 0;
+    else if (((AccPot1 < ACC1_DISC_THRES) || (AccPot2 < ACC1_DISC_THRES)))
         media_acc_on = 0;
     else
         media_acc_on = 1;*/
@@ -38,9 +40,11 @@ int Read_throttle(){
 //    return saturateUnsigned((acc1Pos + acc2Pos)/2.0, 100, 0); //    //DEBUG!!! Unsafe test configuration
     /*if(media_acc_on){
        value = value - 0.2*(value - ((acc1Pos + acc2Pos)/2.0));
-    }else{*/
-        value = value - 0.2*(value - (acc1Pos)); //usa solo potenziometro 1
+    }else{
+        value = value - 0.2*(value - (acc1Pos)); //usa solo potenziometro 1*/
    // }
+
+    value = value - 0.2*(value - ((acc1Pos + acc2Pos)/2.0));
 
     return saturateUnsigned(value, 100, 0);                   //DEBUG!!! Unsafe test configuration
 }

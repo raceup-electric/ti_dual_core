@@ -535,6 +535,7 @@ void checkImplausibility()
 
 void fanControl()
 {
+#ifndef FAN_LV_ENABLE
     if (!R2D_state)
     {
        leftFanSpeed = 0;
@@ -550,6 +551,14 @@ void fanControl()
         rightFanSpeed = fanSpeedFunction(maxTemp);
 
     }
+#else
+    int leftTemp = fmax(motorVal2[0].AMK_TempInverter, motorVal2[2].AMK_TempInverter);
+    int rightTemp = fmax(motorVal2[1].AMK_TempInverter, motorVal2[3].AMK_TempInverter);
+    int maxTemp = fmax(leftTemp, rightTemp);
+
+    leftFanSpeed = fanSpeedFunction(maxTemp);
+    rightFanSpeed = fanSpeedFunction(maxTemp);
+#endif
 
 #if defined(DEBUG_NO_HV) || defined(DEBUG_HV)
         leftFanSpeed = leftFanDebug;
@@ -574,8 +583,7 @@ Uint16 fanSpeedFunction(int temp){
     else if (temp > 75)
         return 100;
     else
-        //return (4*temp) - 200;
-        return 100;
+        return (4*temp) - 200;
 #endif
 
 #ifdef CONST_FAN_SPEED
