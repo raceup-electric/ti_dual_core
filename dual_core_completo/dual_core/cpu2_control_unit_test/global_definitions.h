@@ -206,6 +206,11 @@
 #define POMPA_DX                3
 #define POMPA_SX                4
 
+//Temp ventole accensione
+#define FAN_MAX_TEMP 60
+#define FAN_MIN_TEMP 50
+#define FAN_THRESHOLD 5
+
 #define IMD_STATE           14      //PIN74     //INPUT
 #define BMS_STATE           15      //PIN73     //INPUT
 

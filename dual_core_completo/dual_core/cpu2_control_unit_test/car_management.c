@@ -3,6 +3,7 @@
 int calibration_status = 0;
 int NUM_SMU_TEMP = 5;
 int NUM_SMU_SUSP = 4;
+int fan_flag = 0;
 
 
 #ifdef DEBUG_HV
@@ -547,8 +548,8 @@ void fanControl()
         int rightTemp = fmax(motorVal2[1].AMK_TempInverter, motorVal2[3].AMK_TempInverter);
         int maxTemp = fmax(leftTemp, rightTemp);
 
-        leftFanSpeed = fanSpeedFunction(maxTemp);
-        rightFanSpeed = fanSpeedFunction(maxTemp);
+        leftFanSpeed = fanSpeedFunctionDebug(maxTemp);
+        rightFanSpeed = fanSpeedFunctionDebug(maxTemp);
 
     }
 #else
@@ -578,12 +579,20 @@ void fanControl()
 
 Uint16 fanSpeedFunction(int temp){
 #ifndef CONST_FAN_SPEED
-    if (temp < 50)
+    if(fan_flag && temp > 45 && temp < 50){
+        return 10;
+    }
+    if (temp < FAN_MIN_TEMP){
+        fan_flag = 0;
         return 0;
-    else if (temp > 75)
+
+    }
+    else if (temp >  FAN_MAX_TEMP){
         return 100;
-    else
-        return (4*temp) - 200;
+    }else {
+        fan_flag = 1;
+        return (9*temp) - 440;
+    }
 #endif
 
 #ifdef CONST_FAN_SPEED
@@ -591,7 +600,29 @@ Uint16 fanSpeedFunction(int temp){
 #endif
 
 }
+Uint16 fanSpeedFunctionDebug(int temp){
+#ifndef CONST_FAN_SPEED
+    if(fan_flag && temp > 20 && temp < 25){
+        return 10;
+    }
+    if (temp < 25){
+        fan_flag = 0;
+        return 0;
 
+    }
+    else if (temp >  35){
+        return 100;
+    }else {
+        fan_flag = 1;
+        return (9*temp) - 215;
+    }
+#endif
+
+#ifdef CONST_FAN_SPEED
+    return 50;
+#endif
+
+}
 void checkTemps(){
 
     int i;

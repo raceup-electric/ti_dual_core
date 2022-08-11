@@ -162,6 +162,7 @@ void update_shared_mem();
 void update_log_values();
 
 Uint16 fanSpeedFunction(int temp);
+Uint16 fanSpeedFunctionDebug(int temp);
 
 void fanControl();
 

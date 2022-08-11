@@ -105,8 +105,11 @@ __interrupt void cpu_timer1_isr(void)
     brakeLight();
     readVelocity();
     fanControl();
-    setPumpSpeed(POMPA_SX, 0);
-    setPumpSpeed(POMPA_DX, 0);
+    //Start pumps 30 sec after accensione
+    if(CpuTimer1.InterruptCount > 3000){
+        setPumpSpeed(POMPA_SX, 0);
+        setPumpSpeed(POMPA_DX, 0);
+    }
     checkTemps();                   //rewrite
 
     updateGPIOState();
