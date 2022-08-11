@@ -104,5 +104,7 @@ void setup()
 
        setupOk = 1;    //debug
 
+       time_elapsed = 0;
+
        CpuTimer1Regs.TCR.bit.TSS = 0;  //start timer1
 }

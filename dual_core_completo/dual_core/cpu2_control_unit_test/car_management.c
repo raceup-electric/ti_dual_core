@@ -548,8 +548,8 @@ void fanControl()
         int rightTemp = fmax(motorVal2[1].AMK_TempInverter, motorVal2[3].AMK_TempInverter);
         int maxTemp = fmax(leftTemp, rightTemp);
 
-        leftFanSpeed = fanSpeedFunctionDebug(maxTemp);
-        rightFanSpeed = fanSpeedFunctionDebug(maxTemp);
+        leftFanSpeed = fanSpeedFunction(maxTemp);
+        rightFanSpeed = fanSpeedFunction(maxTemp);
 
     }
 #else
@@ -561,10 +561,6 @@ void fanControl()
     rightFanSpeed = fanSpeedFunction(maxTemp);
 #endif
 
-#if defined(DEBUG_NO_HV) || defined(DEBUG_HV)
-        leftFanSpeed = leftFanDebug;
-        rightFanSpeed = rightFanDebug;
-#endif
 
     setFanSpeed(VENTOLA_SX, 100 - leftFanSpeed);
     setFanSpeed(VENTOLA_DX, 100 - rightFanSpeed);
@@ -579,7 +575,7 @@ void fanControl()
 
 Uint16 fanSpeedFunction(int temp){
 #ifndef CONST_FAN_SPEED
-    if(fan_flag && temp > 45 && temp < 50){
+    if(fan_flag && temp > 45 && temp < FAN_MIN_TEMP){
         return 10;
     }
     if (temp < FAN_MIN_TEMP){
@@ -588,6 +584,7 @@ Uint16 fanSpeedFunction(int temp){
 
     }
     else if (temp >  FAN_MAX_TEMP){
+        fan_flag = 1;
         return 100;
     }else {
         fan_flag = 1;
@@ -602,19 +599,19 @@ Uint16 fanSpeedFunction(int temp){
 }
 Uint16 fanSpeedFunctionDebug(int temp){
 #ifndef CONST_FAN_SPEED
-    if(fan_flag && temp > 20 && temp < 25){
+    if(fan_flag && temp > 15 && temp < 20){
         return 10;
     }
-    if (temp < 25){
+    if (temp < 20){
         fan_flag = 0;
         return 0;
 
     }
-    else if (temp >  35){
+    else if (temp >  30){
         return 100;
     }else {
         fan_flag = 1;
-        return (9*temp) - 215;
+        return (9*temp) - 170;
     }
 #endif
 

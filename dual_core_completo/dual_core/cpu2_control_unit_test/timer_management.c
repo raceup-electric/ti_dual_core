@@ -106,7 +106,7 @@ __interrupt void cpu_timer1_isr(void)
     readVelocity();
     fanControl();
     //Start pumps 30 sec after accensione
-    if(CpuTimer1.InterruptCount > 3000){
+    if(time_elapsed >3000){
         setPumpSpeed(POMPA_SX, 0);
         setPumpSpeed(POMPA_DX, 0);
     }
@@ -142,8 +142,8 @@ __interrupt void cpu_timer1_isr(void)
     //setDACValue(dac_debug);
 
     //debug epwm
-//    setFanSpeed(VENTOLA_SX, ventola_sx_epwm);
-//    setFanSpeed(VENTOLA_DX, ventola_dx_epwm);
+    //setFanSpeed(VENTOLA_SX, 50);
+    //setFanSpeed(VENTOLA_DX, 50);
 //
 //    //debug epwm
 //    setPumpSpeed(POMPA_SX, pompa_sx_epwm);
