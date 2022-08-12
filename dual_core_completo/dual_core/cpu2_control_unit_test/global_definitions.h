@@ -36,7 +36,7 @@
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 20000 //15000               //Speed limit
+#define SPEED_LIMIT                 14000 //15000               //Speed limit
 #define M_N                         9.8f
 
 //
@@ -72,14 +72,14 @@
 #define A_A                         1.087f
 
 #define MAX_POS_TORQUE              12.0f
-#define MAX_NEG_TORQUE              -10.0f
+#define MAX_NEG_TORQUE              -7.0f
 
-#define MAX_REGEN_CURRENT           50.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!!!!! xd RIcjy
+#define MAX_REGEN_CURRENT           30.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!!!!! xd RIcjy
 //
 
 // POWER CONTROL
 //
-#define POWER_LIMIT         50000.0f       //Watt
+#define POWER_LIMIT         30000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f
