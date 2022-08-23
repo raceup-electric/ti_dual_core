@@ -793,7 +793,11 @@ tCmdLineEntry g_psCmdTable[] =
     { 0, 0, 0 }
 };
 
-
+/*
+ * SD card libraries use Timer0 for synchronization purpose,
+ * so it cannot be used for other tasks. The first part of the
+ * function sets up the timer (in a deprecated way).
+ */
 void
 setupSD(void)
 {
@@ -817,11 +821,6 @@ setupSD(void)
     char temp[20];
     sprintf(temp, "test%d.txt ", file_counter);
     memcpy(filename, temp, 20);
-
-    //char cmd[40] = "\t \t SD init completed \n";
-    //writeSD(cmd);
-
-
 }
 void newSetupSD(void)
 {
@@ -832,6 +831,10 @@ void newSetupSD(void)
        diskResult = disk_initialize(0);
 
 }
+
+/*
+ * Remember: we use csv format, with ; as separator
+ */
 void writeHeader()
 {
     char str_init[200];
@@ -872,6 +875,10 @@ void createFirstFile()
 
 }
 
+/*
+ * Writes a string of maximum 280 char(circa). Writing logic is based on
+ * SPI communication and can be found starting to dig from CmdLineProcess function.
+ */
 void writeSD(char *str)
 {
     char a[290] = "write ";
