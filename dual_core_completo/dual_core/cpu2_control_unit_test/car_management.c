@@ -283,6 +283,13 @@ void R2D_Off()
 
 }
 
+/*
+ * R2D initialization steps:
+ *  1 - Precharge completed -> HV is ON
+ *  2 - RF activation
+ *  3 - Brake
+ *  4 - press r2d button
+ */
 void R2D_init()
 {
     if(R2D_first_state){
@@ -301,6 +308,10 @@ void R2D_init()
     }
 
 
+    /*
+     * if we exit r2d and rf are turn off
+     * we can repeat initialization
+     */
     if(!R2D_state && !readRF()){
        R2D_first_state = 1;
     }
@@ -308,12 +319,20 @@ void R2D_init()
         R2D_first_state = 0;
     }
 
+    /*
+     * r2d will stay off until Hv is on and Rf are activated
+     */
     if(!isHVOn() || !readRF()){
         R2D_state = 0;
         R2D_Off();
     }
 }
 
+/*
+ * Battery pack tension is given indipendently by every motor.
+ * The function seems complex because takes in consideration the case
+ * that one or more motor are inactive
+ */
 void computeBatteryPackTension()
 {
     int j = 0, active_motors = 0;
@@ -381,6 +400,9 @@ void computeBatteryPackTension()
 //    }
 //}
 
+/*
+ * Tramaccio: we wait 500ms before stating that an inverter has no Hv
+ */
 void checkHV()      //HV COUNTER ON-->OFF
 {
     int i;
@@ -434,6 +456,9 @@ void checkHV()      //HV COUNTER ON-->OFF
 //    }
 //}
 
+/*
+ * Tramaccio: we wait 500ms before stating that an Rf is not active
+ */
 void checkRF()   //RF COUNTER ON-->OFF
 {
     int i;
@@ -476,6 +501,9 @@ void checkRF()   //RF COUNTER ON-->OFF
 //    }
 //}
 
+/*
+ * Check if High Voltage is On. inverterHV[i] is updated in checkHv function
+ */
 bool isHVOn()
 {
     bool hv = false;
@@ -500,7 +528,9 @@ bool isHVOn()
     return hv;
 }
 
-
+/*
+ * Check if rf are active
+ */
 bool readRF()
 {
     bool rf = false;
@@ -522,10 +552,16 @@ bool readRF()
 
 }
 
+/*
+ * Managing brake and throttle implausibility
+ */
 void checkImplausibility()
 {
     if (implBrakeAndThrottle)
     {
+        /*
+         * if implausiblity occurred and throttle is over 5%, implausibility reamins
+         */
         implBrakeAndThrottle = (throttle > 5);  // regardless of brake
     }
     else
@@ -534,6 +570,9 @@ void checkImplausibility()
     }
 }
 
+/*
+ * Important: fans are only active after R2d
+ */
 void fanControl()
 {
 #ifndef FAN_LV_ENABLE
@@ -544,6 +583,9 @@ void fanControl()
     }
     else
     {
+        /*
+         * fan activation threshold is based on max temp among all inverters
+         */
         int leftTemp = fmax(motorVal2[0].AMK_TempInverter, motorVal2[2].AMK_TempInverter);
         int rightTemp = fmax(motorVal2[1].AMK_TempInverter, motorVal2[3].AMK_TempInverter);
         int maxTemp = fmax(leftTemp, rightTemp);
@@ -566,12 +608,12 @@ void fanControl()
     setFanSpeed(VENTOLA_DX, 100 - rightFanSpeed);
 }
 
-//
-//  Velocità della ventola (duty cycle %) in funzione della temperatura:
-//  temperatura > 65ï¿½           ---> ventola spenta
-//  65ï¿½ < temperatura < 75ï¿½     ---> velocitï¿½ scala linearmente da 20% a 100%
-//  75ï¿½ > temperatura           ---> 100%
-//
+/*
+ * Fan activation at 50° with 10% epwm
+ * Fan follows a ramp until 60°
+ *
+ * Fan deactivation at 45°
+ */
 
 Uint16 fanSpeedFunction(int temp){
 #ifndef CONST_FAN_SPEED
@@ -597,6 +639,10 @@ Uint16 fanSpeedFunction(int temp){
 #endif
 
 }
+
+/*
+ * Only for test bench. DO NOT USE IN RUN
+ */
 Uint16 fanSpeedFunctionDebug(int temp){
 #ifndef CONST_FAN_SPEED
     if(fan_flag && temp > 15 && temp < 20){
@@ -618,32 +664,6 @@ Uint16 fanSpeedFunctionDebug(int temp){
 #ifdef CONST_FAN_SPEED
     return 50;
 #endif
-
-}
-void checkTemps(){
-
-    int i;
-    int tmp = 0;
-
-    for (i = 0; i < NUM_OF_MOTORS; i++)
-    {
-        if (motorVal2[i].AMK_TempInverter >= 75)
-            tmp++;
-    }
-
-    if (tmp>0)
-        temp_warning = true;
-    else
-        temp_warning = false;
-
-    Temps[0]=getTempAvPT1000(TempRadOutLC_temp);
-    Temps[1]=getTempAvPT1000(TempRadOutRC_temp);
-    Temps[2]=getTempAvPT1000(TempRadInLC_temp);
-    Temps[3]=getTempAvPT1000(TempRadInRC_temp);
-    Temps[4]=0;
-    Temps[5]=0;
-    Temps[6]=leftFanSpeed;
-    Temps[7]=rightFanSpeed;
 }
 
 void checkStatus()
@@ -677,6 +697,9 @@ void checkStatus()
     status = mstatus;
 }
 
+/*
+ * Emergency screen triggers when speed is more than 10km/h, Hv is on and AIR1 is closed
+ */
 void emergencyScreen()
 {
     if (!Air1_State && actualVelocityKMH > 10 && batteryPackTension > 60){
@@ -687,6 +710,9 @@ void emergencyScreen()
         //display.page = BRAKE_PAGE;
 }
 
+/*
+ * Data are updated locall and than copied in shared memory
+ */
 void sendDataToLogger()
 {
     update_log_values();
@@ -694,37 +720,6 @@ void sendDataToLogger()
 }
 void update_log_values()
 {
-//    uint16_t index;
-//
-//    //FOR TESTING
-//    status_log.throttle_shared = increment;
-//    status_log.actualVelocityKMH_shared = increment;
-//    status_log.brake_shared = increment;
-//    status_log.status_shared = increment;
-//    status_log.brakePress_shared = increment;
-//    status_log.steering_shared = increment;
-//
-//    gpio_log.Sdc1_shared = 1;
-//
-//    for(index = 0; index < 8; index++)
-//    {
-//        Temps_shared[index] = increment;
-//    }
-//
-//    for(index = 0; index < 4; index++)
-//    {
-//        motorSetP_shared[index].AMK_TargetVelocity = increment;
-//    }
-//
-//    EALLOW;
-//    GpioDataRegs.GPATOGGLE.bit.GPIO31 = 1;
-//    EDIS;
-//
-//
-//    increment++;
-
-    //PARTE DA AGGIUNGERE PER I TEST. COMMENTARE PER FARE TEST FITTIZI
-
     int i;
     //Temps
     for(i = 0; i < 8; i++)
@@ -790,16 +785,9 @@ void update_log_values()
     bms_log.max_bms_temp_nslave_shared = max_temp_nslave;
 
 
-
-    //Sendyne  DEPRECATED. IL SENDYNE NON VIENE PIU USATO
-    //sendyne_log.sendyne_voltage_shared = sendyne_voltage;
-    //sendyne_log.sendyne_current_shared = sendyne_current;
-    //sendyne_log.curr_sens_shared = 0; //nuovo da aggiungere
-    //sendyne_log.total_power_shared = total_power;
-
     power_log.batteryPack_voltage_shared = batteryPackTension;
     power_log.lem_current_shared = lem_current;
-    power_log.curr_sens_shared = 0; //nuovo da aggiungere
+    power_log.curr_sens_shared = 0;
     power_log.total_power_shared = total_power;
 
     //FanSpeed

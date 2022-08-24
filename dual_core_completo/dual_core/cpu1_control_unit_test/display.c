@@ -6,6 +6,11 @@
  */
 #include "display.h"
 int counter = 0;
+
+/*
+ * The idea is to update only the values of the page we are in
+ * to save time.
+ */
 void updateValues()
 {
     switch(currentPage){
@@ -62,6 +67,10 @@ void updateValues()
            break;
          }
 }
+
+/*
+ * It simply sets the right page. Page value is given by cpu2
+ */
 void updatePage(Uint16 page){
 
     if (currentPage!=page || !display.emergencyBrk_isNotSet){
@@ -618,6 +627,7 @@ void setRRstatus(){
 
   }
 }
+
 float getLowestLvVoltage()
 {
     float min=4300.0f;

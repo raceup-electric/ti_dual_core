@@ -203,6 +203,9 @@ Uint16 convertPercent(int perc)
     return EPWM_TIMER_TBPRD - perc;
 }
 
+/*
+ * Logic is inverted so speed = 0 sets the fans to maximum
+ */
 void setFanSpeed(int fan, int speed){
     switch(fan){
     case VENTOLA_SX:
@@ -214,6 +217,9 @@ void setFanSpeed(int fan, int speed){
     }
 }
 
+/*
+ * Logic is inverted so speed = 0 sets the pumps to maximum
+ */
 void setPumpSpeed(int pump, int speed){
     switch(pump){
     case POMPA_SX:
