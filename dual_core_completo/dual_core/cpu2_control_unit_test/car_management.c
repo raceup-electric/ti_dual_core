@@ -553,10 +553,13 @@ bool readRF()
 }
 
 /*
- * Managing brake and throttle implausibility
+ * Managing brake and throttle implausibilities
  */
 void checkImplausibility()
 {
+    /*
+     * First implausibility
+     */
     if (implBrakeAndThrottle)
     {
         /*
@@ -568,6 +571,11 @@ void checkImplausibility()
     {
         implBrakeAndThrottle = ((brake > BRAKE_IMPL_THRESHOLD) && (throttle > THROTTLE_IMPL_THRESHOLD));
     }
+
+    /*
+     * Second implausibility
+     */
+    brakeWhenSlow = brake > 10 && actualVelocityKMH <= 5.f;
 }
 
 /*
@@ -666,6 +674,9 @@ Uint16 fanSpeedFunctionDebug(int temp){
 #endif
 }
 
+/*
+ * Status represent an easy debug variable, visible on first display page
+ */
 void checkStatus()
 {
     //STATUS
@@ -711,7 +722,7 @@ void emergencyScreen()
 }
 
 /*
- * Data are updated locall and than copied in shared memory
+ * Data are updated locally and than copied in shared memory
  */
 void sendDataToLogger()
 {

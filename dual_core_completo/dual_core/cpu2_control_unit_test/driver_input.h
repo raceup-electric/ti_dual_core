@@ -1,18 +1,20 @@
 #ifndef DRIVER_INPUT_H_
 #define DRIVER_INPUT_H_
 
-//
-// include
-//
 #include <math.h>
 #include "utils.h"
 #include "adc_management.h"
 #include "global_definitions.h"
 
-//
-// defines
-//
 
+/*
+ * Those variables are fundamental for pedal calibration.
+ * The calibration method is the following:
+ *      for every potentiometer read the value (from 0 to 4095) at rest and at the maximum
+ *      to set the low threshold add 30/40 to the real value
+ *      to set the high threshold remove 20/30 to the real value
+ *      THEN ALWAYS VERIFY IT IS WORKING RIGHT
+ */
 
 // acc1
 #define ACC1_LOW_TH    2800

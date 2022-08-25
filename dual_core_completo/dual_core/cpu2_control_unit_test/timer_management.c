@@ -114,11 +114,12 @@ __interrupt void cpu_timer1_isr(void)
     if(canSendAMK)
     {
 
-        brakeWhenSlow = brake > 10 && actualVelocityKMH <= 5.f;
         /*brakeReg = brake > 10 && brake < REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
         brakeMec = brake >= REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;*/
         brakeReg = brake > 10 && actualVelocityKMH > 5.f;
         noBrake = brake <= 10;
+
+
         checkImplausibility();
 
         if (!implausibility_occurred)       //REGOLA EV 2.3
@@ -139,7 +140,7 @@ __interrupt void cpu_timer1_isr(void)
                 stopAMK();
     #else
                 //brakeAMK(brake * (NEGATIVE_TORQUE_LIMIT /10));
-                 brakeAMK(brake);       //Elimintated the if-else statement with lem_curr < max_reg
+                 brakeAMK(brake);       //Deleted the if-else statement with lem_curr < max_reg
     #endif
             }
             else if(brakeMec)
@@ -166,10 +167,16 @@ __interrupt void cpu_timer1_isr(void)
                 stopAMK();
             }
         }
+        /*
+         * if implausibility occurred it can be cleared if throtthle is released under 5%
+         */
         else if (throttle  < 5)   //REGOLA EV 2.3
         {
             implausibility_occurred = false;     //implausibility is cleared
         }
+        /*
+         * if implausibility is not cleared motor stay still
+         */
         else
         {
             stopAMK();
