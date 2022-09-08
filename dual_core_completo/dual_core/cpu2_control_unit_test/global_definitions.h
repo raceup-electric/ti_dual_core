@@ -1,6 +1,19 @@
 #ifndef GLOBAL_DEFINITIONS_H_
 #define GLOBAL_DEFINITIONS_H_
 
+/*
+ * Here you can find every global variable used in the code,
+ * except for pedal variables which are in dirver_input.h.
+ * Some variables must be modified accordingly with Powertrain
+ * members (so ask them if you are not sure); variables are:
+ *      SPEED_LIMIT
+ *      REAR_MOTOR_SCALE
+ *      FRONT_MOTOR_SCALE
+ *      MAX_POS_TORQUE
+ *      MAX_NEG_TORQUE
+ *      MAX_REGEN_CURRENT
+ *
+ */
 
 #define R2D_BRAKE_TRESHOLD  10
 
@@ -88,7 +101,7 @@
 #define MAX_POS_TORQUE              12.0f
 #define MAX_NEG_TORQUE              -7.0f
 
-#define MAX_REGEN_CURRENT           30.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!!!!! xd RIcjy
+#define MAX_REGEN_CURRENT           30.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 //
 
 // POWER CONTROL

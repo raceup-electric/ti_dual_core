@@ -19,7 +19,7 @@
     //SOC3 --> ADCINA3 --> PIN26 --> BrakeClean
     //SOC4 --> ADCINA4 --> PIN69 --> BrakePressure
     //SOC? --> ADCINA5 --> PIN66 --> free
-    //SOC5 --> ADCIN14 --> PIN23 --> Steering            //da controllare
+    //SOC5 --> ADCIN14 --> PIN23 --> Steering
     //B
     //SOC6 --> ADCINB2 --> PIN28 --> TempRadOutL
     //SOC7 --> ADCINB3 --> PIN25 --> TempRadOutRC
@@ -52,12 +52,12 @@ void readADC_Bank(int num_bank);
 
 
 
-Uint16 getTempAvPT1000(uint16_t digital);  //converte la lettura digitale in temperatura (°C) per il sensore AvioracePT1000
+Uint16 getTempAvPT1000(Uint16 digital);  //converte la lettura digitale in temperatura (°C) per il sensore AvioracePT1000
 
-Uint16 getTempZTP135SR(uint16_t digital);  //converte la lettura digitale in temperatura (°C) per il sensore ZTP-135SR
+Uint16 getTempZTP135SR(Uint16 digital);  //converte la lettura digitale in temperatura (°C) per il sensore ZTP-135SR
 
-Uint16 getPressAvSP100(uint16_t digital);  //converte la lettura digitale in pressione (bar) per il sensore Aviorace SP100
+int getPressAvSP100(Uint16 digital);  //converte la lettura digitale in pressione (bar) per il sensore Aviorace SP100
 
-float getVoltage(uint16_t digital);     //scala la tensione (0-3)
+float getVoltage(Uint16 digital);     //scala la tensione (0-3)
 
 #endif

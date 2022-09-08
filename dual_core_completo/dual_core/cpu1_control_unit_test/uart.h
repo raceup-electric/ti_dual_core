@@ -9,6 +9,7 @@
 #define UART_H_
 
 #include "F28x_Project.h"
+#include "global_definitions.h"
 
 //
 // Function Prototypes

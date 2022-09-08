@@ -9,6 +9,7 @@ void main(void)
 
     InitSysCtrl();
 
+    //if standalone is active cpu1 will try to start cpu2
 #ifdef _STANDALONE
 #ifdef _FLASH
 
@@ -30,13 +31,20 @@ void main(void)
 
     cpu1_timer_setup();
 
+    //stop both timers
     CpuTimer1Regs.TCR.bit.TSS = 1;
     CpuTimer2Regs.TCR.bit.TSS = 1;
 
     GPIOSetup();
+
+
     setupSD();
+    //creates first file for logging
     createFirstFile();
+    //writes the first line of log
     writeHeader();
+
+
     uart_setup();
 
 #ifndef NO_LORA
@@ -45,7 +53,8 @@ void main(void)
     LoRa_initialized = LoRa_begin(LORA_DEFAULT_SPI_FREQUENCY);
 #endif
 
-
+    // Write auth of some banks of Global Shared (GS) RAM is
+    // given to CPU2
     while( !(
             MemCfgRegs.GSxMSEL.bit.MSEL_GS13 &
             MemCfgRegs.GSxMSEL.bit.MSEL_GS12 &
@@ -77,13 +86,11 @@ void main(void)
     DevCfgRegs.CPUSEL11.bit.ADC_C = 1;
     EDIS;
 
+    //CAN muxed to CPU2
     send_can_to_cpu2();
 
-
-
-
+    //shared struct copied in local variable
     local_sh = sh;
-    //DELAY_US(10000);
 
 
 #ifndef NO_LORA_DEBUG
@@ -93,8 +100,8 @@ void main(void)
     CpuTimer1Regs.TCR.bit.TSS = 0;      //Start SD timer
 #endif
 
-          //start timer1
-    CpuTimer2Regs.TCR.bit.TSS = 1;        //Start timer 2
+    //stop timer2 - it's not used for the moment
+    CpuTimer2Regs.TCR.bit.TSS = 1;
 
 
 
@@ -146,6 +153,11 @@ void send_can_to_cpu2(void)
     CANInit(CANB_BASE);
 }
 
+/*
+ * every cycle of timer1 shared data are copied into
+ * local variables to avoid concurrent access of cpu2 while
+ * cpu1 is logging
+ */
 void Shared_Ram_dataRead_c1(void)
 {
 
@@ -153,6 +165,16 @@ void Shared_Ram_dataRead_c1(void)
     local_time_elapsed = time_elapsed;
 }
 
+/*
+ * Timer1 integrates all features: logging, display and LoRa
+ *      - Logging is active every cycle.
+ *      - Display updates every 5 cycles.
+ *      - LoRa is active every cycle, but LoRa code is alternated to
+ *        logging code, to give receiving buffer time to flush
+ * if MORE_FILES function is active, a new log file will be
+ * created periodically. This is a safer configuration if log files are
+ * corrupted because of critical situations.
+ */
 __interrupt void cpu_timer1_isr(void)
 {
         CpuTimer1.InterruptCount++;
@@ -279,7 +301,6 @@ __interrupt void cpu_timer1_isr(void)
                 updatePage(display.page);
                 updateValues();
                 display.emergencyBrk_isNotSet = 1;
-                //GpioDataRegs.GPATOGGLE.bit.GPIO16 = 1;
                 EDIS;
           // }
         }
@@ -293,6 +314,9 @@ __interrupt void cpu_timer2_isr(void)
 {
 }
 
+/*
+ * Function to compress amk status in one Byte
+ */
 void compute_AMKStatus(){
     int index = 0;
     for(index = 0; index < 4; index++)

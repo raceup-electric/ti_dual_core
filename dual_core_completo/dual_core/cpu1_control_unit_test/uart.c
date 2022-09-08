@@ -10,10 +10,10 @@
 
 void uart_setup()
 {
-    GPIO_SetupPinMux(139, GPIO_MUX_CPU1, 6);    //RX
-    GPIO_SetupPinOptions(139, GPIO_INPUT, GPIO_PUSHPULL);
-    GPIO_SetupPinMux(56, GPIO_MUX_CPU1, 6);     //TX
-    GPIO_SetupPinOptions(56, GPIO_OUTPUT, GPIO_ASYNC);
+    GPIO_SetupPinMux(UART_RX, GPIO_MUX_CPU1, 6);    //RX
+    GPIO_SetupPinOptions(UART_RX, GPIO_INPUT, GPIO_PUSHPULL);
+    GPIO_SetupPinMux(UART_TX, GPIO_MUX_CPU1, 6);     //TX
+    GPIO_SetupPinOptions(UART_TX, GPIO_OUTPUT, GPIO_ASYNC);
 
     scic_fifo_init();       // Initialize the SCI FIFO
     scic_init();   // Initialize SCI for

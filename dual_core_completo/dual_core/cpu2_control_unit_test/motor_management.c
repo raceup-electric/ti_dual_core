@@ -251,12 +251,27 @@ void int2Bytes(unsigned char* bytes_temp, int int_variable)
     bytes_temp[1] = int_variable >> 8 & 0xFF;
 }
 
+/*
+ * This function is responsible for initializing and managing the motors.
+ */
 void sendAMKDataMotor(int motor, int posTorque, int negTorque) {
+
+    /*
+     * if motor is not initialized and is ready -> initialize motor
+     */
     if(!motorInitialized[motor] && motorVal1[motor].AMK_bSystemReady == 1) {
         initializeMotor(motor);
-    } else if(motorInitialized[motor] == 1 && motorVal1[motor].AMK_bQuitInverterOn == 1) {
+    }
+    /*
+     * if motor is initialized and RF is on -> send setpoints
+     */
+    else if(motorInitialized[motor] == 1 && motorVal1[motor].AMK_bQuitInverterOn == 1) {
         send_AMK_SetPoints(motor, velocityRef, posTorque, negTorque);
-    } else if(motorVal1[motor].AMK_bError) {
+    }
+    /*
+     * if error occurred in motor -> stop motor, remove error, motor to be reinitialized
+     */
+    else if(motorVal1[motor].AMK_bError) {
         send_AMK_SetPoints(motor, 0, 0, 0);
         removeError(motor);
         motorInitialized[motor] = 0;
@@ -270,11 +285,20 @@ void sendAMKDataMotor(int motor, int posTorque, int negTorque) {
     }
 }
 
+/*
+ * This function is responsible for sending instruction (setpoints) to the motors.
+ * This function implements the right order of operations to merge all features (REGEN,
+ * TORQUE_VECTORING, POWER_CONTROL, ONE_PEDAL -in future-).
+ *
+ * The basic idea is that posTorquesNM are processed by different functions in a
+ * precise order and at the end they are converted to setpoints and sent to AMK motors.
+ */
 void sendAMKData() {
 
 #ifndef NO_ONE_PEDAL
     onePedalDriving();
 #endif
+
     int i = 0;
 
     for (i = 0; i < NUM_OF_MOTORS; i++)
@@ -302,26 +326,29 @@ void sendAMKData() {
         anti_wind_up = 0;
 #endif
 
+    int posTorque[4], negTorque[4];
     for (i = 0; i < NUM_OF_MOTORS; i++) {
-        int posTorque, negTorque;
+
 
         float Torque_max = 21.0f - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - 13000.0f);
         Torque_max=saturateFloat(Torque_max,MAX_POS_TORQUE,0.0f);
 
-        //Torque_max=MAX_POS_TORQUE; //SKIDPAD
 
         //RIPARTIZIONE DI COPPIA SEMPLICE
         if (i == MOTOR_FL || i == MOTOR_FR)
         {
-            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*front_motor_scale, Torque_max, 0.0f));
-            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*front_motor_scale,0.0f,MAX_NEG_TORQUE));
+            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*front_motor_scale, Torque_max, 0.0f));
+            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*front_motor_scale,0.0f,MAX_NEG_TORQUE));
         }
         else if (i == MOTOR_RR || i == MOTOR_RL)
         {
-            posTorque = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*rear_motor_scale, Torque_max, 0.0f));
-            negTorque = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*rear_motor_scale,0.0f,MAX_NEG_TORQUE));
+            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*rear_motor_scale, Torque_max, 0.0f));
+            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*rear_motor_scale,0.0f,MAX_NEG_TORQUE));
         }
-        sendAMKDataMotor(i, posTorque, negTorque);
+    }
+
+    for (i = 0; i < NUM_OF_MOTORS; i++) {
+        sendAMKDataMotor(i, posTorque[i], negTorque[i]);
     }
 }
 
@@ -344,7 +371,9 @@ void throttleAMK(int posTorqueLim) {
     setAMK(max_speed, posTorqueLim, 0);
 }
 
-
+/*
+ * Battery pack tension is sent to Bms-Host to implement precharge
+ */
 void sendHostData() {
 
     TXA_Host_Data[0] = batteryPackTension & 0x00FF;

@@ -1,6 +1,9 @@
 #include "adc_management.h"
 
-
+/*
+ * ADCs are grouped in banks. ADCs reading i triggered via software interrupt through the function readADC_Bank().
+ * Every ADC is binded to a SOC.
+ */
 void adcSetup()
 {
     EALLOW;
@@ -73,7 +76,7 @@ void adcSetup()
     AdcaRegs.ADCSOC5CTL.bit.CHSEL = 14;
     AdcaRegs.ADCSOC5CTL.bit.ACQPS = ACQPS_;
 
-    AdcaRegs.ADCINTSEL1N2.bit.INT1SEL = 5;
+    AdcaRegs.ADCINTSEL1N2.bit.INT1SEL = 5; //end of SOC5 will set INT1 flag
     AdcaRegs.ADCINTSEL1N2.bit.INT1E = 1;   //enable INT1 flag
     AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; //make sure INT1 flag is cleared
 
@@ -92,7 +95,7 @@ void adcSetup()
 //    AdcbRegs.ADCINTSEL1N2.bit.INT1E = 1;
 //    AdcbRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
 
-    AdcbRegs.ADCINTSEL1N2.bit.INT2SEL = 7;
+    AdcbRegs.ADCINTSEL1N2.bit.INT2SEL = 7; //end of SOC7 will set INT2 flag
     AdcbRegs.ADCINTSEL1N2.bit.INT2E = 1;
     AdcbRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
 
@@ -111,7 +114,7 @@ void adcSetup()
 //    AdccRegs.ADCINTSEL1N2.bit.INT1E = 1;
 //    AdccRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
 
-    AdccRegs.ADCINTSEL1N2.bit.INT2SEL = 9;
+    AdccRegs.ADCINTSEL1N2.bit.INT2SEL = 9; //end of SOC7 will set INT2 flag
     AdccRegs.ADCINTSEL1N2.bit.INT2E = 1;
     AdccRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
 
@@ -166,12 +169,18 @@ void readADC_Bank(int num_bank)
     }
 }
 
-float getVoltage(uint16_t digital){
+
+
+
+/*
+ * Old functions to convert voltage values.
+ */
+float getVoltage(Uint16 digital){
     return ((float)(digital))*3/4095;
 }
 
 
-Uint16 getTempAvPT1000(uint16_t digital)
+Uint16 getTempAvPT1000(Uint16 digital)
 {
     float vin = getVoltage(digital);
     float aux = (vin*1000.0f)/(3.3f-vin);
@@ -179,12 +188,13 @@ Uint16 getTempAvPT1000(uint16_t digital)
 }
 
 
-Uint16 getTempZTP135SR(uint16_t digital){
+Uint16 getTempZTP135SR(Uint16 digital){
     float vin = getVoltage(digital);
     float aux = vin/(3.3f-vin);
     float tempK = (298.15f*3960)/(3960+(298.15f*log(aux))); //#include <math.h>
     return (Uint16)(tempK - 273.15f);
 }
 
-Uint16 getPressAvSP100(uint16_t digital) {return 0;}
+int getPressAvSP100(Uint16 digital){ return 0; }
+
 

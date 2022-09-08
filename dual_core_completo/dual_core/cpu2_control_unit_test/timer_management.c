@@ -1,32 +1,4 @@
-
 #include "timer_management.h"
-
-int h = 0;
-
-#if defined(DEBUG_NO_HV) || defined(DEBUG_HV)
-
-// variabili per debug
-int ventola_sx_epwm = 0;
-int ventola_dx_epwm = 0;
-int pompa_dx_epwm = 0;
-int pompa_sx_epwm = 0;
-int debug_acc_brake = 0;
-
-uint32_t pompa_sx_on_off = 0;
-uint32_t pompa_dx_on_off = 0;
-uint32_t ventola_on_off = 0;
-
-uint32_t scs_on_off = 0;
-
-
-float adc_values_debug[15];
-uint16_t acc_brake_debug[3];
-uint16_t dac_debug = 0;
-
-int simulate_throttle = 0;
-
-#endif
-
 
 void timerSetup()
 {
@@ -100,17 +72,18 @@ __interrupt void cpu_timer1_isr(void)
     CpuTimer1.InterruptCount++;
 
     readAllADC();
+    readThrottleBrakeSteering();
 
-    readThrottleBrakeSteering();    //rewrite
+
     brakeLight();
     readVelocity();
     fanControl();
-    //Start pumps 30 sec after accensione
+
+    //Start pumps 30 sec after lv power on
     if(time_elapsed >3000){
         setPumpSpeed(POMPA_SX, 0);
         setPumpSpeed(POMPA_DX, 0);
     }
-    checkTemps();                   //rewrite
 
     updateGPIOState();
 
@@ -118,68 +91,21 @@ __interrupt void cpu_timer1_isr(void)
 
 
 #ifndef DEBUG_NO_HV
+    /*
+     * Every cycle is verified if we can trigger R2D
+     */
     checkHV();
     checkRF();
     R2D_init();
 #endif
 
 #if defined(DEBUG_NO_HV) || defined(DEBUG_HV)
-
-    //debug adc
-//    int i;
-//    for(i=0; i<15; i++){
-//        adc_values_debug[i]=getVoltage(readADC(i));
-//    }
-
-
-    //debug acc1 acc2 brake
-//    acc_brake_debug[0]=readADC(ACC_1);
-//    acc_brake_debug[1]=readADC(ACC_2);
-//    acc_brake_debug[2]=readADC(BRAKE_CLEAN);
-
-
-    //debug DAC
-    //setDACValue(dac_debug);
-
-    //debug epwm
-    //setFanSpeed(VENTOLA_SX, 50);
-    //setFanSpeed(VENTOLA_DX, 50);
-//
-//    //debug epwm
-//    setPumpSpeed(POMPA_SX, pompa_sx_epwm);
-//    setPumpSpeed(POMPA_DX, pompa_dx_epwm);
-//
-//
-//    //debug gpio
-//    GPIO_WritePin(POMPA_SX_Abil, pompa_sx_on_off);
-//    GPIO_WritePin(VENTOLA_Abil, ventola_on_off);
-
-//    GPIO_WritePin(POMPA_DX_Abil, pompa_dx_on_off);
-//    GPIO_WritePin(SCS_FAULT, scs_on_off);
-
-
-#endif
-
-#ifdef TSAL_CTRL
-    //----------------------------------------------------------------------------------
-    //Tramacci TSAL
-    if (!GPIO_readPin(AIR_1_STATE) || !GPIO_readPin(AIR_2_STATE) || sendyne_voltage > 60)
-    {
-        GPIO_WritePin(11, 1U);
-        CPUTimer_startTimer(CPUTIMER2_BASE);
-
-    }
-    else
-    {
-        GPIO_WritePin(11, 0);
-        CPUTimer_stopTimer(CPUTIMER2_BASE);
-        GPIO_WritePin(14, 0);
-    }
-    //----------------------------------------------------------------------------------
+    /*
+     * space for debug purpose
+     */
 #endif
 
     bool canSendAMK = R2D_state && readRF() && isHVOn();
-
 
 #ifdef DEBUG_NO_HV  //for debug purposes with no inverter and no HV > HV ON is simulated by ECU
     canSendAMK = true; //debug
@@ -188,11 +114,12 @@ __interrupt void cpu_timer1_isr(void)
     if(canSendAMK)
     {
 
-        brakeWhenSlow = brake > 10 && actualVelocityKMH <= 5.f;
         /*brakeReg = brake > 10 && brake < REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
         brakeMec = brake >= REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;*/
         brakeReg = brake > 10 && actualVelocityKMH > 5.f;
         noBrake = brake <= 10;
+
+
         checkImplausibility();
 
         if (!implausibility_occurred)       //REGOLA EV 2.3
@@ -213,7 +140,7 @@ __interrupt void cpu_timer1_isr(void)
                 stopAMK();
     #else
                 //brakeAMK(brake * (NEGATIVE_TORQUE_LIMIT /10));
-                 brakeAMK(brake);       //Elimintated the if-else statement with lem_curr < max_reg
+                 brakeAMK(brake);       //Deleted the if-else statement with lem_curr < max_reg
     #endif
             }
             else if(brakeMec)
@@ -240,10 +167,16 @@ __interrupt void cpu_timer1_isr(void)
                 stopAMK();
             }
         }
+        /*
+         * if implausibility occurred it can be cleared if throtthle is released under 5%
+         */
         else if (throttle  < 5)   //REGOLA EV 2.3
         {
             implausibility_occurred = false;     //implausibility is cleared
         }
+        /*
+         * if implausibility is not cleared motor stay still
+         */
         else
         {
             stopAMK();
@@ -256,11 +189,11 @@ __interrupt void cpu_timer1_isr(void)
 
     sendAMKData();
     sendHostData();
+
     checkStatus();
     computeBatteryPackTension();
+
     sendDataToLogger();
-
-
 }
 
 

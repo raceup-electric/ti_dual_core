@@ -12,12 +12,11 @@ int media_acc_on = 1;
 int Read_throttle(){
     AccPot2 = Acc2_temp;
     AccPot1 = Acc1_temp;
-//    AccPot2 = readADC(ACC_2);
-//    AccPot1 = readADC(ACC_1);
 
     if ((AccPot1 < ACC1_DISC_THRES) || (AccPot2 < ACC2_DISC_THRES))
-        return 0;
-    //return 0 throttle if one APPS is disconnected
+        return 0;       //return 0 throttle if one APPS is disconnected
+
+    //UNCOMMENT IF USING ONLY ONE POTENTIOMETER
     /*if ((AccPot1 < ACC1_DISC_THRES) && (AccPot2 < ACC1_DISC_THRES))
         return 0;
     else if (((AccPot1 < ACC1_DISC_THRES) || (AccPot2 < ACC1_DISC_THRES)))
@@ -31,22 +30,26 @@ int Read_throttle(){
     acc1Pos = changeRange(acc1Pos, 0, 1, 0, 100);
     acc2Pos = changeRange(acc2Pos, 0, 1, 0, 100);
 
-    //DEBUG!!! Unsafe test configuration
+    /*
+     * If acc1Pos and acc2Pos differ more than 10%, implausibility occours.
+     * This check can be omitted for DEBUG purposes.
+     */
     if (abs(acc1Pos - acc2Pos) > ACC_IMPL_THRES)
     {
       return 0;   //implausibility
     }
 
-//    return saturateUnsigned((acc1Pos + acc2Pos)/2.0, 100, 0); //    //DEBUG!!! Unsafe test configuration
+    //UNCOMMENT IF USING ONLY ONE POTENTIOMETER
     /*if(media_acc_on){
        value = value - 0.2*(value - ((acc1Pos + acc2Pos)/2.0));
     }else{
-        value = value - 0.2*(value - (acc1Pos)); //usa solo potenziometro 1*/
-   // }
+        value = value - 0.2*(value - (acc1Pos)); //usa solo potenziometro 1
+    }*/
 
+    //COMMENT IF USING ONLY ONE POTENTIOMETER
     value = value - 0.2*(value - ((acc1Pos + acc2Pos)/2.0));
 
-    return saturateUnsigned(value, 100, 0);                   //DEBUG!!! Unsafe test configuration
+    return saturateUnsigned(value, 100, 0);
 }
 
 int Read_brake(int overrideProtectionOFF){
@@ -78,6 +81,10 @@ int Read_steering() {
 #endif
 }
 
+
+/*
+ * After ADC reading a filter is applied
+ */
 void readThrottleBrakeSteering() {
     throttle = Read_throttle();
     brake = Read_brake(0);
