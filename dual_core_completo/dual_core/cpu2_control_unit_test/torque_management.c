@@ -25,6 +25,9 @@ float readRPMVelocity()
 void performancePack()
 {
 
+    //Blocco di ingressi e saturatazioni e conversioni
+
+    //PRIMO candidato: valore massimo di torque per ogni ruota
     int i;
     for(i=0; i<4; i++){
         AMK_TorqueLimitPositive[i] = MAX_POS_TORQUE;
@@ -38,44 +41,52 @@ void performancePack()
     ay = accelerations[Y];  //m/s2
     yaw_r = omegas[Z];      //rad/s
 
+    for (i = 0; i < NUM_OF_MOTORS; i++){
+        motorSpeeds[i] = motorVal1[i].AMK_ActualVelocity;
+    }
+
+    saturationsAndConversions();
+
+    //Blocco dei calcoli preliminari
+    FzCalculatorTV();
+    speedCalculatorTV();
+
+    float Torque_max[4];
+
+    for(i = 0; i < NUM_OF_MOTORS; i++){
+        Torque_max[i] = 21.0f - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - 13000.0f);
+    }
+
+    for(i = 0; i < NUM_OF_MOTORS; i++){
+        if (AMK_TorqueLimitPositive[i] > Torque_max[i]){
+            AMK_TorqueLimitPositive[i] = Torque_max[i];
+        }
+        if (AMK_TorqueLimitNegative[i] < -Torque_max[i]){
+            AMK_TorqueLimitNegative[i] = -Torque_max[i];
+        }
+    }
+
+
+    for (i = 0; i < NUM_OF_MOTORS; i++){
+        posTorqueCandidate[i][0] = AMK_TorqueLimitPositive[i];
+    }
+
+
+    torqueVectoring();
+    torqueLimit1();
+
     for (i = 0; i < NUM_OF_MOTORS; i++)
-            motorSpeeds[i] = motorVal1[i].AMK_ActualVelocity;
-
-        saturationsAndConversions();
-
-        FzCalculatorTV();
-        speedCalculatorTV();
-
-        float Torque_max[4];
-
-        for(i = 0; i < NUM_OF_MOTORS; i++){
-            Torque_max[i] = 21.0f - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - 13000.0f);
-        }
-
-        for(i = 0; i < NUM_OF_MOTORS; i++){
-            if (AMK_TorqueLimitPositive[i] > Torque_max[i]) AMK_TorqueLimitPositive[i] = Torque_max[i];
-                if (AMK_TorqueLimitNegative[i] < -Torque_max[i]) AMK_TorqueLimitNegative[i] = -Torque_max[i];
-        }
-
-
-        for (i = 0; i < NUM_OF_MOTORS; i++)
-            posTorqueCandidate[i][0] = AMK_TorqueLimitPositive[i];
-
-        torqueVectoring();
-
-        for (i = 0; i < NUM_OF_MOTORS; i++)
-        {
+    {
             //Save last setting of pos and neg troque
-            posTorqueNM_last[i] = posTorqueNM_last[i] - 0.2*(posTorqueNM_last[i] - (fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1])));
-            negTorqueNM_last[i] = negTorqueNM_last[i] - 0.2*(negTorqueNM_last[i] - (negTorqueCandidate[i]));
+        posTorqueNM_last[i] = posTorqueNM_last[i] - 0.2*(posTorqueNM_last[i] - (fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1])));
+        negTorqueNM_last[i] = negTorqueNM_last[i] - 0.2*(negTorqueNM_last[i] - (negTorqueCandidate[i]));
             //posTorquesNM[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1]);
             //negTorquesNM[i] = negTorqueCandidate[i];
 
             //Send them out of TV
-            posTorquesNM[i] = posTorqueNM_last[i];
-            negTorquesNM[i] = negTorqueNM_last[i];
-
-        }
+        posTorquesNM[i] = posTorqueNM_last[i];
+        negTorquesNM[i] = negTorqueNM_last[i];
+    }
 
 }
 
@@ -88,8 +99,9 @@ void saturationsAndConversions()
     yaw_r = saturateFloat(yaw_r, YAW_R_UPPER_BOUND, YAW_R_LOWER_BOUND);
 
     int i;
-    for (i = 0; i < NUM_OF_MOTORS; i++)
+    for (i = 0; i < NUM_OF_MOTORS; i++){
         motorSpeeds[i] = saturateInt(motorSpeeds[i], MOTOR_SPEED_UPPER_BOUND, MOTOR_SPEED_LOWER_BOUND);
+    }
 
     steers[0] = str*K_DELTA;
     steers[1] = str*K_DELTA;
@@ -98,8 +110,9 @@ void saturationsAndConversions()
 
     //Conversions
 
-    for (i = 0; i < NUM_OF_MOTORS; i++)
-        motorSpeeds[i] = (motorSpeeds[i]*PI_FLOAT*TAU)/30;
+    for (i = 0; i < NUM_OF_MOTORS; i++){
+        motorSpeeds[i] = (motorSpeeds[i]*PI_FLOAT*TAU)/30.0f;
+    }
 
 }
 
@@ -111,7 +124,7 @@ void speedCalculatorTV()
         re[i] = R0 - (fz[i] * 3.016126E-6f);
     }
 
-    float tmp = ((th + brk)*0.1f)+1;
+    float tmp = ((th + brk)*0.1f)+1.0f;
 
     float steers_tmp[4];
     for (i = 0; i < 4; i++)
@@ -141,21 +154,23 @@ void speedCalculatorTV()
         sum+=calc_tmp[i];
     }
 
-    speedTv = sum * 0.25;
+    //Speed estimation
+    speedTv = sum * 0.25f;
 }
 
 void FzCalculatorTV()
 {
-    float tmp_x = (ax*MASS*Z_G)/(W*2);
+    //Calcolo delle forze applicate su ogni ruota
+    float tmp_x = (ax*MASS*Z_G)/(W*2.0f);
     float tmp_yf = (ay*MASS*Z_G*K_F)/T_F;
     float tmp_yr = (ay*MASS*Z_G*K_R)/T_R;
     float tmp_u1 = speedTv*speedTv*0.25f*RHO*C_Z_A*((1-A_A)/W);
     float tmp_u2 = (speedTv*speedTv*0.25f*RHO*C_Z_A*A_A)/W;
 
     fz[0] = -tmp_x;
-    fz[0]+= -tmp_yf;
-    fz[0]+= FZF*G_ACC;
-    fz[0]+= tmp_u1;
+    fz[0] += -tmp_yf;
+    fz[0] += FZF*G_ACC;
+    fz[0] += tmp_u1;
 
     fz[1] = -tmp_x;
     fz[1]+= tmp_yf;
@@ -173,8 +188,9 @@ void FzCalculatorTV()
     fz[3]+= tmp_u2;
 
     int i;
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < 4; i++){
         fz[i] = saturateFloat(fz[i], FZ_UPPER_BOUND, FZ_LOWER_BOUND);
+    }
 
 }
 
@@ -184,6 +200,7 @@ void torqueVectoring()
    int i;
    for (i = 0; i < 4; i++)
    {
+       //SECONDO CANDIDATO
        posTorqueCandidate[i][1] = repFz[i]*th*4*AMK_TorqueLimitPositive[i];
        negTorqueCandidate[i] = repFz[i]*brk*4*AMK_TorqueLimitNegative[i];
    }
@@ -215,6 +232,23 @@ void torqueRepartition()
 
 
 
+}
+
+void torqueLimit1(){
+    float tmp_fz[4];
+    int i = 0;
+    for(i = 0; i < NUM_OF_MOTORS; i++){
+        tmp_fz[i] = fz[i]*NU1 + pow(fz[i],2.0f)*NU2 + pow(fz[i],3.0f)*NU3 + pow(fz[i],4.0f)*NU4 + pow(fz[i],5.0f)*NU5 + pow(fz[i],6.0f)*NU6;
+    }
+    float tmp_steer[4];
+    for(i = 0; i < NUM_OF_MOTORS; i++){
+        tmp_steer[i] = 1.0f + steers[i]*ALPHA1 + pow(steers[i], 2.0f)*ALPHA2 + pow(steers[i], 3.0f)*ALPHA3 + pow(steers[i], 4.0f)*ALPHA4 + pow(steers[i], 5.0f)*ALPHA5;
+    }
+
+    for(i = 0; i < NUM_OF_MOTORS; i++){
+        //TERZO CANDIDATO
+        posTorqueCandidate[i][2] = tmp_steer[i] * tmp_fz[i] + re[i];
+    }
 }
 
 //torque_reg_IPM in uscita é POSITIVO

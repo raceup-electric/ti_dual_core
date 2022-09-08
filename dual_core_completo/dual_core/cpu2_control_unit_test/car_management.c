@@ -278,7 +278,7 @@ void R2D_Off()
     GPIO_WritePin(R2D, R2D_LED_OFF);  // led
 //    GPIO_WritePin(POMPA_DX_Abil, 0U);  // pompa dx off
 //    GPIO_WritePin(POMPA_SX_Abil, 0U);  // pompa sx off
-    GPIO_WritePin(ENABLE_PUMPS, 0U);  // pompa sx off
+    GPIO_WritePin(ENABLE_PUMPS, 1U);  // pompa sx off
     GPIO_WritePin(VENTOLA_Abil, 0U);  // ventole off
 
 }

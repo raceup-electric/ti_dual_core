@@ -91,5 +91,7 @@ void regBrake();
 
 void onePedalDriving();
 
+void torqueLimit1();
+
 
 #endif

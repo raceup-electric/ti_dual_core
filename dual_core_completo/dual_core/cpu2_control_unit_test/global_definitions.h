@@ -71,6 +71,20 @@
 #define RHO                         1.1352f
 #define A_A                         1.087f
 
+//Constants of TorqueLimit1
+#define NU1                         1.7977585706847f;
+#define NU2                         0.000387300865455914f;
+#define NU3                         -3.14517395274217E-06;
+#define NU4                          4.6481093251002E-09;
+#define NU5                         -3.5206874715397E-12;
+#define NU6                         1.31537731918249E-15;
+#define ALPHA0                      1.0f;
+#define ALPHA1                      0.000387300865455914f;
+#define ALPHA2                      -3.14517395274217E-06;
+#define ALPHA3                      4.64810932510023E-09;
+#define ALPHA4                      -3.5206874715397E-12;
+#define ALPHA5                      1.31537731918249E-15;
+
 #define MAX_POS_TORQUE              12.0f
 #define MAX_NEG_TORQUE              -7.0f
 
