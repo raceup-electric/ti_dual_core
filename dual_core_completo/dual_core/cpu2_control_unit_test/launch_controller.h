@@ -10,8 +10,11 @@
 #define LAUNCH_CONTROLLER_H_
 
 #include <math.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include "F28x_Project.h"
 
-
+bool is_time_saved = false;
 // costanti di funzioni interpolative per parametri dei pneumatici
 float LMUX[7] = {1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4};
 double p1[7] = {-167709.21982, -128887.33193, -102973.43698, -21227.406823, -10169.543164, 4702.789202, -122.69393455};
@@ -43,13 +46,13 @@ int LC = 0;// [0, 1, 2, 3, 4, 5, 6]
 double t1[7] = {0.49, 0.51, 0.57, 0.63, 0.73, 0.85, 0.91};
 double T1[7] = {21, 21, 21,21, 21, 19.5, 16};
 
-/*
- * param: t=> tempo dal momento che viene rilasciato il freno in secondi
- * param: torque=> vettore lungo 4 passato per riferimetnto dove saranno assegnate le coppie da mandare ai motori
- *          Convenzione
- *          vettore = [front left, front right, rear left, rear right];
- */
-void launch_control(unsigned long t,double torque[4]);
+extern float posTorqueCandidate[4][4];
+extern bool is_launch_inserted;
+extern int throttle;
+extern int brake;
+extern Uint32 time_elapsed;
+
+void launch_control();
 
 
 #endif /* LAUNCH_CONTROLLER_H_ */

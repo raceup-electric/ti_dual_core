@@ -4,6 +4,7 @@
 float posTorqueNM_last[4] = {0, 0, 0 ,0};
 float negTorqueNM_last[4] = {0, 0, 0 ,0};
 
+float minTorquePos[4];
 void readVelocity()
 {
     actualVelocityRPM = readRPMVelocity();
@@ -68,17 +69,22 @@ void performancePack()
 
 
     for (i = 0; i < NUM_OF_MOTORS; i++){
+        //Primo candidato (numero 0) c he è il torque massimo
         posTorqueCandidate[i][0] = AMK_TorqueLimitPositive[i];
     }
 
 
-    torqueVectoring();
-    torqueLimit1();
+    //Funzione di controllo e calcolo dei candidati
+    torqueVectoring();          //Secondo candidato calcolato secondo TV2019, con ripartizione front rear
+    torqueLimit1();             //Terzo candidato calcolato con TorqueLimit1, ripartizione con Re e steer
+    launch_control();
 
     for (i = 0; i < NUM_OF_MOTORS; i++)
     {
             //Save last setting of pos and neg troque
-        posTorqueNM_last[i] = posTorqueNM_last[i] - 0.2*(posTorqueNM_last[i] - (fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1])));
+        minTorquePos[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1]);
+        minTorquePos[i] = fminf(minTorquePos[i], posTorqueCandidate[i][2]);
+        posTorqueNM_last[i] = posTorqueNM_last[i] - 0.2*(posTorqueNM_last[i] - (minTorquePos[i]));
         negTorqueNM_last[i] = negTorqueNM_last[i] - 0.2*(negTorqueNM_last[i] - (negTorqueCandidate[i]));
             //posTorquesNM[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1]);
             //negTorquesNM[i] = negTorqueCandidate[i];

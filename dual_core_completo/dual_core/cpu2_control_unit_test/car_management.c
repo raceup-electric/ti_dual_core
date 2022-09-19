@@ -193,7 +193,10 @@ void read_steering_wheel_message(Uint16 val[], int id){
             currentPage = currentPage % MAX_PAGE_NUMBER;
             display.page = currentPage;
         }else if(val[0] == START_LAUNCH){
-            //
+            if(R2D_state && actualVelocityKMH < 1.f){
+                //Sono fermo e voglio attivare il launch
+                is_launch_inserted = true;
+            }
         }
 
     }

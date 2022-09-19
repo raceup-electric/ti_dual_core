@@ -57,6 +57,7 @@ extern float AMK_TorqueLimitPositive[4];
 extern float AMK_TorqueLimitNegative[4];
 extern float torque_reg_IPM[4];
 
+
 extern float power_limit;
 
 

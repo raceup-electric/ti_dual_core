@@ -89,6 +89,9 @@ extern int max_speed;
 extern float rear_motor_scale;
 extern float front_motor_scale;
 
+
+//Launch setting
+extern bool is_launch_inserted;
 //logging
 extern struct Share_struct sh;
 extern struct Status_Log status_log;

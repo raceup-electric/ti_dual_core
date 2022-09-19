@@ -58,6 +58,8 @@ bool R2D_state = 0;
 bool brk_disconnected = false;
 bool implausibility_occurred = false;
 
+bool is_launch_inserted = false;
+
 // driver input
 // filtro max-nuotatori: media mobile, senza contare i top N valori
 const int filterValCount = 20;
