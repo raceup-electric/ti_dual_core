@@ -77,7 +77,7 @@ void read_IMU_message(Uint16 imu_values[], int id)
     else if (id == MSG_ID_IMU_2)
     {
         accelerations[Z] = accelerations[Z] - 0.5*(accelerations[Z] - (uint32_to_float(aux_1)));
-
+        apply_calibration();
         omegas[X] = uint32_to_float(aux_2);
     }
     else if (id == MSG_ID_IMU_3)

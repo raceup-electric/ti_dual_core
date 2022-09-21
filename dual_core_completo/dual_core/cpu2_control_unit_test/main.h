@@ -202,7 +202,8 @@ float bms_lv_cell[8]; //gli ultimi due valori sono temperature
 float versx[3];
 float versy[3];
 float versz[3];
-float V[3][3] = {{1.0f,0.0f,0.0f},{0.0f,1.0f,0.0f},{0.0f,0.0f,1.0f}};
+float V[3][3] = {{0.9989f,-0.0464f,0.0076f},{0.0463f,0.9988f,-0.0128f},{0.0082f,0.0125f,0.9999f}};
+float corrected_accelerations[3];
 
 //timer
 volatile uint16_t cpuTimer0IntCount;

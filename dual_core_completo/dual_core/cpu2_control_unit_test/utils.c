@@ -1,5 +1,7 @@
 #include "utils.h"
 
+extern float corrected_accelerations[3];
+
 float convertBMSvoltage(Uint16 voltage){
   return (3000 + (1.2 * voltage));
 }

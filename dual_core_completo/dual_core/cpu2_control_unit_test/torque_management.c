@@ -84,6 +84,7 @@ void performancePack()
             //Save last setting of pos and neg troque
         minTorquePos[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1]);
         minTorquePos[i] = fminf(minTorquePos[i], posTorqueCandidate[i][2]);
+        minTorquePos[i] = fminf(minTorquePos[i], posTorqueCandidate[i][3]);
         posTorqueNM_last[i] = posTorqueNM_last[i] - 0.2*(posTorqueNM_last[i] - (minTorquePos[i]));
         negTorqueNM_last[i] = negTorqueNM_last[i] - 0.2*(negTorqueNM_last[i] - (negTorqueCandidate[i]));
             //posTorquesNM[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1]);
@@ -168,8 +169,15 @@ void FzCalculatorTV()
 {
     //Calcolo delle forze applicate su ogni ruota
     float tmp_x = (ax*MASS*Z_G)/(W*2.0f);
+
+#ifdef TV_ACC
+    float tmp_yf = 0;
+    float tmp_yr = 0;
+#else
     float tmp_yf = (ay*MASS*Z_G*K_F)/T_F;
     float tmp_yr = (ay*MASS*Z_G*K_R)/T_R;
+#endif
+
     float tmp_u1 = speedTv*speedTv*0.25f*RHO*C_Z_A*((1-A_A)/W);
     float tmp_u2 = (speedTv*speedTv*0.25f*RHO*C_Z_A*A_A)/W;
 
@@ -253,7 +261,8 @@ void torqueLimit1(){
 
     for(i = 0; i < NUM_OF_MOTORS; i++){
         //TERZO CANDIDATO
-        posTorqueCandidate[i][2] = tmp_steer[i] * tmp_fz[i] + re[i];
+        //1.0f cond di grip ideale 0.0grip inesistente
+        posTorqueCandidate[i][2] = tmp_steer[i] * tmp_fz[i] * 1.0f  + re[i];
     }
 }
 

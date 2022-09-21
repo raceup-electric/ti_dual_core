@@ -41,7 +41,7 @@ double alpha4 = -3.5206874715397*1e-12;
 double alpha5 = 1.31537731918249*1e-15;
 
 //LC = valore di controllo di partenza; 0=grip ideale; 6=grip molto scarso
-int LC = 0;// [0, 1, 2, 3, 4, 5, 6]
+int LC = 2;// [0, 1, 2, 3, 4, 5, 6]
 
 double t1[7] = {0.49, 0.51, 0.57, 0.63, 0.73, 0.85, 0.91};
 double T1[7] = {21, 21, 21,21, 21, 19.5, 16};

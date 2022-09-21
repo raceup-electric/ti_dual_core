@@ -98,15 +98,18 @@
 #define ALPHA4                      -3.5206874715397E-12;
 #define ALPHA5                      1.31537731918249E-15;
 
-#define MAX_POS_TORQUE              12.0f
+//Costante di attrito
+#define GIORGIO                     1.0f;
+
+#define MAX_POS_TORQUE              17.0f
 #define MAX_NEG_TORQUE              -7.0f
 
-#define MAX_REGEN_CURRENT           30.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
+#define MAX_REGEN_CURRENT           15.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 //
 
 // POWER CONTROL
 //
-#define POWER_LIMIT         30000.0f       //Watt
+#define POWER_LIMIT         70000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f

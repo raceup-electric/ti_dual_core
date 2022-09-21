@@ -20,12 +20,12 @@ void launch_control()
 
     //Logica di controllo
     if(is_launch_inserted){
-        if(throttle > 50 && !is_time_saved){
+        if(throttle > 20 && !is_time_saved){
             //Salvo l'ultimo istante di tempo e segnalo il flag del salvataggio
             //Procedura di launch iniziata
             t_last = t;
             is_time_saved = true;
-        }else if(is_time_saved && brake > 50){
+        }else if(is_time_saved && brake > 30){
             //Disattivo LC e "disimparo" il tempo
             is_time_saved = false;
             is_launch_inserted = false;

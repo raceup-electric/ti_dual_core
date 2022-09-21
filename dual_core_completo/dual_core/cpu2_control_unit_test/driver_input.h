@@ -33,7 +33,7 @@
 
 // brake
 #define BRK_LOW_TH    2050
-#define BRK_HIGH_TH   2600
+#define BRK_HIGH_TH   2520
 #define BRK_INPUT_RANGE (BRK_HIGH_TH-BRK_LOW_TH)
 
 #define BRK_DISC_THRES 200  //ABSOLUTE VAL
