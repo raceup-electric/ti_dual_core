@@ -5,6 +5,13 @@ float posTorqueNM_last[4] = {0, 0, 0 ,0};
 float negTorqueNM_last[4] = {0, 0, 0 ,0};
 
 float minTorquePos[4];
+
+float prev_acc = 0.f;
+float brake_point_limit = 35.f;
+float var_min = 3.0f;
+float slope = 1.f;
+float dacc = 0.0f;
+
 void readVelocity()
 {
     actualVelocityRPM = readRPMVelocity();
@@ -324,19 +331,29 @@ void regBrake()
 
 void onePedalDriving()
 {
-    float brake_point_limit = 35;
+    //Differenza dal valore precedente
+    dacc = throttle-prev_acc;
+    if(dacc > var_min){
+        slope = abs(slope);
+    }else if(dacc < -var_min){
+       slope = -abs(slope);
+    }
+
+
 
     if(throttleReq > brake_point_limit){
-            throttleReq = ((throttleReq - brake_point_limit)*100)/(100-brake_point_limit);
-            brakeReq = 0;
+        //Condizione normale di accelerazione sopra il 35%
+        throttleReq = ((throttleReq - brake_point_limit)*100)/(100-brake_point_limit);
+        brakeReq = 0;
 
     }
     else if(throttleReq==0 && brake > 5){
+        //Frenata meccanica e normale
         brakeReq = 100;
         velocityRef = 0;    //per setpoint AMK4
     }
     else{
-        if(actualVelocityKMH > 5.f){
+        if(actualVelocityKMH > 5.f && slope == -1){
 
             brakeReq = (100 - throttleReq*100/brake_point_limit);
             throttleReq = 0;
