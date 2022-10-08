@@ -117,6 +117,15 @@
 #define PI_UPPER_BOUND      175929.2f
 
 //
+//THERMAL POWER CONTROL
+//
+#define KA                  0.4f
+#define T_MIN               25.0f
+#define T_MAX               40.0f
+
+
+
+//
 // IMU
 //
 #define X                   0

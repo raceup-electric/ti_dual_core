@@ -147,7 +147,7 @@
 								<option id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.ADVICE__PERFORMANCE.111670337" name="Provide advice on optimization techniques (--advice:performance)" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.ADVICE__PERFORMANCE" value="--advice:performance=all" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.DEFINE.675055616" name="Pre-define NAME (--define, -D)" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.DEFINE" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="${COM_TI_C2000WARE_SOFTWARE_PACKAGE_SYMBOLS}"/>
-									<listOptionValue builtIn="false" value="TV_ACC"/>
+									<listOptionValue builtIn="false" value="NO_THERMAL_POWER_CONTROL"/>
 									<listOptionValue builtIn="false" value="NO_REG_BRAKE"/>
 									<listOptionValue builtIn="false" value="NO_ONE_PEDAL"/>
 									<listOptionValue builtIn="false" value="CPU2"/>
@@ -162,6 +162,7 @@
 								<option id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.ABI.1945475544" name="Application binary interface [See 'General' page to edit] (--abi)" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.ABI" value="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.ABI.coffabi" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.UNDEFINE.1660513860" name="Undefine NAME (--undefine, -U)" superClass="com.ti.ccstudio.buildDefinitions.C2000_20.2.compilerID.UNDEFINE" valueType="stringList">
 									<listOptionValue builtIn="false" value="NO_TORQUE_VECTORING"/>
+									<listOptionValue builtIn="false" value="TV_ACC"/>
 									<listOptionValue builtIn="false" value="DEBUG_NO_HV"/>
 									<listOptionValue builtIn="false" value="FAN_LV_ENABLE"/>
 									<listOptionValue builtIn="false" value="NO_POWER_CONTROL"/>

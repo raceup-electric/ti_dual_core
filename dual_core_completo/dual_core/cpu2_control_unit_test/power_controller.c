@@ -8,7 +8,12 @@ void powerControl()
     for (i = 0; i < NUM_OF_MOTORS; i++)
         sTorque+=posTorquesNM[i];
 
+#ifndef NO_THERMAL_POWER_CONTROL
+    power_limit = power_limit * (1- KA * (mean_bms_temp - T_MIN) / (T_MAX - T_MIN));
+#endif
     power_error = total_power - power_limit;
+
+
 
     reduction_factor = PIController(power_error);
     reduction_factor = reduction_factor/STANDARD_SPEED;
