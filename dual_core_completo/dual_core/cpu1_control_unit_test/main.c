@@ -248,14 +248,14 @@ __interrupt void cpu_timer1_isr(void)
         writeSD(cmd);
 
         sprintf(cmd ,
-//                "%d;%d;"                           //fanSpeed
+                "%u;%u;"                           //fanSpeed
                 "%.4f;%.4f;%.4f;%.4f;%.4f;%.4f;"   //imu
                 "%.1f;%.1f;%.1f;%.1f;"                   //suspensions
                 "%.1f;%.1f;%.1f;%.1f;%.1f;"        //temperatures per cooling
                 "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n",
 
 //                        //fanSpeed
-//                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
+                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
                         //imu
                         local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
                         local_sh.imu.accelerations_shared[2], local_sh.imu.omegas_shared[0],

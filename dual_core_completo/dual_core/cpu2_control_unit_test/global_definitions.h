@@ -49,7 +49,7 @@
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 14000 //15000               //Speed limit
+#define SPEED_LIMIT                 18000 //15000               //Speed limit
 #define M_N                         9.8f
 
 //
@@ -71,17 +71,17 @@
 #define TAU                         (1.0f/14.4f)
 #define K_DELTA                     0.2776853f
 #define R0                          0.228f
-#define FZR                         75.0f
-#define FZF                         60.0f
+#define FZR                         78.0f
+#define FZF                         63.0f
 #define W                           1.535f
-#define MASS                        270.0f
+#define MASS                        282.0f
 #define Z_G                         0.3f
 #define T_F                         1.23f
 #define T_R                         1.2f
-#define K_F                         0.53f
+#define K_F                         0.4775f
 #define K_R                         (1-K_F)
 #define C_Z_A                       3.94f
-#define RHO                         1.1352f
+#define RHO                         1.25f
 #define A_A                         1.087f
 
 //Constants of TorqueLimit1
@@ -98,32 +98,20 @@
 #define ALPHA4                      -3.5206874715397E-12;
 #define ALPHA5                      1.31537731918249E-15;
 
-//Costante di attrito
-#define GIORGIO                     1.0f;
-
 #define MAX_POS_TORQUE              17.0f
 #define MAX_NEG_TORQUE              -7.0f
 
-#define MAX_REGEN_CURRENT           15.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
+#define MAX_REGEN_CURRENT           30.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 //
 
 // POWER CONTROL
 //
-#define POWER_LIMIT         70000.0f       //Watt
+#define POWER_LIMIT         45000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f
 #define T_SAMPLING_ECU      0.010f       //seconds
 #define PI_UPPER_BOUND      175929.2f
-
-//
-//THERMAL POWER CONTROL
-//
-#define KA                  0.4f
-#define T_MIN               25.0f
-#define T_MAX               40.0f
-
-
 
 //
 // IMU
