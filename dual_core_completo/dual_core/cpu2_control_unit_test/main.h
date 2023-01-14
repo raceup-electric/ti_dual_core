@@ -254,7 +254,17 @@ unsigned char TXA_Host_Data[4];
 float TXA_Smu_Calibration[5][2];
 //unsigned char TXA_Smu_Calibration[5][8];
 unsigned char RXA_Lem_Data[8]; //aggiunto lem
-unsigned char TXCANA_ATMega_Data;
+unsigned char TXCANA_ATMega_Data[4];
+
+
+unsigned char fan_enable;
+unsigned char pump_enable;
+unsigned char epwm4B;
+unsigned char epwm5A;
+unsigned char epwm5B;
+unsigned char epwm6A;
+
+
 
 tCANMsgObject RXCANB_AmkVal1_Message[4];
 tCANMsgObject RXCANB_AmkVal2_Message[4];

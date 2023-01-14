@@ -30,7 +30,8 @@ extern unsigned long int reassembled_data;
 extern unsigned char CAN_SENDYNE_ACT_VALUES[8];
 
 
-extern unsigned char TXCANA_ATMega_Data;
+extern unsigned char fan_enable;
+extern unsigned char pump_enable;
 
 
 //bms

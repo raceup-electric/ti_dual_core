@@ -29,13 +29,20 @@ void epwmSetup()
     CpuSysRegs.PCLKCR0.bit.TBCLKSYNC = 0;
     EDIS;
 
-    initEPWM4();
-    initEPWM5();
-    initEPWM6();
+   // initEPWM4();
+   // initEPWM5();
+   // initEPWM6();
 
     EALLOW;
     CpuSysRegs.PCLKCR0.bit.TBCLKSYNC = 1;
     EDIS;
+
+
+    epwm4B=0;
+    epwm5A=0;
+    epwm5B=0;
+    epwm6A=0;
+
 
 
 }
@@ -209,12 +216,13 @@ Uint16 convertPercent(int perc)
 void setFanSpeed(int fan, int speed){
     switch(fan){
     case VENTOLA_SX:
-        EPwm5Regs.CMPA.bit.CMPA=convertPercent(speed);
+        epwm5A=convertPercent(speed);
     break;
     case VENTOLA_DX:
-        EPwm4Regs.CMPB.bit.CMPB=convertPercent(speed);
+        epwm4B=convertPercent(speed);
     break;
     }
+    send_ATMega();
 }
 
 /*
@@ -223,10 +231,11 @@ void setFanSpeed(int fan, int speed){
 void setPumpSpeed(int pump, int speed){
     switch(pump){
     case POMPA_SX:
-        EPwm6Regs.CMPA.bit.CMPA=convertPercent(speed);
+        epwm6A=convertPercent(speed);
     break;
     case POMPA_DX:
-        EPwm5Regs.CMPB.bit.CMPB=convertPercent(speed);
+        epwm5B=convertPercent(speed);
     break;
     }
+    send_ATMega();
 }

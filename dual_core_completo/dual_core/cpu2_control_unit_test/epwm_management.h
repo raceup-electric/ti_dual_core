@@ -13,9 +13,16 @@
 //#include "F2837xD_device.h"
 //#include "F2837xD_Examples.h"
 #include "global_definitions.h"
+#include "can_management.h"
 
 #define A   1
 #define B   2
+
+
+extern unsigned char epwm4B;
+extern unsigned char epwm5A;
+extern unsigned char epwm5B;
+extern unsigned char epwm6A;
 
 
 //

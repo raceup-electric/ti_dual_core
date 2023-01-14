@@ -17,7 +17,8 @@ extern Uint16 Sdc4_State;
 extern Uint16 Sdc5_State;
 extern Uint16 Sdc6_State;
 
-extern unsigned char TXCANA_ATMega_Data;
+extern unsigned char fan_enable;
+extern unsigned char pump_enable;
 
 
 void GPIOSetup();

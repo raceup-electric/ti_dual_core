@@ -169,7 +169,7 @@ void canSetup_phase2()
         TXCANA_ATMega_Message.ui32MsgID = MSG_ID_TO_ATMEGA;
         TXCANA_ATMega_Message.ui32MsgIDMask = 0;
         TXCANA_ATMega_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
-        TXCANA_ATMega_Message.ui32MsgLen = 1;
+        TXCANA_ATMega_Message.ui32MsgLen = 4;
         TXCANA_ATMega_Message.pucMsgData = TXCANA_ATMega_Data;
 
 
@@ -390,6 +390,12 @@ Uint32 getMessageID(Uint32 base, Uint32 objID)
 
 
 void send_ATMega(){
+
+    TXCANA_ATMega_Data[0] = fan_enable + (epwm4B<<1);
+    TXCANA_ATMega_Data[1] = pump_enable + (epwm5A<<1);
+
+    TXCANA_ATMega_Data[0] = epwm5B<<1;
+    TXCANA_ATMega_Data[1] = epwm6A<<1;
 
     CANMessageSet(CANA_BASE, OBJ_ID_TO_ATMEGA, &TXCANA_ATMega_Message, MSG_OBJ_TYPE_TX);
 
