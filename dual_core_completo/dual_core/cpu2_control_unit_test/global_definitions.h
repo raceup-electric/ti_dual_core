@@ -166,6 +166,7 @@
 #define OBJ_ID_FROM_BMS_LV      18
 #define OBJ_ID_FROM_LEM         21
 #define OBJ_ID_FROM_IMU         22
+#define OBJ_ID_TO_ATMEGA        23
 #define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_FROM_AMK         26
 #define OBJ_ID_FROM_SENDYNE     27
@@ -203,6 +204,7 @@
 #define MSG_ID_BMS_TEMP                      0x111
 #define MSG_ID_HOST_SEND                     0x120
 #define MSG_ID_LEM                           0x3C2
+#define MSG_ID_TO_ATMEGA                     0x130
 
 
 //SCHERMO

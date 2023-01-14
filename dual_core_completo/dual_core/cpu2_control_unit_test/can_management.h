@@ -56,6 +56,8 @@ extern tCANMsgObject TXCANA_BmsHost_Message;
 extern tCANMsgObject RXCANA_PwCtrl_Message;
 extern tCANMsgObject RXCANA_Wheel_Message;
 extern tCANMsgObject RXCANA_Lem_Message; //aggiunto lem
+extern tCANMsgObject TXCANA_ATMega_Message;
+
 extern unsigned char RXA_Imu_Data[8];
 extern unsigned char RXA_Smu_Data[8];
 extern unsigned char RXA_Sendyne_Data[8];
@@ -67,6 +69,7 @@ extern unsigned char RXA_BmsLV_Data[8];
 extern float TXA_Smu_Calibration[5][2];
 extern unsigned char RXA_Lem_Data[8]; //aggiunto lem
 extern unsigned char TXA_Host_Data[4];
+extern unsigned char TXCANA_ATMega_Data;
 
 extern tCANMsgObject TXCANB_Setpoints_Message[4];
 extern unsigned char TXB_Setpoints_Data[4][8];
@@ -89,5 +92,7 @@ __interrupt void canISR_B(void);
 __interrupt void canISR_A(void);
 
 Uint32 getMessageID(Uint32 base, Uint32 objID);
+
+void send_ATMega();
 
 #endif

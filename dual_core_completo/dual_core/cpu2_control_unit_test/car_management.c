@@ -268,10 +268,13 @@ void R2D_On()
 {
     playRTDS();
     GPIO_WritePin(R2D, R2D_LED_ON);  // led
-//    GPIO_WritePin(POMPA_DX_Abil, 1U);  // pompa dx on
-//    GPIO_WritePin(POMPA_SX_Abil, 1U);  // pompa sx on
-    GPIO_WritePin(ENABLE_PUMPS, 1U);  // pompa sx off
-    GPIO_WritePin(VENTOLA_Abil, 1U);  // ventole on
+
+
+    //GPIO_WritePin(ENABLE_PUMPS, 1U);  // pompa on - ok cooling
+    //GPIO_WritePin(VENTOLA_Abil, 1U);  // ventole on
+
+    TXCANA_ATMega_Data = TXCANA_ATMega_Data | 0x3;  // set the least two bits at one
+    send_ATMega();
 
 }
 
@@ -279,10 +282,14 @@ void R2D_Off()
 {
     GPIO_WritePin(RTDS, 0U);  // sound
     GPIO_WritePin(R2D, R2D_LED_OFF);  // led
-//    GPIO_WritePin(POMPA_DX_Abil, 0U);  // pompa dx off
-//    GPIO_WritePin(POMPA_SX_Abil, 0U);  // pompa sx off
-    GPIO_WritePin(ENABLE_PUMPS, 1U);  // pompa sx off
-    GPIO_WritePin(VENTOLA_Abil, 0U);  // ventole off
+
+    //GPIO_WritePin(ENABLE_PUMPS, 1U);  // pompa on - ok cooling
+    //GPIO_WritePin(VENTOLA_Abil, 0U);  // ventole off
+
+    TXCANA_ATMega_Data = (TXCANA_ATMega_Data | 0x1) & 0xFFFD;  // set the least significant bit to one and the second to zero
+    send_ATMega();
+
+
 
 }
 

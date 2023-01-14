@@ -1,14 +1,14 @@
 #include "GPIO_management.h"
 #include "global_definitions.h"
 
-int gpioOutput[] = {ENABLE_PUMPS,
+int gpioOutput[] = {
                     RTDS,
                     SCS_FAULT,
                     R2D,
                     DEBUG_LED1,
                     DEBUG_LED2,
                     BRAKE_LIGHT_Abil,
-                    VENTOLA_Abil};
+                    };
 
 int gpioInput[] = { AIR_1_STATE,
                     AIR_2_STATE,
@@ -62,8 +62,6 @@ void GPIOSetup()
     GPIO_WritePin(BLUE_BLINK, 0);
     GPIO_WritePin(R2D, R2D_LED_OFF);
     GPIO_WritePin(RTDS, 0);
-    GPIO_WritePin(ENABLE_PUMPS, 0);
-    GPIO_WritePin(VENTOLA_Abil, 0);
     GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);
     GPIO_WritePin(SCS_FAULT, 1U);
 

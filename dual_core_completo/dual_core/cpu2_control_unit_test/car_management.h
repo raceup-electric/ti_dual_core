@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "global_definitions.h"
 #include "epwm_management.h"
+#include "can_management.h"
 
 
 //
@@ -27,6 +28,10 @@ extern Uint16 batteryPackTension;
 extern float lem_current;
 extern unsigned long int reassembled_data;
 extern unsigned char CAN_SENDYNE_ACT_VALUES[8];
+
+
+extern unsigned char TXCANA_ATMega_Data;
+
 
 //bms
 extern float max_bms_voltage;

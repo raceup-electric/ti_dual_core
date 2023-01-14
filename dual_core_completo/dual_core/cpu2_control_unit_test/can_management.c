@@ -166,6 +166,13 @@ void canSetup_phase2()
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, MSG_OBJ_TYPE_RX);
 
 
+        TXCANA_ATMega_Message.ui32MsgID = MSG_ID_TO_ATMEGA;
+        TXCANA_ATMega_Message.ui32MsgIDMask = 0;
+        TXCANA_ATMega_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
+        TXCANA_ATMega_Message.ui32MsgLen = 1;
+        TXCANA_ATMega_Message.pucMsgData = TXCANA_ATMega_Data;
+
+
         CANEnable(CANA_BASE);
         CANEnable(CANB_BASE);
 }
@@ -366,7 +373,6 @@ __interrupt void canISR_A(void)
     CANGlobalIntClear(CANA_BASE, CAN_GLB_INT_CANINT0);
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 
-
 }
 
 Uint32 getMessageID(Uint32 base, Uint32 objID)
@@ -380,5 +386,12 @@ Uint32 getMessageID(Uint32 base, Uint32 objID)
     msgID = msgID >> CAN_IF2ARB_STD_ID_S;
 
     return msgID;
+}
+
+
+void send_ATMega(){
+
+    CANMessageSet(CANA_BASE, OBJ_ID_TO_ATMEGA, &TXCANA_ATMega_Message, MSG_OBJ_TYPE_TX);
+
 }
 

@@ -3,6 +3,7 @@
 
 #include "F28x_Project.h"
 #include "global_definitions.h"
+#include "can_management.h"
 
 
 extern Uint16 Air1_State;
@@ -15,6 +16,9 @@ extern Uint16 Sdc3_State;
 extern Uint16 Sdc4_State;
 extern Uint16 Sdc5_State;
 extern Uint16 Sdc6_State;
+
+extern unsigned char TXCANA_ATMega_Data;
+
 
 void GPIOSetup();
 void updateGPIOState();
