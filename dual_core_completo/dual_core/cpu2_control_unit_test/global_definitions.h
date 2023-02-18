@@ -169,7 +169,6 @@
 #define OBJ_ID_TO_ATMEGA        23
 #define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_FROM_AMK         26
-#define OBJ_ID_FROM_SENDYNE     27
 #define OBJ_ID_FROM_SMU         28
 
 

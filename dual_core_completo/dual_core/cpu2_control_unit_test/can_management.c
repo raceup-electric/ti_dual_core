@@ -392,7 +392,7 @@ Uint32 getMessageID(Uint32 base, Uint32 objID)
 void send_ATMega(){
 
   /*
-     TXCANA_ATMega_Data[0] = fan_enable | (epwm4B<<1);
+    TXCANA_ATMega_Data[0] = fan_enable | (epwm4B<<1);
     TXCANA_ATMega_Data[1] = pump_enable | (epwm5A<<1);
 
     TXCANA_ATMega_Data[2] = epwm5B<<1;
