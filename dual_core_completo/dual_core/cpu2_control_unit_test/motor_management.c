@@ -262,20 +262,21 @@ void sendAMKDataMotor(int motor, int posTorque, int negTorque) {
     if(!motorInitialized[motor] && motorVal1[motor].AMK_bSystemReady == 1) {
         initializeMotor(motor);
     }
+    else if(motorVal1[motor].AMK_bError) {
+           send_AMK_SetPoints(motor, 0, 0, 0);
+           removeError(motor);
+           motorInitialized[motor] = 0;
+    }
     /*
-     * if motor is initialized and RF is on -> send setpoints
-     */
+    * if motor is initialized and RF is on -> send setpoints
+    */
     else if(motorInitialized[motor] == 1 && motorVal1[motor].AMK_bQuitInverterOn == 1) {
         send_AMK_SetPoints(motor, velocityRef, posTorque, negTorque);
     }
     /*
      * if error occurred in motor -> stop motor, remove error, motor to be reinitialized
      */
-    else if(motorVal1[motor].AMK_bError) {
-        send_AMK_SetPoints(motor, 0, 0, 0);
-        removeError(motor);
-        motorInitialized[motor] = 0;
-    } else {
+    else {
         motorSetP[motor].AMK_bDcOn = 0;
         motorSetP[motor].AMK_bInverterOn = 0;
         motorSetP[motor].AMK_bEnable = 0;
