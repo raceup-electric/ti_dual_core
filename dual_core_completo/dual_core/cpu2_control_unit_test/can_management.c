@@ -169,7 +169,7 @@ void canSetup_phase2()
         TXCANA_ATMega_Message.ui32MsgID = MSG_ID_TO_ATMEGA;
         TXCANA_ATMega_Message.ui32MsgIDMask = 0;
         TXCANA_ATMega_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
-        TXCANA_ATMega_Message.ui32MsgLen = 4;
+        TXCANA_ATMega_Message.ui32MsgLen = 2;
         TXCANA_ATMega_Message.pucMsgData = TXCANA_ATMega_Data;
 
 
