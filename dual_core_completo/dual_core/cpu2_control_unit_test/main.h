@@ -193,7 +193,7 @@ bool noBrake = 0;
 //IMU
 float accelerations[3]; //g
 float omegas[3];        //rad/s
-float temperatures[5];
+float temperatures[8];
 Uint32 suspensions[4];
 
 float bms_lv_cell[8]; //gli ultimi due valori sono temperature

@@ -101,11 +101,12 @@ void read_SMU_Message(Uint16 smu_values[], int id){
     }
 
 
-    if(id == MSG_ID_SMU_TEMPERATURES){
-        for(i = 0; i < NUM_SMU_TEMP; i++)
+    if(id == MSG_ID_SMU_TEMPERATURES || id == MSG_ID_SMU_TEMPERATURES + 1){
+        Uint16 tmp = 0;
+        for(i = 0; i < 4; i += 2)
         {
-            temperatures[i] = ConvertTempToKelvin(0x3FF & aux );
-            aux>>=10;
+            tmp= (smu_values[i] | (smu_values[i+1]<<8));
+            temperatures[i] = ConvertTempToKelvin(tmp);
         }
     }
     else if (id == MSG_ID_SMU_SUSPENSIONS){
