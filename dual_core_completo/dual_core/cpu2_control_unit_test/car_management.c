@@ -278,7 +278,10 @@ void R2D_On()
     fan_enable = 1;
     pump_enable = 1;
 
-    send_ATMega();
+    TXCANA_ATMega_Data[0] = fan_enable;
+    TXCANA_ATMega_Data[1] = pump_enable;
+
+    send_pwm_to_pcu();
 
 }
 
@@ -295,7 +298,10 @@ void R2D_Off()
     fan_enable = 0;
     pump_enable = 1;
 
-    send_ATMega();
+    TXCANA_ATMega_Data[0] = fan_enable;
+    TXCANA_ATMega_Data[1] = pump_enable;
+
+    send_pwm_to_pcu();
 
 
 

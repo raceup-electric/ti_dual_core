@@ -222,7 +222,8 @@ void setFanSpeed(int fan, int speed){
         epwm4B=convertPercent(speed);
     break;
     }
-    send_ATMega();
+    TXCANA_ATMega_Data[0] = fan_enable | (speed<<1);
+    send_pwm_to_pcu();
 }
 
 /*
@@ -237,5 +238,6 @@ void setPumpSpeed(int pump, int speed){
         epwm5B=convertPercent(speed);
     break;
     }
-    send_ATMega();
+    TXCANA_ATMega_Data[1] = pump_enable | (speed<<1);
+    send_pwm_to_pcu();
 }

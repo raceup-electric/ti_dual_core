@@ -99,6 +99,6 @@ __interrupt void canISR_A(void);
 
 Uint32 getMessageID(Uint32 base, Uint32 objID);
 
-void send_ATMega();
+void send_pwm_to_pcu();
 
 #endif

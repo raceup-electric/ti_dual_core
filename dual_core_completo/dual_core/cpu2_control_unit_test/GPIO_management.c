@@ -45,7 +45,9 @@ void GPIOSetup()
     fan_enable = 0;
     pump_enable = 0;
 
-    send_ATMega();
+    TXCANA_ATMega_Data[0] = fan_enable;
+    TXCANA_ATMega_Data[1] = pump_enable;
+    send_pwm_to_pcu();
 
     GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);
     GPIO_WritePin(SCS_FAULT, 1U);

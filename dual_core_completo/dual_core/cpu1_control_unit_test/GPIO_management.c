@@ -65,15 +65,4 @@ void GPIOSetup()
     GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);
     GPIO_WritePin(SCS_FAULT, 1U);
 
-#ifdef TSAL_CTRL
-    //------------------------------------------
-    //Tramacci TSAL
-    GPIO_SetupPinMux(11, GPIO_MUX_CPU1, 0);
-    GPIO_SetupPinMux(14, GPIO_MUX_CPU1, 0);
-    GPIO_SetupPinOptions(11, GPIO_OUTPUT, GPIO_PUSHPULL);
-    GPIO_SetupPinOptions(14, GPIO_OUTPUT, GPIO_PUSHPULL);
-    GPIO_WritePin(11, 0);
-    GPIO_WritePin(14, 0);
-    //------------------------------------------
-#endif
 }
