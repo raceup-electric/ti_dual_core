@@ -632,7 +632,7 @@ void fanControl()
         int maxTemp = fmax(leftTemp, rightTemp);
 
         leftFanSpeed = fanSpeedFunction(maxTemp);
-        rightFanSpeed = fanSpeedFunction(maxTemp);
+        rightFanSpeed = leftFanSpeed;
 
     }
 #else
@@ -645,8 +645,7 @@ void fanControl()
 #endif
 
 
-    setFanSpeed(VENTOLA_SX, 100 - leftFanSpeed);
-    setFanSpeed(VENTOLA_DX, 100 - rightFanSpeed);
+    setFanSpeed(100 - leftFanSpeed);
 }
 
 /*

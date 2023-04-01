@@ -81,9 +81,10 @@ __interrupt void cpu_timer1_isr(void)
 
     //Start pumps 30 sec after lv power on
     if(time_elapsed >3000){
-        setPumpSpeed(POMPA_SX, 0);
-        setPumpSpeed(POMPA_DX, 0);
+        setPumpSpeed(0);
     }
+
+    send_pwm_to_pcu();
 
     updateGPIOState();
 

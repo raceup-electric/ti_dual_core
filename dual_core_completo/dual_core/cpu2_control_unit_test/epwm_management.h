@@ -43,9 +43,9 @@ void epwmSetup();
 
 Uint16 convertPercent(int perc); //passa da percentuale (0-100) a parametro epwm
 
-void setFanSpeed(int fan, int speed);
+void setFanSpeed(int speed);
 
-void setPumpSpeed(int pump, int speed);
+void setPumpSpeed(int speed);
 
 
 #endif /* EPWM_MANAGEMENT_H_ */

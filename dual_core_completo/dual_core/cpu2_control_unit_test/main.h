@@ -254,7 +254,7 @@ unsigned char TXA_Host_Data[4];
 float TXA_Smu_Calibration[5][2];
 //unsigned char TXA_Smu_Calibration[5][8];
 unsigned char RXA_Lem_Data[8]; //aggiunto lem
-unsigned char TXCANA_ATMega_Data[4];
+unsigned char TXCANA_ATMega_Data[2];
 
 
 unsigned char fan_enable;

@@ -213,31 +213,29 @@ Uint16 convertPercent(int perc)
 /*
  * Logic is inverted so speed = 0 sets the fans to maximum
  */
-void setFanSpeed(int fan, int speed){
-    switch(fan){
-    case VENTOLA_SX:
-        epwm5A=convertPercent(speed);
-    break;
-    case VENTOLA_DX:
-        epwm4B=convertPercent(speed);
-    break;
-    }
+void setFanSpeed(int speed){
+//    switch(fan){
+//    case VENTOLA_SX:
+//        epwm5A=convertPercent(speed);
+//    break;
+//    case VENTOLA_DX:
+//        epwm4B=convertPercent(speed);
+//    break;
+//    }
     TXCANA_ATMega_Data[0] = fan_enable | (speed<<1);
-    send_pwm_to_pcu();
 }
 
 /*
  * Logic is inverted so speed = 0 sets the pumps to maximum
  */
-void setPumpSpeed(int pump, int speed){
-    switch(pump){
-    case POMPA_SX:
-        epwm6A=convertPercent(speed);
-    break;
-    case POMPA_DX:
-        epwm5B=convertPercent(speed);
-    break;
-    }
+void setPumpSpeed(int speed){
+//    switch(pump){
+//    case POMPA_SX:
+//        epwm6A=convertPercent(speed);
+//    break;
+//    case POMPA_DX:
+//        epwm5B=convertPercent(speed);
+//    break;
+//    }
     TXCANA_ATMega_Data[1] = pump_enable | (speed<<1);
-    send_pwm_to_pcu();
 }
