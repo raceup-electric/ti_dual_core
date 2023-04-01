@@ -101,12 +101,20 @@ void read_SMU_Message(Uint16 smu_values[], int id){
     }
 
 
-    if(id == MSG_ID_SMU_TEMPERATURES || id == MSG_ID_SMU_TEMPERATURES + 1){
+    if(id == MSG_ID_SMU_TEMPERATURES){
         Uint16 tmp = 0;
         for(i = 0; i < 4; i += 2)
         {
             tmp= (smu_values[i] | (smu_values[i+1]<<8));
-            temperatures[i] = ConvertTempToKelvin(tmp);
+            temperatures[i/2] = ConvertTempToKelvin(tmp);
+        }
+    }
+    else if (id == MSG_ID_SMU_TEMPERATURES + 1){
+        Uint16 tmp = 0;
+        for(i = 0; i < 4; i += 2)
+        {
+            tmp= (smu_values[i] | (smu_values[i+1]<<8));
+            temperatures[(i+4)/2] = ConvertTempToKelvin(tmp);
         }
     }
     else if (id == MSG_ID_SMU_SUSPENSIONS){
@@ -838,10 +846,12 @@ void update_log_values()
     }
     for(i = 0; i < 4; i++){
         imu_log.suspensions_shared[i] = suspensions[i];
+    }
+
+    for(i = 0; i < 8; i++){
         imu_log.temperatures_shared[i] = temperatures[i];
     }
 
-    imu_log.temperatures_shared[4] = temperatures[4];
 
 
     //Pedals update

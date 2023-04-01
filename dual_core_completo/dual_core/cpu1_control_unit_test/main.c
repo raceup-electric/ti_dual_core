@@ -250,11 +250,9 @@ __interrupt void cpu_timer1_isr(void)
         sprintf(cmd ,
                 "%u;%u;"                           //fanSpeed
                 "%.4f;%.4f;%.4f;%.4f;%.4f;%.4f;"   //imu
-                "%.1f;%.1f;%.1f;%.1f;"                   //suspensions
-                "%.1f;%.1f;%.1f;%.1f;%.1f;"        //temperatures per cooling
-                "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n",
+                "%.1f;%.1f;%.1f;%.1f\n",            //suspensions
 
-//                        //fanSpeed
+                        //fanSpeed
                         local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
                         //imu
                         local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
@@ -262,11 +260,18 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.imu.omegas_shared[1], local_sh.imu.omegas_shared[2],
                         //potenziometri sospensioni FL-FR-RL-RR
                         local_sh.imu.suspensions_shared[0], local_sh.imu.suspensions_shared[1],
-                        local_sh.imu.suspensions_shared[2], local_sh.imu.suspensions_shared[3],
+                        local_sh.imu.suspensions_shared[2], local_sh.imu.suspensions_shared[3]);
+        writeSD(cmd);
+
+        sprintf(cmd ,
+                "%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;"        //temperatures per cooling
+                "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n",
+
                         //temperature per cooling
                         local_sh.imu.temperatures_shared[0], local_sh.imu.temperatures_shared[1],
                         local_sh.imu.temperatures_shared[2], local_sh.imu.temperatures_shared[3],
-                        local_sh.imu.temperatures_shared[4],
+                        local_sh.imu.temperatures_shared[4], local_sh.imu.temperatures_shared[5],
+                        local_sh.imu.temperatures_shared[6], local_sh.imu.temperatures_shared[7],
                         //gpio
                         local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
                         local_sh.gpio.Sdc1_shared, local_sh.gpio.Sdc2_shared,
