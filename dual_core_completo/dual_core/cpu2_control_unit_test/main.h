@@ -150,6 +150,8 @@ Uint16 regensetup[8];
 float max_regen_current=MAX_REGEN_CURRENT;
 
 float power_limit=POWER_LIMIT; //quello che gli arriva dal volante
+float thermal_power_lim = power_limit;
+float thermal_power_min = 15000;
 bool powerOK = false;
 Uint16 powersetup[8];
 

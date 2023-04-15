@@ -113,6 +113,11 @@
 #define T_SAMPLING_ECU      0.010f       //seconds
 #define PI_UPPER_BOUND      175929.2f
 
+#define K1_THERMAL          0.3
+#define K2_THERMAL          0.00002
+#define T_MAX               35
+#define T_MIN               29
+
 //
 // IMU
 //
@@ -139,6 +144,8 @@
 
 #define RF_TRAP                 50      //*10 ms
 #define HV_TRAP                 50
+
+
 
 //
 // adc management
