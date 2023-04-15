@@ -201,6 +201,19 @@ void updatePage1()
     scic_msg(tmp);
     sprintf(tmp, "main.maxsmu.val=%dÿÿÿ\0", getMaxTempSmu());
     scic_msg(tmp);
+
+    sprintf(tmp, "main.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
+    scic_msg(tmp);
+
+    if(local_sh.gpio.Bms_shared)
+            scic_msg("main.bms.bco=REDÿÿÿ\0");
+    else
+            scic_msg("main.bms.bco=GREENÿÿÿ\0");
+
+    if(local_sh.gpio.Imd_shared)
+            scic_msg("main.imd.bco=REDÿÿÿ\0");
+    else
+            scic_msg("main.imd.bco=GREENÿÿÿ\0");
 }
 
 void updatePage2()
