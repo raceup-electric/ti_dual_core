@@ -94,6 +94,7 @@ void setup()
        sh.gpio = gpio_log;
        sh.pedals = pedals_log;
        sh.power_setup = power_setup_log;
+       sh.settings = car_settings;
 
        display.ack_p = 99;
        display.ack_r = 99;

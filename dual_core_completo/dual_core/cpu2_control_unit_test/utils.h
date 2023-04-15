@@ -126,7 +126,9 @@ struct Display_command{
 
 };
 
-
+struct Car_settings{
+    bool lauch_ready;
+};
 
 struct Share_struct {
     Uint16 Temps[8];
@@ -142,6 +144,7 @@ struct Share_struct {
     struct Gpio_Log gpio;
     struct Pedals_Log pedals;
     struct Power_Setup_Log power_setup;
+    struct Car_settings settings;
 };
 
 extern float versx[3];

@@ -332,6 +332,8 @@ struct Pedals_Log pedals_log;
 
 struct Power_Setup_Log power_setup_log;
 
+struct Car_settings car_settings;
+
 //shard ram
 Uint16 c2_r_w_array[256];
 Uint16 increment;

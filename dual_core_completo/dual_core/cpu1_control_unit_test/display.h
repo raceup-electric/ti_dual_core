@@ -120,7 +120,7 @@ struct FanSpeed_Log{
 struct Imu_Log{
     float accelerations_shared[3];
     float omegas_shared[3];
-    float temperatures_shared[5];
+    float temperatures_shared[8];
     float suspensions_shared[4];
 };
 struct Pedals_Log{
@@ -150,6 +150,10 @@ struct Power_Setup_Log{
     float power_limit_shared;
 };
 
+struct Car_settings{
+    bool lauch_ready;
+};
+
 struct Share_struct {
     Uint16 Temps[8];
     float bms_lv[8];
@@ -164,6 +168,7 @@ struct Share_struct {
     struct Gpio_Log gpio;
     struct Pedals_Log pedals;
     struct Power_Setup_Log power_setup;
+    struct Car_settings settings;
 };
 
 
@@ -218,5 +223,13 @@ void setSelectorCoppiaRear();
 void setAckCoppiaRear();
 
 float getLowestLvVoltage();
+
+int getMaxTempSmu();
+
+int getMaxTempInv();
+
+int getMaxTempMot();
+
+int getMaxTempIGBT();
 
 #endif /* DISPLAY_H_ */
