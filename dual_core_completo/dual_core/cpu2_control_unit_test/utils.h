@@ -121,6 +121,8 @@ struct Display_command{
     Uint16 ack_coppie_rear; //non è un bool, ma il valore della selezione 0-7
     Uint16 selector_coppie_front;
     Uint16 ack_coppie_front; //non è un bool, ma il valore della selezione 0-7
+    Uint16 selector_pedal_setup;
+    Uint16 ack_pedal_setup;
     int emergencyBrk_active;
     int emergencyBrk_isNotSet;
 

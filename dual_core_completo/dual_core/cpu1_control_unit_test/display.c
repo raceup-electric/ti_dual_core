@@ -65,6 +65,9 @@ void updateValues()
            case PAGE_17:
                 updatePage17();
            break;
+           case PAGE_18:
+                updatePage18();
+           break;
          }
 }
 
@@ -142,6 +145,10 @@ void updatePage(Uint16 page){
         case PAGE_17:
             currentPage=PAGE_17;
             scic_msg("page 17ÿÿÿ\0");
+        break;
+        case PAGE_18:
+             currentPage=PAGE_18;
+             scic_msg("page 18ÿÿÿ\0");
         break;
       }
     }
@@ -407,6 +414,11 @@ void updatePage17(){
     setAckCoppiaRear();
 }
 
+void updatePage18(){
+    setSelectorPedalConfig();
+    setAckPedalConfig();
+}
+
 
 void setSelectorPowerControl(){
     n_setup = display.selector_p;
@@ -607,6 +619,95 @@ void setAckCoppiaRear(){
 
     }
 }
+
+
+
+void setSelectorPedalConfig(){
+    n_setup = display.selector_pedal_setup;
+
+    sprintf(tmp, "pedalSetup.thr_req.val=%dÿÿÿ\0", local_sh.pedals.throttle_req_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "pedalSetup.brk_req.val=%dÿÿÿ\0", local_sh.pedals.brk_req_shared);
+    scic_msg(tmp);
+
+    sprintf(tmp, "pedalSetup.thr.val=%dÿÿÿ\0", local_sh.status.throttle_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "pedalSetup.brk.val=%dÿÿÿ\0", local_sh.status.brake_shared);
+    scic_msg(tmp);
+
+
+    if(old_setup_pedal_setup != n_setup){
+
+
+      if (old_setup_pedal_setup != old_ack_pedal_setup){
+          sprintf(tmp, "pedalSetup.setup%d.bco=54938ÿÿÿ\0", old_setup_pedal_setup);
+          scic_msg(tmp);
+      }
+
+
+      old_setup_pedal_setup = n_setup;
+
+      if (old_setup_pedal_setup != old_ack_pedal_setup){
+          sprintf(tmp, "pedalSetup.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          scic_msg(tmp);
+
+      }
+
+    }
+}
+
+void setAckPedalConfig(){
+
+    ack = display.ack_pedal_setup;
+
+    if (old_ack_pedal_setup != ack){
+
+            if (ack==0){
+
+                sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
+                old_ack_pedal_setup = ack;
+                scic_msg(tmp);
+
+                sprintf(tmp, "pedalSetup.acc1_pr.val=%dÿÿÿ\0", local_sh.pedals.acc1_high_calibration);
+                scic_msg(tmp);
+                sprintf(tmp, "pedalSetup.acc2_pr.val=%dÿÿÿ\0", local_sh.pedals.acc2_high_calibration);
+                scic_msg(tmp);
+
+            }
+
+            if (ack==1){
+                sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
+                old_ack_pedal_setup = ack;
+                scic_msg(tmp);
+
+                sprintf(tmp, "pedalSetup.acc1_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
+                scic_msg(tmp);
+                sprintf(tmp, "pedalSetup.acc2_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
+                scic_msg(tmp);
+            }
+            if (ack==2){
+                sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
+                old_ack_pedal_setup = ack;
+                scic_msg(tmp);
+
+                sprintf(tmp, "pedalSetup.brk_pr.val=%dÿÿÿ\0", local_sh.pedals.brk_high_calibration);
+                scic_msg(tmp);
+            }
+            if (ack==3){
+                sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
+                old_ack_pedal_setup = ack;
+                scic_msg(tmp);
+
+                sprintf(tmp, "pedalSetup.brk_rel.val=%dÿÿÿ\0", local_sh.pedals.brk_low_calibration);
+                scic_msg(tmp);
+            }
+
+
+    }
+}
+
+
+
 
 void setRRstatus(){
   if(local_sh.motorVal1[3].AMK_bInverterOn){

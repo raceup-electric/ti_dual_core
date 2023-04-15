@@ -29,10 +29,12 @@ extern Uint16 old_ack_regen;
 extern Uint16 old_setup_speed;
 extern Uint16 old_setup_coppia_front;
 extern Uint16 old_setup_coppia_rear;
+extern Uint16 old_setup_pedal_setup;
 
 extern Uint16 old_ack_speed;
 extern Uint16 old_ack_coppia_front;
 extern Uint16 old_ack_coppia_rear;
+extern Uint16 old_ack_pedal_setup;
 
 struct Display_command{
     Uint16 page;
@@ -46,6 +48,10 @@ struct Display_command{
     Uint16 ack_coppie_rear; //non è un bool, ma il valore della selezione 0-7
     Uint16 selector_coppie_front;
     Uint16 ack_coppie_front; //non è un bool, ma il valore della selezione 0-7
+
+    Uint16 selector_pedal_setup;
+    Uint16 ack_pedal_setup; //non è un bool, ma il valore della selezione 0-7
+
     //Handle of emergency brake screen
     int emergencyBrk_active;
     int emergencyBrk_isNotSet;
@@ -129,6 +135,13 @@ struct Pedals_Log{
    float  brk_pot_shared;
    int brk_req_shared;
    int throttle_req_shared;
+
+   Uint16 acc1_low_calibration;
+   Uint16 acc2_low_calibration;
+   Uint16 acc1_high_calibration;
+   Uint16 acc2_high_calibration;
+   Uint16 brk_low_calibration;
+   Uint16 brk_high_calibration;
 };
 
 
@@ -188,6 +201,8 @@ void updatePage14();
 void updatePage15();
 void updatePage16();
 void updatePage17();
+void updatePage18();
+
 
 
 
@@ -216,6 +231,12 @@ void setAckCoppiaFront();
 void setSelectorCoppiaRear();
 
 void setAckCoppiaRear();
+
+void setSelectorPedalConfig();
+
+void setAckPedalConfig();
+
+
 
 float getLowestLvVoltage();
 

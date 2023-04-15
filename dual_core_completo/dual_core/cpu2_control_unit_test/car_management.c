@@ -225,6 +225,9 @@ void read_steering_wheel_message(Uint16 val[], int id){
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == COPPIE_PAGE_REAR){
         display.selector_coppie_rear = val[0] % 6;
     }
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP){
+        display.selector_coppie_rear = val[0] % 4;
+    }
     else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == CONFIRMATION){
         if(display.page == POWER_CONTROL_PAGE && !R2D_state){
             display.ack_p = display.selector_p;
@@ -246,6 +249,34 @@ void read_steering_wheel_message(Uint16 val[], int id){
         else if(display.page == COPPIE_PAGE_REAR && !R2D_state){
             display.ack_coppie_rear = display.selector_coppie_rear;
             rear_motor_scale = presets_coppie_rear[display.ack_coppie_rear];
+       }
+        else if(display.page == PEDAL_SETUP && !R2D_state){
+            display.ack_pedal_setup = display.selector_pedal_setup;
+
+            switch(display.ack_pedal_setup){
+
+            case(0):
+                 sh.Pedals_Log.acc1_high_calibration = sh.Pedals_Log.acc_pot1_shared;
+                 sh.Pedals_Log.acc2_high_calibration = sh.Pedals_Log.acc_pot2_shared;
+            break;
+
+            case(1):
+                 sh.Pedals_Log.acc1_low_calibration = sh.Pedals_Log.acc_pot1_shared;
+                 sh.Pedals_Log.acc2_low_calibration = sh.Pedals_Log.acc_pot2_shared;
+            break;
+
+            case(2):
+                 sh.Pedals_Log.brk_high_calibration = sh.Pedals_Log.brk_pot_shared;
+            break;
+
+            case(3):
+                 sh.Pedals_Log.brk_low_calibration = sh.Pedals_Log.brk_pot_shared;
+            break;
+
+
+            }
+
+
        }
 
     } else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == START_LAUNCH) {
