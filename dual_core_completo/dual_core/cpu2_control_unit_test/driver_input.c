@@ -24,6 +24,7 @@ int Read_throttle(){
     else
         media_acc_on = 1;*/
 
+
     acc1Pos = (AccPot1 - ACC1_LOW_TH) / ACC1_INPUT_RANGE;  // posizione in 0-1 range acc1
     acc2Pos = (AccPot2 - ACC2_LOW_TH) / ACC2_INPUT_RANGE;  // posizione in 0-1 range acc2
 

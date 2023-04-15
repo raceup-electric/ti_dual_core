@@ -55,6 +55,15 @@ struct Pedals_Log{
    float  brk_pot_shared;
    int brk_req_shared;
    int throttle_req_shared;
+
+   Uint16 acc1_low_calibration;
+   Uint16 acc2_low_calibration;
+   Uint16 acc1_high_calibration;
+   Uint16 acc2_high_calibration;
+   Uint16 brk_low_calibration;
+   Uint16 brk_high_calibration;
+
+
 };
 struct BMS_Log {
     float max_bms_voltage_shared;
