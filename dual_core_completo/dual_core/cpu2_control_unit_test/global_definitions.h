@@ -115,6 +115,7 @@
 
 #define K1_THERMAL          0.3
 #define K2_THERMAL          0.00002
+#define K3_THERMAL          600
 #define T_MAX               35
 #define T_MIN               29
 
