@@ -169,7 +169,7 @@
 #define OBJ_ID_TO_ATMEGA        23
 #define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_FROM_AMK         26
-#define OBJ_ID_FROM_SMU         28
+#define OBJ_ID_FROM_SMU         7
 
 
 
@@ -198,7 +198,7 @@
 #define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91   //id del selector
 #define MSG_ID_SMU_BASE                      0x100
 #define MSG_ID_SMU_TEMPERATURES              0x100
-#define MSG_ID_SMU_SUSPENSIONS               0x101
+#define MSG_ID_SMU_SUSPENSIONS               0x102
 #define MSG_ID_BMS_VOLTAGE                   0x110
 #define MSG_ID_BMS_TEMP                      0x111
 #define MSG_ID_HOST_SEND                     0x120

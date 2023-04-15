@@ -84,7 +84,11 @@ __interrupt void cpu_timer1_isr(void)
         setPumpSpeed(0);
     }
 
-    send_pwm_to_pcu();
+
+    if(time_elapsed%3 == 0){
+        send_pwm_to_pcu();
+    }
+
 
     updateGPIOState();
 
