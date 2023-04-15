@@ -920,5 +920,6 @@ void update_shared_mem()
     sh.gpio = gpio_log;
     sh.pedals = pedals_log;
     sh.power_setup = power_setup_log;
+    sh.settings = car_settings;
 }
 

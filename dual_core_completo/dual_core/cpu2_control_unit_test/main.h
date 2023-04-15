@@ -146,10 +146,14 @@ float power_error;
 float anti_wind_up = 0;
 float reduction_factor;
 
+char Thermal_Power_Control_Active = 0;
+
 Uint16 regensetup[8];
 float max_regen_current=MAX_REGEN_CURRENT;
 
 float power_limit=POWER_LIMIT; //quello che gli arriva dal volante
+float thermal_power_lim = POWER_LIMIT;
+float thermal_power_min = 15000;
 bool powerOK = false;
 Uint16 powersetup[8];
 
@@ -327,6 +331,8 @@ struct Display_command display;
 struct Pedals_Log pedals_log;
 
 struct Power_Setup_Log power_setup_log;
+
+struct Car_settings car_settings;
 
 //shard ram
 Uint16 c2_r_w_array[256];

@@ -17,11 +17,16 @@ extern float posTorquesNM[4];
 extern float power_error;
 extern float anti_wind_up;
 extern float reduction_factor;
+extern float thermal_power_lim;
+extern float thermal_power_min;
+extern char Thermal_Power_Control_Active;
 
 //prototipi
 
 void powerControl();
 
 float PIController(float pi_error);
+
+float Thermal_Power_Control();
 
 #endif

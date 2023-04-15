@@ -13,6 +13,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "F28x_Project.h"
+#include "utils.h"
 
 bool is_time_saved = false;
 // costanti di funzioni interpolative per parametri dei pneumatici
@@ -51,6 +52,7 @@ extern bool is_launch_inserted;
 extern int throttle;
 extern int brake;
 extern Uint32 time_elapsed;
+extern struct Car_settings car_settings;
 
 void launch_control();
 

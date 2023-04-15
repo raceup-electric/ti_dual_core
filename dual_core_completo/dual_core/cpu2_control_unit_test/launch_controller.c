@@ -33,6 +33,8 @@ void launch_control()
 
     }
 
+    car_settings.lauch_ready = is_launch_inserted;
+
     //Calcolo dei valori in funzione del tempo
     double T_lc1 = p1[LC]*pow(t,7) + p2[LC]*pow(t,6) + p3[LC]*pow(t,5) + p4[LC]*pow(t,4) + p5[LC]*pow(t,3) +p6[LC]*pow(t,2) +  p7[LC]*t + p8[LC];
     double T_lc = 0.5*(T_lc1*(1+tanh(5000*(t1[LC]-t)))+T1[LC]*(1+tanh(5000*(t-t1[LC]))));

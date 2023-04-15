@@ -180,8 +180,11 @@ void updatePage1()
     else scic_msg("main.brk.bco=GREENÿÿÿ\0");
 
 
-    if(local_sh.status.status_shared & 0b01000000) scic_msg("main.imp.bco=REDÿÿÿ\0");
-    else scic_msg("main.imp.bco=GREENÿÿÿ\0");
+    //if(local_sh.status.status_shared & 0b01000000) scic_msg("main.imp.bco=REDÿÿÿ\0");
+    //else scic_msg("main.imp.bco=GREENÿÿÿ\0");
+
+    if(local_sh.settings.lauch_ready) scic_msg("main.lc.bco=GREENÿÿÿ\0");
+    else scic_msg("main.imp.bco=REDÿÿÿ\0");
 
 
     if(local_sh.status.status_shared & 0b10000000) scic_msg("main.rf.bco=GREENÿÿÿ\0");
@@ -190,6 +193,34 @@ void updatePage1()
 
     sprintf(tmp, "main.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
     scic_msg(tmp);
+
+    sprintf(tmp, "main.bms_high.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_voltage_shared);
+    scic_msg(tmp);
+
+    sprintf(tmp, "main.bms_high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
+    scic_msg(tmp);
+
+    sprintf(tmp, "main.maxmot.val=%dÿÿÿ\0", getMaxTempMot());
+    scic_msg(tmp);
+    sprintf(tmp, "main.maxinv.val=%dÿÿÿ\0", getMaxTempInv());
+    scic_msg(tmp);
+    sprintf(tmp, "main.maxigbt.val=%dÿÿÿ\0", getMaxTempIGBT());
+    scic_msg(tmp);
+    sprintf(tmp, "main.maxsmu.val=%dÿÿÿ\0", getMaxTempSmu());
+    scic_msg(tmp);
+
+    sprintf(tmp, "main.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
+    scic_msg(tmp);
+
+    if(local_sh.gpio.Bms_shared)
+            scic_msg("main.bms.bco=REDÿÿÿ\0");
+    else
+            scic_msg("main.bms.bco=GREENÿÿÿ\0");
+
+    if(local_sh.gpio.Imd_shared)
+            scic_msg("main.imd.bco=REDÿÿÿ\0");
+    else
+            scic_msg("main.imd.bco=GREENÿÿÿ\0");
 }
 
 void updatePage2()
@@ -737,4 +768,56 @@ float getLowestLvVoltage()
         if(min>local_sh.bms_lv[i])
             min=local_sh.bms_lv[i];
     return min;
+}
+
+int getMaxTempInv()
+{
+    int max = 0;
+    int i;
+    for(i =0;i<4;i++)
+    {
+        int temp = (int)local_sh.motorVal2[i].AMK_TempInverter;
+        if(max < temp)
+            max = temp;
+    }
+    return max;
+}
+
+int getMaxTempMot()
+{
+    int max = 0;
+    int i;
+    for(i =0;i<4;i++)
+    {
+        int temp = (int)local_sh.motorVal2[i].AMK_TempMotor;
+        if(max < temp)
+            max = temp;
+    }
+    return max;
+}
+
+int getMaxTempIGBT()
+{
+    int max = 0;
+    int i;
+    for(i =0;i<4;i++)
+    {
+        int temp = (int)local_sh.motorVal2[i].AMK_TempIGBT;
+        if(max < temp)
+            max = temp;
+    }
+    return max;
+}
+
+int getMaxTempSmu()
+{
+    int max = 0;
+    int i;
+    for(i =0;i<8;i++)
+    {
+        int temp = (int)local_sh.imu.temperatures_shared[i];
+        if(max < temp)
+            max = temp;
+    }
+    return max;
 }
