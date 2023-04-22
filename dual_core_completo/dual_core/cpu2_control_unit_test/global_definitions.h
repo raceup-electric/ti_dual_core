@@ -215,7 +215,7 @@
 
 
 //SCHERMO
-#define MAX_PAGE_NUMBER     17
+#define MAX_PAGE_NUMBER     19
 
 #define CONFIRMATION        0x1
 #define NEXT_PAGE           0x2

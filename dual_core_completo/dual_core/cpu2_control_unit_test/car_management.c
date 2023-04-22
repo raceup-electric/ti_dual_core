@@ -266,7 +266,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
             break;
 
             case(2):
-                pedals_log.brk_high_calibration = pedals_log.brk_pot_shared-30;
+                pedals_log.brk_high_calibration = pedals_log.brk_pot_shared+30;
             break;
 
             case(3):

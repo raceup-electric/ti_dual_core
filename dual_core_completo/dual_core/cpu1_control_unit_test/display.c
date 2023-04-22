@@ -42,7 +42,7 @@ void updateValues()
                updatePage9();
            break;
            case PAGE_10:
-               updatePage10();
+               updatePage18();
            break;
            case PAGE_11:
                updatePage11();
@@ -50,7 +50,7 @@ void updateValues()
            case PAGE_12:
                updatePage12();
            break;
-           case PAGE_13:
+           /*case PAGE_13:
                updatePage13();
            break;
            case PAGE_14:
@@ -67,7 +67,7 @@ void updateValues()
            break;
            case PAGE_18:
                 updatePage18();
-           break;
+           break; */
          }
 }
 
@@ -126,7 +126,7 @@ void updatePage(Uint16 page){
             currentPage=PAGE_12;
             scic_msg("page 12ÿÿÿ\0");
         break;
-        case PAGE_13:
+        /*case PAGE_13:
             currentPage=PAGE_13;
             scic_msg("page 13ÿÿÿ\0");
         break;
@@ -149,7 +149,7 @@ void updatePage(Uint16 page){
         case PAGE_18:
              currentPage=PAGE_18;
              scic_msg("page 18ÿÿÿ\0");
-        break;
+        break;*/
       }
     }
 }
@@ -225,6 +225,136 @@ void updatePage1()
 
 void updatePage2()
 {
+    sprintf(tmp, "bms.high.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "bms.med.val=%dÿÿÿ\0", (int)local_sh.bms.mean_bms_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "bms.low.val=%dÿÿÿ\0", (int)local_sh.bms.min_bms_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "bms.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
+    scic_msg(tmp);
+}
+
+void updatePage3()
+{
+        sprintf(tmp, "LV.lv0.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[0]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "LV.lv1.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[1]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "LV.lv2.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[2]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "LV.lv3.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[3]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "LV.lv4.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[4]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "LV.lv5.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[5]*1000));
+        scic_msg(tmp);
+        sprintf(tmp, "LV.temp1.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[6]));
+        scic_msg(tmp);
+        sprintf(tmp, "LV.temp2.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[7]));
+        scic_msg(tmp);
+
+        float sum = 0;
+        int i = 0;
+        for (; i < 6; i++)
+        {
+            sum += local_sh.bms_lv[i];
+        }
+        sprintf(tmp, "LV.tot.val=%dÿÿÿ\0", (int)(sum*1000));
+        scic_msg(tmp);
+
+}
+
+void updatePage4()
+{
+    sprintf(tmp, "motor.mot1.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempMotor);
+    scic_msg(tmp);
+    sprintf(tmp, "motor.mot2.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempMotor);
+    scic_msg(tmp);
+    sprintf(tmp, "motor.mot3.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempMotor);
+    scic_msg(tmp);
+    sprintf(tmp, "motor.mot4.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempMotor);
+    scic_msg(tmp);
+}
+
+
+void updatePage5()
+{
+    sprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempInverter);
+    scic_msg(tmp);
+    sprintf(tmp, "inverter.inv2n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempInverter);
+    scic_msg(tmp);
+    sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempInverter);
+    scic_msg(tmp);
+    sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempInverter);
+    scic_msg(tmp);
+}
+
+void updatePage6()
+{
+    sprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempIGBT);
+    scic_msg(tmp);
+    sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempIGBT);
+    scic_msg(tmp);
+    sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempIGBT);
+    scic_msg(tmp);
+    sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempIGBT);
+    scic_msg(tmp);
+}
+
+
+void updatePage7()
+{
+    setSelectorPowerControl();
+    setAckPowerControl();
+}
+
+void updatePage8()
+{
+    sprintf(tmp, "smu.prerad.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[0] - 273.15));
+    scic_msg(tmp);
+    sprintf(tmp, "smu.precold.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[1] - 273.15));
+    scic_msg(tmp);
+    sprintf(tmp, "smu.postcold.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[2] - 273.15));
+    scic_msg(tmp);
+    sprintf(tmp, "smu.premot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[3] - 273.15));
+    scic_msg(tmp);
+    sprintf(tmp, "smu.postmot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
+    scic_msg(tmp);
+}
+
+
+void updatePage10(){
+    setSelectorPedalConfig();
+    setAckPedalConfig();
+}
+
+void updatePage11(){
+    float sum = 0;
+    int i = 0;
+    for (; i < 6; i++)
+    {
+        sum += local_sh.bms_lv[i];
+     }
+    sprintf(tmp, "END.tot.val=%dÿÿÿ\0", (int)(sum*1000));
+    scic_msg(tmp);
+    sprintf(tmp, "END.low_lv.val=%dÿÿÿ\0", (int)(getLowestLvVoltage()*1000));
+    scic_msg(tmp);
+    sprintf(tmp, "END.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "END.low.val=%dÿÿÿ\0",(int)local_sh.bms.min_bms_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "END.med.val=%dÿÿÿ\0",(int)local_sh.bms.mean_bms_voltage_shared);
+    scic_msg(tmp);
+}
+
+
+
+
+
+
+void updatePage2()
+{
     sprintf(tmp, "HV.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
     scic_msg(tmp);
     sprintf(tmp, "HV.lem.val=%dfÿÿÿ\0", (int)local_sh.power.lem_current_shared);
@@ -278,89 +408,12 @@ void updatePage3()
 
 }
 
-void updatePage4()
-{
-    sprintf(tmp, "bms.high.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_voltage_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "bms.med.val=%dÿÿÿ\0", (int)local_sh.bms.mean_bms_voltage_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "bms.low.val=%dÿÿÿ\0", (int)local_sh.bms.min_bms_voltage_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "bms.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
-    scic_msg(tmp);
-}
-
-void updatePage5()
-{
-        sprintf(tmp, "LV.lv0.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[0]*1000));
-        scic_msg(tmp);
-        sprintf(tmp, "LV.lv1.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[1]*1000));
-        scic_msg(tmp);
-        sprintf(tmp, "LV.lv2.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[2]*1000));
-        scic_msg(tmp);
-        sprintf(tmp, "LV.lv3.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[3]*1000));
-        scic_msg(tmp);
-        sprintf(tmp, "LV.lv4.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[4]*1000));
-        scic_msg(tmp);
-        sprintf(tmp, "LV.lv5.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[5]*1000));
-        scic_msg(tmp);
-        sprintf(tmp, "LV.temp1.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[6]));
-        scic_msg(tmp);
-        sprintf(tmp, "LV.temp2.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[7]));
-        scic_msg(tmp);
-
-        float sum = 0;
-        int i = 0;
-        for (; i < 6; i++)
-        {
-            sum += local_sh.bms_lv[i];
-        }
-        sprintf(tmp, "LV.tot.val=%dÿÿÿ\0", (int)(sum*1000));
-        scic_msg(tmp);
-
-}
-void updatePage6()
-{
-    sprintf(tmp, "motor.mot1.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempMotor);
-    scic_msg(tmp);
-    sprintf(tmp, "motor.mot2.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempMotor);
-    scic_msg(tmp);
-    sprintf(tmp, "motor.mot3.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempMotor);
-    scic_msg(tmp);
-    sprintf(tmp, "motor.mot4.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempMotor);
-    scic_msg(tmp);
-}
-
-void updatePage7()
-{
-    sprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempInverter);
-    scic_msg(tmp);
-    sprintf(tmp, "inverter.inv2n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempInverter);
-    scic_msg(tmp);
-    sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempInverter);
-    scic_msg(tmp);
-    sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempInverter);
-    scic_msg(tmp);
-}
-
-void updatePage8()
-{
-    sprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempIGBT);
-    scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempIGBT);
-    scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempIGBT);
-    scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempIGBT);
-    scic_msg(tmp);
-}
 
 
-void updatePage9()
-{
-    setSelectorPowerControl();
-    setAckPowerControl();
-}
+
+
+
+
 
 void updatePage10()
 {
@@ -369,37 +422,8 @@ void updatePage10()
 }
 
 
-void updatePage11()
-{
-    sprintf(tmp, "smu.prerad.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[0] - 273.15));
-    scic_msg(tmp);
-    sprintf(tmp, "smu.precold.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[1] - 273.15));
-    scic_msg(tmp);
-    sprintf(tmp, "smu.postcold.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[2] - 273.15));
-    scic_msg(tmp);
-    sprintf(tmp, "smu.premot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[3] - 273.15));
-    scic_msg(tmp);
-    sprintf(tmp, "smu.postmot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
-    scic_msg(tmp);
-}
-void updatePage12(){
-    float sum = 0;
-    int i = 0;
-    for (; i < 6; i++)
-    {
-        sum += local_sh.bms_lv[i];
-     }
-    sprintf(tmp, "END.tot.val=%dÿÿÿ\0", (int)(sum*1000));
-    scic_msg(tmp);
-    sprintf(tmp, "END.low_lv.val=%dÿÿÿ\0", (int)(getLowestLvVoltage()*1000));
-    scic_msg(tmp);
-    sprintf(tmp, "END.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "END.low.val=%dÿÿÿ\0",(int)local_sh.bms.min_bms_voltage_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "END.med.val=%dÿÿÿ\0",(int)local_sh.bms.mean_bms_voltage_shared);
-    scic_msg(tmp);
-}
+
+
 
 void updatePage13(){
     sprintf(tmp, "pedals.thr.val=%dÿÿÿ\0", local_sh.status.throttle_shared);
@@ -445,10 +469,7 @@ void updatePage17(){
     setAckCoppiaRear();
 }
 
-void updatePage18(){
-    setSelectorPedalConfig();
-    setAckPedalConfig();
-}
+
 
 
 void setSelectorPowerControl(){
