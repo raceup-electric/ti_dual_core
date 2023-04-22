@@ -15,7 +15,6 @@
 //#include "torque_management.h"
 //#include "power_controller.h"
 #include "utils.h"
-#include "driver_input.h";
 
 
 
@@ -68,7 +67,8 @@ const int filterDiscardCount = 10;
 int throttles[20];  //20 = filterValCount
 int brakes[20];
 int steerings[20];
-uint16_t value=0;
+uint16_t value = 0;
+char screen_mode = 0;
 
 //pumps and fans
 char RTDS_STATE = 0;  // RTDS

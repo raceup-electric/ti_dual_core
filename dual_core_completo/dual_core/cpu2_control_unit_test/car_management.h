@@ -33,6 +33,8 @@ extern unsigned char CAN_SENDYNE_ACT_VALUES[8];
 extern unsigned char fan_enable;
 extern unsigned char pump_enable;
 
+extern char screen_mode;
+
 
 //bms
 extern float max_bms_voltage;

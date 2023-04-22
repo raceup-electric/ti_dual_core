@@ -215,7 +215,8 @@
 
 
 //SCHERMO
-#define MAX_PAGE_NUMBER     19
+#define MAX_PAGE_NUMBER     12
+#define MAX_DRIVING_PAGE    2
 
 #define CONFIRMATION        0x1
 #define NEXT_PAGE           0x2
@@ -230,6 +231,10 @@
 #define COPPIE_PAGE_REAR     0x10
 #define BRAKE_PAGE          0x11
 #define PEDAL_SETUP         0x12
+
+#define SCREEN_DEBUG        0x00
+#define SCREEN_DRIVING      0x01
+#define CHANGE_SCREEN_MODE  0x09
 
 //
 // ePWM

@@ -190,26 +190,50 @@ void read_power_control_message(Uint16 val[]){
 
 void read_steering_wheel_message(Uint16 val[], int id){
 
+    /*
+     * PAGE INCREASE/DECREASE
+     */
     int currentPage = display.page;
     if (id == MSG_ID_STEERING_WHEEL_BASE){
         if(val[0] == NEXT_PAGE){
-            currentPage++;
-            currentPage = currentPage % MAX_PAGE_NUMBER;
-            display.page = currentPage;
+
+            if(screen_mode == SCREEN_DEBUG){
+                currentPage++;
+                currentPage = currentPage % MAX_PAGE_NUMBER;
+                display.page = currentPage;
+            } else if(screen_mode == SCREEN_DRIVING){
+                currentPage++;
+                currentPage = currentPage % MAX_DRIVING_PAGE + MAX_PAGE_NUMBER - MAX_DRIVING_PAGE;
+                display.page = currentPage;
+            }
+
         }
         else if(val[0] == PREVIOUS_PAGE){
-            currentPage = currentPage - 1 + MAX_PAGE_NUMBER;
-            currentPage = currentPage % MAX_PAGE_NUMBER;
-            display.page = currentPage;
+            if(screen_mode == SCREEN_DEBUG){
+                currentPage = currentPage - 1 + MAX_PAGE_NUMBER;
+                currentPage = currentPage % MAX_PAGE_NUMBER;
+                display.page = currentPage;
+            } else if(screen_mode == SCREEN_DRIVING){
+                currentPage = currentPage - 1 + MAX_DRIVING_PAGE;
+                currentPage = currentPage % MAX_DRIVING_PAGE + MAX_PAGE_NUMBER - MAX_DRIVING_PAGE;
+                display.page = currentPage;
+            }
         }else if(val[0] == START_LAUNCH){
             if(R2D_state && actualVelocityKMH < 1.f){
                 //Sono fermo e voglio attivare il launch
                 is_launch_inserted = true;
             }
         }
+        else if(val[0] == CHANGE_SCREEN_MODE){
+            screen_mode++;
+            screen_mode %= 2;
+        }
 
     }
 
+    /*
+     * SELECTOR UPDATE
+     */
     if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == POWER_CONTROL_PAGE){
         display.selector_p = val[0] % 8;
     }
@@ -228,6 +252,10 @@ void read_steering_wheel_message(Uint16 val[], int id){
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP){
         display.selector_coppie_rear = val[0] % 4;
     }
+
+    /*
+     * ACKNOLEDGE UPDATE
+     */
     else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == CONFIRMATION){
         if(display.page == POWER_CONTROL_PAGE && !R2D_state){
             display.ack_p = display.selector_p;
