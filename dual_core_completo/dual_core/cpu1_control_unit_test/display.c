@@ -343,7 +343,9 @@ void updatePage8()
 
 void updatePage9(){
 
-
+    setSelector1Setup();
+    setSelector2Setup();
+    setAckSetup();
 
 }
 
@@ -718,6 +720,65 @@ void setAckCoppiaRear(){
     }
 }
 */
+
+
+void setSelector1Setup(){
+
+    n_setup = display.selector_setup;
+
+    if(old_setup_pedal_setup != n_setup){
+
+
+      if (old_setup_pedal_setup != old_ack_pedal_setup){
+          sprintf(tmp, "setupPage.setup%d.bco=54938ÿÿÿ\0", old_setup_pedal_setup);
+          scic_msg(tmp);
+      }
+
+
+      old_setup_pedal_setup = n_setup;
+
+      if (old_setup_pedal_setup != old_ack_pedal_setup){
+          sprintf(tmp, "setupPage.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          scic_msg(tmp);
+
+      }
+    }
+}
+
+
+void setSelector2Setup(){
+
+
+    sprintf(tmp, "setupPage.setup0.val=%dÿÿÿ\0", );  //reg curr
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup1.val=%dÿÿÿ\0", );  //max pos
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup2.val=%dÿÿÿ\0", );     //max neg
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup3.val=%dÿÿÿ\0", );   //powerlimit
+    scic_msg(tmp);
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup4.val=%dÿÿÿ\0", );     //speed lim
+    scic_msg(tmp);
+
+    sprintf(tmp, "setupPage.setup5.val=%dÿÿÿ\0", );    //trq R
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup6.val=%dÿÿÿ\0", );     //trq F
+    scic_msg(tmp);
+
+
+}
+
+
+
+void setAckSetup(){
+
+
+    //unico ack per tutti e 8
+
+
+}
+
 
 
 void setSelectorPedalConfig(){

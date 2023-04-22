@@ -214,7 +214,9 @@ void setSelectorPedalConfig();
 
 void setAckPedalConfig();
 
+void setSelectorSetup()
 
+void setAckSetup()
 
 float getLowestLvVoltage();
 

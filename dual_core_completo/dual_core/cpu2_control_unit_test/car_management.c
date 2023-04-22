@@ -245,7 +245,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
      * SELECTOR 2 UPDATE
      */
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == SETUP_PAGE){
-        display.selector_setup = val[0] % 7;
+        display.selectors2[display.selector_setup] = val[0];
     }
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP_PAGE){
         display.selector_pedal_setup = val[0] % 4;
