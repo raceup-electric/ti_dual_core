@@ -17,14 +17,14 @@
  */
 
 // acc1
-#define ACC1_LOW_TH    2800
-#define ACC1_HIGH_TH   3900
-#define ACC1_INPUT_RANGE (ACC1_HIGH_TH - ACC1_LOW_TH)
+#define ACC1_LOW_TH_INITIAL    2800
+#define ACC1_HIGH_TH_INITIAL   3900
+#define ACC1_INPUT_RANGE (pedals_log.acc1_high_calibration - pedals_log.acc1_low_calibration)
 
 // acc2
-#define ACC2_LOW_TH    2000
-#define ACC2_HIGH_TH   3150
-#define ACC2_INPUT_RANGE (ACC2_HIGH_TH - ACC2_LOW_TH)
+#define ACC2_LOW_TH_INITIAL    2000
+#define ACC2_HIGH_TH_INITIAL   3150
+#define ACC2_INPUT_RANGE (pedals_log.acc2_high_calibration - pedals_log.acc2_low_calibration)
 
 // acc
 #define ACC1_DISC_THRES 100  //ABSOLUTE VAL
@@ -32,9 +32,9 @@
 #define ACC_IMPL_THRES 10 // implausibility threshold 10%
 
 // brake
-#define BRK_LOW_TH    2050
-#define BRK_HIGH_TH   2520
-#define BRK_INPUT_RANGE (BRK_HIGH_TH-BRK_LOW_TH)
+#define BRK_LOW_TH_INITIAL    2050
+#define BRK_HIGH_TH_INITIAL   2520
+#define BRK_INPUT_RANGE (pedals_log.brk_high_calibration-pedals_log.brk_low_calibration)
 
 #define BRK_DISC_THRES 200  //ABSOLUTE VAL
 
@@ -68,9 +68,14 @@ extern float AccPot1;
 extern float AccPot2;
 extern float BrkPot;
 
+extern struct Pedals_Log pedals_log;
+
 //
 // prototypes
 //
+
+void setup_intialValue_pedals();
+
 int Read_throttle();
 
 int Read_brake(int);

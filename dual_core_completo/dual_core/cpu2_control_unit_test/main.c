@@ -104,6 +104,8 @@ void setup()
        display.ack_pedal_setup = 99;
        display.emergencyBrk_isNotSet = 1;
 
+       setup_intialValue_pedals();
+
        setupOk = 1;    //debug
 
        time_elapsed = 0;

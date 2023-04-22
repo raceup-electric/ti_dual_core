@@ -15,6 +15,7 @@
 //#include "torque_management.h"
 //#include "power_controller.h"
 #include "utils.h"
+#include "driver_input.h";
 
 
 
@@ -343,6 +344,7 @@ Uint16 increment;
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS12");
 #pragma DATA_SECTION(display,"SHARERAMGS13");
 
+extern void setup_intialValue_pedals();
 
 //
 // prototypes

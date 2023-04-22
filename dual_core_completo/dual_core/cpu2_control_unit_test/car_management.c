@@ -256,21 +256,21 @@ void read_steering_wheel_message(Uint16 val[], int id){
             switch(display.ack_pedal_setup){
 
             case(0):
-                 sh.pedals.acc1_high_calibration = sh.pedals.acc_pot1_shared-30;
-                 sh.pedals.acc2_high_calibration = sh.pedals.acc_pot2_shared-30;
+                pedals_log.acc1_high_calibration = pedals_log.acc_pot1_shared-30;
+                pedals_log.acc2_high_calibration = pedals_log.acc_pot2_shared-30;
             break;
 
             case(1):
-                 sh.pedals.acc1_low_calibration = sh.pedals.acc_pot1_shared+30;
-                 sh.pedals.acc2_low_calibration = sh.pedals.acc_pot2_shared+30;
+                pedals_log.acc1_low_calibration = pedals_log.acc_pot1_shared+30;
+                pedals_log.acc2_low_calibration = pedals_log.acc_pot2_shared+30;
             break;
 
             case(2):
-                 sh.pedals.brk_high_calibration = sh.pedals.brk_pot_shared-30;
+                pedals_log.brk_high_calibration = pedals_log.brk_pot_shared-30;
             break;
 
             case(3):
-                 sh.pedals.brk_low_calibration = sh.pedals.brk_pot_shared-30;
+                pedals_log.brk_low_calibration = pedals_log.brk_pot_shared-30;
             break;
 
 
