@@ -42,7 +42,7 @@ void updateValues()
                updatePage9();
            break;
            case PAGE_10:
-               updatePage18();
+               updatePage10();
            break;
            case PAGE_11:
                updatePage11();
@@ -233,6 +233,12 @@ void updatePage2()
     scic_msg(tmp);
     sprintf(tmp, "bms.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
     scic_msg(tmp);
+
+    sprintf(tmp, "bms.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "bms.lem.val=%dfÿÿÿ\0", (int)local_sh.power.lem_current_shared);
+    scic_msg(tmp);
+
 }
 
 void updatePage3()
@@ -305,8 +311,14 @@ void updatePage6()
 
 void updatePage7()
 {
-    setSelectorPowerControl();
-    setAckPowerControl();
+    sprintf(tmp, "pwr_set.spd.val=%dÿÿÿ\0", local_sh.power_setup.max_speed_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.trqf.val=%dÿÿÿ\0", (int)(local_sh.power_setup.front_motor_scale_shared*10));
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.trqr.val=%dÿÿÿ\0", (int)(local_sh.power_setup.rear_motor_scale_shared*10));
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.pow.val=%luÿÿÿ\0", (Uint32)local_sh.power_setup.power_limit_shared);
+    scic_msg(tmp);
 }
 
 void updatePage8()
@@ -323,6 +335,12 @@ void updatePage8()
     scic_msg(tmp);
 }
 
+void updatePage9(){
+
+
+
+}
+
 
 void updatePage10(){
     setSelectorPedalConfig();
@@ -336,22 +354,28 @@ void updatePage11(){
     {
         sum += local_sh.bms_lv[i];
      }
-    sprintf(tmp, "END.tot.val=%dÿÿÿ\0", (int)(sum*1000));
+    sprintf(tmp, "Drv_END.tot.val=%dÿÿÿ\0", (int)(sum*1000));
     scic_msg(tmp);
-    sprintf(tmp, "END.low_lv.val=%dÿÿÿ\0", (int)(getLowestLvVoltage()*1000));
+    sprintf(tmp, "Drv_END.low_lv.val=%dÿÿÿ\0", (int)(getLowestLvVoltage()*1000));
     scic_msg(tmp);
-    sprintf(tmp, "END.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
+    sprintf(tmp, "Drv_END.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
     scic_msg(tmp);
-    sprintf(tmp, "END.low.val=%dÿÿÿ\0",(int)local_sh.bms.min_bms_voltage_shared);
+    sprintf(tmp, "Drv_END.low.val=%dÿÿÿ\0",(int)local_sh.bms.min_bms_voltage_shared);
     scic_msg(tmp);
-    sprintf(tmp, "END.med.val=%dÿÿÿ\0",(int)local_sh.bms.mean_bms_voltage_shared);
+    sprintf(tmp, "Drv_END.med.val=%dÿÿÿ\0",(int)local_sh.bms.mean_bms_voltage_shared);
     scic_msg(tmp);
 }
 
 
+void updatePage12(){
+
+    sprintf(tmp, "Drv_SPEED.actualKmh.val=%dÿÿÿ\0", local_sh.status.actualVelocityKMH_shared);
+    scic_msg(tmp);
+
+}
 
 
-
+/*
 
 void updatePage2()
 {
@@ -468,10 +492,10 @@ void updatePage17(){
     setSelectorCoppiaRear();
     setAckCoppiaRear();
 }
+*/
 
 
-
-
+/*
 void setSelectorPowerControl(){
     n_setup = display.selector_p;
     if(old_setup_power != n_setup){
@@ -511,7 +535,9 @@ void setAckPowerControl(){
 
     }
 }
+*/
 
+/*
 void setSelectorRegen(){
     n_setup = display.selector_r;
     if(old_setup_regen != n_setup){
@@ -551,7 +577,8 @@ void setAckRegen(){
 
     }
 }
-
+*/
+/*
 void setSelectorSpeed(){
     n_setup = display.selector_speed;
     if(old_setup_speed != n_setup){
@@ -591,7 +618,8 @@ void setAckSpeed(){
 
     }
 }
-
+*/
+/*
 void setSelectorCoppiaFront(){
     n_setup = display.selector_coppie_front;
     if(old_setup_coppia_front != n_setup){
@@ -630,7 +658,8 @@ void setAckCoppiaFront(){
         }
 
     }
-}
+}*/
+/*
 
 void setSelectorCoppiaRear(){
     n_setup = display.selector_coppie_rear;
@@ -671,7 +700,7 @@ void setAckCoppiaRear(){
 
     }
 }
-
+*/
 
 
 void setSelectorPedalConfig(){

@@ -201,14 +201,6 @@ void updatePage9();
 void updatePage10();
 void updatePage11();
 void updatePage12();
-void updatePage13();
-void updatePage14();
-void updatePage15();
-void updatePage16();
-void updatePage17();
-void updatePage18();
-
-
 
 
 void changePreset(Uint16 preset, Uint16 page, Uint16 ack);
@@ -220,22 +212,6 @@ void setRRstatus();
 void setSelectorPowerControl();
 
 void setAckPowerControl();
-
-void setSelectorRegen();
-
-void setAckRegen();
-
-void setSelectorSpeed();
-
-void setAckSpeed();
-
-void setSelectorCoppiaFront();
-
-void setAckCoppiaFront();
-
-void setSelectorCoppiaRear();
-
-void setAckCoppiaRear();
 
 void setSelectorPedalConfig();
 

@@ -16,14 +16,9 @@
 #define PAGE_10 0x09
 #define PAGE_11 0x0A
 #define PAGE_12 0x0B
-#define PAGE_13 0x0C
-#define PAGE_14 0x0D
-#define PAGE_15 0x0E
-#define PAGE_16 0x0F
-#define PAGE_17 0x10
-#define PAGE_18 0x12
 
-#define MAX_PAGE_NUMBER 18
+
+#define MAX_PAGE_NUMBER 12
 
 
 //
