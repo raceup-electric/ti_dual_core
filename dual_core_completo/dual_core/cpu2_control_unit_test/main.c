@@ -96,11 +96,8 @@ void setup()
        sh.power_setup = power_setup_log;
        sh.settings = car_settings;
 
-       display.ack_p = 99;
-       display.ack_r = 99;
-       display.ack_speed = 99;
-       display.ack_coppie_front = 99;
-       display.ack_coppie_rear = 99;
+
+       display.ack_setup = 99;
        display.ack_pedal_setup = 99;
        display.emergencyBrk_isNotSet = 1;
 

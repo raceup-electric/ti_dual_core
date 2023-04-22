@@ -327,11 +327,17 @@ void updatePage8()
     scic_msg(tmp);
     sprintf(tmp, "smu.precold.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[1] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.postcold.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[2] - 273.15));
+    sprintf(tmp, "smu.premot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[2] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.premot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[3] - 273.15));
+    sprintf(tmp, "smu.postmot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[3] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.postmot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
+    sprintf(tmp, "smu.prerad2.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
+    scic_msg(tmp);
+    sprintf(tmp, "smu.precold2.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[5] - 273.15));
+    scic_msg(tmp);
+    sprintf(tmp, "smu.premot2.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[6] - 273.15));
+    scic_msg(tmp);
+    sprintf(tmp, "smu.postmot2.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[7] - 273.15));
     scic_msg(tmp);
 }
 
@@ -343,6 +349,17 @@ void updatePage9(){
 
 
 void updatePage10(){
+
+    sprintf(tmp, "pedalSetup.thr_req.val=%dÿÿÿ\0", local_sh.pedals.throttle_req_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "pedalSetup.brk_req.val=%dÿÿÿ\0", local_sh.pedals.brk_req_shared);
+    scic_msg(tmp);
+
+    sprintf(tmp, "pedalSetup.thr.val=%dÿÿÿ\0", local_sh.status.throttle_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "pedalSetup.brk.val=%dÿÿÿ\0", local_sh.status.brake_shared);
+    scic_msg(tmp);
+
     setSelectorPedalConfig();
     setAckPedalConfig();
 }
@@ -706,17 +723,6 @@ void setAckCoppiaRear(){
 void setSelectorPedalConfig(){
     n_setup = display.selector_pedal_setup;
 
-    sprintf(tmp, "pedalSetup.thr_req.val=%dÿÿÿ\0", local_sh.pedals.throttle_req_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pedalSetup.brk_req.val=%dÿÿÿ\0", local_sh.pedals.brk_req_shared);
-    scic_msg(tmp);
-
-    sprintf(tmp, "pedalSetup.thr.val=%dÿÿÿ\0", local_sh.status.throttle_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pedalSetup.brk.val=%dÿÿÿ\0", local_sh.status.brake_shared);
-    scic_msg(tmp);
-
-
     if(old_setup_pedal_setup != n_setup){
 
 
@@ -741,48 +747,37 @@ void setAckPedalConfig(){
 
     ack = display.ack_pedal_setup;
 
+    sprintf(tmp, "pedalSetup.brk_rel.val=%dÿÿÿ\0", local_sh.pedals.brk_low_calibration);
+                    scic_msg(tmp);
+
+    sprintf(tmp, "pedalSetup.brk_pr.val=%dÿÿÿ\0", local_sh.pedals.brk_high_calibration);
+                    scic_msg(tmp);
+
+    sprintf(tmp, "pedalSetup.acc1_pr.val=%dÿÿÿ\0", local_sh.pedals.acc1_high_calibration);
+                    scic_msg(tmp);
+                    sprintf(tmp, "pedalSetup.acc2_pr.val=%dÿÿÿ\0", local_sh.pedals.acc2_high_calibration);
+                    scic_msg(tmp);
+
+    sprintf(tmp, "pedalSetup.acc1_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
+                    scic_msg(tmp);
+                    sprintf(tmp, "pedalSetup.acc2_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
+                    scic_msg(tmp);
+
     if (old_ack_pedal_setup != ack){
 
-            if (ack==0){
 
-                sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
-                old_ack_pedal_setup = ack;
-                scic_msg(tmp);
+        sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
+        scic_msg(tmp);
 
-                sprintf(tmp, "pedalSetup.acc1_pr.val=%dÿÿÿ\0", local_sh.pedals.acc1_high_calibration);
-                scic_msg(tmp);
-                sprintf(tmp, "pedalSetup.acc2_pr.val=%dÿÿÿ\0", local_sh.pedals.acc2_high_calibration);
-                scic_msg(tmp);
+        old_ack_pedal_setup = ack;
 
-            }
-
-            if (ack==1){
-                sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
-                old_ack_pedal_setup = ack;
-                scic_msg(tmp);
-
-                sprintf(tmp, "pedalSetup.acc1_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
-                scic_msg(tmp);
-                sprintf(tmp, "pedalSetup.acc2_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
+        int i = 0;
+        for (i = 0; i < 4; i++){
+            if (i != ack){
+                sprintf(tmp, "pedalSetup.setup%d.bco=54938ÿÿÿ\0", i);
                 scic_msg(tmp);
             }
-            if (ack==2){
-                sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
-                old_ack_pedal_setup = ack;
-                scic_msg(tmp);
-
-                sprintf(tmp, "pedalSetup.brk_pr.val=%dÿÿÿ\0", local_sh.pedals.brk_high_calibration);
-                scic_msg(tmp);
-            }
-            if (ack==3){
-                sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
-                old_ack_pedal_setup = ack;
-                scic_msg(tmp);
-
-                sprintf(tmp, "pedalSetup.brk_rel.val=%dÿÿÿ\0", local_sh.pedals.brk_low_calibration);
-                scic_msg(tmp);
-            }
-
+        }
 
     }
 }

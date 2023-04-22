@@ -232,53 +232,37 @@ void read_steering_wheel_message(Uint16 val[], int id){
     }
 
     /*
-     * SELECTOR UPDATE
+     * SELECTOR 1 UPDATE
      */
-    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == POWER_CONTROL_PAGE){
-        display.selector_p = val[0] % 8;
+    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == SETUP_PAGE){
+        display.selector_setup = val[0] % 7;
     }
-    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == REGEN_PAGE){
-        display.selector_r = val[0] % 6;
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP_PAGE){
+        display.selector_pedal_setup = val[0] % 4;
     }
-    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == SPEED_LIMIT_PAGE){
-        display.selector_speed = val[0] % 6;
+
+    /*
+     * SELECTOR 2 UPDATE
+     */
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == SETUP_PAGE){
+        display.selector_setup = val[0] % 7;
     }
-    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == COPPIE_PAGE_FRONT){
-        display.selector_coppie_front = val[0] % 6;
-    }
-    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == COPPIE_PAGE_REAR){
-        display.selector_coppie_rear = val[0] % 6;
-    }
-    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP){
-        display.selector_coppie_rear = val[0] % 4;
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP_PAGE){
+        display.selector_pedal_setup = val[0] % 4;
     }
 
     /*
      * ACKNOLEDGE UPDATE
      */
     else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == CONFIRMATION){
-        if(display.page == POWER_CONTROL_PAGE && !R2D_state){
-            display.ack_p = display.selector_p;
-            //manca mandare il messaggio
-            powersetup[0]=presets_power[display.ack_p];
-            power_limit = powersetup[0]*1000.0f;
-        }else if(display.page == REGEN_PAGE && !R2D_state){
-             display.ack_r = display.selector_r;
-             max_regen_current = presets_regen[display.ack_r];
+        if(display.page == SETUP_PAGE && !R2D_state){
+            display.ack_setup = display.selector_setup;
+
+            /*
+             * MANCA LA LOGICA
+             */
         }
-        else if(display.page == SPEED_LIMIT_PAGE && !R2D_state){
-             display.ack_speed = display.selector_speed;
-             max_speed = presets_speed[display.ack_speed];
-        }
-        else if(display.page == COPPIE_PAGE_FRONT && !R2D_state){
-             display.ack_coppie_front = display.selector_coppie_front;
-             front_motor_scale = presets_coppie_front[display.ack_coppie_front];
-        }
-        else if(display.page == COPPIE_PAGE_REAR && !R2D_state){
-            display.ack_coppie_rear = display.selector_coppie_rear;
-            rear_motor_scale = presets_coppie_rear[display.ack_coppie_rear];
-       }
-        else if(display.page == PEDAL_SETUP && !R2D_state){
+        else if(display.page == PEDAL_SETUP_PAGE && !R2D_state){
             display.ack_pedal_setup = display.selector_pedal_setup;
 
             switch(display.ack_pedal_setup){
@@ -306,11 +290,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
 
 
        }
-
-    } else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == START_LAUNCH) {
-        // si vedrà quello che faremo
     }
-
 }
 
 void brakeLight()

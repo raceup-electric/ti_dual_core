@@ -204,6 +204,7 @@
 #define MSG_ID_STEERING_WHEEL_BASE 0x90         //id dei buttons
 #define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90
 #define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91   //id del selector
+#define MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2         0x92
 #define MSG_ID_SMU_BASE                      0x100
 #define MSG_ID_SMU_TEMPERATURES              0x100
 #define MSG_ID_SMU_SUSPENSIONS               0x102
@@ -224,13 +225,8 @@
 #define PREVIOUS_PAGE       0x4
 #define START_LAUNCH        0x8
 
-#define POWER_CONTROL_PAGE   0x08
-#define REGEN_PAGE          0x09
-#define SPEED_LIMIT_PAGE     0x0E
-#define COPPIE_PAGE_FRONT    0x0F
-#define COPPIE_PAGE_REAR     0x10
-#define BRAKE_PAGE          0x11
-#define PEDAL_SETUP         0x12
+#define SETUP_PAGE          0x08
+#define PEDAL_SETUP_PAGE    0x09
 
 #define SCREEN_DEBUG        0x00
 #define SCREEN_DRIVING      0x01
