@@ -183,7 +183,7 @@ void updatePage1()
     //if(local_sh.status.status_shared & 0b01000000) scic_msg("main.imp.bco=REDÿÿÿ\0");
     //else scic_msg("main.imp.bco=GREENÿÿÿ\0");
 
-    if(local_sh.settings.lauch_ready) scic_msg("main.lc.bco=GREENÿÿÿ\0");
+    if(car_settings.lauch_ready) scic_msg("main.lc.bco=GREENÿÿÿ\0");
     else scic_msg("main.imp.bco=REDÿÿÿ\0");
 
 
@@ -308,20 +308,7 @@ void updatePage6()
     scic_msg(tmp);
 }
 
-
 void updatePage7()
-{
-    sprintf(tmp, "pwr_set.spd.val=%dÿÿÿ\0", local_sh.power_setup.max_speed_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.trqf.val=%dÿÿÿ\0", (int)(local_sh.power_setup.front_motor_scale_shared*10));
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.trqr.val=%dÿÿÿ\0", (int)(local_sh.power_setup.rear_motor_scale_shared*10));
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.pow.val=%luÿÿÿ\0", (Uint32)local_sh.power_setup.power_limit_shared);
-    scic_msg(tmp);
-}
-
-void updatePage8()
 {
     sprintf(tmp, "smu.prerad.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[0] - 273.15));
     scic_msg(tmp);
@@ -341,10 +328,30 @@ void updatePage8()
     scic_msg(tmp);
 }
 
+
+void updatePage8()
+{
+    sprintf(tmp, "pwr_set.speedlim.txt=\"%d\"ÿÿÿ\0", (int)( car_settings.max_speed / 1000);
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.trqf.txt=\"%.1f\"ÿÿÿ\0", car_settings.front_motor_scale);
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.trqr.txt=\"%.1f\"ÿÿÿ\0", car_settings.rear_motor_scale);
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.powerlim.txt=\"%d\"uÿÿÿ\0", car_settings.power_limit);
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.regcurr.txt=\"%.1f\"uÿÿÿ\0", car_settings.max_regen_current);
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.maxpostrq.txt=\"%.1f\"uÿÿÿ\0", car_settings.max_pos_torque);
+    scic_msg(tmp);
+    sprintf(tmp, "pwr_set.maxnegtrq.txt=\"%.1f\"uÿÿÿ\0", car_settings.max_neg_torque);
+    scic_msg(tmp);
+}
+
+
 void updatePage9(){
 
-    setSelector1Setup();
-    setSelector2Setup();
+    setSelector1_update();
+    setSelector2_update();
     setAckSetup();
 
 }
@@ -394,125 +401,67 @@ void updatePage12(){
 }
 
 
-/*
+void setSelector1_update(){
 
-void updatePage2()
-{
-    sprintf(tmp, "HV.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "HV.lem.val=%dfÿÿÿ\0", (int)local_sh.power.lem_current_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "HV.curr_sens.val=%dÿÿÿ\0", (int)local_sh.power.curr_sens_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "HV.tot_power.val=%dÿÿÿ\0", (int)local_sh.power.total_power_shared);
-    scic_msg(tmp);
+    n_setup = display.selector_setup;
+
+    if(old_setup != n_setup){
+
+
+      if (old_setup != old_ack_setup){
+          sprintf(tmp, "setupPage.setup%d.bco=54938ÿÿÿ\0", old_setup);
+          scic_msg(tmp);
+      }
+
+
+      old_setup = n_setup;
+
+      if (old_setup != old_ack_setup){
+          sprintf(tmp, "setupPage.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          scic_msg(tmp);
+
+      }
+    }
 }
-void updatePage3()
-{
-    if(local_sh.gpio.Sdc1_shared)
-        scic_msg("gpio.sdc1.bco=REDÿÿÿ\0");
-    else
-        scic_msg("gpio.sdc1.bco=GREENÿÿÿ\0");
 
-    if(local_sh.gpio.Sdc2_shared)
-            scic_msg("gpio.sdc2.bco=REDÿÿÿ\0");
-    else
-            scic_msg("gpio.sdc2.bco=GREENÿÿÿ\0");
 
-    if(local_sh.gpio.Sdc3_shared)
-            scic_msg("gpio.sdc3.bco=REDÿÿÿ\0");
-    else
-            scic_msg("gpio.sdc3.bco=GREENÿÿÿ\0");
+void setSelector2_update(){
 
-    if(local_sh.gpio.Sdc4_shared)
-            scic_msg("gpio.sdc4.bco=REDÿÿÿ\0");
-    else
-            scic_msg("gpio.sdc4.bco=GREENÿÿÿ\0");
-
-    if(local_sh.gpio.Sdc5_shared)
-            scic_msg("gpio.sdc5.bco=REDÿÿÿ\0");
-    else
-            scic_msg("gpio.sdc5.bco=GREENÿÿÿ\0");
-
-    if(local_sh.gpio.Sdc6_shared)
-            scic_msg("gpio.sdc6.bco=REDÿÿÿ\0");
-    else
-            scic_msg("gpio.sdc6.bco=GREENÿÿÿ\0");
-
-    if(local_sh.gpio.Bms_shared)
-            scic_msg("gpio.bms.bco=REDÿÿÿ\0");
-    else
-            scic_msg("gpio.bms.bco=GREENÿÿÿ\0");
-
-    if(local_sh.gpio.Imd_shared)
-            scic_msg("gpio.imd.bco=REDÿÿÿ\0");
-    else
-            scic_msg("gpio.imd.bco=GREENÿÿÿ\0");
-
+    sprintf(tmp, "setupPage.setup0.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_regen[display.selector_regen]);
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup1.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_max_pos[display.selector_maxpos]);
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup2.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_max_neg[display.selector_maxneg]);
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup3.val=\"%d\"ÿÿÿ\0", car_settings.presets_power[display.selector_power]);
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup4.val=\"%d\"ÿÿÿ\0", (int)(car_settings.presets_speed[display.selector_speed] / 1000 ));
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup5.val=\"%.1f\"ÿÿÿ\0", car_settings.presets_coppie_rear[display.selector_trqr]);
+    scic_msg(tmp);
+    sprintf(tmp, "setupPage.setup6.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_coppie_front[display.selector_trqf]);
+    scic_msg(tmp);
 }
 
 
 
-
-
-
-
-
-void updatePage10()
-{
-    setSelectorRegen();
-    setAckRegen();
+void setAckSetup(){
+    int i;
+    ack = display.ack_setup;
+    if (old_ack_setup != ack){
+        for (i = 0; i < 7; i++){
+            if (i == ack){
+                sprintf(tmp, "setupPage.setup%d.bco=GREENÿÿÿ\0", i);
+                old_ack_setup = ack;
+                scic_msg(tmp);
+            }
+            else {
+                sprintf(tmp, "setupPage.setup%d.bco=54938ÿÿÿ\0", i);
+                scic_msg(tmp);
+            }
+        }
+    }
 }
-
-
-
-
-
-void updatePage13(){
-    sprintf(tmp, "pedals.thr.val=%dÿÿÿ\0", local_sh.status.throttle_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pedals.brk.val=%dÿÿÿ\0", local_sh.status.brake_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pedals.acc1.val=%dÿÿÿ\0", (int)local_sh.pedals.acc_pot1_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pedals.acc2.val=%dÿÿÿ\0", (int)local_sh.pedals.acc_pot2_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pedals.brk_pot.val=%dÿÿÿ\0", (int)local_sh.pedals.brk_pot_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pedals.thr_req.val=%dÿÿÿ\0", local_sh.pedals.throttle_req_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pedals.brk_req.val=%dÿÿÿ\0", local_sh.pedals.brk_req_shared);
-    scic_msg(tmp);
-
-}
-
-void updatePage14(){
-    sprintf(tmp, "pwr_set.spd.val=%dÿÿÿ\0", local_sh.power_setup.max_speed_shared);
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.trqf.val=%dÿÿÿ\0", (int)(local_sh.power_setup.front_motor_scale_shared*10));
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.trqr.val=%dÿÿÿ\0", (int)(local_sh.power_setup.rear_motor_scale_shared*10));
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.pow.val=%luÿÿÿ\0", (Uint32)local_sh.power_setup.power_limit_shared);
-    scic_msg(tmp);
-}
-
-void updatePage15(){
-    setSelectorSpeed();
-    setAckSpeed();
-}
-
-void updatePage16(){
-    setSelectorCoppiaFront();
-    setAckCoppiaFront();
-}
-
-void updatePage17(){
-    setSelectorCoppiaRear();
-    setAckCoppiaRear();
-}
-*/
-
 
 /*
 void setSelectorPowerControl(){
@@ -555,231 +504,6 @@ void setAckPowerControl(){
     }
 }
 */
-
-/*
-void setSelectorRegen(){
-    n_setup = display.selector_r;
-    if(old_setup_regen != n_setup){
-
-
-      if (old_setup_regen != old_ack_regen){
-          sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", old_setup_regen);
-          scic_msg(tmp);
-      }
-
-
-      old_setup_regen = n_setup;
-
-      if (old_setup_regen != old_ack_regen){
-          sprintf(tmp, "regen.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
-          scic_msg(tmp);
-      }
-
-    }
-}
-
-void setAckRegen(){
-    int i;
-    ack = display.ack_r;
-    if (old_ack_regen != ack){
-        for (i = 0; i < 6; i++){
-            if (i == ack){
-                sprintf(tmp, "regen.setup%d.bco=GREENÿÿÿ\0", i);
-                old_ack_regen = ack;
-                scic_msg(tmp);
-            }
-            else {
-                sprintf(tmp, "regen.setup%d.bco=54938ÿÿÿ\0", i);
-                scic_msg(tmp);
-            }
-        }
-
-    }
-}
-*/
-/*
-void setSelectorSpeed(){
-    n_setup = display.selector_speed;
-    if(old_setup_speed != n_setup){
-
-
-      if (old_setup_speed != old_ack_speed){
-          sprintf(tmp, "spd_lim.setup%d.bco=54938ÿÿÿ\0", old_setup_speed);
-          scic_msg(tmp);
-      }
-
-
-      old_setup_speed = n_setup;
-
-      if (old_setup_speed != old_ack_speed){
-          sprintf(tmp, "spd_lim.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
-          scic_msg(tmp);
-      }
-
-    }
-}
-
-void setAckSpeed(){
-    int i;
-    ack = display.ack_speed;
-    if (old_ack_speed != ack){
-        for (i = 0; i < 6; i++){
-            if (i == ack){
-                sprintf(tmp, "spd_lim.setup%d.bco=GREENÿÿÿ\0", i);
-                old_ack_speed = ack;
-                scic_msg(tmp);
-            }
-            else {
-                sprintf(tmp, "spd_lim.setup%d.bco=54938ÿÿÿ\0", i);
-                scic_msg(tmp);
-            }
-        }
-
-    }
-}
-*/
-/*
-void setSelectorCoppiaFront(){
-    n_setup = display.selector_coppie_front;
-    if(old_setup_coppia_front != n_setup){
-
-
-      if (old_setup_coppia_front != old_ack_coppia_front){
-          sprintf(tmp, "trq_F.setup%d.bco=54938ÿÿÿ\0", old_setup_coppia_front);
-          scic_msg(tmp);
-      }
-
-
-      old_setup_coppia_front = n_setup;
-
-      if (old_setup_coppia_front != old_ack_coppia_front){
-          sprintf(tmp, "trq_F.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
-          scic_msg(tmp);
-      }
-
-    }
-}
-
-void setAckCoppiaFront(){
-    int i;
-    ack = display.ack_coppie_front;
-    if (old_ack_coppia_front != ack){
-        for (i = 0; i < 6; i++){
-            if (i == ack){
-                sprintf(tmp, "trq_F.setup%d.bco=GREENÿÿÿ\0", i);
-                old_ack_coppia_front = ack;
-                scic_msg(tmp);
-            }
-            else {
-                sprintf(tmp, "trq_F.setup%d.bco=54938ÿÿÿ\0", i);
-                scic_msg(tmp);
-            }
-        }
-
-    }
-}*/
-/*
-
-void setSelectorCoppiaRear(){
-    n_setup = display.selector_coppie_rear;
-    if(old_setup_coppia_rear != n_setup){
-
-
-      if (old_setup_coppia_rear != old_ack_coppia_rear){
-          sprintf(tmp, "trq_R.setup%d.bco=54938ÿÿÿ\0", old_setup_coppia_rear);
-          scic_msg(tmp);
-      }
-
-
-      old_setup_coppia_rear = n_setup;
-
-      if (old_setup_coppia_rear != old_ack_coppia_rear){
-          sprintf(tmp, "trq_R.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
-          scic_msg(tmp);
-      }
-
-    }
-}
-
-void setAckCoppiaRear(){
-    int i;
-    ack = display.ack_coppie_rear;
-    if (old_ack_coppia_rear != ack){
-        for (i = 0; i < 6; i++){
-            if (i == ack){
-                sprintf(tmp, "trq_R.setup%d.bco=GREENÿÿÿ\0", i);
-                old_ack_coppia_rear = ack;
-                scic_msg(tmp);
-            }
-            else {
-                sprintf(tmp, "trq_R.setup%d.bco=54938ÿÿÿ\0", i);
-                scic_msg(tmp);
-            }
-        }
-
-    }
-}
-*/
-
-
-void setSelector1Setup(){
-
-    n_setup = display.selector_setup;
-
-    if(old_setup_pedal_setup != n_setup){
-
-
-      if (old_setup_pedal_setup != old_ack_pedal_setup){
-          sprintf(tmp, "setupPage.setup%d.bco=54938ÿÿÿ\0", old_setup_pedal_setup);
-          scic_msg(tmp);
-      }
-
-
-      old_setup_pedal_setup = n_setup;
-
-      if (old_setup_pedal_setup != old_ack_pedal_setup){
-          sprintf(tmp, "setupPage.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
-          scic_msg(tmp);
-
-      }
-    }
-}
-
-
-void setSelector2Setup(){
-
-
-    sprintf(tmp, "setupPage.setup0.val=%dÿÿÿ\0", );  //reg curr
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup1.val=%dÿÿÿ\0", );  //max pos
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup2.val=%dÿÿÿ\0", );     //max neg
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup3.val=%dÿÿÿ\0", );   //powerlimit
-    scic_msg(tmp);
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup4.val=%dÿÿÿ\0", );     //speed lim
-    scic_msg(tmp);
-
-    sprintf(tmp, "setupPage.setup5.val=%dÿÿÿ\0", );    //trq R
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup6.val=%dÿÿÿ\0", );     //trq F
-    scic_msg(tmp);
-
-
-}
-
-
-
-void setAckSetup(){
-
-
-    //unico ack per tutti e 8
-
-
-}
-
-
 
 void setSelectorPedalConfig(){
     n_setup = display.selector_pedal_setup;

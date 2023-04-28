@@ -85,8 +85,9 @@ __interrupt void cpu_timer1_isr(void)
     }
 
 
-    if(time_elapsed%3 == 0){
+    if(time_elapsed%4 == 0){
         send_pwm_to_pcu();
+        sendHostData();
     }
 
 
@@ -193,7 +194,7 @@ __interrupt void cpu_timer1_isr(void)
     }
 
     sendAMKData();
-    sendHostData();
+
 
     checkStatus();
     computeBatteryPackTension();

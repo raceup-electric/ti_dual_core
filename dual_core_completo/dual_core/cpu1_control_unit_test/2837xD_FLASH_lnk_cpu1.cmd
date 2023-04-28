@@ -110,6 +110,7 @@ SECTIONS
    SHARERAMGS11		: > RAMGS11, 	PAGE = 1
    SHARERAMGS12		: > RAMGS12, 	PAGE = 1
    SHARERAMGS13		: > RAMGS13, 	PAGE = 1
+   SHARERAMGS14		: > RAMGS14, 	PAGE = 0
    ramgs0           : > RAMGS0,     PAGE = 1
    ramgs1           : > RAMGS1,     PAGE = 1
 

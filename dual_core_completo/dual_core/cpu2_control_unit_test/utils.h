@@ -123,15 +123,13 @@ struct Display_command{
     Uint16 selector_setup;
     Uint16 ack_setup;
 
-    Uint16 selectors2[7];
-
-    /*Uint16 selector_regen;
+    Uint16 selector_regen;
     Uint16 selector_maxpos;
     Uint16 selector_maxneg;
     Uint16 selector_power;
     Uint16 selector_speed;
     Uint16 selector_trqf;
-    Uint16 selector_trqr;*/
+    Uint16 selector_trqr;
 
     Uint16 selector_pedal_setup;
     Uint16 ack_pedal_setup;
@@ -142,8 +140,28 @@ struct Display_command{
 };
 
 struct Car_settings{
+    //status
     bool lauch_ready;
+
+    //screen
+    int presets_power[8];
+    float presets_max_pos[5];
+    float presets_max_neg[5];
+    float presets_regen[6];
+    float presets_speed[6];
+    float presets_coppie_front[6];
+    float presets_coppie_rear[6];
+
+    //setup variables
+    float max_regen_current;
+    float max_speed;
+    float rear_motor_scale;
+    float front_motor_scale;
+    float max_pos_torque;
+    float max_neg_torque;
+    float power_limit;
 };
+
 
 struct Share_struct {
     Uint16 Temps[8];
@@ -159,7 +177,6 @@ struct Share_struct {
     struct Gpio_Log gpio;
     struct Pedals_Log pedals;
     struct Power_Setup_Log power_setup;
-    struct Car_settings settings;
 };
 
 extern float versx[3];
@@ -167,10 +184,19 @@ extern float versy[3];
 extern float versz[3];
 extern float V[3][3];
 
+extern const int presets_power[8];
+extern const float presets_max_pos[5];
+extern const float presets_max_neg[5];
+extern const float presets_regen[5];
+extern const float presets_speed[6];
+extern const float presets_coppie_front[6];
+extern const float presets_coppie_rear[6];
+
 
 //
 // prototypes
 //
+void setup_car_settings();
 
 float convertBMSvoltage(Uint16 voltage);
 

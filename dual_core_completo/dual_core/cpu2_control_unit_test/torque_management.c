@@ -38,8 +38,8 @@ void performancePack()
     //PRIMO candidato: valore massimo di torque per ogni ruota
     int i;
     for(i=0; i<4; i++){
-        AMK_TorqueLimitPositive[i] = MAX_POS_TORQUE;
-        AMK_TorqueLimitNegative[i] = MAX_NEG_TORQUE;
+        AMK_TorqueLimitPositive[i] = car_settings.max_pos_torque;
+        AMK_TorqueLimitNegative[i] = car_settings.max_neg_torque;
     }
 
     th = throttleReq/100.0f;   //change range from 0-100 to 0-1
@@ -283,7 +283,7 @@ void regBrake()
     float V_zero = batteryPackTension + RBATT * lem_current;
     float current_batterylimit = (600-V_zero)/(RBATT+0.1f);
 
-    float current_limit = fminf(current_batterylimit, max_regen_current);
+    float current_limit = fminf(current_batterylimit, car_settings.max_regen_current);
     //float Pemax = (sendyne_voltage+RBATT*max_regen_current)*max_regen_current/ETA_INV; //sendyne_deprecated
     float Pemax = (V_zero+RBATT*current_limit)*current_limit/ETA_INV;
 
@@ -313,7 +313,7 @@ void regBrake()
 
         //T_lim = 21-0.000857*(rpm-13000); da matlab
         float T_lim = 21.0f - 0.000857*(fabsf(motorVal1[mot].AMK_ActualVelocity) - 13000.0f); //da riga 47
-        T_lim=saturateFloat(T_lim,-MAX_NEG_TORQUE,0.0f);
+        T_lim=saturateFloat(T_lim,-car_settings.max_neg_torque,0.0f);
 
         if(T_max_an_IPM > T_lim)
             torque_reg_IPM[mot] = T_lim;

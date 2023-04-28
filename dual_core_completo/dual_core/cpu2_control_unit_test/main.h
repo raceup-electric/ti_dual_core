@@ -48,7 +48,6 @@ float mean_bms_temp;
 uint16_t max_temp_nslave;
 
 
-
 //configuration
 int driving_configuration;
 
@@ -59,6 +58,18 @@ bool brk_disconnected = false;
 bool implausibility_occurred = false;
 
 bool is_launch_inserted = false;
+
+
+/*
+ * PRESETS
+ */
+const int presets_power[8] = {5, 15, 30, 45, 60, 65, 70, 75};
+const float presets_max_pos[5] = {10.f, 13.f, 15.f, 17.f, 20.f};
+const float presets_max_neg[5] = {-3.f, -5.f, -7.f, -9.f, -11.f};
+const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};
+const float presets_speed[6] = {5000, 10000, 14000, 15000, 18000, 20000};
+const float presets_coppie_front[6] = {0.3f, 0.4f, 0.5f, 0.63f, 0.7f, 0.8f};
+const float presets_coppie_rear[6] = {0.5f, 1.f, 1.3f, 1.5f, 1.7f, 1.8f};
 
 // driver input
 // filtro max-nuotatori: media mobile, senza contare i top N valori
@@ -141,29 +152,12 @@ float AMK_TorqueLimitNegative[4];
 float torque_reg_IPM[4];            //massima coppia rigenerativa per motore
 
 
-//power control
-float total_power;
-float power_error;
-float anti_wind_up = 0;
-float reduction_factor;
-
-char Thermal_Power_Control_Active = 0;
-
-Uint16 regensetup[8];
-float max_regen_current=MAX_REGEN_CURRENT;
-
-float power_limit=POWER_LIMIT; //quello che gli arriva dal volante
-float thermal_power_lim = POWER_LIMIT;
-float thermal_power_min = 15000;
-bool powerOK = false;
-Uint16 powersetup[8];
-
+//AMK
 int amkVal1ForwardCounter[4] = {0,0,0,0};
 int amkVal2ForwardCounter[4] = {0,0,0,0};
 Uint16 RX_A_temp[8];
 //volatile Uint32 id;
 
-//AMK
 uint16_t rxMsg[8];
 uint16_t txMsg[8];
 
@@ -216,23 +210,21 @@ volatile uint16_t cpuTimer1IntCount;
 volatile uint16_t cpuTimer2IntCount;
 volatile Uint32 pinValue;
 
-//schermo
-int presets_power[8] = {3, 30, 40, 50, 60, 65, 70, 75};
-int preset_reg_curr[0] = {};
-int preset_max_pos[0] = {};
-int preset_max_neg[0] = {};
-float presets_regen[6]={1.5f,3.0f,5.0f,10.0f,15.0f,20.0f};
-int presets_speed[6]={5000, 10000, 14000, 15000, 18000, 20000};
-float presets_coppie_front[6]={0.3f, 0.4f, 0.5f, 0.63f, 0.7f, 0.8f};
-float presets_coppie_rear[6]={0.5f, 1.f, 1.3f, 1.5f, 1.7f, 1.8f};
 
 
+//power control
+float total_power;
+float power_error;
+float anti_wind_up = 0;
+float reduction_factor;
 
+char Thermal_Power_Control_Active = 0;
 
+float thermal_power_lim = POWER_LIMIT;
+float thermal_power_min = 15000;
+bool powerOK = false;
+//Uint16 powersetup[8];
 
-int max_speed = SPEED_LIMIT;
-float rear_motor_scale = REAR_MOTOR_SCALE;
-float front_motor_scale = FRONT_MOTOR_SCALE;
 
 //CAN
 volatile Uint32 errorFlag = 0;
@@ -341,11 +333,9 @@ struct Power_Setup_Log power_setup_log;
 
 struct Car_settings car_settings;
 
-//shard ram
-Uint16 c2_r_w_array[256];
-Uint16 increment;
 
-//#pragma DATA_SECTION(c2_r_w_array,"SHARERAMGS1");
+
+#pragma DATA_SECTION(car_settings,"SHARERAMGS14");
 #pragma DATA_SECTION(sh,"SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS12");
 #pragma DATA_SECTION(display,"SHARERAMGS13");

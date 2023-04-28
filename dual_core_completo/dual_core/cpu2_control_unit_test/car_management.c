@@ -20,28 +20,6 @@ bool rfGoneWrong[4] = {1,1,1,1};
     int rightFanDebug = 0;
 #endif
 
-// sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
-/*void read_SENDYNE_message(unsigned char sendyne_values[]){
-    reassembled_data= 0;
-    Uint16 tmp= sendyne_values[0];
-    tmp^= 1 <<7;
-    reassembled_data |= ((uint32_t)(tmp) << 24);
-    reassembled_data |= ((uint32_t)(sendyne_values[1]) << 16);
-    reassembled_data |= ((uint32_t)(sendyne_values[2]) << 8);
-    reassembled_data |= ((uint32_t)(sendyne_values[3]) << 0);
-    sendyne_current = (int32_t)(reassembled_data) / 1000.0;
-
-    reassembled_data= 0;
-    reassembled_data |= ((uint32_t)(sendyne_values[4]) << 24);
-    reassembled_data |= ((uint32_t)(sendyne_values[5]) << 16);
-    reassembled_data |= ((uint32_t)(sendyne_values[6]) << 8);
-    reassembled_data |= ((uint32_t)(sendyne_values[7]) << 0);
-    //sendyne_voltage = (-1)*(int32_t)(reassembled_data) / 1000000.0;
-
-    total_power = sendyne_voltage*sendyne_current;
-
-}*/
-
 void read_LEM_message(unsigned char lem_values[]){
     reassembled_data= 0;
     Uint16 tmp= lem_values[0];
@@ -183,10 +161,10 @@ void read_BMS_TEMP_message(Uint16 bms_values[]){
 
 }
 
-void read_power_control_message(Uint16 val[]){
-    powersetup[0]=val[0];
-    power_limit = val[0]*1000.0f;
-}
+//void read_power_control_message(Uint16 val[]){
+//    powersetup[0]=val[0];
+//    power_limit = val[0]*1000.0f;
+//}
 
 void read_steering_wheel_message(Uint16 val[], int id){
 
@@ -245,7 +223,20 @@ void read_steering_wheel_message(Uint16 val[], int id){
      * SELECTOR 2 UPDATE
      */
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == SETUP_PAGE){
-        display.selectors2[display.selector_setup] = val[0];
+        if (display.selector_setup == 1)
+            display.selector_regen = val[0] % 6;
+        else if (display.selector_setup == 2)
+            display.selector_maxpos = val[0] % 5;
+        else if (display.selector_setup == 3)
+            display.selector_maxneg = val[0] % 5;
+        else if (display.selector_setup == 4)
+            display.selector_power = val[0] % 8;
+        else if (display.selector_setup == 5)
+            display.selector_speed = val[0] % 6;
+        else if (display.selector_setup == 6)
+            display.selector_trqr = val[0] % 6;
+        else if (display.selector_setup == 7)
+            display.selector_trqf = val[0] % 6;
     }
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP_PAGE){
         display.selector_pedal_setup = val[0] % 4;
@@ -258,9 +249,22 @@ void read_steering_wheel_message(Uint16 val[], int id){
         if(display.page == SETUP_PAGE && !R2D_state){
             display.ack_setup = display.selector_setup;
 
-            /*
-             * MANCA LA LOGICA
-             */
+            if (display.ack_setup == 1)
+                car_settings.max_regen_current= car_settings.presets_regen[display.selector_regen];
+            else if (display.ack_setup == 2)
+                car_settings.max_pos_torque = car_settings.presets_max_pos[display.selector_maxpos];
+            else if (display.ack_setup == 3)
+                car_settings.max_neg_torque = car_settings.presets_max_neg[display.selector_maxneg];
+            else if (display.ack_setup == 4)
+                car_settings.power_limit = car_settings.presets_power[display.selector_power];
+            else if (display.ack_setup == 5)
+                car_settings.max_speed = car_settings.presets_speed[display.selector_speed];
+            #ifdef NO_TORQUE_VECTORING
+            else if (display.ack_setup == 6)
+                car_settings.rear_motor_scale = car_settings.presets_coppie_rear[display.selector_trqr];
+            else if (display.ack_setup == 7)
+                car_settings.front_motor_scale = car_settings.presets_coppie_front[display.selector_trqf];
+            #endif
         }
         else if(display.page == PEDAL_SETUP_PAGE && !R2D_state){
             display.ack_pedal_setup = display.selector_pedal_setup;
@@ -900,10 +904,10 @@ void update_log_values()
     pedals_log.brk_req_shared = brakeReq;
 
     //Power setup update
-    power_setup_log.max_speed_shared = max_speed;
-    power_setup_log.rear_motor_scale_shared = rear_motor_scale;
-    power_setup_log.front_motor_scale_shared = front_motor_scale;
-    power_setup_log.power_limit_shared = power_limit;
+    power_setup_log.max_speed_shared = car_settings.max_speed;
+    //power_setup_log.rear_motor_scale_shared = rear_motor_scale;
+    //power_setup_log.front_motor_scale_shared = front_motor_scale;
+    power_setup_log.power_limit_shared = car_settings.power_limit;
 }
 
 void update_shared_mem()
@@ -915,7 +919,7 @@ void update_shared_mem()
         sh.motorVal2[index] = motorVal2_shared[index];
         sh.motorSetP[index] = motorSetP_shared[index];
     }
-    memcpy(sh.Temps, Temps_shared, 8);
+    //memcpy(sh.Temps, Temps_shared, 8);
     int i;
     for(i = 0; i < 8; i++){
         sh.bms_lv[i] = bms_lv_shared[i];
@@ -928,6 +932,5 @@ void update_shared_mem()
     sh.gpio = gpio_log;
     sh.pedals = pedals_log;
     sh.power_setup = power_setup_log;
-    sh.settings = car_settings;
 }
 

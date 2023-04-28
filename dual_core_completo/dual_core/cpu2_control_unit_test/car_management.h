@@ -82,20 +82,20 @@ extern int rfCounter[4];
 extern bool inverterHV[4];
 extern bool inverterRF[4];
 
-//power control
-extern float power_limit;
-extern int presets_power[8];
-
-extern float max_regen_current;
-extern float presets_regen[6];
-
-extern int presets_speed[6];
-extern float presets_coppie_front[6];
-extern float presets_coppie_rear[6];
-
-extern int max_speed;
-extern float rear_motor_scale;
-extern float front_motor_scale;
+////power control
+//extern float power_limit;
+//extern int presets_power[8];
+//
+//extern float max_regen_current;
+//extern float presets_regen[6];
+//
+//extern int presets_speed[6];
+//extern float presets_coppie_front[6];
+//extern float presets_coppie_rear[6];
+//
+//extern int max_speed;
+//extern float rear_motor_scale;
+//extern float front_motor_scale;
 
 
 //Launch setting
@@ -115,6 +115,7 @@ extern struct motorValues2 motorVal2_shared[4];
 extern float bms_lv_shared[8];
 extern struct Pedals_Log pedals_log;
 extern struct Power_Setup_Log power_setup_log;
+
 extern struct Car_settings car_settings;
 
 extern struct Display_command display;

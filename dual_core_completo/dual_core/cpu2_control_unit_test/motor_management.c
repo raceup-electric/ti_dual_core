@@ -332,19 +332,19 @@ void sendAMKData() {
 
 
         float Torque_max = 21.0f - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - 13000.0f);
-        Torque_max=saturateFloat(Torque_max,MAX_POS_TORQUE,0.0f);
+        Torque_max=saturateFloat(Torque_max,car_settings.max_pos_torque,0.0f);
 
 
         //RIPARTIZIONE DI COPPIA SEMPLICE
         if (i == MOTOR_FL || i == MOTOR_FR)
         {
-            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*front_motor_scale, Torque_max, 0.0f));
-            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*front_motor_scale,0.0f,MAX_NEG_TORQUE));
+            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*car_settings.front_motor_scale, Torque_max, 0.0f));
+            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*car_settings.front_motor_scale,0.0f,car_settings.max_neg_torque));
         }
         else if (i == MOTOR_RR || i == MOTOR_RL)
         {
-            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*rear_motor_scale, Torque_max, 0.0f));
-            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*rear_motor_scale,0.0f,MAX_NEG_TORQUE));
+            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*car_settings.rear_motor_scale, Torque_max, 0.0f));
+            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*car_settings.rear_motor_scale,0.0f,car_settings.max_neg_torque));
         }
     }
 
@@ -369,7 +369,7 @@ void brakeAMK(int negTorqueLim) {
 }
 
 void throttleAMK(int posTorqueLim) {
-    setAMK(max_speed, posTorqueLim, 0);
+    setAMK(car_settings.max_speed, posTorqueLim, 0);
 }
 
 /*

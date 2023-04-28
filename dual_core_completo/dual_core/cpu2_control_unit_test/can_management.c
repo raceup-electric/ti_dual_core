@@ -328,23 +328,23 @@ __interrupt void canISR_A(void)
 
        CANIntClear(CANA_BASE, OBJ_ID_FROM_BMS_LV);
    }
-   else if (status == OBJ_ID_POWER_CONTROL)
-   {
-       powerOK=true;
-       //Uint16 value[1];
-
-       CANMessageGet(CANA_BASE, OBJ_ID_POWER_CONTROL, &RXCANA_PwCtrl_Message, true);
-
-       //powersetup[0]=value[0]; -----> spostato in car management
-
-       int id = getMessageID(CANA_BASE, OBJ_ID_POWER_CONTROL);
-
-       read_power_control_message((Uint16 *)RXA_PwCtrl_Data);
-
-       rxAMsgCount++;
-
-       CANIntClear(CANA_BASE, OBJ_ID_POWER_CONTROL);
-   }
+//   else if (status == OBJ_ID_POWER_CONTROL)
+//   {
+//       powerOK=true;
+//       //Uint16 value[1];
+//
+//       CANMessageGet(CANA_BASE, OBJ_ID_POWER_CONTROL, &RXCANA_PwCtrl_Message, true);
+//
+//       //powersetup[0]=value[0]; -----> spostato in car management
+//
+//       int id = getMessageID(CANA_BASE, OBJ_ID_POWER_CONTROL);
+//
+//       read_power_control_message((Uint16 *)RXA_PwCtrl_Data);
+//
+//       rxAMsgCount++;
+//
+//       CANIntClear(CANA_BASE, OBJ_ID_POWER_CONTROL);
+//   }
    else if (status == OBJ_ID_STEERING_WHEEL)
    {
        CANMessageGet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, true);

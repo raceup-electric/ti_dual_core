@@ -42,7 +42,6 @@ extern bool temp_warning;
 
 extern int driving_configuration;
 extern bool powerOK;
-extern Uint16 powersetup[8];
 
 
 extern tCANMsgObject RXCANA_Imu_Message;

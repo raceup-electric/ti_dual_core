@@ -52,13 +52,13 @@ float Thermal_Power_Control()
     if(Thermal_Power_Control_Active)
     {
         if (mean_bms_temp > T_MAX)
-            thermal_power_lim = power_limit *(1 - K1_THERMAL);
+            thermal_power_lim = car_settings.power_limit *(1 - K1_THERMAL);
         else if (mean_bms_temp < T_MIN)
-            thermal_power_lim = power_limit;
+            thermal_power_lim = car_settings.power_limit;
         else
         {
             if (time_elapsed%30 == 0)
-                thermal_power_lim = power_limit * (1- K1_THERMAL * (mean_bms_temp - T_MIN) / (T_MAX - T_MIN));
+                thermal_power_lim = car_settings.power_limit * (1- K1_THERMAL * (mean_bms_temp - T_MIN) / (T_MAX - T_MIN));
             else
                 if (thermal_power_lim > thermal_power_min)
                     thermal_power_lim = thermal_power_lim * (1 - K2_THERMAL);
@@ -66,13 +66,13 @@ float Thermal_Power_Control()
         }
     }
     else
-        if (thermal_power_lim < power_limit - 100)
+        if (thermal_power_lim < car_settings.power_limit - 100)
         {
             thermal_power_lim += K3_THERMAL;
         }
         else
         {
-            thermal_power_lim = power_limit;
+            thermal_power_lim = car_settings.power_limit;
         }
 
     return thermal_power_lim;

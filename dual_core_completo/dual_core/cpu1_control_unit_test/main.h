@@ -43,22 +43,10 @@ char filename[20];
 Uint16 currentPage=99;
 char tmp[TMP_SIZE];
 Uint16 n_setup = 0;
-Uint16 old_setup_power = 99;
-Uint16 old_setup_regen = 99;
-Uint16 old_setup_speed = 99;
-Uint16 old_setup_coppia_front = 99;
-Uint16 old_setup_coppia_rear = 99;
+Uint16 old_setup = 99;
 Uint16 old_setup_pedal_setup = 99;
-
-
-
-
 Uint16 ack = 99;
-Uint16 old_ack_power = 99;
-Uint16 old_ack_regen = 99;
-Uint16 old_ack_speed = 99;
-Uint16 old_ack_coppia_front = 99;
-Uint16 old_ack_coppia_rear = 99;
+Uint16 old_ack_setup = 99;
 Uint16 old_ack_pedal_setup = 99;
 Uint16 sel; //for debug
 
@@ -66,11 +54,13 @@ Uint16 sel; //for debug
 struct Share_struct sh;
 struct Share_struct local_sh;
 
+struct Car_settings car_settings;
+
 struct Display_command display;
 
 char AmkStatus[4];
 
-//#pragma DATA_SECTION(c1_r_w_array,"SHARERAMGS1");
+#pragma DATA_SECTION(car_settings,"SHARERAMGS14");
 #pragma DATA_SECTION(sh,"SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS12");
 #pragma DATA_SECTION(display,"SHARERAMGS13");

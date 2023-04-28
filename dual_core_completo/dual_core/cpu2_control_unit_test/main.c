@@ -94,7 +94,6 @@ void setup()
        sh.gpio = gpio_log;
        sh.pedals = pedals_log;
        sh.power_setup = power_setup_log;
-       sh.settings = car_settings;
 
 
        display.ack_setup = 99;
@@ -102,6 +101,8 @@ void setup()
        display.emergencyBrk_isNotSet = 1;
 
        setup_intialValue_pedals();
+
+       setup_car_settings();
 
        setupOk = 1;    //debug
 

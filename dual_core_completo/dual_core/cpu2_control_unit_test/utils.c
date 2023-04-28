@@ -2,6 +2,25 @@
 
 extern float corrected_accelerations[3];
 
+void setup_car_settings(){
+
+    memcpy(car_settings.presets_power, presets_power, sizeof(presets_power));
+    memcpy(car_settings.presets_max_pos, presets_max_pos, sizeof(presets_max_pos));
+    memcpy(car_settings.presets_max_neg, presets_max_neg, sizeof(presets_max_neg));
+    memcpy(car_settings.presets_regen, presets_regen, sizeof(presets_regen));
+    memcpy(car_settings.presets_speed, presets_speed, sizeof(presets_speed));
+    memcpy(car_settings.presets_coppie_front, presets_coppie_front, sizeof(presets_coppie_front));
+    memcpy(car_settings.presets_coppie_rear, presets_coppie_rear, sizeof(presets_coppie_rear));
+
+    car_settings.max_regen_current=MAX_REGEN_CURRENT;
+    car_settings.max_speed = SPEED_LIMIT;
+    car_settings.rear_motor_scale = REAR_MOTOR_SCALE;
+    car_settings.front_motor_scale = FRONT_MOTOR_SCALE;
+    car_settings.max_pos_torque = MAX_POS_TORQUE;
+    car_settings.max_neg_torque = MAX_NEG_TORQUE;
+    car_settings.power_limit = POWER_LIMIT;
+}
+
 float convertBMSvoltage(Uint16 voltage){
   return (3000 + (1.2 * voltage));
 }
