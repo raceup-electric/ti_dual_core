@@ -144,7 +144,7 @@ struct Car_settings{
     bool lauch_ready;
 
     //screen
-    int presets_power[8];
+    float presets_power[8];
     float presets_max_pos[5];
     float presets_max_neg[5];
     float presets_regen[6];
@@ -184,7 +184,7 @@ extern float versy[3];
 extern float versz[3];
 extern float V[3][3];
 
-extern const int presets_power[8];
+extern const float presets_power[8];
 extern const float presets_max_pos[5];
 extern const float presets_max_neg[5];
 extern const float presets_regen[5];

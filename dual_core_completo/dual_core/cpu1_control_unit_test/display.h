@@ -159,7 +159,7 @@ struct Car_settings{
     bool lauch_ready;
 
     //screen
-    int presets_power[8];
+    float presets_power[8];
     float presets_max_pos[5];
     float presets_max_neg[5];
     float presets_regen[6];

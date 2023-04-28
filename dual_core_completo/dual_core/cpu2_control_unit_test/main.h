@@ -63,7 +63,7 @@ bool is_launch_inserted = false;
 /*
  * PRESETS
  */
-const int presets_power[8] = {5, 15, 30, 45, 60, 65, 70, 75};
+const float presets_power[8] = {5000.f, 15000.f, 30000.f, 45000.f, 60000.f, 65000.f, 70000.f, 75000.f};
 const float presets_max_pos[5] = {10.f, 13.f, 15.f, 17.f, 20.f};
 const float presets_max_neg[5] = {-3.f, -5.f, -7.f, -9.f, -11.f};
 const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};

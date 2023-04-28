@@ -331,13 +331,13 @@ void updatePage7()
 
 void updatePage8()
 {
-    sprintf(tmp, "pwr_set.speedlim.txt=\"%d\"ÿÿÿ\0", (int)( car_settings.max_speed / 1000);
+    sprintf(tmp, "pwr_set.speedlim.txt=\"%d\"ÿÿÿ\0", (int)( car_settings.max_speed / 1000));
     scic_msg(tmp);
     sprintf(tmp, "pwr_set.trqf.txt=\"%.1f\"ÿÿÿ\0", car_settings.front_motor_scale);
     scic_msg(tmp);
     sprintf(tmp, "pwr_set.trqr.txt=\"%.1f\"ÿÿÿ\0", car_settings.rear_motor_scale);
     scic_msg(tmp);
-    sprintf(tmp, "pwr_set.powerlim.txt=\"%d\"uÿÿÿ\0", car_settings.power_limit);
+    sprintf(tmp, "pwr_set.powerlim.txt=\"%d\"uÿÿÿ\0", (int)(car_settings.power_limit / 1000));
     scic_msg(tmp);
     sprintf(tmp, "pwr_set.regcurr.txt=\"%.1f\"uÿÿÿ\0", car_settings.max_regen_current);
     scic_msg(tmp);
@@ -433,9 +433,9 @@ void setSelector2_update(){
     scic_msg(tmp);
     sprintf(tmp, "setupPage.setup2.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_max_neg[display.selector_maxneg]);
     scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup3.val=\"%d\"ÿÿÿ\0", car_settings.presets_power[display.selector_power]);
+    sprintf(tmp, "setupPage.setup3.val=\"%d\"ÿÿÿ\0", (int) (car_settings.presets_power[display.selector_power] / 1000));
     scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup4.val=\"%d\"ÿÿÿ\0", (int)(car_settings.presets_speed[display.selector_speed] / 1000 ));
+    sprintf(tmp, "setupPage.setup4.val=\"%d\"ÿÿÿ\0", (int) (car_settings.presets_speed[display.selector_speed] / 1000 ));
     scic_msg(tmp);
     sprintf(tmp, "setupPage.setup5.val=\"%.1f\"ÿÿÿ\0", car_settings.presets_coppie_rear[display.selector_trqr]);
     scic_msg(tmp);
