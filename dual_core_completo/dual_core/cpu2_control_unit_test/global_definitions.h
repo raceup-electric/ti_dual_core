@@ -15,6 +15,18 @@
  *
  */
 
+/*
+ * SUPERIMPORTANT MACROS
+ */
+#define ONE_PEDAL   0
+#define REG_BRAKE   0
+#define TORQUE_VECTORING    0
+#define TRACTION_CTRL   0
+#define THERMAL_POWER_CTRL    0
+/*
+ * END OF SUPER IMPORTANT MACROS
+ */
+
 #define R2D_BRAKE_TRESHOLD  10
 
 #define FIFTEEN_SEC   15 * 1000 * 1000
@@ -218,7 +230,7 @@
 
 
 //SCHERMO
-#define MAX_PAGE_NUMBER     12
+#define MAX_PAGE_NUMBER     13
 #define MAX_DRIVING_PAGE    2
 
 #define CONFIRMATION        0x1
@@ -229,6 +241,7 @@
 
 #define SETUP_PAGE          0x08
 #define PEDAL_SETUP_PAGE    0x09
+#define MACROS_PAGE         0x0A
 
 #define SCREEN_DEBUG        0x00
 #define SCREEN_DRIVING      0x01

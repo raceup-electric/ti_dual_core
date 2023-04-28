@@ -218,12 +218,10 @@ float power_error;
 float anti_wind_up = 0;
 float reduction_factor;
 
-char Thermal_Power_Control_Active = 0;
-
 float thermal_power_lim = POWER_LIMIT;
 float thermal_power_min = 15000;
 bool powerOK = false;
-//Uint16 powersetup[8];
+
 
 
 //CAN
@@ -333,14 +331,14 @@ struct Power_Setup_Log power_setup_log;
 
 struct Car_settings car_settings;
 
+struct Macros_settings macros_settings;
 
-
+#pragma DATA_SECTION(macros_settings,"SHARERAMGS15");
 #pragma DATA_SECTION(car_settings,"SHARERAMGS14");
 #pragma DATA_SECTION(sh,"SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS12");
 #pragma DATA_SECTION(display,"SHARERAMGS13");
 
-extern void setup_intialValue_pedals();
 
 //
 // prototypes

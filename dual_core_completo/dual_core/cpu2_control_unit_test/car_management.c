@@ -218,11 +218,14 @@ void read_steering_wheel_message(Uint16 val[], int id){
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP_PAGE){
         display.selector_pedal_setup = val[0] % 4;
     }
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == MACROS_PAGE){
+        display.selector_macros = val[0] % 6;
+    }
 
     /*
      * SELECTOR 2 UPDATE
      */
-    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == SETUP_PAGE){
+    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == SETUP_PAGE){
         if (display.selector_setup == 1)
             display.selector_regen = val[0] % 6;
         else if (display.selector_setup == 2)
@@ -238,33 +241,31 @@ void read_steering_wheel_message(Uint16 val[], int id){
         else if (display.selector_setup == 7)
             display.selector_trqf = val[0] % 6;
     }
-    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP_PAGE){
-        display.selector_pedal_setup = val[0] % 4;
-    }
 
     /*
      * ACKNOLEDGE UPDATE
      */
-    else if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == CONFIRMATION){
+    if(id == MSG_ID_STEERING_WHEEL_BASE && val[0] == CONFIRMATION){
         if(display.page == SETUP_PAGE && !R2D_state){
             display.ack_setup = display.selector_setup;
 
-            if (display.ack_setup == 1)
+            if (display.ack_setup == 0)
                 car_settings.max_regen_current= car_settings.presets_regen[display.selector_regen];
-            else if (display.ack_setup == 2)
+            else if (display.ack_setup == 1)
                 car_settings.max_pos_torque = car_settings.presets_max_pos[display.selector_maxpos];
-            else if (display.ack_setup == 3)
+            else if (display.ack_setup == 2)
                 car_settings.max_neg_torque = car_settings.presets_max_neg[display.selector_maxneg];
-            else if (display.ack_setup == 4)
+            else if (display.ack_setup == 3)
                 car_settings.power_limit = car_settings.presets_power[display.selector_power];
-            else if (display.ack_setup == 5)
+            else if (display.ack_setup == 4)
                 car_settings.max_speed = car_settings.presets_speed[display.selector_speed];
-            #ifdef NO_TORQUE_VECTORING
-            else if (display.ack_setup == 6)
-                car_settings.rear_motor_scale = car_settings.presets_coppie_rear[display.selector_trqr];
-            else if (display.ack_setup == 7)
-                car_settings.front_motor_scale = car_settings.presets_coppie_front[display.selector_trqf];
-            #endif
+
+            if (macros_settings.torque_vectoring){
+                if (display.ack_setup == 5)
+                    car_settings.rear_motor_scale = car_settings.presets_coppie_rear[display.selector_trqr];
+                if (display.ack_setup == 6)
+                    car_settings.front_motor_scale = car_settings.presets_coppie_front[display.selector_trqf];
+            }
         }
         else if(display.page == PEDAL_SETUP_PAGE && !R2D_state){
             display.ack_pedal_setup = display.selector_pedal_setup;
@@ -289,11 +290,28 @@ void read_steering_wheel_message(Uint16 val[], int id){
                 pedals_log.brk_low_calibration = pedals_log.brk_pot_shared-30;
             break;
 
-
             }
-
-
        }
+       else if(display.page == MACROS_PAGE && !R2D_state){
+            display.ack_macros = display.selector_macros;
+
+            if (display.ack_macros == 0)
+                macros_settings.torque_vectoring = !macros_settings.torque_vectoring;
+            else if (display.ack_macros == 1)
+                macros_settings.traction_ctrl = !macros_settings.traction_ctrl;
+            else if (display.ack_macros == 2)
+                macros_settings.one_pedal = !macros_settings.one_pedal;
+            else if (display.ack_macros == 3)
+                macros_settings.thermal_power_ctrl = !macros_settings.thermal_power_ctrl;
+            else if (display.ack_macros == 4)
+                macros_settings.reg_brake = !macros_settings.reg_brake;
+            else if (display.ack_macros == 5) {
+                // unused
+                }
+
+      }
+
+
     }
 }
 

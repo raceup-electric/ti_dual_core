@@ -296,36 +296,32 @@ void sendAMKDataMotor(int motor, int posTorque, int negTorque) {
  */
 void sendAMKData() {
 
-#ifndef NO_ONE_PEDAL
-    onePedalDriving();
-#endif
+    if(macros_settings.one_pedal)
+        onePedalDriving();
 
-    int i = 0;
+        int i = 0;
 
-    for (i = 0; i < NUM_OF_MOTORS; i++)
-    {
-        posTorquesNM[i] = torqueSetpointToNM(throttleReq*THROTTLE_POWER_SCALE);
-        negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
-    }
+        for (i = 0; i < NUM_OF_MOTORS; i++)
+        {
+            posTorquesNM[i] = torqueSetpointToNM(throttleReq*THROTTLE_POWER_SCALE);
+            negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
+        }
 
-
-#ifndef NO_TORQUE_VECTORING
     //TORQUE VECTORING
-     performancePack();
+    if(macros_settings.torque_vectoring)
+         performancePack();
 
-#endif
 
-#ifndef NO_REG_BRAKE
-     regBrake();
-#endif
+    if(macros_settings.reg_brake)
+         regBrake();
 
-#ifndef NO_POWER_CONTROL
-    //POWER CONTROL
-    if (throttleReq > 0 && brakeReq == 0)
-        powerControl();
-    else
-        anti_wind_up = 0;
-#endif
+    #ifndef NO_POWER_CONTROL
+        //POWER CONTROL
+        if (throttleReq > 0 && brakeReq == 0)
+            powerControl();
+        else
+            anti_wind_up = 0;
+    #endif
 
     int posTorque[4], negTorque[4];
     for (i = 0; i < NUM_OF_MOTORS; i++) {

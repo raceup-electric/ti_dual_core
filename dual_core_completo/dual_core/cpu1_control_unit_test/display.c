@@ -50,9 +50,10 @@ void updateValues()
            case PAGE_12:
                updatePage12();
            break;
-           /*case PAGE_13:
+           case PAGE_13:
                updatePage13();
            break;
+           /*
            case PAGE_14:
                 updatePage14();
            break;
@@ -126,10 +127,11 @@ void updatePage(Uint16 page){
             currentPage=PAGE_12;
             scic_msg("page 12ÿÿÿ\0");
         break;
-        /*case PAGE_13:
+        case PAGE_13:
             currentPage=PAGE_13;
             scic_msg("page 13ÿÿÿ\0");
         break;
+        /*
         case PAGE_14:
             currentPage=PAGE_14;
             scic_msg("page 14ÿÿÿ\0");
@@ -184,7 +186,7 @@ void updatePage1()
     //else scic_msg("main.imp.bco=GREENÿÿÿ\0");
 
     if(car_settings.lauch_ready) scic_msg("main.lc.bco=GREENÿÿÿ\0");
-    else scic_msg("main.imp.bco=REDÿÿÿ\0");
+    else scic_msg("main.lc.bco=REDÿÿÿ\0");
 
 
     if(local_sh.status.status_shared & 0b10000000) scic_msg("main.rf.bco=GREENÿÿÿ\0");
@@ -374,6 +376,22 @@ void updatePage10(){
 }
 
 void updatePage11(){
+    setSelectorMacrosConfig();
+
+    if(macros_settings.torque_vectoring) scic_msg("macros.tv.bco=GREENÿÿÿ\0");
+        else scic_msg("macros.tv.bco=REDÿÿÿ\0");
+    if(macros_settings.one_pedal) scic_msg("macros.one.bco=GREENÿÿÿ\0");
+        else scic_msg("macros.one.bco=REDÿÿÿ\0");
+    if(macros_settings.traction_ctrl) scic_msg("macros.tr.bco=GREENÿÿÿ\0");
+        else scic_msg("macros.tr.bco=REDÿÿÿ\0");
+    if(macros_settings.reg_brake) scic_msg("macros.reg.bco=GREENÿÿÿ\0");
+        else scic_msg("macros.reg.bco=REDÿÿÿ\0");
+    if(macros_settings.thermal_power_ctrl) scic_msg("macros.therm.bco=GREENÿÿÿ\0");
+        else scic_msg("macros.therm.bco=REDÿÿÿ\0");
+
+}
+
+void updatePage12(){
     float sum = 0;
     int i = 0;
     for (; i < 6; i++)
@@ -393,11 +411,34 @@ void updatePage11(){
 }
 
 
-void updatePage12(){
+void updatePage13(){
 
     sprintf(tmp, "Drv_SPEED.actualKmh.val=%dÿÿÿ\0", local_sh.status.actualVelocityKMH_shared);
     scic_msg(tmp);
 
+}
+
+void setSelectorMacrosConfig(){
+
+    n_setup = display.selector_macros;
+
+    if(old_macros != n_setup){
+
+
+      if (old_macros != old_ack_macros){
+          sprintf(tmp, "macros.setup%d.bco=54938ÿÿÿ\0", old_macros);
+          scic_msg(tmp);
+      }
+
+
+      old_macros = n_setup;
+
+      if (old_macros != old_ack_macros){
+          sprintf(tmp, "macros.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          scic_msg(tmp);
+
+      }
+    }
 }
 
 

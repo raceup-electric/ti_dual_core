@@ -19,7 +19,6 @@ extern float anti_wind_up;
 extern float reduction_factor;
 extern float thermal_power_lim;
 extern float thermal_power_min;
-extern char Thermal_Power_Control_Active;
 
 //prototipi
 

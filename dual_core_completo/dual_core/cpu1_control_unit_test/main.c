@@ -56,12 +56,14 @@ void main(void)
     // Write auth of some banks of Global Shared (GS) RAM is
     // given to CPU2
     while( !(
+            MemCfgRegs.GSxMSEL.bit.MSEL_GS15 &
             MemCfgRegs.GSxMSEL.bit.MSEL_GS14 &
             MemCfgRegs.GSxMSEL.bit.MSEL_GS13 &
             MemCfgRegs.GSxMSEL.bit.MSEL_GS12 &
              MemCfgRegs.GSxMSEL.bit.MSEL_GS11))
     {
         EALLOW;
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS15 = 1;
         MemCfgRegs.GSxMSEL.bit.MSEL_GS14 = 1;
         MemCfgRegs.GSxMSEL.bit.MSEL_GS13 = 1;
         MemCfgRegs.GSxMSEL.bit.MSEL_GS12 = 1;

@@ -49,7 +49,7 @@ float PIController(float pi_error)
 
 float Thermal_Power_Control()
 {
-    if(Thermal_Power_Control_Active)
+    if(macros_settings.thermal_power_ctrl)
     {
         if (mean_bms_temp > T_MAX)
             thermal_power_lim = car_settings.power_limit *(1 - K1_THERMAL);

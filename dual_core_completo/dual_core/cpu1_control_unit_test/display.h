@@ -19,19 +19,24 @@ extern char tmp[50];
 extern struct Share_struct local_sh;
 extern struct Display_command display;
 extern struct Car_settings car_settings;
+extern struct Macros_settings macros_settings;
 extern Uint16 n_setup;
 extern Uint16 ack;
 
 extern Uint16 old_setup;
 extern Uint16 old_setup_pedal_setup;
+extern Uint16 old_macros;
 
 extern Uint16 old_ack_setup;
 extern Uint16 old_ack_pedal_setup;
+extern Uint16 old_ack_macros;
 
 struct Display_command{
     Uint16 page;
     Uint16 selector_setup;
     Uint16 ack_setup;
+    Uint16 selector_macros;
+    Uint16 ack_macros;
 
     Uint16 selector_regen;
     Uint16 selector_maxpos;
@@ -177,6 +182,14 @@ struct Car_settings{
     float power_limit;
 };
 
+struct Macros_settings{
+    bool torque_vectoring;
+    bool traction_ctrl;
+    bool one_pedal;
+    bool thermal_power_ctrl;
+    bool reg_brake;
+};
+
 struct Share_struct {
     Uint16 Temps[8];
     float bms_lv[8];
@@ -210,6 +223,7 @@ void updatePage9();
 void updatePage10();
 void updatePage11();
 void updatePage12();
+void updatePage13();
 
 
 void changePreset(Uint16 preset, Uint16 page, Uint16 ack);
@@ -225,6 +239,8 @@ void setAckPowerControl();
 void setSelectorPedalConfig();
 
 void setAckPedalConfig();
+
+void setSelectorMacrosConfig();
 
 void setSelector1_update();
 

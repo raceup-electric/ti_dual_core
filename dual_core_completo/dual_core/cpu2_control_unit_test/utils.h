@@ -122,6 +122,8 @@ struct Display_command{
     Uint16 page;
     Uint16 selector_setup;
     Uint16 ack_setup;
+    Uint16 selector_macros;
+    Uint16 ack_macros;
 
     Uint16 selector_regen;
     Uint16 selector_maxpos;
@@ -137,6 +139,14 @@ struct Display_command{
     int emergencyBrk_active;
     int emergencyBrk_isNotSet;
 
+};
+
+struct Macros_settings{
+    bool torque_vectoring;
+    bool traction_ctrl;
+    bool one_pedal;
+    bool thermal_power_ctrl;
+    bool reg_brake;
 };
 
 struct Car_settings{
@@ -192,11 +202,15 @@ extern const float presets_speed[6];
 extern const float presets_coppie_front[6];
 extern const float presets_coppie_rear[6];
 
+extern struct Macros_settings macros_settings;
+
 
 //
 // prototypes
 //
 void setup_car_settings();
+
+void setup_macros();
 
 float convertBMSvoltage(Uint16 voltage);
 

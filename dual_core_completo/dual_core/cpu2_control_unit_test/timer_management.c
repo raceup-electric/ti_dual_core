@@ -142,26 +142,24 @@ __interrupt void cpu_timer1_isr(void)
             }
             else if(brakeReg)
             {
-    #ifdef NO_REG_BRAKE
-                stopAMK();
-    #else
+                if (!macros_settings.reg_brake)
+                    stopAMK();
+                else
                 //brakeAMK(brake * (NEGATIVE_TORQUE_LIMIT /10));
-                 brakeAMK(brake);       //Deleted the if-else statement with lem_curr < max_reg
-    #endif
+                    brakeAMK(brake);       //Deleted the if-else statement with lem_curr < max_reg
             }
             else if(brakeMec)
             {
-    #ifdef NO_REG_BRAKE
-                stopAMK();
-    #else
-                //brakeAMK((REGENERATIVE_BRAKE_LIMIT - (brake - REGENERATIVE_BRAKE_LIMIT) * (REGENERATIVE_BRAKE_LIMIT)/(100-REGENERATIVE_BRAKE_LIMIT)) * (NEGATIVE_TORQUE_LIMIT /10));
-                if(lem_current > max_regen_current){
-                    brakeAMK(brake);
-                }
-                else {
+                if (!macros_settings.reg_brake)
                     stopAMK();
-                }
-    #endif
+                else
+                //brakeAMK((REGENERATIVE_BRAKE_LIMIT - (brake - REGENERATIVE_BRAKE_LIMIT) * (REGENERATIVE_BRAKE_LIMIT)/(100-REGENERATIVE_BRAKE_LIMIT)) * (NEGATIVE_TORQUE_LIMIT /10));
+                    if(lem_current > car_settings.max_regen_current){
+                        brakeAMK(brake);
+                    }
+                    else {
+                        stopAMK();
+                    }
             }
             else if(noBrake)
             {

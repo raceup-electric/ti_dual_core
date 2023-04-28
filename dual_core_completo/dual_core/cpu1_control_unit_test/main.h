@@ -43,11 +43,15 @@ char filename[20];
 Uint16 currentPage=99;
 char tmp[TMP_SIZE];
 Uint16 n_setup = 0;
+
 Uint16 old_setup = 99;
 Uint16 old_setup_pedal_setup = 99;
+Uint16 old_macros = 99;
+
 Uint16 ack = 99;
 Uint16 old_ack_setup = 99;
 Uint16 old_ack_pedal_setup = 99;
+Uint16 old_ack_macros = 99;
 Uint16 sel; //for debug
 
 
@@ -58,8 +62,11 @@ struct Car_settings car_settings;
 
 struct Display_command display;
 
+struct Macros_settings macros_settings;
+
 char AmkStatus[4];
 
+#pragma DATA_SECTION(macros_settings,"SHARERAMGS15");
 #pragma DATA_SECTION(car_settings,"SHARERAMGS14");
 #pragma DATA_SECTION(sh,"SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS12");

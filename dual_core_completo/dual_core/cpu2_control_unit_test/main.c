@@ -104,6 +104,8 @@ void setup()
 
        setup_car_settings();
 
+       setup_macros();
+
        setupOk = 1;    //debug
 
        time_elapsed = 0;

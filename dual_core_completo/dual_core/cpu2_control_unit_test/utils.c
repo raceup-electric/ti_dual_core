@@ -21,6 +21,14 @@ void setup_car_settings(){
     car_settings.power_limit = POWER_LIMIT;
 }
 
+void setup_macros() {
+    macros_settings.one_pedal = ONE_PEDAL;
+    macros_settings.reg_brake = REG_BRAKE;
+    macros_settings.thermal_power_ctrl = THERMAL_POWER_CTRL;
+    macros_settings.torque_vectoring = TORQUE_VECTORING;
+    macros_settings.traction_ctrl = TRACTION_CTRL;
+}
+
 float convertBMSvoltage(Uint16 voltage){
   return (3000 + (1.2 * voltage));
 }
