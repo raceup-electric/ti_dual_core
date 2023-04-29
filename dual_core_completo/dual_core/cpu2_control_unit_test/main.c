@@ -98,6 +98,8 @@ void setup()
 
        display.ack_setup = 99;
        display.ack_pedal_setup = 99;
+       display.ack_macros = 99;
+
        display.emergencyBrk_isNotSet = 1;
 
        setup_intialValue_pedals();

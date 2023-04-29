@@ -77,7 +77,7 @@ void updateValues()
  */
 void updatePage(Uint16 page){
 
-    if (currentPage!=page || !display.emergencyBrk_isNotSet){
+    if (currentPage!=page){
     switch(page){
         case PAGE_1:
           currentPage=PAGE_1;
@@ -426,7 +426,7 @@ void setSelectorMacrosConfig(){
 
 
       if (old_macros != old_ack_macros){
-          sprintf(tmp, "macros.setup%d.bco=54938ÿÿÿ\0", old_macros);
+          sprintf(tmp, "macros.setup%d.bco=0ÿÿÿ\0", old_macros);
           scic_msg(tmp);
       }
 
@@ -434,7 +434,7 @@ void setSelectorMacrosConfig(){
       old_macros = n_setup;
 
       if (old_macros != old_ack_macros){
-          sprintf(tmp, "macros.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          sprintf(tmp, "macros.setup%d.bco=31695ÿÿÿ\0", n_setup);
           scic_msg(tmp);
 
       }
@@ -447,7 +447,6 @@ void setSelector1_update(){
     n_setup = display.selector_setup;
 
     if(old_setup != n_setup){
-
 
       if (old_setup != old_ack_setup){
           sprintf(tmp, "setupPage.setup%d.bco=54938ÿÿÿ\0", old_setup);
@@ -468,20 +467,65 @@ void setSelector1_update(){
 
 void setSelector2_update(){
 
-    sprintf(tmp, "setupPage.setup0.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_regen[display.selector_regen]);
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup1.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_max_pos[display.selector_maxpos]);
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup2.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_max_neg[display.selector_maxneg]);
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup3.val=\"%d\"ÿÿÿ\0", (int) (car_settings.presets_power[display.selector_power] / 1000));
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup4.val=\"%d\"ÿÿÿ\0", (int) (car_settings.presets_speed[display.selector_speed] / 1000 ));
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup5.val=\"%.1f\"ÿÿÿ\0", car_settings.presets_coppie_rear[display.selector_trqr]);
-    scic_msg(tmp);
-    sprintf(tmp, "setupPage.setup6.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_coppie_front[display.selector_trqf]);
-    scic_msg(tmp);
+    if(display.selector_setup == 0){
+        sprintf(tmp, "setupPage.setup0.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_regen[display.selector_regen]);
+        scic_msg(tmp);
+    }
+   else {
+       sprintf(tmp, "setupPage.setup0.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_regen_current);
+       scic_msg(tmp);
+   }
+
+    if(display.selector_setup == 1){
+        sprintf(tmp, "setupPage.setup1.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_max_pos[display.selector_maxpos]);
+           scic_msg(tmp);
+    }
+   else {
+       sprintf(tmp, "setupPage.setup1.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_pos_torque);
+          scic_msg(tmp);
+   }
+
+    if(display.selector_setup == 2){
+        sprintf(tmp, "setupPage.setup2.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_max_neg[display.selector_maxneg]);
+        scic_msg(tmp);
+    }
+   else {
+       sprintf(tmp, "setupPage.setup2.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_neg_torque);
+       scic_msg(tmp);
+   }
+    if(display.selector_setup == 3){
+        sprintf(tmp, "setupPage.setup3.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.presets_power[display.selector_power] / 1000));
+          scic_msg(tmp);
+    }
+   else {
+       sprintf(tmp, "setupPage.setup3.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.power_limit / 1000));
+         scic_msg(tmp);
+   }
+    if(display.selector_setup == 4){
+        sprintf(tmp, "setupPage.setup4.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.presets_speed[display.selector_speed] / 1000));
+           scic_msg(tmp);
+    }
+   else {
+       sprintf(tmp, "setupPage.setup4.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.max_speed / 1000));
+          scic_msg(tmp);
+   }
+    if(display.selector_setup == 5){
+        sprintf(tmp, "setupPage.setup5.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_coppie_rear[display.selector_trqr]);
+           scic_msg(tmp);
+    }
+   else {
+       sprintf(tmp, "setupPage.setup5.txt=\"%.1f\"ÿÿÿ\0", car_settings.rear_motor_scale);
+          scic_msg(tmp);
+   }
+    if(display.selector_setup == 6){
+        sprintf(tmp, "setupPage.setup6.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_coppie_front[display.selector_trqf]);
+        scic_msg(tmp);
+    }
+   else {
+       sprintf(tmp, "setupPage.setup6.txt=\"%.1f\"ÿÿÿ\0", car_settings.front_motor_scale);
+       scic_msg(tmp);
+   }
+
 }
 
 
@@ -581,16 +625,15 @@ void setAckPedalConfig(){
 
     sprintf(tmp, "pedalSetup.acc1_pr.val=%dÿÿÿ\0", local_sh.pedals.acc1_high_calibration);
                     scic_msg(tmp);
-                    sprintf(tmp, "pedalSetup.acc2_pr.val=%dÿÿÿ\0", local_sh.pedals.acc2_high_calibration);
+    sprintf(tmp, "pedalSetup.acc2_pr.val=%dÿÿÿ\0", local_sh.pedals.acc2_high_calibration);
                     scic_msg(tmp);
 
     sprintf(tmp, "pedalSetup.acc1_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
                     scic_msg(tmp);
-                    sprintf(tmp, "pedalSetup.acc2_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
+    sprintf(tmp, "pedalSetup.acc2_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
                     scic_msg(tmp);
 
     if (old_ack_pedal_setup != ack){
-
 
         sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
         scic_msg(tmp);

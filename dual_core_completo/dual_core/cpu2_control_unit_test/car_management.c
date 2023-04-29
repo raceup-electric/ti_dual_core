@@ -226,19 +226,19 @@ void read_steering_wheel_message(Uint16 val[], int id){
      * SELECTOR 2 UPDATE
      */
     if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == SETUP_PAGE){
-        if (display.selector_setup == 1)
+        if (display.selector_setup == 0)
             display.selector_regen = val[0] % 6;
-        else if (display.selector_setup == 2)
+        else if (display.selector_setup == 1)
             display.selector_maxpos = val[0] % 5;
-        else if (display.selector_setup == 3)
+        else if (display.selector_setup == 2)
             display.selector_maxneg = val[0] % 5;
-        else if (display.selector_setup == 4)
+        else if (display.selector_setup == 3)
             display.selector_power = val[0] % 8;
-        else if (display.selector_setup == 5)
+        else if (display.selector_setup == 4)
             display.selector_speed = val[0] % 6;
-        else if (display.selector_setup == 6)
+        else if (display.selector_setup == 5)
             display.selector_trqr = val[0] % 6;
-        else if (display.selector_setup == 7)
+        else if (display.selector_setup == 6)
             display.selector_trqf = val[0] % 6;
     }
 
