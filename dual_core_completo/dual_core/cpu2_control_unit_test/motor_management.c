@@ -299,18 +299,17 @@ void sendAMKData() {
     if(macros_settings.one_pedal)
         onePedalDriving();
 
-        int i = 0;
+    int i = 0;
 
-        for (i = 0; i < NUM_OF_MOTORS; i++)
-        {
-            posTorquesNM[i] = torqueSetpointToNM(throttleReq*THROTTLE_POWER_SCALE);
-            negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
-        }
+    for (i = 0; i < NUM_OF_MOTORS; i++)
+    {
+        posTorquesNM[i] = torqueSetpointToNM(throttleReq*THROTTLE_POWER_SCALE);
+        negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
+    }
 
     //TORQUE VECTORING
     if(macros_settings.torque_vectoring)
          performancePack();
-
 
     if(macros_settings.reg_brake)
          regBrake();

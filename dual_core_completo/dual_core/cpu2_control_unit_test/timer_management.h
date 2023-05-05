@@ -8,7 +8,6 @@
 #include "GPIO_management.h"
 #include "utils.h"
 
-extern Uint16 c2_r_w_array[256];
 extern Uint16 increment;
 
 extern Uint32 time_elapsed;

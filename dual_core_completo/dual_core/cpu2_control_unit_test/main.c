@@ -85,7 +85,6 @@ void setup()
            sh.motorVal2[index] = motorVal2_shared[index];
            sh.motorSetP[index] = motorSetP_shared[index];
        }
-       memcpy(sh.Temps, Temps_shared, 8);
        sh.imu = imu_log;
        sh.fanSpeed = fanspeed_log;
        sh.power = power_log;
@@ -105,8 +104,6 @@ void setup()
        setup_intialValue_pedals();
 
        setup_car_settings();
-
-       setup_macros();
 
        setupOk = 1;    //debug
 

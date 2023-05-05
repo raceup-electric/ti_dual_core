@@ -74,13 +74,7 @@ struct BMS_Log {
     float mean_bms_temp_shared;
     uint16_t max_bms_temp_nslave_shared;
 };
-//Sendyne Deprecated
-/*struct Sendyne_Log {
-    float sendyne_current_shared;
-    float sendyne_voltage_shared;
-    float curr_sens_shared;
-    float total_power_shared;
-};*/
+
 struct Power_Log {
     float lem_current_shared;
     float batteryPack_voltage_shared;
@@ -174,7 +168,6 @@ struct Car_settings{
 
 
 struct Share_struct {
-    Uint16 Temps[8];
     float bms_lv[8];
     struct motorValues1 motorVal1[4];
     struct motorValues2 motorVal2[4];

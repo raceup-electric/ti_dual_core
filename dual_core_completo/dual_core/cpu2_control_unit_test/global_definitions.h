@@ -16,7 +16,7 @@
  */
 
 /*
- * SUPERIMPORTANT MACROS
+ * SUPER IMPORTANT MACROS
  */
 #define ONE_PEDAL   0
 #define REG_BRAKE   0
@@ -36,13 +36,14 @@
 //
 #define NUM_OF_MOTORS       4
 #define KMH2MS              (1 / 3.6)
-#ifdef NO_TORQUE_VECTORING
+
+/*
+ * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
+ * Be careful when you set them, always ask powertrain department
+ */
 #define REAR_MOTOR_SCALE    1.8f
 #define FRONT_MOTOR_SCALE   0.65f
-#else
-#define REAR_MOTOR_SCALE    1.0f
-#define FRONT_MOTOR_SCALE   1.0f
-#endif
+
 #define STZ_RANGE           90
 
 #define G_ACC               9.81f
@@ -61,7 +62,7 @@
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 18000 //15000               //Speed limit
+#define SPEED_LIMIT                 18000   // Typical value: 15000
 #define M_N                         9.8f
 
 //
@@ -114,10 +115,11 @@
 #define MAX_NEG_TORQUE              -7.0f
 
 #define MAX_REGEN_CURRENT           30.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
-//
 
-// POWER CONTROL
-//
+
+/*
+ * POWER CONTROL
+ */
 #define POWER_LIMIT         45000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
@@ -137,8 +139,6 @@
 #define X                   0
 #define Y                   1
 #define Z                   2
-
-
 
 
 //
@@ -171,31 +171,34 @@
 #define VREFLO                  0
 #define VREFHI                  3.3
 
-//
-// can management
-//
+/*
+ * CAN MANAGEMENT
+ * Recall: mailboxes are just memory location where certain can messages depending on the id are sent.
+ * So, mailbox number is independent from message ID. It's up to the programmer to choose which messages are sent
+ * in a specific mailbox.
+ * Note: mailboxes after 28 are usually problematic, try to avoid them.
+ */
 #define RX_OBJ_ID               1       //ID della "mailbox"
 #define TX_OBJ_ID               2
 
 #define MSG_DATA_LENGTH         8
 
 //Used Mailboxes
+#define OBJ_ID_FROM_SMU         7
 #define TX_OBJ_TO_HOST          8
 #define OBJ_ID_STEERING_WHEEL   9
 #define OBJ_ID_BMS_VOLTAGE      10
 #define OBJ_ID_BMS_TEMP         11
-#define TX_OBJ_AMK_SETPOINTS    14      //Occupa da 14 a 14 + motorIndex = 17
+#define TX_OBJ_AMK_SETPOINTS    14
+/*
+ * 15, 16, 17 are occupied by AMK, DO NOT USE THEM!!!
+ */
 #define OBJ_ID_FROM_BMS_LV      18
 #define OBJ_ID_FROM_LEM         21
 #define OBJ_ID_FROM_IMU         22
 #define OBJ_ID_TO_ATMEGA        23
 #define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_FROM_AMK         26
-#define OBJ_ID_FROM_SMU         7
-
-
-
-
 
 
 //Message IDs
@@ -203,7 +206,6 @@
 #define MSG_ID_AMK1_DATA_BASE   0x40
 #define MSG_ID_AMK2_DATA_BASE   0x44
 #define MSG_ID_TEMPS            0x49
-#define MSG_ID_SENDYNE          0x50
 #define MSG_ID_CAR_STATUS       0x52
 #define MSG_ID_BMS_BASE         0x55
 #define MSG_ID_BMS_LV_1         0x55
@@ -212,12 +214,11 @@
 #define MSG_ID_IMU_1            0x60
 #define MSG_ID_IMU_2            0x61
 #define MSG_ID_IMU_3            0x62
-#define MSG_ID_SENDYNE_FORWARD  0x70
 #define MSG_ID_POWER_CONTROL    0X81
 #define MSG_ID_AMK_SETPOINTS    0x82
-#define MSG_ID_STEERING_WHEEL_BASE 0x90         //id dei buttons
-#define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90
-#define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91   //id del selector
+#define MSG_ID_STEERING_WHEEL_BASE 0x90
+#define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90   //buttons ID
+#define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91
 #define MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2         0x92
 #define MSG_ID_SMU_BASE                      0x100
 #define MSG_ID_SMU_TEMPERATURES              0x100
@@ -225,8 +226,8 @@
 #define MSG_ID_BMS_VOLTAGE                   0x110
 #define MSG_ID_BMS_TEMP                      0x111
 #define MSG_ID_HOST_SEND                     0x120
-#define MSG_ID_LEM                           0x3C2
 #define MSG_ID_TO_ATMEGA                     0x130
+#define MSG_ID_LEM                           0x3C2
 
 
 //SCHERMO
@@ -243,6 +244,11 @@
 #define PEDAL_SETUP_PAGE    0x09
 #define MACROS_PAGE         0x0A
 
+/*
+ * In SCREEN_DEBUG mode we use every page
+ * In SCREEN_DRIVING mode we use only the last pages.
+ * MAX_DRIVING_PAGE defines the number of pages used in SCREEN_DRIVING mode
+ */
 #define SCREEN_DEBUG        0x00
 #define SCREEN_DRIVING      0x01
 #define CHANGE_SCREEN_MODE  0x09
@@ -294,6 +300,7 @@
 
 #define RED_BLINK           34
 #define BLUE_BLINK          31
+
 //
 // misc
 //

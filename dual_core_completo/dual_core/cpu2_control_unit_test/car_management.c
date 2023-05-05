@@ -161,11 +161,6 @@ void read_BMS_TEMP_message(Uint16 bms_values[]){
 
 }
 
-//void read_power_control_message(Uint16 val[]){
-//    powersetup[0]=val[0];
-//    power_limit = val[0]*1000.0f;
-//}
-
 void read_steering_wheel_message(Uint16 val[], int id){
 
     /*
@@ -197,11 +192,16 @@ void read_steering_wheel_message(Uint16 val[], int id){
                 display.page = currentPage;
             }
         }else if(val[0] == START_LAUNCH){
+            /*
+             * To activate launch you must be: R2d and not moving
+             */
             if(R2D_state && actualVelocityKMH < 1.f){
-                //Sono fermo e voglio attivare il launch
                 is_launch_inserted = true;
             }
         }
+        /*
+         * Selects between SCREEN_DEBUG and SCREEN_DRIVING mode
+         */
         else if(val[0] == CHANGE_SCREEN_MODE){
             screen_mode++;
             screen_mode %= 2;
@@ -260,7 +260,10 @@ void read_steering_wheel_message(Uint16 val[], int id){
             else if (display.ack_setup == 4)
                 car_settings.max_speed = car_settings.presets_speed[display.selector_speed];
 
-            if (macros_settings.torque_vectoring){
+            /*
+             *  Torques can be modified only if torque vectoring is disabled
+             */
+            if (!macros_settings.torque_vectoring){
                 if (display.ack_setup == 5)
                     car_settings.rear_motor_scale = car_settings.presets_coppie_rear[display.selector_trqr];
                 if (display.ack_setup == 6)
@@ -283,11 +286,11 @@ void read_steering_wheel_message(Uint16 val[], int id){
             break;
 
             case(2):
-                pedals_log.brk_high_calibration = pedals_log.brk_pot_shared+30;
+                pedals_log.brk_high_calibration = pedals_log.brk_pot_shared-30;
             break;
 
             case(3):
-                pedals_log.brk_low_calibration = pedals_log.brk_pot_shared-30;
+                pedals_log.brk_low_calibration = pedals_log.brk_pot_shared+30;
             break;
 
             }
@@ -295,8 +298,19 @@ void read_steering_wheel_message(Uint16 val[], int id){
        else if(display.page == MACROS_PAGE && !R2D_state){
             display.ack_macros = display.selector_macros;
 
-            if (display.ack_macros == 0)
+            if (display.ack_macros == 0){
                 macros_settings.torque_vectoring = !macros_settings.torque_vectoring;
+                /*
+                 * After disabling TV, rear_motor_scale and front_motor_scale go back to default values
+                 */
+                if(macros_settings.torque_vectoring){
+                    car_settings.rear_motor_scale = 1.0f;
+                    car_settings.front_motor_scale = 1.0f;
+                } else {
+                    car_settings.rear_motor_scale = REAR_MOTOR_SCALE;
+                    car_settings.front_motor_scale = FRONT_MOTOR_SCALE;
+                }
+            }
             else if (display.ack_macros == 1)
                 macros_settings.traction_ctrl = !macros_settings.traction_ctrl;
             else if (display.ack_macros == 2)
@@ -425,7 +439,7 @@ void R2D_init()
 /*
  * Battery pack tension is given indipendently by every motor.
  * The function seems complex because takes in consideration the case
- * that one or more motor are inactive
+ * that one or more motor are inactive.
  */
 void computeBatteryPackTension()
 {
@@ -602,8 +616,6 @@ bool isHVOn()
 {
     bool hv = false;
 
-//    return true; //debug talebano
-
     int i;
     for (i = 0; i < NUM_OF_MOTORS; i++)
     {
@@ -779,8 +791,6 @@ void checkStatus()
     Uint16 mstatus = 0b00000000;
     if (isHVOn())
         mstatus |= 0b00000001;
-//    if (GPIO_readPin(LV_ALARM))
-//        mstatus |= 0b00000010;
     if(Air2_State){
         mstatus |= 0b00000010;
     }
@@ -825,11 +835,6 @@ void sendDataToLogger()
 void update_log_values()
 {
     int i;
-    //Temps
-    for(i = 0; i < 8; i++)
-    {
-        Temps_shared[i] = Temps[i];
-    }
 
     for(i = 0; i < 8; i++)
     {

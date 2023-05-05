@@ -25,8 +25,8 @@ int Read_throttle(){
         media_acc_on = 1;*/
 
 
-    acc1Pos = (AccPot1 - pedals_log.acc1_low_calibration) / ACC1_INPUT_RANGE;  // posizione in 0-1 range acc1
-    acc2Pos = (AccPot2 - pedals_log.acc2_low_calibration) / ACC2_INPUT_RANGE;  // posizione in 0-1 range acc2
+    acc1Pos = (AccPot1 - pedals_log.acc1_low_calibration) / INPUT_RANGE(pedals_log.acc1_high_calibration, pedals_log.acc1_low_calibration);  // posizione in 0-1 range acc1
+    acc2Pos = (AccPot2 - pedals_log.acc2_low_calibration) / INPUT_RANGE(pedals_log.acc2_high_calibration, pedals_log.acc2_low_calibration);  // posizione in 0-1 range acc2
 
     acc1Pos = changeRange(acc1Pos, 0, 1, 0, 100);
     acc2Pos = changeRange(acc2Pos, 0, 1, 0, 100);
@@ -65,7 +65,7 @@ int Read_brake(int overrideProtectionOFF){
         }
     }
 
-    brkPos = (BrkPot - pedals_log.brk_low_calibration)/BRK_INPUT_RANGE;                                    //posizione percentuale freno
+    brkPos = (BrkPot - pedals_log.brk_low_calibration)/INPUT_RANGE(pedals_log.brk_high_calibration, pedals_log.brk_low_calibration);                                    //posizione percentuale freno
     brkPos = changeRange(brkPos, 0, 1, 0, 100);
     return saturateUnsigned(brkPos, 100, 0);
 }

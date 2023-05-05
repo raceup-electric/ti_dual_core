@@ -80,7 +80,7 @@ __interrupt void cpu_timer1_isr(void)
     fanControl();
 
     //Start pumps 30 sec after lv power on
-    if(time_elapsed >3000){
+    if(time_elapsed >1500){
         setPumpSpeed(0);
     }
 
@@ -145,7 +145,6 @@ __interrupt void cpu_timer1_isr(void)
                 if (!macros_settings.reg_brake)
                     stopAMK();
                 else
-                //brakeAMK(brake * (NEGATIVE_TORQUE_LIMIT /10));
                     brakeAMK(brake);       //Deleted the if-else statement with lem_curr < max_reg
             }
             else if(brakeMec)
@@ -153,7 +152,6 @@ __interrupt void cpu_timer1_isr(void)
                 if (!macros_settings.reg_brake)
                     stopAMK();
                 else
-                //brakeAMK((REGENERATIVE_BRAKE_LIMIT - (brake - REGENERATIVE_BRAKE_LIMIT) * (REGENERATIVE_BRAKE_LIMIT)/(100-REGENERATIVE_BRAKE_LIMIT)) * (NEGATIVE_TORQUE_LIMIT /10));
                     if(lem_current > car_settings.max_regen_current){
                         brakeAMK(brake);
                     }
@@ -163,7 +161,6 @@ __interrupt void cpu_timer1_isr(void)
             }
             else if(noBrake)
             {
-                //throttleAMK(throttle * THROTTLE_POWER_SCALE);
                 throttleAMK(throttle);
             }
             else
@@ -172,7 +169,7 @@ __interrupt void cpu_timer1_isr(void)
             }
         }
         /*
-         * if implausibility occurred it can be cleared if throtthle is released under 5%
+         * if implausibility occurred it can be cleared if throttle e is released under 5%
          */
         else if (throttle  < 5)   //REGOLA EV 2.3
         {

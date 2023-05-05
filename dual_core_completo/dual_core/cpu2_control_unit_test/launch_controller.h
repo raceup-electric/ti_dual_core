@@ -9,10 +9,10 @@
 #ifndef LAUNCH_CONTROLLER_H_
 #define LAUNCH_CONTROLLER_H_
 
+#include "F28x_Project.h"
 #include <math.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include "F28x_Project.h"
 #include "utils.h"
 
 bool is_time_saved = false;

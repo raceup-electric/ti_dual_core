@@ -19,12 +19,10 @@
 // acc1
 #define ACC1_LOW_TH_INITIAL    2800
 #define ACC1_HIGH_TH_INITIAL   3900
-#define ACC1_INPUT_RANGE (pedals_log.acc1_high_calibration - pedals_log.acc1_low_calibration)
 
 // acc2
 #define ACC2_LOW_TH_INITIAL    2000
-#define ACC2_HIGH_TH_INITIAL   3150
-#define ACC2_INPUT_RANGE (pedals_log.acc2_high_calibration - pedals_log.acc2_low_calibration)
+#define ACC2_HIGH_TH_INITIAL   315
 
 // acc
 #define ACC1_DISC_THRES 100  //ABSOLUTE VAL
@@ -34,9 +32,10 @@
 // brake
 #define BRK_LOW_TH_INITIAL    2050
 #define BRK_HIGH_TH_INITIAL   2520
-#define BRK_INPUT_RANGE (pedals_log.brk_high_calibration-pedals_log.brk_low_calibration)
 
 #define BRK_DISC_THRES 200  //ABSOLUTE VAL
+
+#define INPUT_RANGE(x, y) (x-y)
 
 
 // steering

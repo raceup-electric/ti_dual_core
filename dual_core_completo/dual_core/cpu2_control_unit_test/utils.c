@@ -4,6 +4,11 @@ extern float corrected_accelerations[3];
 
 void setup_car_settings(){
 
+    /*
+     * Must be called before changing car_settings struct
+     */
+    setup_macros();
+
     memcpy(car_settings.presets_power, presets_power, sizeof(presets_power));
     memcpy(car_settings.presets_max_pos, presets_max_pos, sizeof(presets_max_pos));
     memcpy(car_settings.presets_max_neg, presets_max_neg, sizeof(presets_max_neg));
@@ -14,11 +19,20 @@ void setup_car_settings(){
 
     car_settings.max_regen_current=MAX_REGEN_CURRENT;
     car_settings.max_speed = SPEED_LIMIT;
-    car_settings.rear_motor_scale = REAR_MOTOR_SCALE;
-    car_settings.front_motor_scale = FRONT_MOTOR_SCALE;
     car_settings.max_pos_torque = MAX_POS_TORQUE;
     car_settings.max_neg_torque = MAX_NEG_TORQUE;
     car_settings.power_limit = POWER_LIMIT;
+
+    /*
+     * Torques are computed by TV when active, so we don't have to set them
+     */
+    if(macros_settings.torque_vectoring){
+        car_settings.rear_motor_scale = 1.0f;
+        car_settings.front_motor_scale = 1.0f;
+    } else {
+        car_settings.rear_motor_scale = REAR_MOTOR_SCALE;
+        car_settings.front_motor_scale = FRONT_MOTOR_SCALE;
+    }
 }
 
 void setup_macros() {
