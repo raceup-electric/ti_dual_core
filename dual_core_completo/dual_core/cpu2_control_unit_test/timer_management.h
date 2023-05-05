@@ -11,6 +11,7 @@
 extern Uint16 increment;
 
 extern Uint32 time_elapsed;
+extern Uint32 T_s;
 
 extern bool brakeWhenSlow;
 extern bool brakeReg;

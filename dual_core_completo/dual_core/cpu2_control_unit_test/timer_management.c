@@ -195,6 +195,11 @@ __interrupt void cpu_timer1_isr(void)
     computeBatteryPackTension();
 
     sendDataToLogger();
+
+    static Uint32 old_time_elapsed = 0;
+
+    T_s = time_elapsed - old_time_elapsed;
+    old_time_elapsed = time_elapsed;
 }
 
 

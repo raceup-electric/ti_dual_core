@@ -28,10 +28,8 @@ int counter;    //for debug
 
 //timestamp
 Uint32 time_elapsed = 0;
+Uint32 T_s = 0;
 
-// sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
-//float sendyne_current;
-//float sendyne_voltage;
 Uint16 batteryPackTension;
 unsigned long int reassembled_data;
 unsigned char CAN_SENDYNE_ACT_VALUES[8];
@@ -136,13 +134,7 @@ float speedTv = 0;
 float fz[4] = {0,0,0,0};
 float re[4];
 
-#ifdef NO_TORQUE_VECTORING
-float repFz[4] = {0.6,0.6,0.4,0.4};
-#endif
-
-#ifndef NO_TORQUE_VECTORING
 float repFz[4];
-#endif
 
 float posTorqueCandidate[4][4];      //[MotorIndex][CandidateIndex]
 float negTorqueCandidate[4];      //[MotorIndex][CandidateIndex]
@@ -253,7 +245,6 @@ unsigned char RXA_PwCtrl_Data[1];
 unsigned char RXA_Wheel_Data[1];
 unsigned char TXA_Host_Data[4];
 float TXA_Smu_Calibration[5][2];
-//unsigned char TXA_Smu_Calibration[5][8];
 unsigned char RXA_Lem_Data[8]; //aggiunto lem
 unsigned char TXCANA_ATMega_Data[2];
 
@@ -264,6 +255,12 @@ unsigned char epwm4B;
 unsigned char epwm5A;
 unsigned char epwm5B;
 unsigned char epwm6A;
+
+/*
+ * KALMAN FILTER
+ */
+
+//float A_k[2][2];
 
 
 

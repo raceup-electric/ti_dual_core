@@ -182,6 +182,8 @@ struct Share_struct {
     struct Power_Setup_Log power_setup;
 };
 
+
+extern float repFz[4];
 extern float versx[3];
 extern float versy[3];
 extern float versz[3];

@@ -306,6 +306,10 @@ void read_steering_wheel_message(Uint16 val[], int id){
                 if(macros_settings.torque_vectoring){
                     car_settings.rear_motor_scale = 1.0f;
                     car_settings.front_motor_scale = 1.0f;
+                    repFz[0] = 0.6;
+                    repFz[1] = 0.6;
+                    repFz[2] = 0.4;
+                    repFz[3] = 0.4;
                 } else {
                     car_settings.rear_motor_scale = REAR_MOTOR_SCALE;
                     car_settings.front_motor_scale = FRONT_MOTOR_SCALE;

@@ -369,5 +369,16 @@ void onePedalDriving()
 
 }
 
+/*
+ * https://github.com/simondlevy/TinyEKF
+ */
+void ExtendedKalmanFilter(float yaw_r, float T, float* x){
+
+    float A_k[2][2] = {{1, yaw_r*T}, {-yaw_r*T, 1}};
+    float B_k[2][2] = {{T, 0}, {0, T}};
+    static float H_k[1][2] = {{1}, {0}};
+    float W_k[2][3] = {{-x[1]*T, -T, 0},{x[2], 0, -T}};
+}
+
 
 

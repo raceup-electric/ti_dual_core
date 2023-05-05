@@ -4,11 +4,11 @@
 //
 // include
 //
-
+#include "matrix.h"
 #include "motor_management.h"
 #include "global_definitions.h"
 #include "utils.h"
-#include "math.h"
+
 
 
 #define R 0.0675
@@ -62,12 +62,11 @@ extern float torque_reg_IPM[4];
 
 extern float power_limit;
 
+/*
+ * KALMAN
+ */
 
-//DEPRECATED
-//extern float i_max;
-//extern float tau_max;
-//extern float tau_unbias;
-//extern float percentage_tau;
+//extern float A_k[2][2];
 
 //
 // prototypes
@@ -96,5 +95,6 @@ void onePedalDriving();
 
 void torqueLimit1();
 
+void ExtendedKalmanFilter(float yaw_r, float T, float* x);
 
 #endif

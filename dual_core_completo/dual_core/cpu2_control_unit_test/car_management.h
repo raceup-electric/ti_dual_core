@@ -82,21 +82,9 @@ extern int rfCounter[4];
 extern bool inverterHV[4];
 extern bool inverterRF[4];
 
-////power control
-//extern float power_limit;
-//extern int presets_power[8];
-//
-//extern float max_regen_current;
-//extern float presets_regen[6];
-//
-//extern int presets_speed[6];
-//extern float presets_coppie_front[6];
-//extern float presets_coppie_rear[6];
-//
-//extern int max_speed;
-//extern float rear_motor_scale;
-//extern float front_motor_scale;
 
+
+extern float repFz[4];
 
 //Launch setting
 extern bool is_launch_inserted;
