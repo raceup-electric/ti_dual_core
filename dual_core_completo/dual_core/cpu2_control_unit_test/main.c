@@ -98,6 +98,9 @@ void setup()
        display.ack_setup = 99;
        display.ack_pedal_setup = 99;
        display.ack_macros = 99;
+       display.manual_speed_selector = false;
+       display.ack_fan = 99;
+
 
        display.emergencyBrk_isNotSet = 1;
 

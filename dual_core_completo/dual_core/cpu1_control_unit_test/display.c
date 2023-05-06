@@ -53,22 +53,10 @@ void updateValues()
            case PAGE_13:
                updatePage13();
            break;
-           /*
            case PAGE_14:
-                updatePage14();
+               updatePage14();
            break;
-           case PAGE_15:
-                updatePage15();
-           break;
-           case PAGE_16:
-                updatePage16();
-           break;
-           case PAGE_17:
-                updatePage17();
-           break;
-           case PAGE_18:
-                updatePage18();
-           break; */
+
          }
 }
 
@@ -131,27 +119,11 @@ void updatePage(Uint16 page){
             currentPage=PAGE_13;
             scic_msg("page 13ÿÿÿ\0");
         break;
-        /*
         case PAGE_14:
             currentPage=PAGE_14;
             scic_msg("page 14ÿÿÿ\0");
         break;
-        case PAGE_15:
-            currentPage=PAGE_15;
-            scic_msg("page 15ÿÿÿ\0");
-        break;
-        case PAGE_16:
-            currentPage=PAGE_16;
-            scic_msg("page 16ÿÿÿ\0");
-        break;
-        case PAGE_17:
-            currentPage=PAGE_17;
-            scic_msg("page 17ÿÿÿ\0");
-        break;
-        case PAGE_18:
-             currentPage=PAGE_18;
-             scic_msg("page 18ÿÿÿ\0");
-        break;*/
+
       }
     }
 }
@@ -310,7 +282,36 @@ void updatePage6()
     scic_msg(tmp);
 }
 
+
+
 void updatePage7()
+{
+
+    sprintf(tmp, "pwr_set.regcurr.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_regen_current);
+    scic_msg(tmp);
+
+    sprintf(tmp, "pwr_set.maxpostrq.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_pos_torque);
+       scic_msg(tmp);
+
+    sprintf(tmp, "pwr_set.maxnegtrq.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_neg_torque);
+    scic_msg(tmp);
+
+    sprintf(tmp, "pwr_set.powerlim.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.power_limit / 1000));
+      scic_msg(tmp);
+
+    sprintf(tmp, "pwr_set.speedlim.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.max_speed / 1000));
+       scic_msg(tmp);
+
+    sprintf(tmp, "pwr_set.trqr.txt=\"%.1f\"ÿÿÿ\0", car_settings.rear_motor_scale);
+       scic_msg(tmp);
+
+    sprintf(tmp, "pwr_set.trqf.txt=\"%.1f\"ÿÿÿ\0", car_settings.front_motor_scale);
+    scic_msg(tmp);
+
+}
+
+
+void updatePage8()
 {
     sprintf(tmp, "smu.prerad.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[0] - 273.15));
     scic_msg(tmp);
@@ -331,23 +332,6 @@ void updatePage7()
 }
 
 
-void updatePage8()
-{
-    sprintf(tmp, "pwr_set.speedlim.txt=\"%d\"ÿÿÿ\0", (int)( car_settings.max_speed / 1000));
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.trqf.txt=\"%.1f\"ÿÿÿ\0", car_settings.front_motor_scale);
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.trqr.txt=\"%.1f\"ÿÿÿ\0", car_settings.rear_motor_scale);
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.powerlim.txt=\"%d\"uÿÿÿ\0", (int)(car_settings.power_limit / 1000));
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.regcurr.txt=\"%.1f\"uÿÿÿ\0", car_settings.max_regen_current);
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.maxpostrq.txt=\"%.1f\"uÿÿÿ\0", car_settings.max_pos_torque);
-    scic_msg(tmp);
-    sprintf(tmp, "pwr_set.maxnegtrq.txt=\"%.1f\"uÿÿÿ\0", car_settings.max_neg_torque);
-    scic_msg(tmp);
-}
 
 
 void updatePage9(){
@@ -417,6 +401,79 @@ void updatePage13(){
     scic_msg(tmp);
 
 }
+
+
+void  updatePage14(){
+
+    setSelector1_fan();
+    setSelector2_fan();
+    setAckFan();
+
+    sprintf(tmp, "fan_SPEED.speed.val=%dÿÿÿ\0", local_sh.fanSpeed.rightFanSpeed_shared);
+    scic_msg(tmp);
+
+}
+
+
+void setSelector1_fan(){
+
+    n_setup = display.selector_fan;
+
+    if(old_fan != n_setup && n_setup== 0){
+
+        scic_msg("fan_SPEED.setup0.bco=YELLOWÿÿÿ\0");
+        scic_msg("fan_SPEED.setup1.bco=54938ÿÿÿ\0");
+
+    }
+    else if(old_fan != n_setup && n_setup == 1){
+
+        scic_msg("fan_SPEED.setup1.bco=YELLOWÿÿÿ\0");
+        scic_msg("fan_SPEED.setup0.bco=54938ÿÿÿ\0");
+
+    }
+
+    old_fan = n_setup;
+
+}
+
+
+void setSelector2_fan(){
+
+    if(display.selector_fan == 1){
+        //scic_msg("fan_SPEED.setup1.bco=YELLOWÿÿÿ\0");
+        sprintf(tmp, "fan_SPEED.setup1.txt=\"%d\"ÿÿÿ\0", display.selector_speed_fan);
+        scic_msg(tmp);
+    }
+
+}
+
+
+void setAckFan(){
+    ack = display.ack_fan;
+    if (old_ack_fan != ack){
+
+        if(ack == 0){
+
+            if(display.manual_speed_selector){
+                scic_msg("fan_SPEED.manual.bco=GREENÿÿÿ\0");
+            }
+            else{
+                scic_msg("fan_SPEED.manual.bco=REDÿÿÿ\0");
+            }
+        }
+
+       /* else if(ack == 1){
+            scic_msg("fan_SPEED.setup1.bco=GREENÿÿÿ\0");
+        }*/
+
+        old_ack_fan = ack;
+
+    }
+}
+
+
+
+
 
 void setSelectorMacrosConfig(){
 

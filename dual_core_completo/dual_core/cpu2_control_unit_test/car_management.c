@@ -221,6 +221,11 @@ void read_steering_wheel_message(Uint16 val[], int id){
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == MACROS_PAGE){
         display.selector_macros = val[0] % 6;
     }
+    else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == FANSPEED_PAGE){
+
+       // if(!(val[0] % 2 == 1 && !display.manual_speed_selector))
+            display.selector_fan = val[0] % 2;
+    }
 
     /*
      * SELECTOR 2 UPDATE
@@ -240,6 +245,11 @@ void read_steering_wheel_message(Uint16 val[], int id){
             display.selector_trqr = val[0] % 6;
         else if (display.selector_setup == 6)
             display.selector_trqf = val[0] % 6;
+    }
+
+    if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == FANSPEED_PAGE){
+        if (display.selector_fan == 1)
+            display.selector_speed_fan = (val[0] % 11)*10;
     }
 
     /*
@@ -326,9 +336,21 @@ void read_steering_wheel_message(Uint16 val[], int id){
             else if (display.ack_macros == 5) {
                 // unused
                 }
-
       }
+       else if (display.page == FANSPEED_PAGE && !R2D_state){
 
+           if(!(display.selector_fan == 1 && !display.manual_speed_selector)){ //ack speed fan, only if manual_selector is true
+               display.ack_fan = display.selector_fan;
+
+               if(display.ack_fan == 0){
+                   display.manual_speed_selector = !display.manual_speed_selector;
+               }
+               else if(display.ack_fan == 1){
+                   leftFanSpeed = display.selector_speed_fan;
+                   rightFanSpeed = display.selector_speed_fan;
+               }
+           }
+       }
 
     }
 }
@@ -696,8 +718,8 @@ void fanControl()
 #ifndef FAN_LV_ENABLE
     if (!R2D_state)
     {
-       leftFanSpeed = 0;
-       rightFanSpeed = 0;
+       //leftFanSpeed = 0;
+       //rightFanSpeed = 0;
     }
     else
     {
@@ -708,8 +730,12 @@ void fanControl()
         int rightTemp = fmax(motorVal2[1].AMK_TempInverter, motorVal2[3].AMK_TempInverter);
         int maxTemp = fmax(leftTemp, rightTemp);
 
-        leftFanSpeed = fanSpeedFunction(maxTemp);
-        rightFanSpeed = leftFanSpeed;
+        if(!display.manual_speed_selector){
+
+            leftFanSpeed = fanSpeedFunction(maxTemp);
+            rightFanSpeed = leftFanSpeed;
+
+        }
 
     }
 #else
@@ -733,7 +759,7 @@ void fanControl()
  */
 
 Uint16 fanSpeedFunction(int temp){
-#ifndef CONST_FAN_SPEED
+//#ifndef CONST_FAN_SPEED
     if(fan_flag && temp > 45 && temp < FAN_MIN_TEMP){
         return 10;
     }
@@ -749,11 +775,13 @@ Uint16 fanSpeedFunction(int temp){
         fan_flag = 1;
         return (9*temp) - 440;
     }
-#endif
 
+//#endif
+/*
 #ifdef CONST_FAN_SPEED
     return 50;
 #endif
+*/
 
 }
 
@@ -906,6 +934,7 @@ void update_log_values()
     //FanSpeed
     fanspeed_log.leftFanSpeed_shared = leftFanSpeed;
     fanspeed_log.rightFanSpeed_shared = rightFanSpeed;
+
 
     //Imu
     for(i = 0; i < 3; i++)

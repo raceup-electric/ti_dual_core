@@ -26,10 +26,14 @@ extern Uint16 ack;
 extern Uint16 old_setup;
 extern Uint16 old_setup_pedal_setup;
 extern Uint16 old_macros;
+extern Uint16 old_fan;
+
 
 extern Uint16 old_ack_setup;
 extern Uint16 old_ack_pedal_setup;
 extern Uint16 old_ack_macros;
+extern Uint16 old_ack_fan;
+
 
 struct Display_command{
     Uint16 page;
@@ -48,6 +52,11 @@ struct Display_command{
 
     Uint16 selector_pedal_setup;
     Uint16 ack_pedal_setup;
+
+    Uint16 selector_fan;
+    Uint16 selector_speed_fan;
+    bool manual_speed_selector;
+    Uint16 ack_fan;
 
     int emergencyBrk_active;
     int emergencyBrk_isNotSet;
@@ -223,6 +232,8 @@ void updatePage10();
 void updatePage11();
 void updatePage12();
 void updatePage13();
+void updatePage14();
+
 
 
 void changePreset(Uint16 preset, Uint16 page, Uint16 ack);

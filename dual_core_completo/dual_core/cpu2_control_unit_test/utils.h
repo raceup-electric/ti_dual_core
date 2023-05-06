@@ -130,6 +130,11 @@ struct Display_command{
     Uint16 selector_pedal_setup;
     Uint16 ack_pedal_setup;
 
+    Uint16 selector_fan;
+    Uint16 selector_speed_fan;
+    bool manual_speed_selector;
+    Uint16 ack_fan;
+
     int emergencyBrk_active;
     int emergencyBrk_isNotSet;
 

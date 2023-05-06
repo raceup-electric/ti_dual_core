@@ -231,7 +231,7 @@
 
 
 //SCHERMO
-#define MAX_PAGE_NUMBER     13
+#define MAX_PAGE_NUMBER     14
 #define MAX_DRIVING_PAGE    2
 
 #define CONFIRMATION        0x1
@@ -243,6 +243,8 @@
 #define SETUP_PAGE          0x08
 #define PEDAL_SETUP_PAGE    0x09
 #define MACROS_PAGE         0x0A
+#define FANSPEED_PAGE       0x0D
+
 
 /*
  * In SCREEN_DEBUG mode we use every page

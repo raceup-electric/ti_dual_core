@@ -47,11 +47,15 @@ Uint16 n_setup = 0;
 Uint16 old_setup = 99;
 Uint16 old_setup_pedal_setup = 99;
 Uint16 old_macros = 99;
+Uint16 old_fan = 99;
+
 
 Uint16 ack = 99;
 Uint16 old_ack_setup = 99;
 Uint16 old_ack_pedal_setup = 99;
 Uint16 old_ack_macros = 99;
+Uint16 old_ack_fan = 99;
+
 Uint16 sel; //for debug
 
 
