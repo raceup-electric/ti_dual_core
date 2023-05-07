@@ -374,10 +374,46 @@ void onePedalDriving()
  */
 void ExtendedKalmanFilter(float yaw_r, float T, float* x){
 
-    float A_k[2][2] = {{1, yaw_r*T}, {-yaw_r*T, 1}};
-    float B_k[2][2] = {{T, 0}, {0, T}};
-    static float H_k[1][2] = {{1}, {0}};
-    float W_k[2][3] = {{-x[1]*T, -T, 0},{x[2], 0, -T}};
+    double A_k[4] = {1, yaw_r*T, -yaw_r*T, 1};  //2x2
+    double B_k[4] = {T, 0, 0, T};       // 2x2
+    static double H[2] = {1, 0};         // 1x2
+    double W_k[6] = {-x[1]*T, -T, 0, x[2], 0, -T}; //2x3
+    static double I_2[4] = {1, 0, 0, 1};
+
+    static int n = 2, m = 3;
+
+    static double * P_k = 0;
+    static double * Pnew_k = 0;
+    double * K_k = 0;
+    static double * Q = 0;
+    static double * R_tc = 0;
+
+    double * AT_k = 0, * WT_k = 0, * HT = 0;
+    double * Temp_1 = 0, * Temp_2 = 0;  //2x2
+    transpose(A_k, AT_k, n, n);
+    mulmat(A_k, P_k, Temp_1, n, n, n);
+    mulmat(Temp_1, AT_k, Temp_2, n, n, n);
+
+    double * Temp_3 = 0;        //2x3
+    transpose(W_k, WT_k, n, m);
+    mulmat(W_k, Q, Temp_3, n, m, m);
+    mulmat(Temp_3, WT_k, Temp_1, n, m, n);
+
+    add(Temp_1, Temp_2, Pnew_k, n);
+
+    double * Temp_4 = 0;       //2x1
+    double * Temp_5 = 0;       //2x2
+    transpose(H, HT, 1, 2);
+    mulmat(P_k, HT, Temp_4, 2, 2, 1);
+    mulmat(H, Temp_4, K_k, 1, 2, 1);
+    accum(K_k, R_tc, 1, 1);
+
+
+
+    mulmat(K_k, H, Temp_5,  2, 1, 2);
+    negate(Temp_5, n, n);
+    mat_addeye(Temp_5, n);
+    mulmat(Temp_5, Pnew_k, P_k, n, n, n);
 }
 
 
