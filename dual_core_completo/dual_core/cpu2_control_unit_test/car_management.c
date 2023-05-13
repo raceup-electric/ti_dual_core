@@ -718,8 +718,8 @@ void fanControl()
 #ifndef FAN_LV_ENABLE
     if (!R2D_state)
     {
-       //leftFanSpeed = 0;
-       //rightFanSpeed = 0;
+       leftFanSpeed = 0;
+       rightFanSpeed = 0;
     }
     else
     {
