@@ -95,6 +95,6 @@ void onePedalDriving();
 
 void torqueLimit1();
 
-void ExtendedKalmanFilter(float yaw_r, float T, float* x);
+void ExtendedKalmanFilter(double yaw_r, double T, double x[2], double * z);
 
 #endif

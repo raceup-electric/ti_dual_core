@@ -36,6 +36,8 @@ void transpose(double * a, double * at, int m, int n);
 
  void mat_addeye(double * a, int n);
 
+ void mulscal(double * a, double scal, double * b, int m, int n);
+
 //int choldcsl(double * A, double * a, double * p, int n);
 //
 //int cholsl(double * A, double * a, double * p, int n);

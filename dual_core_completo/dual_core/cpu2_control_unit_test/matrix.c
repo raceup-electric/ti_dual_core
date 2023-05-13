@@ -170,3 +170,11 @@
         a[i*n+i] += 1;
 }
 
+void mulscal(double * a, double scal, double *b, int m, int n) {
+
+ int j;
+ for(j=0; j<m*n; j++)
+         b[j] = scal*a[j];
+
+}
+

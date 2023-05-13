@@ -372,48 +372,123 @@ void onePedalDriving()
 /*
  * https://github.com/simondlevy/TinyEKF
  */
-void ExtendedKalmanFilter(float yaw_r, float T, float* x){
+void ExtendedKalmanFilter(double yaw_r, double T, double x[2], double * z){
 
+    /*
+     * MATRICES
+     */
     double A_k[4] = {1, yaw_r*T, -yaw_r*T, 1};  //2x2
     double B_k[4] = {T, 0, 0, T};       // 2x2
     static double H[2] = {1, 0};         // 1x2
     double W_k[6] = {-x[1]*T, -T, 0, x[2], 0, -T}; //2x3
     static double I_2[4] = {1, 0, 0, 1};
+    static double L_k[2] = {0, 0};
 
     static int n = 2, m = 3;
 
-    static double * P_k = 0;
-    static double * Pnew_k = 0;
-    double * K_k = 0;
-    static double * Q = 0;
-    static double * R_tc = 0;
+    static double P_k[4] = {0, 0, 0, 0};  //2x2
+    static double Pnew_k[4] = {0,0,0,0};     //2x2
+    double K_k[2] = {0,0};  //2x1
+    static double Q[4] = {0, 0, 0, 0};  //2x2
+    static double * R_tc = 0;   //scalar
 
-    double * AT_k = 0, * WT_k = 0, * HT = 0;
-    double * Temp_1 = 0, * Temp_2 = 0;  //2x2
+
+
+    double AT_k[4];
+    double WT_k[6];     //3x2
+    double HT[2];
+    transpose(H, HT, 1, 2);
+
+    double Temp_1[4] = {0,0,0,0};   //2x2
+    double Temp_2[4] = {0,0,0,0};   //2x2
+    /*
+     *  Temp_2 = (A * P_k-1 * A')
+     */
     transpose(A_k, AT_k, n, n);
     mulmat(A_k, P_k, Temp_1, n, n, n);
     mulmat(Temp_1, AT_k, Temp_2, n, n, n);
 
-    double * Temp_3 = 0;        //2x3
+    double Temp_3[6];        //2x3
+    /*
+     * Temp_3 = (W * Q * W')
+     */
     transpose(W_k, WT_k, n, m);
     mulmat(W_k, Q, Temp_3, n, m, m);
     mulmat(Temp_3, WT_k, Temp_1, n, m, n);
 
     add(Temp_1, Temp_2, Pnew_k, n);
 
-    double * Temp_4 = 0;       //2x1
-    double * Temp_5 = 0;       //2x2
-    transpose(H, HT, 1, 2);
-    mulmat(P_k, HT, Temp_4, 2, 2, 1);
-    mulmat(H, Temp_4, K_k, 1, 2, 1);
-    accum(K_k, R_tc, 1, 1);
+
+    double Temp_4[2];       //2x1
+    double Temp_5[2];       //2x1
+    double * Temp_6 = 0;    //scalar
+    mulmat(Pnew_k, HT, Temp_4, 2, 2, 1);
+    /*
+     * Temp_6 = (H * Pnew * H') + R
+     */
+    mulmat(P_k, HT, Temp_5, 2, 2, 1);
+    mulmat(H, Temp_5, Temp_6, 1, 2, 1);
+    accum(Temp_6, R_tc, 1, 1);
+
+    mulscal(Temp_5, (1/(*Temp_6)), K_k, 2, 1);
+
+    double Temp_7[4];   //2x2
+    double Temp_8[4];   //2x2
+    /*
+     * P_k = ( I - K_k ) * Pnew
+     */
+    mulmat(K_k, H, Temp_7, 2, 1, 2);
+
+    negate(Temp_7, n, n);
+    mat_addeye(Temp_7, n);
+
+    mulmat(Temp_7, Pnew_k, P_k, n, n, n);
+
+    /*
+     * ERRORE GIULIA trasposta H
+     * L_k = (P_k * H')/R
+     */
+    mulmat(P_k, HT, Temp_8, n, n, n);
+    double R_inv = 1/(*R_tc);
+    mulscal(Temp_8, R_inv, L_k, 2, 1);
+
+    /*
+     * Time update
+     */
+
+        /*
+         * Temp_4 = A_k * x_k-1
+         */
+        mulmat(A_k, x, Temp_4, 2, 2, 1);
 
 
+        /*
+         * Temp_5 = B * u_k-1
+         */
+        double u[2] = {ax, ay};
+        mulmat(B, u, Temp_5, 2, 2, 1);
 
-    mulmat(K_k, H, Temp_5,  2, 1, 2);
-    negate(Temp_5, n, n);
-    mat_addeye(Temp_5, n);
-    mulmat(Temp_5, Pnew_k, P_k, n, n, n);
+        /*
+         * x-_k = temp_x_minus = Temp_4 + Temp_5
+         */
+        double temp_x_minus[2];
+        add(Temp_4, Temp_5, temp_x_minus, 2);
+
+    /*
+     * Measurement Update
+     */
+
+        /*
+         * Temp_err =
+         */
+        double * Temp_9, * Temp_err;
+        double New_x[2];
+        mulmat(H, temp_x_minus, Temp_6, 1, 2, 1);
+        sub(z, Temp_6, Temp_9, 1);
+        mulmat(L_k, Temp_9, Temp_err, 2, 1, 1);
+        add(Temp_err, temp_x_minus, New_x, 2);
+
+
 }
 
 
