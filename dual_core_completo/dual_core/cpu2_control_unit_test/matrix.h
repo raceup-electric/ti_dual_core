@@ -42,5 +42,10 @@ void transpose(double * a, double * at, int m, int n);
 //
 //int cholsl(double * A, double * a, double * p, int n);
 
+ double max_vect(double * a, int size);
+ double min_vect(double * a, int size);
+ double magnitude_squared(double * a, int size);
+ double element_sum(double * a, int size);
+
 
 #endif /* MATRIX_H_ */

@@ -266,6 +266,7 @@ const double p_fr[] = {45640000,1951000,60000,3000,1000,0};
 
 double speed_state[2] = {0,0};
 double w_angles[4] = {0,0,0,0};
+double v_wheels[4] = {0,0,0,0};
 double delta_steer[2] = {0,0};
 
 

@@ -178,3 +178,45 @@ void mulscal(double * a, double scal, double *b, int m, int n) {
 
 }
 
+double max_vect(double * a, int size){
+    int i;
+    double temp = a[0];
+    for (i=0; i<size; ++i)
+    {
+        if (a[i] > temp)
+            temp = a[i];
+    }
+    return temp;
+}
+
+double min_vect(double * a, int size){
+    int i;
+    double temp = a[0];
+    for (i=0; i<size; ++i)
+    {
+        if (a[i] < temp)
+            temp = a[i];
+    }
+    return temp;
+}
+
+double magnitude_squared(double * a, int size){
+    int i;
+    double tot = 0;
+    for (i=0; i<size; ++i)
+    {
+        tot += pow(a[i], 2);
+    }
+    return tot;
+}
+
+double element_sum(double* a, int size){
+    int i;
+    double tot = 0;
+    for (i=0; i<size; ++i)
+    {
+        tot += a[i];
+    }
+    return tot;
+}
+

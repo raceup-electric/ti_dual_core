@@ -322,5 +322,7 @@
  */
 
 #define SMALL_R0        0.0349f
+#define SIGMA_W2        1.5f
+#define SIGMA_W1        7.f
 
 #endif

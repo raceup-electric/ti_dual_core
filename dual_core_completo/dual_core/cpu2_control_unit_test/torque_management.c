@@ -372,7 +372,7 @@ void onePedalDriving()
 /*
  * https://github.com/simondlevy/TinyEKF
  */
-void ExtendedKalmanFilter(double T, double * z){
+void ExtendedKalmanFilter(double T){
 
     /*
      * PARAMETERS
@@ -385,9 +385,8 @@ void ExtendedKalmanFilter(double T, double * z){
     double A_k[4] = {1, yaw_r*T, -yaw_r*T, 1};  //2x2
     double B_k[4] = {T, 0, 0, T};       // 2x2
     static double H[2] = {1, 0};         // 1x2
-    double W_k[6] = {-x[1]*T, -T, 0, x[2], 0, -T}; //2x3
+    double W_k[6] = {-x[0]*T, -T, 0, x[1], 0, -T}; //2x3
     static double I_2[4] = {1, 0, 0, 1};
-    static double L_k[2] = {0, 0};
 
     static int n = 2, m = 3;
 
@@ -461,7 +460,7 @@ void ExtendedKalmanFilter(double T, double * z){
          * Temp_5 = B * u_k-1
          */
         double u[2] = {ax, ay};
-        mulmat(B, u, Temp_5, 2, 2, 1);
+        mulmat(B_k, u, Temp_5, 2, 2, 1);
 
         /*
          * x-_k = temp_x_minus = Temp_4 + Temp_5
@@ -470,12 +469,18 @@ void ExtendedKalmanFilter(double T, double * z){
         add(Temp_4, Temp_5, temp_x_minus, 2);
 
     /*
+     * Measurement
+     */
+    double z_k = ZK_compute(T);
+
+
+    /*
      * Measurement Update
      */
         double * Temp_9, * Temp_err;
         double New_x[2];
         mulmat(H, temp_x_minus, Temp_6, 1, 2, 1);
-        sub(z, Temp_6, Temp_9, 1);
+        sub(&z_k, Temp_6, Temp_9, 1);
         mulmat(K_k, Temp_9, Temp_err, 2, 1, 1);
         add(Temp_err, temp_x_minus, New_x, 2);
 
@@ -493,7 +498,7 @@ void ExtendedKalmanFilter(double T, double * z){
         speed_state[1] = New_x[1];
 }
 
-void ZK_compute(){
+double ZK_compute(double T){
     /*
      * Parameters
      *  ax, r_k, wheels_angles, v_wheels, vx_k-1
@@ -508,11 +513,17 @@ void ZK_compute(){
     w_angles[2] = cos(w_angles[2]);
     w_angles[3] = cos(w_angles[3]);
 
-    double Vi[4] = {0,0,0,0};
-//    Vi[0] =  w_angles[0]*v_wheels[0] + Temp_rk[0];
-//    Vi[1] =  w_angles[0]*v_wheels[1] + Temp_rk[1];
-//    Vi[2] =  w_angles[0]*v_wheels[2] + Temp_rk[2];
-//    Vi[3] =  w_angles[0]*v_wheels[3] + Temp_rk[3];
+    static double Vi[4] = {0,0,0,0};
+    static double old_Vi[4] = {0,0,0,0};
+    static double delta_Vi[4] = {0,0,0,0};
+    old_Vi[0] = Vi[0];
+    old_Vi[1] = Vi[1];
+    old_Vi[2] = Vi[2];
+    old_Vi[3] = Vi[3];
+    Vi[0] =  w_angles[0]*v_wheels[0] + Temp_rk[0];
+    Vi[1] =  w_angles[0]*v_wheels[1] + Temp_rk[1];
+    Vi[2] =  w_angles[0]*v_wheels[2] + Temp_rk[2];
+    Vi[3] =  w_angles[0]*v_wheels[3] + Temp_rk[3];
 
     double Temp_ax[3] = {0,0,0};
     if ( ax > AX0 ){
@@ -525,6 +536,43 @@ void ZK_compute(){
             Temp_ax[1] = 1;
     }
 
+    double vi_max = max_vect(Vi, 4);
+    double vi_min = min_vect(Vi, 4);
+
+    /*
+     * Compute Weights
+     */
+    double temp_1[4] = {0,0,0,0};
+    double partial_1, partial_2;
+    sub(v_wheels, Vi, temp_1, 4);
+    partial_1 = magnitude_squared(temp_1, 4) / pow(SIGMA_W2, 2);
+
+    double temp_2[4] = {0,0,0,0};
+    sub(Vi, old_Vi, delta_Vi, 4);
+    mulscal(delta_Vi, 1/T, temp_2, 4, 1);
+
+    temp_2[0] = AX0 - temp_2[0];
+    temp_2[1] = AX0 - temp_2[1];
+    temp_2[2] = AX0 - temp_2[2];
+    temp_2[3] = AX0 - temp_2[3];
+    partial_2 = magnitude_squared(temp_2, 4) / pow(SIGMA_W1, 2);
+
+    double temp_3 = (double)(exp(-0.5*(partial_1 + partial_2)));
+
+    double temp_4[4] = {0,0,0,0};
+    mulscal(Vi, temp_3, temp_4, 4, 1);
+
+    double final_mux[3] = {0,0,0};
+    final_mux[0] = vi_min;
+    final_mux[1] = element_sum(temp_4, 4)/temp_3;
+    final_mux[2] = vi_max;
+
+    double z_vect[3] = {0,0,0};
+    z_vect[0] = final_mux[0]*Temp_ax[0];
+    z_vect[1] = final_mux[1]*Temp_ax[1];
+    z_vect[2] = final_mux[2]*Temp_ax[2];
+
+    return element_sum(z_vect, 3);
 }
 
 
