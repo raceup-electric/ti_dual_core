@@ -30,7 +30,10 @@
 
 
 #define R_P   0.00949
-
+#define Atraction     0.84425
+#define Btraction     0.69075
+#define S_MAX         0.1
+#define S_MIN         -0.12
 
 #define R2D_BRAKE_TRESHOLD  10
 

@@ -12,6 +12,64 @@ float var_min = 3.0f;
 float slope = 1.f;
 float dacc = 0.0f;
 
+
+void traction(){
+
+    double tmp1 = yaw_r*T_F/2;
+    double tmp1a = speed_state[0]-tmp1;
+    double tmp1b = speed_state[0]+tmp1;
+
+    double tmp2 = yaw_r*T_R/2;
+    double tmp2a = speed_state[0]-tmp2;
+    double tmp2b = speed_state[0]+tmp2;
+
+    double vec1[] = {tmp1a,tmp1b,tmp2a,tmp2b};
+
+
+    double tmp3 = yaw_r*Atraction;
+    double tmp3a = speed_state[1]+tmp3;
+
+    double tmp4 = yaw_r*(-Btraction);
+    double tmp4a = -speed_state[1]+tmp4;
+
+    double vec2[] = {tmp3a,tmp3a,tmp4a,tmp4a};
+
+
+    double temp_angle1[4];
+    double temp_angle2[4];
+
+    temp_angle1[0] = cos(w_angles[0]);
+    temp_angle1[1] = cos(w_angles[1]);
+    temp_angle1[2] = cos(w_angles[2]);
+    temp_angle1[3] = cos(w_angles[3]);
+
+    temp_angle2[0] = sin(w_angles[0]);
+    temp_angle2[1] = sin(w_angles[1]);
+    temp_angle2[2] = sin(w_angles[2]);
+    temp_angle2[3] = sin(w_angles[3]);
+
+    double x1 = 0;
+    mulvec(vec1, temp_angle1, &x1, 1, 4);
+
+    double x2 = 0;
+    mulvec(vec2, temp_angle2, &x2, 1, 4);
+
+    double result1 = x1+x2;
+
+    double temp1 = -(1+S_MAX)*result1;
+    double temp2 = (1+S_MIN)*result1;
+
+    mat_addeye(v_wheels,-temp1);
+
+
+
+
+
+
+}
+
+
+
 void readVelocity()
 {
     actualVelocityRPM = readRPMVelocity();

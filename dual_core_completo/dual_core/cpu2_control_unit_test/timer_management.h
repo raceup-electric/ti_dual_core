@@ -27,4 +27,7 @@ __interrupt void cpu_timer2_isr(void);
 
 void Shared_Ram_dataWrite_c2(void);
 
+void traction();
+
+
 #endif
