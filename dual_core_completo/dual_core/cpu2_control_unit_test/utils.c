@@ -1,3 +1,4 @@
+#include <math.h>
 #include "utils.h"
 
 extern float corrected_accelerations[3];
@@ -222,3 +223,34 @@ void float2Bytes(unsigned char* bytes_temp, float float_variable)
 {
     memcpy(bytes_temp, &float_variable, sizeof(float_variable));
 }
+
+
+void steering_to_delta_wheels(double input){
+
+    double steering_rack_travel = (input/180)*PI*R_P;
+
+    double tmp0a = pow(steering_rack_travel,5)*p_lf[0];
+    double tmp1a = pow(steering_rack_travel,4)*p_lf[1];
+    double tmp2a = pow(steering_rack_travel,3)*p_lf[2];
+    double tmp3a = pow(steering_rack_travel,2)*p_lf[3];
+    double tmp4a = steering_rack_travel*p_lf[4];
+
+    double delta_lf = tmp0a+tmp1a+tmp2a+tmp3a+tmp4a+p_lf[5];
+
+
+    double tmp0b = pow(steering_rack_travel,5)*p_fr[0];
+    double tmp1b = pow(steering_rack_travel,4)*p_fr[1];
+    double tmp2b = pow(steering_rack_travel,3)*p_fr[2];
+    double tmp3b = pow(steering_rack_travel,2)*p_fr[3];
+    double tmp4b = steering_rack_travel*p_fr[4];
+
+    double delta_fr = tmp0b+tmp1b+tmp2b+tmp3b+tmp4b+p_fr[5];
+
+
+    delta[0] = delta_lf*PI/180;
+    delta[1] = delta_fr*PI/180;
+
+}
+
+
+

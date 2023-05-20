@@ -5,6 +5,8 @@
 // include
 //
 #include "motor_management.h"
+#include "global_definitions.h"
+
 
 struct motorValues1 {
     bool AMK_bSystemReady;      //System ready(SBM)
@@ -205,6 +207,11 @@ extern const float presets_coppie_rear[6];
 extern struct Macros_settings macros_settings;
 
 
+extern double p_lf[6];
+extern double p_fr[6];
+extern double delta[2];
+
+
 //
 // prototypes
 //
@@ -242,8 +249,9 @@ void send_calibration(float V[3][3]);
 void imu_calibration_1(float accelerations[3]);
 void imu_calibration_2(float accelerations[3]);
 
-
-
 void apply_calibration();
+
+void steering_to_delta_wheels(double input);
+
 
 #endif

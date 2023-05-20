@@ -23,9 +23,14 @@
 #define TORQUE_VECTORING    0
 #define TRACTION_CTRL   0
 #define THERMAL_POWER_CTRL    0
+
 /*
  * END OF SUPER IMPORTANT MACROS
  */
+
+
+#define R_P   0.00949
+
 
 #define R2D_BRAKE_TRESHOLD  10
 

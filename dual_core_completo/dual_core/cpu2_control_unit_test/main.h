@@ -262,6 +262,9 @@ unsigned char epwm6A;
 
 //float A_k[2][2];
 
+double delta[2];
+double p_lf[] = {45640000,-1951000,60000,-3000,1000,0};
+double p_fr[] = {45640000,1951000,60000,3000,1000,0};
 
 
 tCANMsgObject RXCANB_AmkVal1_Message[4];
