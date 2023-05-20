@@ -207,9 +207,9 @@ extern const float presets_coppie_rear[6];
 extern struct Macros_settings macros_settings;
 
 
-extern double p_lf[6];
-extern double p_fr[6];
-extern double delta[2];
+extern const double p_lf[6];
+extern const double p_fr[6];
+extern double delta_steer[2];
 
 
 //

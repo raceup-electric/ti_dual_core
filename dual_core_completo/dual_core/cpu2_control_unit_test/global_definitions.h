@@ -101,6 +101,9 @@
 #define C_Z_A                       3.94f
 #define RHO                         1.25f
 #define A_A                         1.087f
+#define AX0                         0.5f
+#define TOE_F                       0.f
+#define TOE_R                       0.f
 
 //Constants of TorqueLimit1
 #define NU1                         1.7977585706847f;
@@ -313,5 +316,11 @@
 //
 #define BRAKE_LIGHT_MIN                 5   //valore minimo di brake per attivare la brake light
 
+
+/*
+ * KALMAN
+ */
+
+#define SMALL_R0        0.0349f
 
 #endif

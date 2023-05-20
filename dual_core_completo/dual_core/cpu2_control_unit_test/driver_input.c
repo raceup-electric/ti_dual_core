@@ -176,4 +176,11 @@ void setup_intialValue_pedals(){
 
 }
 
+void wheels_angles(){
+    w_angles[0] = delta_steer[0] - TOE_F;
+    w_angles[1] = delta_steer[1] + TOE_F;
+    w_angles[2] = -TOE_R;
+    w_angles[3] = TOE_R;
+}
+
 

@@ -57,6 +57,9 @@ extern int throttles[];
 extern int brakes[];
 extern int steerings[];
 
+extern double w_angles[4];
+extern double delta_steer[2];
+
 extern int actualVelocityRPM;
 extern float actualVelocityKMH;
 extern int brake;
@@ -82,5 +85,7 @@ int Read_brake(int);
 int Read_steering(void);
 
 void readThrottleBrakeSteering();
+
+void wheels_angles();
 
 #endif

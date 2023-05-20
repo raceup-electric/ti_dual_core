@@ -66,7 +66,9 @@ extern float power_limit;
  * KALMAN
  */
 
-//extern float A_k[2][2];
+extern double speed_state[2];
+extern double w_angles[4];
+extern double delta_steer[2];
 
 //
 // prototypes
@@ -95,6 +97,8 @@ void onePedalDriving();
 
 void torqueLimit1();
 
-void ExtendedKalmanFilter(double yaw_r, double T, double x[2], double * z);
+void ExtendedKalmanFilter(double T, double * z);
+
+void ZK_compute();
 
 #endif

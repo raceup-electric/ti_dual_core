@@ -260,13 +260,18 @@ unsigned char epwm6A;
  * KALMAN FILTER
  */
 
-//float A_k[2][2];
 
-double delta[2];
-double p_lf[] = {45640000,-1951000,60000,-3000,1000,0};
-double p_fr[] = {45640000,1951000,60000,3000,1000,0};
+const double p_lf[] = {45640000,-1951000,60000,-3000,1000,0};
+const double p_fr[] = {45640000,1951000,60000,3000,1000,0};
+
+double speed_state[2] = {0,0};
+double w_angles[4] = {0,0,0,0};
+double delta_steer[2] = {0,0};
 
 
+/*
+ * AMK CAN
+ */
 tCANMsgObject RXCANB_AmkVal1_Message[4];
 tCANMsgObject RXCANB_AmkVal2_Message[4];
 unsigned char RXB_AmkVal_Data[8];

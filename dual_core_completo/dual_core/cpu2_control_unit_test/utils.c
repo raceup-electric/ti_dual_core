@@ -225,9 +225,9 @@ void float2Bytes(unsigned char* bytes_temp, float float_variable)
 }
 
 
-void steering_to_delta_wheels(double input){
+void steering_to_delta_wheels(double steer_angle){
 
-    double steering_rack_travel = (input/180)*PI*R_P;
+    double steering_rack_travel = (steer_angle/180)*PI*R_P;
 
     double tmp0a = pow(steering_rack_travel,5)*p_lf[0];
     double tmp1a = pow(steering_rack_travel,4)*p_lf[1];
@@ -247,8 +247,8 @@ void steering_to_delta_wheels(double input){
     double delta_fr = tmp0b+tmp1b+tmp2b+tmp3b+tmp4b+p_fr[5];
 
 
-    delta[0] = delta_lf*PI/180;
-    delta[1] = delta_fr*PI/180;
+    delta_steer[0] = delta_lf*PI/180;
+    delta_steer[1] = delta_fr*PI/180;
 
 }
 

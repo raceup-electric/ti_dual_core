@@ -372,7 +372,12 @@ void onePedalDriving()
 /*
  * https://github.com/simondlevy/TinyEKF
  */
-void ExtendedKalmanFilter(double yaw_r, double T, double x[2], double * z){
+void ExtendedKalmanFilter(double T, double * z){
+
+    /*
+     * PARAMETERS
+     */
+    double x[2] = {speed_state[0], speed_state[1]};
 
     /*
      * MATRICES
@@ -391,8 +396,6 @@ void ExtendedKalmanFilter(double yaw_r, double T, double x[2], double * z){
     double K_k[2] = {0,0};  //2x1
     static double Q[4] = {0, 0, 0, 0};  //2x2
     static double * R_tc = 0;   //scalar
-
-
 
     double AT_k[4];
     double WT_k[6];     //3x2
@@ -445,14 +448,6 @@ void ExtendedKalmanFilter(double yaw_r, double T, double x[2], double * z){
     mulmat(Temp_7, Pnew_k, P_k, n, n, n);
 
     /*
-     * ERRORE GIULIA trasposta H
-     * L_k = (P_k * H')/R
-     */
-    mulmat(P_k, HT, Temp_8, n, n, n);
-    double R_inv = 1/(*R_tc);
-    mulscal(Temp_8, R_inv, L_k, 2, 1);
-
-    /*
      * Time update
      */
 
@@ -477,17 +472,58 @@ void ExtendedKalmanFilter(double yaw_r, double T, double x[2], double * z){
     /*
      * Measurement Update
      */
-
-        /*
-         * Temp_err =
-         */
         double * Temp_9, * Temp_err;
         double New_x[2];
         mulmat(H, temp_x_minus, Temp_6, 1, 2, 1);
         sub(z, Temp_6, Temp_9, 1);
-        mulmat(L_k, Temp_9, Temp_err, 2, 1, 1);
+        mulmat(K_k, Temp_9, Temp_err, 2, 1, 1);
         add(Temp_err, temp_x_minus, New_x, 2);
 
+    /*
+     * R0 check
+     */
+        if( yaw_r <= SMALL_R0 ){
+            New_x[1] = 0;
+        }
+
+    /*
+     * Update current state
+     */
+        speed_state[0] = New_x[0];
+        speed_state[1] = New_x[1];
+}
+
+void ZK_compute(){
+    /*
+     * Parameters
+     *  ax, r_k, wheels_angles, v_wheels, vx_k-1
+     *  In our code
+     *  ax, yaw_r, w_angles, v_wheels, speed_state[0]
+     */
+
+    double Temp_rk[4] = {yaw_r*T_F/2.f, -yaw_r*T_F/2.f, yaw_r*T_R/2.f, -yaw_r*T_R/2.f};
+
+    w_angles[0] = cos(w_angles[0]);
+    w_angles[1] = cos(w_angles[1]);
+    w_angles[2] = cos(w_angles[2]);
+    w_angles[3] = cos(w_angles[3]);
+
+    double Vi[4] = {0,0,0,0};
+//    Vi[0] =  w_angles[0]*v_wheels[0] + Temp_rk[0];
+//    Vi[1] =  w_angles[0]*v_wheels[1] + Temp_rk[1];
+//    Vi[2] =  w_angles[0]*v_wheels[2] + Temp_rk[2];
+//    Vi[3] =  w_angles[0]*v_wheels[3] + Temp_rk[3];
+
+    double Temp_ax[3] = {0,0,0};
+    if ( ax > AX0 ){
+        Temp_ax[0] = 1;
+    }
+    if ( ax < -AX0 ){
+        Temp_ax[2] = 1;
+    }
+    if ( ax >= -AX0 && ax < AX0){
+            Temp_ax[1] = 1;
+    }
 
 }
 
