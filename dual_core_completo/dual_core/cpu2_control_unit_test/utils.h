@@ -251,7 +251,7 @@ void imu_calibration_2(float accelerations[3]);
 
 void apply_calibration();
 
-void steering_to_delta_wheels(double input);
+void steering_to_delta_wheels();
 
 
 #endif

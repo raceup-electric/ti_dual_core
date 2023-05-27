@@ -12,8 +12,16 @@ float var_min = 3.0f;
 float slope = 1.f;
 float dacc = 0.0f;
 
+double vecErrorP_last[4] = {0,0,0,0};
+double vecErrorM_last[4] = {0,0,0,0};
 
-void traction(){
+double errP_last = 0;
+double errM_last = 0;
+
+
+void TractionControl(double T){
+
+    velocity_estimation(T);
 
     double tmp1 = yaw_r*T_F/2;
     double tmp1a = speed_state[0]-tmp1;
@@ -59,13 +67,76 @@ void traction(){
     double temp1 = -(1+S_MAX)*result1;
     double temp2 = (1+S_MIN)*result1;
 
-    mat_addeye(v_wheels,-temp1);
+    double vecErrorP[] = {0,0,0,0};
+    double vecErrorM[] = {0,0,0,0};
 
 
+    addscal(v_wheels,-temp1,vecErrorP,1,4);
+    mulscal(v_wheels,-1,vecErrorM,1,4);
+    addscal(vecErrorM,temp2,vecErrorM,1,4);
+
+    double errP = max(max_vect(vecErrorP,4),0);
+    double errM = max(max_vect(vecErrorM,4),0);
 
 
+    double vecError2P[4] = {0,0,0,0};
+    double vecError2M[4] = {0,0,0,0};
+
+    mulscal(vecErrorP_last,-1,vecErrorP_last,1,4);
+    mulscal(vecErrorM_last,-1,vecErrorM_last,1,4);
+
+    add(vecErrorP_last, vecErrorP, vecError2P, 4);
+    add(vecErrorM_last, vecErrorM, vecError2M, 4);
+
+    mulscal(vecError2P,1/T,vecError2P,1,4);
+    mulscal(vecError2M,1/T,vecError2M,1,4);
+
+    double err2P = max(max_vect(vecError2P,4),0);
+    err2P = err2P*D_POS;
+
+    double err2M = max(max_vect(vecError2M,4),0);
+    err2M = err2M*D_NEG;
+
+    double rP = 0;
+    if(errP != 0)
+        rP = 1;
+
+    double rM = 0;
+    if(errM != 0)
+        rM = 1;
+
+    double intermetidateP = errP_last + errP;
+    double intermetidateM = errM_last + errM;
+
+    intermetidateP = intermetidateP*rP*I_POS;
+    intermetidateM = intermetidateM*rM*I_NEG;
+
+    double val1Pos = min(max_I_pos,intermetidateP);
+    double val1Neg = min(max_I_neg,intermetidateM);
+
+    double resultPos =  val1Pos+err2P+errP*P_POS;
+    double resultNeg =  val1Neg+err2M+errM*P_NEG;
+
+    resultPos = saturate(resultPos,0,1);
+    resultNeg = saturate(resultNeg,0,1);
+
+    TC_pos = 1-resultPos;
+    TC_neg = 1-resultNeg;
 
 
+    int i = 0;
+    for(i = 0; i<4; i++){
+
+        vecErrorP_last[i] = vecErrorP[i];
+        vecErrorM_last[i] = vecErrorM[i];
+
+    }
+
+    errP_last = errP;
+    errM_last = errM;
+
+
+ // update I_POS etc in define global definition
 }
 
 
@@ -685,6 +756,16 @@ double ZK_compute(double T){
 
     return element_sum(z_vect, 3);
 }
+
+void velocity_estimation(double T){
+    steering_to_delta_wheels();
+    wheels_angles();
+
+    RECalculatorTC();
+
+    ExtendedKalmanFilter(T);
+}
+
 
 
 

@@ -149,6 +149,15 @@
 #define max_I_pos                   0.75f                   // max positive integral term in PID controller []
 #define max_I_neg                   max_I_pos               // max negative integral term in PID controller []
 
+#define S_MAX         0.1
+#define S_MIN         -0.12
+#define I_POS          0
+#define P_POS          0
+#define D_POS          0
+#define I_NEG          0
+#define P_NEG          0
+#define D_NEG          0
+
 //Constants of TorqueLimit1
 #define NU1                         1.7977585706847f;
 #define NU2                         0.000387300865455914f;

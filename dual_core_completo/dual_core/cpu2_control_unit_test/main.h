@@ -136,8 +136,10 @@ float re[4];
 
 double fzTC[4] = {0,0,0,0};
 double reTC[4];
-
 float repFz[4];
+
+double TC_pos = 0;
+double TC_neg = 0;
 
 float posTorqueCandidate[4][4];      //[MotorIndex][CandidateIndex]
 float negTorqueCandidate[4];      //[MotorIndex][CandidateIndex]

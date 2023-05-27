@@ -38,6 +38,8 @@ void transpose(double * a, double * at, int m, int n);
 
  void mulscal(double * a, double scal, double * b, int m, int n);
 
+ void addscal(double * a, double scal, double *b, int m, int n);
+
 //int choldcsl(double * A, double * a, double * p, int n);
 //
 //int cholsl(double * A, double * a, double * p, int n);
@@ -46,6 +48,10 @@ void transpose(double * a, double * at, int m, int n);
  double min_vect(double * a, int size);
  double magnitude_squared(double * a, int size);
  double element_sum(double * a, int size);
+
+ double max(double num1, double num2);
+ double min(double num1, double num2);
+ double saturate(double val, double min, double max);
 
 
 #endif /* MATRIX_H_ */

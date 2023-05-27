@@ -178,6 +178,14 @@ void mulscal(double * a, double scal, double *b, int m, int n) {
 
 }
 
+void addscal(double * a, double scal, double *b, int m, int n) {
+
+ int j;
+ for(j=0; j<m*n; j++)
+         b[j] = scal+a[j];
+
+}
+
 double max_vect(double * a, int size){
     int i;
     double temp = a[0];
@@ -220,3 +228,31 @@ double element_sum(double* a, int size){
     return tot;
 }
 
+
+
+double max(double num1, double num2){
+
+    if(num1>num2)
+        return num1;
+    return num2;
+
+}
+
+double min(double num1, double num2){
+
+    if(num1>num2)
+        return num2;
+    return num1;
+
+}
+
+
+double saturate(double val, double min, double max){
+
+    if(val>max)
+        return max;
+    if(val<min)
+        return min;
+    return val;
+
+}

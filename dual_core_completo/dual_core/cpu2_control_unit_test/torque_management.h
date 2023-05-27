@@ -72,6 +72,8 @@ extern double speed_state[2];
 extern double w_angles[4];
 extern double v_wheels[4];
 extern double delta_steer[2];
+extern double TC_pos;
+extern double TC_neg;
 
 //
 // prototypes
@@ -85,6 +87,8 @@ void readVelocity();
 void performancePack();
 
 void saturationsAndConversions();
+
+void TractionControl(double T);
 
 void FzCalculatorTV();
 
@@ -107,5 +111,7 @@ void torqueLimit1();
 void ExtendedKalmanFilter(double T);
 
 double ZK_compute(double T);
+
+void velocity_estimation(double T);
 
 #endif
