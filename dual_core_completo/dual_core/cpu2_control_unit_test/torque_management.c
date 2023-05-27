@@ -202,7 +202,7 @@ void performancePack()
 
 
     for (i = 0; i < NUM_OF_MOTORS; i++){
-        //Primo candidato (numero 0) c he è il torque massimo
+        //Primo candidato (numero 0) c he ï¿½ il torque massimo
         posTorqueCandidate[i][0] = AMK_TorqueLimitPositive[i];
     }
 
@@ -451,7 +451,7 @@ void torqueLimit1(){
     }
 }
 
-//torque_reg_IPM in uscita é POSITIVO
+//torque_reg_IPM in uscita ï¿½ POSITIVO
 void regBrake()
 {
     float sumrip = repFz[0] + repFz[1] + repFz[2] + repFz[3];
@@ -616,7 +616,7 @@ void ExtendedKalmanFilter(double T){
     /*
      * Temp_6 = (H * Pnew * H') + R
      */
-    mulmat(P_k, HT, Temp_5, 2, 2, 1);
+    mulmat(Pnew_k, HT, Temp_5, 2, 2, 1);
     mulmat(H, Temp_5, Temp_6, 1, 2, 1);
     accum(Temp_6, R_tc, 1, 1);
 
