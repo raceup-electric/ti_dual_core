@@ -15,9 +15,6 @@
 #include "global_definitions.h"
 #include "can_management.h"
 
-#define A   1
-#define B   2
-
 
 extern unsigned char epwm4B;
 extern unsigned char epwm5A;

@@ -134,6 +134,9 @@ float speedTv = 0;
 float fz[4] = {0,0,0,0};
 float re[4];
 
+double fzTC[4] = {0,0,0,0};
+double reTC[4];
+
 float repFz[4];
 
 float posTorqueCandidate[4][4];      //[MotorIndex][CandidateIndex]

@@ -233,14 +233,14 @@ void speedCalculatorTV()
 void FzCalculatorTV()
 {
     //Calcolo delle forze applicate su ogni ruota
-    float tmp_x = (ax*MASS*Z_G)/(W*2.0f);
+    float tmp_x = (ax*MASS*Z_COG)/(W*2.0f);
 
 #ifdef TV_ACC
     float tmp_yf = 0;
     float tmp_yr = 0;
 #else
-    float tmp_yf = (ay*MASS*Z_G*K_F)/T_F;
-    float tmp_yr = (ay*MASS*Z_G*K_R)/T_R;
+    float tmp_yf = (ay*MASS*Z_COG*K_F)/T_F;
+    float tmp_yr = (ay*MASS*Z_COG*K_R)/T_R;
 #endif
 
     float tmp_u1 = speedTv*speedTv*0.25f*RHO*C_Z_A*((1-A_A)/W);
@@ -271,6 +271,42 @@ void FzCalculatorTV()
         fz[i] = saturateFloat(fz[i], FZ_UPPER_BOUND, FZ_LOWER_BOUND);
     }
 
+}
+
+void FZCalculatorTC(){
+    /*
+     * parameters are: ax, ay, speed_state[0]
+     */
+    double vx = speed_state[0];
+    double temp1 = MASS*G_ACC*B/(2*W);
+    double temp2 = ay*MASS*(B*zRC_f/W+kr_f/(kr_f+kr_r)*(Z_COG-(zRC_f+(zRC_r-zRC_f)*A/W)))/T_F;
+    double temp3 = ay*(MASS*(A*zRC_r/W+kr_r/(kr_f+kr_r)*(Z_COG-(zRC_f+(zRC_r-zRC_f)*A/W)))/T_R);
+    double temp4 = ax*(MASS*Z_COG)/(2*W);
+    static double FI = RHO*CLA/2;
+    double temp5 = vx*vx*FI*0.5*B_A/W;
+    double temp6 = vx*vx*FI*0.5*A_A/W;
+    double temp7 = MASS*G_ACC*A/(2*W);
+
+    fzTC[0] = temp1 - temp2 - temp4 + temp5;
+    fzTC[1] = temp1 - temp3 + temp2 + temp5;
+    fzTC[2] = temp6 - temp3 - temp4 + temp7;
+    fzTC[3] = temp6 + temp3 + temp4 + temp7;
+
+    int i;
+    for(i = 0; i < 4; i++){
+        if (fzTC[i] < 0)
+            fzTC[i] = 0;
+        if (fzTC[i] > 2000)
+            fzTC[i] = 2000;
+    }
+}
+
+void RECalculatorTC(){
+    double old_FZ[4];
+    int i;
+    for(i = 0; i < 4; i++){
+        old_FZ[i] = fzTC[i];
+    }
 }
 
 void torqueVectoring()
@@ -552,8 +588,8 @@ void ExtendedKalmanFilter(double T){
     /*
      * Update current state
      */
-        speed_state[0] = New_x[0];
-        speed_state[1] = New_x[1];
+     speed_state[0] = New_x[0];
+     speed_state[1] = New_x[1];
 }
 
 double ZK_compute(double T){

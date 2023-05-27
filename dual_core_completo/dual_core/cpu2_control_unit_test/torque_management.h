@@ -51,6 +51,8 @@ extern float steers[4];
 extern float speedTv;
 extern float fz[4];
 extern float re[4];
+extern double fzTC[4];
+extern double reTC[4];
 extern float speedTv;
 extern float repFz[4];
 extern float posTorqueCandidate[4][4];      //[MotorIndex][CandidateIndex]

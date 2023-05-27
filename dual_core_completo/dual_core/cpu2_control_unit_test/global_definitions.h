@@ -73,6 +73,15 @@
 #define SPEED_LIMIT                 18000   // Typical value: 15000
 #define M_N                         9.8f
 
+/*
+ * AERO
+ */
+#define CLA                         3.814f
+#define CDA                         1.098f
+#define CoP_0                       0.041f
+#define CoP_1                       0.f
+#define CoP_2                       0.115f
+
 //
 // PERFORMANCE PACK
 //
@@ -91,22 +100,49 @@
 
 #define TAU                         (1.0f/14.4f)
 #define K_DELTA                     0.2776853f
-#define R0                          0.228f
+#define R0                          0.2032f
 #define FZR                         78.0f
 #define FZF                         63.0f
 #define W                           1.535f
-#define MASS                        282.0f
-#define Z_G                         0.3f
+#define MASS                        270.0f
+#define Z_COG                       0.3f
+#define zRC_f                       0.01542f
+#define zRC_r                       0.03824f
 #define T_F                         1.23f
 #define T_R                         1.2f
 #define K_F                         0.4775f
 #define K_R                         (1-K_F)
 #define C_Z_A                       3.94f
 #define RHO                         1.25f
-#define A_A                         1.087f
+#define A                           W*M_DR
+#define B                           W*M_DF
+#define A_A                         A+CoP_0+CoP_2*CDA/CLA
+#define B_A                         W - A_A
 #define AX0                         0.5f
 #define TOE_F                       0.f
 #define TOE_R                       0.f
+
+#define M_DF                        0.45f
+#define M_DR                        1 - M_DF
+
+#define k_s                         61294.f
+#define k_ARBf                      551570.f
+#define k_ARBr                      598090.f
+#define MR_sf                       1.14f
+#define MR_sr                       1.187f
+#define MR_ARBf                     1.708f
+#define MR_ARBr                     1.633f
+
+#define k_t                         122000.f
+
+#define kr_wf                       k_s/(MR_sf*MR_sf) + k_ARBf/(MR_ARBf*MR_ARBf)
+#define kr_wr                       k_s/(MR_sr*MR_sr) + k_ARBr/(MR_ARBr*MR_ARBr)
+
+#define kr_rf                       kr_wf*k_t/(kr_wf+k_t)
+#define kr_rr                       kr_wr*k_t/(kr_wr+k_t)
+
+#define kr_f                        (kr_rf*T_F*T_F/2.f)
+#define kr_r                        (kr_rr*T_R*T_R/2.f)
 
 //Constants of TorqueLimit1
 #define NU1                         1.7977585706847f;
@@ -324,6 +360,7 @@
  * KALMAN
  */
 
+#define k_Re            9.33e-06f
 #define SMALL_R0        0.0349f
 #define SIGMA_W2        1.5f
 #define SIGMA_W1        7.f
