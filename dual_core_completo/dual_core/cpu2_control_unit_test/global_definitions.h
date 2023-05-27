@@ -99,6 +99,7 @@
 #define FZ_LOWER_BOUND              50.0f
 
 #define TAU                         (1.0f/14.4f)
+#define TAU_TC                      12.67f
 #define K_DELTA                     0.2776853f
 #define R0                          0.2032f
 #define FZR                         78.0f
@@ -113,7 +114,7 @@
 #define K_F                         0.4775f
 #define K_R                         (1-K_F)
 #define C_Z_A                       3.94f
-#define RHO                         1.25f
+#define RHO                         1.225f
 #define A                           W*M_DR
 #define B                           W*M_DF
 #define A_A                         A+CoP_0+CoP_2*CDA/CLA
@@ -143,6 +144,9 @@
 
 #define kr_f                        (kr_rf*T_F*T_F/2.f)
 #define kr_r                        (kr_rr*T_R*T_R/2.f)
+
+#define max_I_pos                   0.75f
+#define max_I_neg                   max_I_pos
 
 //Constants of TorqueLimit1
 #define NU1                         1.7977585706847f;

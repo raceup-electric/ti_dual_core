@@ -88,6 +88,10 @@ void saturationsAndConversions();
 
 void FzCalculatorTV();
 
+void FzCalculatorTC();
+
+void RECalculatorTC();
+
 void speedCalculatorTV();
 
 void torqueVectoring();

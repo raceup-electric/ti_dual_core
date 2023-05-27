@@ -183,7 +183,7 @@ void saturationsAndConversions()
     //Conversions
 
     for (i = 0; i < NUM_OF_MOTORS; i++){
-        motorSpeeds[i] = (motorSpeeds[i]*PI_FLOAT*TAU)/30.0f;
+        motorSpeeds[i] = (motorSpeeds[i]*PI_FLOAT*TAU_TC)/30.0f;
     }
 
 }
@@ -303,10 +303,27 @@ void FZCalculatorTC(){
 
 void RECalculatorTC(){
     double old_FZ[4];
+    double omega_wheels[4];
     int i;
+    for(i = 0; i < 4; i++){
+            reTC[i] = R0 - old_FZ[i]*k_Re;
+    }
+
+    for(i = 0; i < 4; i++){
+        if (reTC[i] > R0)
+            reTC[i] = R0;
+        if (reTC[i] < 0.95*R0)
+            reTC[i] = 0.95*R0;
+    }
+
     for(i = 0; i < 4; i++){
         old_FZ[i] = fzTC[i];
     }
+
+    for(i = 0; i < 4; i++){
+        v_wheels[i] = reTC[i]*RPM_TO_RADS*motorVal1[i].AMK_ActualVelocity;
+    }
+
 }
 
 void torqueVectoring()
