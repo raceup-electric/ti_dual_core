@@ -29,11 +29,11 @@
  */
 
 
-#define R_P   0.00949
+#define R_P   0.00949                               // %pinion radius [m]
 #define Atraction     0.84425
 #define Btraction     0.69075
-#define S_MAX         0.1
-#define S_MIN         -0.12
+#define S_MAX         0.1                           // positive optimal slip ratio []
+#define S_MIN         -0.12                         // negative optimal slip ratio []
 
 #define R2D_BRAKE_TRESHOLD  10
 
@@ -54,7 +54,7 @@
 
 #define STZ_RANGE           90
 
-#define G_ACC               9.81f
+#define G_ACC               9.81f                   // gravity acceleration [m/s^2]
 #define PI_FLOAT            3.14159265f
 #define HALF_PI             1.5707963267948966192313216916398
 #define PI                  3.1415926535897932384626433832795
@@ -76,8 +76,9 @@
 /*
  * AERO
  */
-#define CLA                         3.814f
-#define CDA                         1.098f
+#define CLA                         3.814f                  // lift coefficient*surface, positive downwards (->downforce) [m^2]
+#define CDA                         1.098f                  // drag coefficient*surface, positive rearwards [m^2]
+// center of pressure coordinates [m^2]; reference system: t/2, w/2; x positive rearwards, z positive upwards
 #define CoP_0                       0.041f
 #define CoP_1                       0.f
 #define CoP_2                       0.115f
@@ -99,54 +100,54 @@
 #define FZ_LOWER_BOUND              50.0f
 
 #define TAU                         (1.0f/14.4f)
-#define TAU_TC                      12.67f
+#define TAU_TC                      12.67f                  // gear unit reduction rate []
 #define K_DELTA                     0.2776853f
-#define R0                          0.2032f
+#define R0                          0.2032f                 // unloaded radius [m]
 #define FZR                         78.0f
 #define FZF                         63.0f
-#define W                           1.535f
-#define MASS                        270.0f
-#define Z_COG                       0.3f
-#define zRC_f                       0.01542f
-#define zRC_r                       0.03824f
-#define T_F                         1.23f
-#define T_R                         1.2f
+#define W                           1.535f                  // wheelbase  [m]
+#define MASS                        270.0f                  // total mass (vehicle + driver) [kg]
+#define Z_COG                       0.3f                    // center of gravity height [m]
+#define zRC_f                       0.01542f                // front roll center height [m]
+#define zRC_r                       0.03824f                // rear roll center height [m]
+#define T_F                         1.23f                   // track front [m]
+#define T_R                         1.2f                    // track rear [m]
 #define K_F                         0.4775f
 #define K_R                         (1-K_F)
 #define C_Z_A                       3.94f
-#define RHO                         1.225f
-#define A                           W*M_DR
-#define B                           W*M_DF
-#define A_A                         A+CoP_0+CoP_2*CDA/CLA
-#define B_A                         W - A_A
-#define AX0                         0.5f
-#define TOE_F                       0.f
-#define TOE_R                       0.f
+#define RHO                         1.225f                  // air density [kg/m^3]
+#define A                           W*M_DR                  // front wheels-CoG (longitudinal distance) [m]
+#define B                           W*M_DF                  // rear wheels-CoG (longitudinal distance) [m]
+#define A_A                         A+CoP_0+CoP_2*CDA/CLA   // front wheels-CoP (longitudinal distance) [m]
+#define B_A                         W - A_A                 // rear wheels-CoP (longitudinal distance) [m]
+#define AX0                         0.5f                    // vehicle longitudinal acceleration threshold [m/s^2]
+#define TOE_F                       0.f                     // toe front: positive if toe IN [rad]
+#define TOE_R                       0.f                     // toe rear: positive if toe IN [rad]
 
-#define M_DF                        0.45f
-#define M_DR                        1 - M_DF
+#define M_DF                        0.45f                   // mass distribution (front mass/total mass) []
+#define M_DR                        1 - M_DF                // mass distribution (rear mass/total mass) []
 
-#define k_s                         61294.f
-#define k_ARBf                      551570.f
-#define k_ARBr                      598090.f
-#define MR_sf                       1.14f
-#define MR_sr                       1.187f
-#define MR_ARBf                     1.708f
-#define MR_ARBr                     1.633f
+#define k_s                         61294.f                 // spring stiffness [N/m]
+#define k_ARBf                      551570.f                // front ARB stiffness [N/m]
+#define k_ARBr                      598090.f                // rear ARB stiffness [N/m]
+#define MR_sf                       1.14f                   // front spring motion ratio (dz_wheel/dl_sf) []
+#define MR_sr                       1.187f                  // rear spring motion ratio (dz_wheel/dl_sr) []
+#define MR_ARBf                     1.708f                  // front ARB motion ratio (dz_wheel/dl_ARBf) []
+#define MR_ARBr                     1.633f                  // rear ARB motion ratio (dz_wheel/dl_ARBr) []
 
-#define k_t                         122000.f
+#define k_t                         122000.f                // tire stiffness at 150lbs on 8in rim [N/m]
 
-#define kr_wf                       k_s/(MR_sf*MR_sf) + k_ARBf/(MR_ARBf*MR_ARBf)
-#define kr_wr                       k_s/(MR_sr*MR_sr) + k_ARBr/(MR_ARBr*MR_ARBr)
+#define kr_wf                       k_s/(MR_sf*MR_sf) + k_ARBf/(MR_ARBf*MR_ARBf)    // front wheel stiffness in roll [N/m] 
+#define kr_wr                       k_s/(MR_sr*MR_sr) + k_ARBr/(MR_ARBr*MR_ARBr)    // rear wheel stiffness in roll [N/m]
 
-#define kr_rf                       kr_wf*k_t/(kr_wf+k_t)
-#define kr_rr                       kr_wr*k_t/(kr_wr+k_t)
+#define kr_rf                       kr_wf*k_t/(kr_wf+k_t)   // front ride rate in roll [N/m]
+#define kr_rr                       kr_wr*k_t/(kr_wr+k_t)   // rear ride rate in roll [N/m]
 
-#define kr_f                        (kr_rf*T_F*T_F/2.f)
-#define kr_r                        (kr_rr*T_R*T_R/2.f)
+#define kr_f                        (kr_rf*T_F*T_F/2.f)     // front roll stiffness (hp: left=right) [Nm]
+#define kr_r                        (kr_rr*T_R*T_R/2.f)     // rear roll stiffness (hp: left=right) [Nm]
 
-#define max_I_pos                   0.75f
-#define max_I_neg                   max_I_pos
+#define max_I_pos                   0.75f                   // max positive integral term in PID controller []
+#define max_I_neg                   max_I_pos               // max negative integral term in PID controller []
 
 //Constants of TorqueLimit1
 #define NU1                         1.7977585706847f;
@@ -175,7 +176,7 @@
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f
-#define T_SAMPLING_ECU      0.010f       //seconds
+#define T_SAMPLING_ECU      0.010f                          // sample period [s]
 #define PI_UPPER_BOUND      175929.2f
 
 #define K1_THERMAL          0.3
@@ -311,7 +312,7 @@
 //
 #define EPWM_CMP_UP             1U
 #define EPWM_CMP_DOWN           0U
-#define EPWM_TIMER_TBPRD        2000U       //più basso il numero, più alta la frequenza
+#define EPWM_TIMER_TBPRD        2000U       //piï¿½ basso il numero, piï¿½ alta la frequenza
                                             //vedi la guida per calcolare la frequenza
 #define VENTOLA_DX              1
 #define VENTOLA_SX              2
@@ -364,8 +365,12 @@
  * KALMAN
  */
 
+// linear gain [m/N] in Re = R0 - k_Re*Fz 
+// defined from FSAE TTC Round 8 data (Free Rolling)
+// of RE, by using the function polyfix,
+// that is polyfit but forcing Re(Fz=0) == R0
 #define k_Re            9.33e-06f
-#define SMALL_R0        0.0349f
+#define SMALL_R0        0.0349f             // yaw rate threshold [rad/s]
 #define SIGMA_W2        1.5f
 #define SIGMA_W1        7.f
 
