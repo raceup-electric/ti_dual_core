@@ -6,12 +6,6 @@ float negTorqueNM_last[4] = {0, 0, 0 ,0};
 
 float minTorquePos[4];
 
-float prev_acc = 0.f;
-float brake_point_limit = 35.f;
-float var_min = 3.0f;
-float slope = 1.f;
-float dacc = 0.0f;
-
 double vecErrorP_last[4] = {0,0,0,0};
 double vecErrorM_last[4] = {0,0,0,0};
 
@@ -23,22 +17,26 @@ void TractionControl(double T){
 
     velocity_estimation(T);
 
+    double vx = speed_state[0];
+    double vy = speed_state[1];
+
+
     double tmp1 = yaw_r*T_F/2;
-    double tmp1a = speed_state[0]-tmp1;
-    double tmp1b = speed_state[0]+tmp1;
+    double tmp1a = vx-tmp1;
+    double tmp1b = vx+tmp1;
 
     double tmp2 = yaw_r*T_R/2;
-    double tmp2a = speed_state[0]-tmp2;
-    double tmp2b = speed_state[0]+tmp2;
+    double tmp2a = vx-tmp2;
+    double tmp2b = vx+tmp2;
 
     double vec1[] = {tmp1a,tmp1b,tmp2a,tmp2b};
 
 
-    double tmp3 = yaw_r*Atraction;
-    double tmp3a = speed_state[1]+tmp3;
+    double tmp3 = yaw_r*A;
+    double tmp3a = vy+tmp3;
 
-    double tmp4 = yaw_r*(-Btraction);
-    double tmp4a = -speed_state[1]+tmp4;
+    double tmp4 = yaw_r*(-B);
+    double tmp4a = -vy+tmp4;
 
     double vec2[] = {tmp3a,tmp3a,tmp4a,tmp4a};
 
@@ -56,37 +54,36 @@ void TractionControl(double T){
     temp_angle2[2] = sin(w_angles[2]);
     temp_angle2[3] = sin(w_angles[3]);
 
-    double x1 = 0;
-    mulvec(vec1, temp_angle1, &x1, 1, 4);
+    double x1[] = {0,0,0,0};
+    mulvecElementWise(vec1, temp_angle1, x1, 1, 4);
 
-    double x2 = 0;
-    mulvec(vec2, temp_angle2, &x2, 1, 4);
+    double x2[] = {0,0,0,0};
+    mulvecElementWise(vec2, temp_angle2, x2, 1, 4);
 
-    double result1 = x1+x2;
+    double result1[] = {0,0,0,0};
+    add(x1,x2,result1,4);
 
-    double temp1 = -(1+S_MAX)*result1;
-    double temp2 = (1+S_MIN)*result1;
+    double temp1[] = {0,0,0,0};
+    double temp2[] = {0,0,0,0};
+
+    mulscal(result1, 1+S_MAX, temp1, 1, 4);
+    mulscal(result1, 1+S_MIN, temp2, 1, 4);
 
     double vecErrorP[] = {0,0,0,0};
     double vecErrorM[] = {0,0,0,0};
 
-
-    addscal(v_wheels,-temp1,vecErrorP,1,4);
-    mulscal(v_wheels,-1,vecErrorM,1,4);
-    addscal(vecErrorM,temp2,vecErrorM,1,4);
+    sub(v_wheels, temp1, vecErrorP, 4);
+    sub(temp2, v_wheels, vecErrorM, 4);
 
     double errP = max(max_vect(vecErrorP,4),0);
     double errM = max(max_vect(vecErrorM,4),0);
 
-
     double vecError2P[4] = {0,0,0,0};
     double vecError2M[4] = {0,0,0,0};
 
-    mulscal(vecErrorP_last,-1,vecErrorP_last,1,4);
-    mulscal(vecErrorM_last,-1,vecErrorM_last,1,4);
 
-    add(vecErrorP_last, vecErrorP, vecError2P, 4);
-    add(vecErrorM_last, vecErrorM, vecError2M, 4);
+    sub(vecErrorP, vecErrorP_last, vecError2P, 4);
+    sub(vecErrorM, vecErrorM_last, vecError2M, 4);
 
     mulscal(vecError2P,1/T,vecError2P,1,4);
     mulscal(vecError2M,1/T,vecError2M,1,4);
@@ -374,7 +371,6 @@ void FZCalculatorTC(){
 
 void RECalculatorTC(){
     double old_FZ[4];
-    double omega_wheels[4];
     int i;
     for(i = 0; i < 4; i++){
             reTC[i] = R0 - old_FZ[i]*k_Re;
@@ -513,41 +509,52 @@ void regBrake()
 
 void onePedalDriving()
 {
-    //Differenza dal valore precedente
+    static float B_p = 35.f;        //activation threshold of negative torque
+    //static float V_max = 120.f;
+    static float F_onePedal = 0.001;
+    static float var_min = 2;
+    static float Vk = 90;
+    static float dacc = 0.f;
+    static float prev_acc = 0.f;
+    static int slope = 1;
+
+    float f = 0;
+
+    if(actualVelocityKMH > Vk - 10)
+        f = 0.25;
+    else
+        f = Vk - actualVelocityKMH/150.f;
+
+    float A_one = -100/(powf(B_p, f)* (1-f));
+    float B_one = f*100/(B_p*(1-f));
+    float C_one = 100;
+
+    float D_one = 100/(powf(100,F_onePedal)-100*F_onePedal*powf(35.f,F_onePedal-1)+powf(35.f,F_onePedal)*(F_onePedal-1));
+    float E_one = (-100*F_onePedal*powf(35.f,F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(35.f,F_onePedal-1)+(powf(35.f,F_onePedal))*(F_onePedal-1));
+    float G_one = (100*(powf(35.f,F_onePedal))*(F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(35.f,F_onePedal-1)+(powf(35.f,F_onePedal))*(F_onePedal-1));
+
     dacc = throttle-prev_acc;
+
     if(dacc > var_min){
-        slope = abs(slope);
+       slope = 1;
     }else if(dacc < -var_min){
-       slope = -abs(slope);
+       slope = 1;
     }
 
-
-
-    if(throttleReq > brake_point_limit){
-        //Condizione normale di accelerazione sopra il 35%
-        throttleReq = ((throttleReq - brake_point_limit)*100)/(100-brake_point_limit);
-        brakeReq = 0;
-
-    }
-    else if(throttleReq==0 && brake > 5){
-        //Frenata meccanica e normale
-        brakeReq = 100;
-        velocityRef = 0;    //per setpoint AMK4
-    }
-    else{
-        if(actualVelocityKMH > 5.f && slope == -1){
-
-            brakeReq = (100 - throttleReq*100/brake_point_limit);
+    if (slope == -1 && actualVelocityKMH > 5.f){
+        if (throttle < B_p){
             throttleReq = 0;
-            velocityRef = 0;    //per setpoint AMK4
-        }
-        else{
-            //sotto i 35 con throttle e velocità < 5 --> brake when slow --> solo freno meccanico
-            throttleReq = 0;
+            brakeReq = A_one*powf((float)throttle, f) + B_one*throttle + C_one;
+        } else {
+            throttleReq = D_one*powf((float)throttle, F_onePedal) + E_one*throttle + G_one;
+            //throttleReq = 100*(throttle - B_p)/(100 - B_p)
             brakeReq = 0;
         }
-
+    } else {
+       throttleReq = throttle;
+       brakeReq = 0;
     }
+    prev_acc = throttle;
 
 }
 
@@ -568,7 +575,6 @@ void ExtendedKalmanFilter(double T){
     double B_k[4] = {T, 0, 0, T};       // 2x2
     static double H[2] = {1, 0};         // 1x2
     double W_k[6] = {-x[0]*T, -T, 0, x[1], 0, -T}; //2x3
-    static double I_2[4] = {1, 0, 0, 1};
 
     static int n = 2, m = 3;
 
@@ -617,7 +623,6 @@ void ExtendedKalmanFilter(double T){
     mulscal(Temp_5, (1/(*Temp_6)), K_k, 2, 1);
 
     double Temp_7[4];   //2x2
-    double Temp_8[4];   //2x2
     /*
      * P_k = ( I - K_k ) * Pnew
      */

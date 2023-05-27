@@ -115,6 +115,14 @@
     }
 }
 
+void mulvecElementWise(double * a, double * b, double *c, int m, int n) {
+
+int j;
+for(j=0; j<m*n; j++)
+      c[j] = b[j]*a[j];
+
+}
+
  void transpose(double * a, double * at, int m, int n)
 {
     int i,j;
