@@ -355,12 +355,15 @@ void read_steering_wheel_message(Uint16 val[], int id){
     }
 }
 
+/*
+ * 2023 - logica invertita
+ */
 void brakeLight()
 {
     if (brake > BRAKE_LIGHT_MIN || brakeReq > BRAKE_LIGHT_MIN ) {
-        GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_ON);  // ON
+        GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);  // ON
     } else {
-        GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);  // OFF
+        GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_ON);  // OFF
     }
 
 }
