@@ -86,14 +86,18 @@ __interrupt void cpu_timer1_isr(void)
 
 
     if(time_elapsed%4 == 0){
-        send_pwm_to_pcu();
         sendHostData();
+    }
+
+    if(time_elapsed%50 == 0){
+        send_pwm_to_pcu();
     }
 
 
     updateGPIOState();
 
-    emergencyScreen();
+    // Not used in 2023
+    //emergencyScreen();
 
 
 #ifndef DEBUG_NO_HV
