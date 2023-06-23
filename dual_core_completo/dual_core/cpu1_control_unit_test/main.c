@@ -254,7 +254,7 @@ __interrupt void cpu_timer1_isr(void)
         sprintf(cmd ,
                 "%u;%u;"                           //fanSpeed
                 "%.4f;%.4f;%.4f;%.4f;%.4f;%.4f;"   //imu
-                "%.1f;%.1f;%.1f;%.1f\n",            //suspensions
+                "%.1f;%.1f;%.1f;%.1f;",            //suspensions
 
                         //fanSpeed
                         local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
@@ -269,7 +269,7 @@ __interrupt void cpu_timer1_isr(void)
 
         sprintf(cmd ,
                 "%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;"        //temperatures per cooling
-                "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n",
+                "%d;%d;%d;%d;%d;%d\n",
 
                         //temperature per cooling
                         local_sh.imu.temperatures_shared[0], local_sh.imu.temperatures_shared[1],
@@ -278,9 +278,6 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.imu.temperatures_shared[6], local_sh.imu.temperatures_shared[7],
                         //gpio
                         local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
-                        local_sh.gpio.Sdc1_shared, local_sh.gpio.Sdc2_shared,
-                        local_sh.gpio.Sdc3_shared, local_sh.gpio.Sdc4_shared,
-                        local_sh.gpio.Sdc5_shared, local_sh.gpio.Sdc6_shared,
                         local_sh.bms.max_bms_temp_nslave_shared,
                         (int)local_sh.pedals.acc_pot1_shared,(int)local_sh.pedals.acc_pot2_shared,(int)local_sh.pedals.brk_pot_shared);
         writeSD(cmd);

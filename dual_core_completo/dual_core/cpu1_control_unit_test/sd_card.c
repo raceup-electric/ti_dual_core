@@ -846,15 +846,21 @@ void writeHeader()
         writeSD(str_init);
         sprintf(str_init , "TorqueLimitPositiveRL;TorqueLimitPositiveRR;TorqueLimitNegativeFL;TorqueLimitNegativeFR;TorqueLimitNegativeRL;");
         writeSD(str_init);
-        sprintf(str_init , "TorqueLimitNegativeRR;throttle;steering angle;brake;brake_press;status;actualVelocityKMH;max voltage;min voltage;");
+        sprintf(str_init , "TorqueLimitNegativeRR;throttle;steering angle;brake;brake_press;status;actualVelocityKMH;max_volt;min_volt;");
         writeSD(str_init);
-        sprintf(str_init , "avg voltage;max temp;min temp;avg temp;bms_lv[0];bms_lv[1];bms_lv[2];bms_lv[3];bms_lv[4];bms_lv[5];bms_lv[6];bms_lv[7];");
+        sprintf(str_init , "avg_volt;max_temp;min_temp;avg_temp;");
         writeSD(str_init);
-        sprintf(str_init , "Car voltage;Lem current;current sensor;total power;acceleration x;acceleration y;acceleration z;omega x;omega y;omega z;");
+        sprintf(str_init , "bms_lv[0];bms_lv[1];bms_lv[2];bms_lv[3];bms_lv[4];bms_lv[5];bms_lv[6];bms_lv[7];");
         writeSD(str_init);
-        sprintf(str_init , "SuspensionsRL;SuspensionsRR;SuspensionsFR;SuspensionsFL;temp pre rad;temp pre cold;temp post cold;temp pre mot;temp post mot;");
+        sprintf(str_init , "Car_voltage;Lem_current;current_sens;total_power;fan_speed_r;fan_speed_l;");
         writeSD(str_init);
-        sprintf(str_init , "Gpio bms;Gpio imd;Gpio sdc 1;Gpio sdc 2;Gpio sdc 3;Gpio sdc 4;Gpio sdc 5;Gpio sdc 6;MaxtempNslave;AccPot1;AccPot2;BrkPot\n");
+        sprintf(str_init , "acceleration_x;acceleration_y;acceleration_z;omega_x;omega_y;omega_z;");
+        writeSD(str_init);
+        sprintf(str_init , "SuspensionsRL;SuspensionsRR;SuspensionsFR;SuspensionsFL;");
+        writeSD(str_init);
+        sprintf(str_init , "temp_0;temp_1;temp_2;temp_3;temp_4;temp_5;temp_6;temp_7;");
+        writeSD(str_init);
+        sprintf(str_init , "Gpio_bms;Gpio_imd;MaxtempNslave;AccPot1;AccPot2;BrkPot\n");
         writeSD(str_init);
 
 }
