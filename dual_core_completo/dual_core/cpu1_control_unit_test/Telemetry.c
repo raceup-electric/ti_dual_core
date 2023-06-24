@@ -124,129 +124,104 @@ int send_Single_Data(int counter){
             toSendBytes = float_to_uint32(local_sh.motorVal2[0].AMK_TempMotor);
         break;
         case 2:
-            toSendBytes = float_to_uint32(local_sh.motorVal2[0].AMK_TempInverter);
+            toSendBytes = float_to_uint32(local_sh.motorVal2[0].AMK_TempIGBT);
         break;
         case 3:
-            toSendBytes = float_to_uint32(local_sh.motorVal2[0].AMK_TempIGBT);
+            toSendBytes = float_to_uint32(local_sh.motorVal2[0].AMK_TempInverter);
         break;
         case 4:
            toSendBytes = float_to_uint32(local_sh.motorVal2[1].AMK_TempMotor);
         break;
         case 5:
-           toSendBytes = float_to_uint32(local_sh.motorVal2[1].AMK_TempInverter);
+           toSendBytes = float_to_uint32(local_sh.motorVal2[1].AMK_TempIGBT);
         break;
         case 6:
-           toSendBytes = float_to_uint32(local_sh.motorVal2[1].AMK_TempIGBT);
+           toSendBytes = float_to_uint32(local_sh.motorVal2[1].AMK_TempInverter);
         break;
         case 7:
             toSendBytes = float_to_uint32(local_sh.motorVal2[2].AMK_TempMotor);
         break;
         case 8:
-            toSendBytes = float_to_uint32(local_sh.motorVal2[2].AMK_TempInverter);
+            toSendBytes = float_to_uint32(local_sh.motorVal2[2].AMK_TempIGBT);
         break;
         case 9:
-            toSendBytes = float_to_uint32(local_sh.motorVal2[2].AMK_TempIGBT);
+            toSendBytes = float_to_uint32(local_sh.motorVal2[2].AMK_TempInverter);
         break;
         case 10:
            toSendBytes = float_to_uint32(local_sh.motorVal2[3].AMK_TempMotor);
         break;
         case 11:
-           toSendBytes = float_to_uint32(local_sh.motorVal2[3].AMK_TempInverter);
+           toSendBytes = float_to_uint32(local_sh.motorVal2[3].AMK_TempIGBT);
         break;
         case 12:
-           toSendBytes = float_to_uint32(local_sh.motorVal2[3].AMK_TempIGBT);
+           toSendBytes = float_to_uint32(local_sh.motorVal2[3].AMK_TempInverter);
         break;
         //Send status of the motors
         case 13:
            toSendBytes = ((uint32_t)AmkStatus[0] << 24 ) | ((uint32_t)AmkStatus[1] << 16 ) | ((uint32_t)AmkStatus[2] << 8 ) | ((uint32_t)AmkStatus[3] << 0 );
         break;
-        //Sending ActualVel of the motors
+
         case 14:
-            toSendBytes = float_to_uint32(local_sh.motorVal1[0].AMK_ActualVelocity);
+            toSendBytes = local_sh.status.status_shared;
         break;
         case 15:
-            toSendBytes = float_to_uint32(local_sh.motorVal1[1].AMK_ActualVelocity);
-        break;
-        case 16:
-            toSendBytes = float_to_uint32(local_sh.motorVal1[2].AMK_ActualVelocity);
-        break;
-        case 17:
-            toSendBytes = float_to_uint32(local_sh.motorVal1[3].AMK_ActualVelocity);
-        break;
-        case 18:
             toSendBytes = float_to_uint32(local_sh.bms.max_bms_voltage_shared);
         break;
-        case 19:
+        case 16:
             toSendBytes = float_to_uint32(local_sh.bms.min_bms_voltage_shared);
         break;
-        case 20:
+        case 17:
             toSendBytes = float_to_uint32(local_sh.bms.mean_bms_voltage_shared);
         break;
-        case 21:
+        case 18:
            toSendBytes = float_to_uint32(local_sh.bms.max_bms_temp_shared);
        break;
-       case 22:
+       case 19:
            toSendBytes = float_to_uint32(local_sh.bms.min_bms_temp_shared);
        break;
-       case 23:
+       case 20:
            toSendBytes = float_to_uint32(local_sh.bms.mean_bms_temp_shared);
        break;
-       case 24:
+       case 21:
            toSendBytes = float_to_uint32(getLowestLvVoltage());
        break;
-       case 25:
+       case 22:
 
            for(; j < 6; j++){
                sum += local_sh.bms_lv[j];
            }
            toSendBytes = float_to_uint32(sum);
        break;
-       case 26:
+       case 23:
            toSendBytes = float_to_uint32((local_sh.bms_lv[6] + local_sh.bms_lv[7])/2);
        break;
-       case 27:
-           toSendBytes = float_to_uint32(local_sh.power.batteryPack_voltage_shared);
-       break;
-       case 28:
-          toSendBytes = float_to_uint32(local_sh.power.lem_current_shared);
-       break;
-       case 29:
-           toSendBytes = float_to_uint32(local_sh.power.total_power_shared);
-       break;
-       case 30:
+
+       case 24:
            toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[0] - 273.15);
        break;
-       case 31:
+       case 25:
           toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[1] - 273.15);
       break;
-       case 32:
+       case 26:
           toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[2] - 273.15);
       break;
-       case 33:
+       case 27:
           toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[3] - 273.15);
       break;
-       case 34:
+       case 28:
           toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[4] - 273.15);
       break;
-      case 35:
-          toSendBytes = float_to_uint32(local_sh.imu.accelerations_shared[0]);
+      case 29:
+          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[5] - 273.15);
       break;
-      case 36:
-          toSendBytes = float_to_uint32(local_sh.imu.accelerations_shared[1]);
+      case 30:
+           toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[6] - 273.15);
       break;
-      case 37:
-          toSendBytes = float_to_uint32(local_sh.imu.accelerations_shared[2]);
-      break;
-      case 38:
-          toSendBytes = float_to_uint32(local_sh.imu.omegas_shared[0]);
-      break;
-      case 39:
-          toSendBytes = float_to_uint32(local_sh.imu.omegas_shared[1]);
-      break;
-      case 40:
-          toSendBytes = float_to_uint32(local_sh.imu.omegas_shared[2]);
+       case 31:
+          toSendBytes = float_to_uint32(local_sh.imu.temperatures_shared[7] - 273.15);
           counter = 0;
-      break;
+          break;
+
     }
 
     counter++;

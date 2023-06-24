@@ -25,7 +25,7 @@ typedef uint16_t uint8_t;
 
 //LoRa parameters
 #define LORA_SIGNAL_BANDWIDTH 250E3
-#define LORA_CODING_RATE 1
+#define LORA_CODING_RATE 4
 #define LORA_SF 6
 #define LORA_TX_POWER 14
 #define LORA_IMPLICIT_HEADER 1

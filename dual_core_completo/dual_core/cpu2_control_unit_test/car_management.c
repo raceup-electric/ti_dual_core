@@ -823,25 +823,21 @@ void checkStatus()
     //bit       | 7  |    6    |    5     |  4  |     3     |    2        |    1     | 0  |
     //meaning   | RF | imp_b_t | brk_disc | r2d | PRECHARGE | Fault check | LV_ALARM | HV |
 
-    Uint16 mstatus = 0b00000000;
+    Uint32 mstatus = 0x0000000F;
     if (isHVOn())
-        mstatus |= 0b00000001;
-    if(Air2_State){
-        mstatus |= 0b00000010;
-    }
-
-    //TODO: fault check is not implemented
-
-    if (enableMotor)
-        mstatus |= 0b00001000;
+        mstatus |= 0x000000F0;
     if (R2D_state)
-        mstatus |= 0b00010000;
-    if (brk_disconnected)
-        mstatus |= 0b00100000;
-    if (implBrakeAndThrottle)
-        mstatus |= 0b01000000;
+        mstatus |= 0x00000F00;
+    if (Air1_State)
+        mstatus |= 0x0000F000;
+    if (Air2_State)
+        mstatus |= 0x000F0000;
     if (readRF())
-        mstatus |= 0b10000000;
+        mstatus |= 0x00F00000;
+    if (implBrakeAndThrottle)
+        mstatus |= 0x0F000000;
+    if (brk_disconnected)
+        mstatus |= 0xF0000000;
 
     status = mstatus;
 }

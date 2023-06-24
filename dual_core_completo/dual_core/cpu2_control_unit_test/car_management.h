@@ -70,7 +70,7 @@ extern int stopPumpLimit;
 extern int enablePumpLimit;
 
 extern Uint16 Temps[8];
-extern Uint16 status;
+extern Uint32 status;
 
 extern Uint16 leftFanSpeed;
 extern Uint16 rightFanSpeed;

@@ -103,7 +103,7 @@ Uint16 Temps[8];
 //Temps[6]=leftFanSpeed;
 //Temps[7]=rightFanSpeed;
 
-Uint16 status = 0b00000000;
+Uint32 status = 0x00000000;
 
 //torque
 int actualVelocityRPM = 0;
