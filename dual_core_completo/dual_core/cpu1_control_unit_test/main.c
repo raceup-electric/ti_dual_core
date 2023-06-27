@@ -230,7 +230,7 @@ __interrupt void cpu_timer1_isr(void)
         LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
 #endif
         sprintf(cmd ,
-                        "%d;%d;%d;%d;%d;%d;"                //status
+                        "%d;%d;%d;%d;%lu;%d;"                //status
                         "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms
                         "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
                         "%.1f;%.3f;%.2f;%.2f;",              //sendyne
