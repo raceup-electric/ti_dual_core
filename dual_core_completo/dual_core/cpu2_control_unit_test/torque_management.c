@@ -517,6 +517,8 @@ void onePedalDriving()
     static float dacc = 0.f;
     static float prev_acc = 0.f;
     static int slope = 1;
+    static int flag_thr = 1;
+    static int start_thr = 0;
 
     float f = 0;
 
@@ -529,29 +531,46 @@ void onePedalDriving()
     float B_one = f*100/(B_p*(1-f));
     float C_one = 100;
 
-    float D_one = 100/(powf(100,F_onePedal)-100*F_onePedal*powf(35.f,F_onePedal-1)+powf(35.f,F_onePedal)*(F_onePedal-1));
+    //float D_one = 100/(powf(100,F_onePedal)-100*F_onePedal*powf(35.f,F_onePedal-1)+powf(35.f,F_onePedal)*(F_onePedal-1));
     float E_one = (-100*F_onePedal*powf(35.f,F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(35.f,F_onePedal-1)+(powf(35.f,F_onePedal))*(F_onePedal-1));
-    float G_one = (100*(powf(35.f,F_onePedal))*(F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(35.f,F_onePedal-1)+(powf(35.f,F_onePedal))*(F_onePedal-1));
+    //float G_one = (100*(powf(35.f,F_onePedal))*(F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(35.f,F_onePedal-1)+(powf(35.f,F_onePedal))*(F_onePedal-1));
 
     dacc = throttle-prev_acc;
 
     if(dacc > var_min){
        slope = 1;
     }else if(dacc < -var_min){
-       slope = 1;
+       slope = -1;
     }
 
-    if (slope == -1 && actualVelocityKMH > 5.f){
+    if (slope == -1 && actualVelocityKMH > 5.f) {
+        flag_thr = 1;
+        start_thr = 0;
         if (throttle < B_p){
             throttleReq = 0;
             brakeReq = A_one*powf((float)throttle, f) + B_one*throttle + C_one;
         } else {
-            throttleReq = D_one*powf((float)throttle, F_onePedal) + E_one*throttle + G_one;
-            //throttleReq = 100*(throttle - B_p)/(100 - B_p)
+            //throttleReq = D_one*powf((float)throttle, F_onePedal) + E_one*throttle + G_one;
+            throttleReq = 100*(throttle - B_p)/(100 - B_p);
             brakeReq = 0;
         }
+    } else if (slope == -1 && actualVelocityKMH < 5.f) {
+        throttleReq = 0;
+        brakeReq = 0;
     } else {
-       throttleReq = throttle;
+
+       /*
+        * Every time we enter the slope == 1 cycle
+        * we ensure to adjust the starting point of the line
+        * describing the throttleRequest
+        */
+       if (flag_thr){
+           flag_thr = 0;
+           start_thr = throttle;
+       }
+       throttleReq = 100*(throttle - start_thr)/(100 - start_thr);
+
+       //throttleReq = throttle;
        brakeReq = 0;
     }
     prev_acc = throttle;
