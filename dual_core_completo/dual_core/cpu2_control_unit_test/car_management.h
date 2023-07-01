@@ -18,7 +18,10 @@
 extern bool R2D_first_state;
 extern bool R2D_state;
 extern bool brk_disconnected;
-extern bool implBrakeAndThrottle ;
+extern bool implBrakeAndThrottle;
+
+extern Uint32 last_imu_message_time;
+
 
 // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
 //extern float sendyne_current;
@@ -43,7 +46,8 @@ extern float mean_bms_voltage;
 extern float max_bms_temp;
 extern float min_bms_temp;
 extern float mean_bms_temp;
-extern uint16_t max_temp_nslave;
+extern Uint16 max_temp_nslave;
+extern Uint16 bms_bitmap;
 
 //Pedals
 extern float AccPot1;

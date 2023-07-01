@@ -231,7 +231,7 @@ __interrupt void cpu_timer1_isr(void)
 #endif
         sprintf(cmd ,
                         "%d;%d;%d;%d;%lu;%d;"                //status
-                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms
+                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%u;"    //bms
                         "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
                         "%.1f;%.3f;%.2f;%.2f;",              //sendyne
                         //status
@@ -242,6 +242,7 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
                         local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
                         local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
+                        local_sh.bms.bms_bitmap_shared,
                         //bms_lv
                         local_sh.bms_lv[0], local_sh.bms_lv[1], local_sh.bms_lv[2],
                         local_sh.bms_lv[3], local_sh.bms_lv[4], local_sh.bms_lv[5],

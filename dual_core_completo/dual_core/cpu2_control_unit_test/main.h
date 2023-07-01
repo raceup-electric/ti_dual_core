@@ -28,6 +28,7 @@ int counter;    //for debug
 
 //timestamp
 Uint32 time_elapsed = 0;
+Uint32 last_imu_message_time = 0;
 Uint32 T_s = 0;
 
 Uint16 batteryPackTension;
@@ -43,7 +44,8 @@ float mean_bms_voltage;
 float max_bms_temp;
 float min_bms_temp;
 float mean_bms_temp;
-uint16_t max_temp_nslave;
+Uint16 max_temp_nslave;
+Uint16 bms_bitmap;
 
 
 //configuration

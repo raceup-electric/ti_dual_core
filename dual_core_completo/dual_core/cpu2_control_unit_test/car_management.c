@@ -34,6 +34,7 @@ void read_LEM_message(unsigned char lem_values[]){
 
 void read_IMU_message(Uint16 imu_values[], int id)
 {
+    last_imu_message_time = time_elapsed;
     uint32_t aux_1 = 0;
     uint32_t aux_2 = 0;
 
@@ -146,17 +147,19 @@ void read_BMS_VOLTAGE_message(Uint16 bms_values[]){
     min_bms_voltage = convertBMSvoltage(tmp);
     tmp=(bms_values[4] | (bms_values[5]<<8));
     mean_bms_voltage = convertBMSvoltage(tmp);
+    tmp=(bms_values[6] | (bms_values[7]<<8));
+    bms_bitmap = tmp;
 
 }
 
 void read_BMS_TEMP_message(Uint16 bms_values[]){
     Uint16 tmp = 0;
       tmp=(bms_values[0] | (bms_values[1]<<8));
-      max_bms_temp = convertBMStemp(tmp);
+      max_bms_temp = tmp;
       tmp=(bms_values[2] | (bms_values[3]<<8));
-      min_bms_temp = convertBMStemp(tmp);
+      min_bms_temp = tmp;
       tmp=(bms_values[4] | (bms_values[5]<<8));
-      mean_bms_temp = convertBMStemp(tmp);
+      mean_bms_temp = tmp;
       max_temp_nslave = bms_values[6];
 
 }
@@ -923,6 +926,7 @@ void update_log_values()
     bms_log.mean_bms_voltage_shared = mean_bms_voltage;
     bms_log.min_bms_voltage_shared = min_bms_voltage;
     bms_log.max_bms_temp_nslave_shared = max_temp_nslave;
+    bms_log.bms_bitmap_shared = bms_bitmap;
 
 
     power_log.batteryPack_voltage_shared = batteryPackTension;

@@ -49,7 +49,7 @@ void setup_macros() {
 }
 
 float convertBMSvoltage(Uint16 voltage){
-  return (3000 + (1.2 * voltage));
+  return (float)(voltage / 10000.f);
 }
 
 float convertBMStemp(Uint16 temp){

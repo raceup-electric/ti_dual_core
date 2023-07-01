@@ -39,7 +39,9 @@ void setup()
 
        InitSysCtrl();
 
-       while(!( MemCfgRegs.GSxMSEL.bit.MSEL_GS13 &
+       while(!( MemCfgRegs.GSxMSEL.bit.MSEL_GS15 &
+                MemCfgRegs.GSxMSEL.bit.MSEL_GS14 &
+                MemCfgRegs.GSxMSEL.bit.MSEL_GS13 &
                 MemCfgRegs.GSxMSEL.bit.MSEL_GS12 &
                 MemCfgRegs.GSxMSEL.bit.MSEL_GS11  ))
        {

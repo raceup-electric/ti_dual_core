@@ -300,6 +300,7 @@
 #define CALIBRATION         0x3//TO REVIEW
 #define PREVIOUS_PAGE       0x4
 #define START_LAUNCH        0x8
+#define CHANGE_SCREEN_MODE  0x20
 
 #define SETUP_PAGE          0x08
 #define PEDAL_SETUP_PAGE    0x09
@@ -314,7 +315,7 @@
  */
 #define SCREEN_DEBUG        0x00
 #define SCREEN_DRIVING      0x01
-#define CHANGE_SCREEN_MODE  0x09
+
 
 //
 // ePWM
