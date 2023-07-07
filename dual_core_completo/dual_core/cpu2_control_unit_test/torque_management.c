@@ -511,9 +511,9 @@ void onePedalDriving()
 {
     static float B_p = 10.f;        //activation threshold of negative torque
     //static float V_max = 120.f;
-    static float F_onePedal = 0.001;
-    static float var_min = 2;
-    static float Vk = 90;
+    static float F_onePedal = 2.f;
+    static float var_min = 2.f;
+    static float Vk = 90.f;
     static float dacc = 0.f;
     static float prev_acc = 0.f;
     static int slope = 1;
@@ -573,14 +573,14 @@ void onePedalDriving()
 //       } else {
 //           throttleReq = throttle;
 //       }
-
-       if (throttle < B_p){
-           throttleReq = 0;
-       } else {
-           throttleReq = 100*(throttle - B_p)/(100 - B_p);
-       }
-
-
+//***
+//       if (throttle < B_p){
+//           throttleReq = 0;
+//       } else {
+//           throttleReq = 100*(throttle - B_p)/(100 - B_p);
+//      }
+//*** comment piu throttleReq = throttle;
+       throttleReq = throttle;
        brakeReq = 0;
     }
     prev_acc = throttle;

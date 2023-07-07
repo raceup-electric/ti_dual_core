@@ -18,7 +18,7 @@
 /*
  * SUPER IMPORTANT MACROS
  */
-#define ONE_PEDAL    1
+#define ONE_PEDAL    0
 #define REG_BRAKE   1
 #define TORQUE_VECTORING    0
 #define TRACTION_CTRL   0
@@ -29,11 +29,9 @@
  */
 
 
-#define R_P   0.00949                               // %pinion radius [m]
-#define Atraction     0.84425
-#define Btraction     0.69075
-#define S_MAX         0.1                           // positive optimal slip ratio []
-#define S_MIN         -0.12                         // negative optimal slip ratio []
+#define R_P   0.00949f                             // %pinion radius [m]
+#define Atraction     0.84425f
+#define Btraction     0.69075f
 
 #define R2D_BRAKE_TRESHOLD  10
 
@@ -49,8 +47,9 @@
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
  */
-#define REAR_MOTOR_SCALE    1.8f
-#define FRONT_MOTOR_SCALE   0.65f
+#define REAR_MOTOR_SCALE    1.9f
+#define FRONT_MOTOR_SCALE   0.6f
+
 
 #define STZ_RANGE           90
 
@@ -66,11 +65,11 @@
 #define RPM_TO_RADS         (PI/30)
 
 #define THROTTLE_POWER_SCALE        10
-#define REG_POWER_SCALE             0
+#define REG_POWER_SCALE             1
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 12000   // Typical value: 15000
+#define SPEED_LIMIT                 16000   // Typical value: 15000
 #define M_N                         9.8f
 
 /*
@@ -79,7 +78,7 @@
 #define CLA                         3.814f                  // lift coefficient*surface, positive downwards (->downforce) [m^2]
 #define CDA                         1.098f                  // drag coefficient*surface, positive rearwards [m^2]
 // center of pressure coordinates [m^2]; reference system: t/2, w/2; x positive rearwards, z positive upwards
-#define CoP_0                       0.041f
+#define CoP_0                       -0.112f
 #define CoP_1                       0.f
 #define CoP_2                       0.115f
 
@@ -94,17 +93,17 @@
 #define YAW_R_LOWER_BOUND           -2.0*PI_FLOAT
 #define STR_UPPER_BOUND             90
 #define STR_LOWER_BOUND             -90
-#define MOTOR_SPEED_UPPER_BOUND     18000
+#define MOTOR_SPEED_UPPER_BOUND     16000
 #define MOTOR_SPEED_LOWER_BOUND     0
 #define FZ_UPPER_BOUND              2000.0f
 #define FZ_LOWER_BOUND              50.0f
 
-#define TAU                         (1.0f/14.4f)
-#define TAU_TC                      12.67f                  // gear unit reduction rate []
+#define TAU                         (1.0f/14.44f)
+#define TAU_TC                      14.44f                  // gear unit reduction rate []
 #define K_DELTA                     0.2776853f
 #define R0                          0.2032f                 // unloaded radius [m]
-#define FZR                         78.0f
-#define FZF                         63.0f
+#define FZR                         MASS*M_DR*G_ACC
+#define FZF                         MASS*M_DF*G_ACC
 #define W                           1.535f                  // wheelbase  [m]
 #define MASS                        270.0f                  // total mass (vehicle + driver) [kg]
 #define Z_COG                       0.3f                    // center of gravity height [m]
@@ -114,20 +113,21 @@
 #define T_R                         1.2f                    // track rear [m]
 #define K_F                         0.4775f
 #define K_R                         (1-K_F)
-#define C_Z_A                       3.94f
+#define C_Z_A                       CLA
 #define RHO                         1.225f                  // air density [kg/m^3]
 #define A                           W*M_DR                  // front wheels-CoG (longitudinal distance) [m]
 #define B                           W*M_DF                  // rear wheels-CoG (longitudinal distance) [m]
-#define A_A                         A+CoP_0+CoP_2*CDA/CLA   // front wheels-CoP (longitudinal distance) [m]
+#define A_A                         W/2+CoP_0+CoP_2*CDA/CLA   // front wheels-CoP (longitudinal distance) [m]
 #define B_A                         W - A_A                 // rear wheels-CoP (longitudinal distance) [m]
 #define AX0                         0.5f                    // vehicle longitudinal acceleration threshold [m/s^2]
 #define TOE_F                       0.f                     // toe front: positive if toe IN [rad]
 #define TOE_R                       0.f                     // toe rear: positive if toe IN [rad]
 
-#define M_DF                        0.45f                   // mass distribution (front mass/total mass) []
+#define M_DF                        0.436f                   // mass distribution (front mass/total mass) []
 #define M_DR                        1 - M_DF                // mass distribution (rear mass/total mass) []
 
-#define k_s                         61294.f                 // spring stiffness [N/m]
+#define k_sf                        61294.f                 // spring stiffness [N/m]
+#define k_sr                        61294.f                 // spring stiffness [N/m]
 #define k_ARBf                      551570.f                // front ARB stiffness [N/m]
 #define k_ARBr                      598090.f                // rear ARB stiffness [N/m]
 #define MR_sf                       1.14f                   // front spring motion ratio (dz_wheel/dl_sf) []
@@ -135,10 +135,10 @@
 #define MR_ARBf                     1.708f                  // front ARB motion ratio (dz_wheel/dl_ARBf) []
 #define MR_ARBr                     1.633f                  // rear ARB motion ratio (dz_wheel/dl_ARBr) []
 
-#define k_t                         122000.f                // tire stiffness at 150lbs on 8in rim [N/m]
+#define k_t                         122414.f                // tire stiffness at 150lbs on 8in rim [N/m]
 
-#define kr_wf                       k_s/(MR_sf*MR_sf) + k_ARBf/(MR_ARBf*MR_ARBf)    // front wheel stiffness in roll [N/m] 
-#define kr_wr                       k_s/(MR_sr*MR_sr) + k_ARBr/(MR_ARBr*MR_ARBr)    // rear wheel stiffness in roll [N/m]
+#define kr_wf                       k_sf/(MR_sf*MR_sf) + k_ARBf/(MR_ARBf*MR_ARBf)    // front wheel stiffness in roll [N/m]
+#define kr_wr                       k_sr/(MR_sr*MR_sr) + k_ARBr/(MR_ARBr*MR_ARBr)    // rear wheel stiffness in roll [N/m]
 
 #define kr_rf                       kr_wf*k_t/(kr_wf+k_t)   // front ride rate in roll [N/m]
 #define kr_rr                       kr_wr*k_t/(kr_wr+k_t)   // rear ride rate in roll [N/m]
@@ -149,14 +149,14 @@
 #define max_I_pos                   0.75f                   // max positive integral term in PID controller []
 #define max_I_neg                   max_I_pos               // max negative integral term in PID controller []
 
-#define S_MAX         0.1
-#define S_MIN         -0.12
-#define I_POS          0
-#define P_POS          0
-#define D_POS          0
-#define I_NEG          0
-#define P_NEG          0
-#define D_NEG          0
+#define S_MAX         0.12f
+#define S_MIN         -0.12f
+#define I_POS          0.005f
+#define P_POS          0.01f
+#define D_POS          0.008f
+#define I_NEG          I_POS
+#define P_NEG          P_POS
+#define D_NEG          D_POS
 
 //Constants of TorqueLimit1
 #define NU1                         1.7977585706847f;
@@ -172,8 +172,8 @@
 #define ALPHA4                      -3.5206874715397E-12;
 #define ALPHA5                      1.31537731918249E-15;
 
-#define MAX_POS_TORQUE              12.0f
-#define MAX_NEG_TORQUE              -10.0f
+#define MAX_POS_TORQUE              15.1f
+#define MAX_NEG_TORQUE              -10.f
 
 #define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 
