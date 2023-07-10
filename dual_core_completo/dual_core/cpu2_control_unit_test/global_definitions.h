@@ -65,11 +65,11 @@
 #define RPM_TO_RADS         (PI/30)
 
 #define THROTTLE_POWER_SCALE        10
-#define REG_POWER_SCALE             1
+#define REG_POWER_SCALE             10
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 16000   // Typical value: 15000
+#define SPEED_LIMIT                 18000   // Typical value: 15000
 #define M_N                         9.8f
 
 /*
@@ -181,7 +181,7 @@
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         30000.0f       //Watt
+#define POWER_LIMIT         60000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f

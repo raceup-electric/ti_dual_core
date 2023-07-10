@@ -509,7 +509,7 @@ void regBrake()
 
 void onePedalDriving()
 {
-    static float B_p = 10.f;        //activation threshold of negative torque
+    static float B_p = 20.f;        //activation threshold of negative torque
     //static float V_max = 120.f;
     static float F_onePedal = 2.f;
     static float var_min = 2.f;
