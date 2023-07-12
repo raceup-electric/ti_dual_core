@@ -17,11 +17,11 @@
  */
 
 // acc1
-#define ACC1_LOW_TH_INITIAL    2550
+#define ACC1_LOW_TH_INITIAL    2800
 #define ACC1_HIGH_TH_INITIAL   3900
 
 // acc2
-#define ACC2_LOW_TH_INITIAL    1800
+#define ACC2_LOW_TH_INITIAL    2100
 #define ACC2_HIGH_TH_INITIAL   3150
 
 // acc

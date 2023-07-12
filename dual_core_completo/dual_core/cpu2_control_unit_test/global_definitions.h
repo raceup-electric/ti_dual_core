@@ -19,7 +19,7 @@
  * SUPER IMPORTANT MACROS
  */
 #define ONE_PEDAL    0
-#define REG_BRAKE   1
+#define REG_BRAKE   0
 #define TORQUE_VECTORING    0
 #define TRACTION_CTRL   0
 #define THERMAL_POWER_CTRL    0
