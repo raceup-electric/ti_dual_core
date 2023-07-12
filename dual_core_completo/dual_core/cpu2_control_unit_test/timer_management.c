@@ -146,7 +146,7 @@ __interrupt void cpu_timer1_isr(void)
             else if(brakeWhenSlow)
             {
                 stopAMK();
-                implausibility_occurred = true;
+                //implausibility_occurred = true;
             }
             else if(brakeReg)
             {
