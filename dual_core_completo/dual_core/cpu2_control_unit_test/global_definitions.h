@@ -19,7 +19,7 @@
  * SUPER IMPORTANT MACROS
  */
 #define ONE_PEDAL    0
-#define REG_BRAKE   0
+#define REG_BRAKE   1
 #define TORQUE_VECTORING    0
 #define TRACTION_CTRL   0
 #define THERMAL_POWER_CTRL    0
@@ -29,7 +29,7 @@
  */
 
 
-#define R_P   0.00949f                             // %pinion radius [m]
+#define R_P   0.01898f                          // %pinion radius [m]
 #define Atraction     0.84425f
 #define Btraction     0.69075f
 
@@ -47,8 +47,8 @@
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
  */
-#define REAR_MOTOR_SCALE    1.5f
-#define FRONT_MOTOR_SCALE   1.f
+#define REAR_MOTOR_SCALE    1.7f
+#define FRONT_MOTOR_SCALE   0.8f
 
 
 #define STZ_RANGE           90
@@ -69,7 +69,7 @@
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 15000   // Typical value: 15000
+#define SPEED_LIMIT                 20000   // Typical value: 15000
 #define M_N                         9.8f
 
 /*
@@ -128,12 +128,12 @@
 
 #define k_sf                        61294.f                 // spring stiffness [N/m]
 #define k_sr                        61294.f                 // spring stiffness [N/m]
-#define k_ARBf                      551570.f                // front ARB stiffness [N/m]
-#define k_ARBr                      598090.f                // rear ARB stiffness [N/m]
+#define k_ARBf                      192940.f                // front ARB stiffness [N/m]
+#define k_ARBr                      253740.f                // rear ARB stiffness [N/m]
 #define MR_sf                       1.14f                   // front spring motion ratio (dz_wheel/dl_sf) []
-#define MR_sr                       1.187f                  // rear spring motion ratio (dz_wheel/dl_sr) []
-#define MR_ARBf                     1.708f                  // front ARB motion ratio (dz_wheel/dl_ARBf) []
-#define MR_ARBr                     1.633f                  // rear ARB motion ratio (dz_wheel/dl_ARBr) []
+#define MR_sr                       1.18f                  // rear spring motion ratio (dz_wheel/dl_sr) []
+#define MR_ARBf                     1.7f                   // front ARB motion ratio (dz_wheel/dl_ARBf) []
+#define MR_ARBr                     1.6f                  // rear ARB motion ratio (dz_wheel/dl_ARBr) []
 
 #define k_t                         122414.f                // tire stiffness at 150lbs on 8in rim [N/m]
 
@@ -172,16 +172,16 @@
 #define ALPHA4                      -3.5206874715397E-12;
 #define ALPHA5                      1.31537731918249E-15;
 
-#define MAX_POS_TORQUE              12.f
+#define MAX_POS_TORQUE              15.f
 #define MAX_NEG_TORQUE              -12.f
 
-#define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
+#define MAX_REGEN_CURRENT           30.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 
 
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         50000.0f       //Watt
+#define POWER_LIMIT         65000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f

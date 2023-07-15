@@ -331,6 +331,9 @@ void sendAMKData() {
 
 
         //RIPARTIZIONE DI COPPIA SEMPLICE
+        /*
+         * Quando si usa la regen si inverte la coppia front con rear quando si frena
+         */
         if (i == MOTOR_FL || i == MOTOR_FR)
         {
             posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*car_settings.front_motor_scale, Torque_max, 0.0f));

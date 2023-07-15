@@ -243,10 +243,17 @@ void saturationsAndConversions()
         motorSpeeds[i] = saturateInt(motorSpeeds[i], MOTOR_SPEED_UPPER_BOUND, MOTOR_SPEED_LOWER_BOUND);
     }
 
-    steers[0] = str*K_DELTA;
-    steers[1] = str*K_DELTA;
-    steers[2] = 0;
-    steers[3] = 0;
+    steering_to_delta_wheels();
+
+    steers[0] = delta_steer[0] - TOE_F;
+    steers[1] = delta_steer[1] + TOE_F;
+    steers[2] = -TOE_R;
+    steers[3] = TOE_R;
+
+//    steers[0] = str*K_DELTA;
+//    steers[1] = str*K_DELTA;
+//    steers[2] = 0;
+//    steers[3] = 0;
 
     //Conversions
 
