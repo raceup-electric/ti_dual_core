@@ -47,8 +47,8 @@
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
  */
-#define REAR_MOTOR_SCALE    1.9f
-#define FRONT_MOTOR_SCALE   0.6f
+#define REAR_MOTOR_SCALE    1.5f
+#define FRONT_MOTOR_SCALE   1.f
 
 
 #define STZ_RANGE           90
@@ -69,7 +69,7 @@
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 20000   // Typical value: 15000
+#define SPEED_LIMIT                 15000   // Typical value: 15000
 #define M_N                         9.8f
 
 /*
@@ -172,8 +172,8 @@
 #define ALPHA4                      -3.5206874715397E-12;
 #define ALPHA5                      1.31537731918249E-15;
 
-#define MAX_POS_TORQUE              18.f
-#define MAX_NEG_TORQUE              -15.f
+#define MAX_POS_TORQUE              12.f
+#define MAX_NEG_TORQUE              -12.f
 
 #define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 
@@ -181,7 +181,7 @@
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         75000.0f       //Watt
+#define POWER_LIMIT         50000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f
