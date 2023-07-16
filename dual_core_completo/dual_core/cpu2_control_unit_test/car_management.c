@@ -766,20 +766,28 @@ void fanControl()
 
 Uint16 fanSpeedFunction(int temp){
 //#ifndef CONST_FAN_SPEED
-    if(fan_flag && temp > 45 && temp < FAN_MIN_TEMP){
-        return 10;
-    }
-    if (temp < FAN_MIN_TEMP){
-        fan_flag = 0;
-        return 0;
+//    if(fan_flag && temp > 45 && temp < FAN_MIN_TEMP){
+//        return 10;
+//    }
+//    if (temp < FAN_MIN_TEMP){
+//        fan_flag = 0;
+//        return 0;
+//
+//    }
+//    else if (temp >  FAN_MAX_TEMP){
+//        fan_flag = 1;
+//        return 100;
+//    }else {
+//        fan_flag = 1;
+//        return (9*temp) - 440;
+//    }
 
-    }
-    else if (temp >  FAN_MAX_TEMP){
-        fan_flag = 1;
-        return 100;
-    }else {
-        fan_flag = 1;
-        return (9*temp) - 440;
+    if(temp <= 60){
+        return 20;
+    } else if (temp >= 80) {
+        return 80;
+    } else {
+        return (3*temp) - 160;
     }
 
 //#endif
