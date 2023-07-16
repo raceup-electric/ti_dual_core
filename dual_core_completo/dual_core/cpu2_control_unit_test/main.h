@@ -245,7 +245,7 @@ tCANMsgObject TXCANA_ATMega_Message;
 unsigned char RXA_Imu_Data[8];
 unsigned char RXA_Smu_Data[8];
 unsigned char RXA_Sendyne_Data[8];
-unsigned char RXA_BmsVol_Data[6];
+unsigned char RXA_BmsVol_Data[8];
 unsigned char RXA_BmsTemp_Data[7];
 unsigned char RXA_BmsLV_Data[8];
 unsigned char RXA_PwCtrl_Data[1];
