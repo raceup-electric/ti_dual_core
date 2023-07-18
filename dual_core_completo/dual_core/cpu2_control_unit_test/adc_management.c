@@ -191,7 +191,7 @@ Uint16 getTempAvPT1000(Uint16 digital)
 Uint16 getTempZTP135SR(Uint16 digital){
     float vin = getVoltage(digital);
     float aux = vin/(3.3f-vin);
-    float tempK = (298.15f*3960)/(3960+(298.15f*log(aux))); //#include <math.h>
+    float tempK = (298.15f*3960)/(3960+(298.15f*log(aux)));
     return (Uint16)(tempK - 273.15f);
 }
 

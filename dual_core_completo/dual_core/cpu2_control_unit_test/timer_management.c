@@ -85,12 +85,19 @@ __interrupt void cpu_timer1_isr(void)
 
     /*
      * ONLY FOR TEST CODE
+     * Mi raccomando fate la prova con diversi duty cycles
      */
     //Start fans 15 sec after lv power on
-    if(time_elapsed >1500){
+    if(time_elapsed > 1000){
         fan_enable = 1;
-        setFanSpeed(80);    //duty cycle 20%
-    } else {
+        setFanSpeed(20);    //duty cycle 80%
+        //setFanSpeed(80);    //duty cycle 20%
+        //setFanSpeed(100);    //duty cycle 0%
+    } else if (time_elapsed > 2000) {
+        fan_enable = 1;
+        setFanSpeed(20);    //duty cycle 80%
+    }
+    else {
         fan_enable = 0;
         setFanSpeed(100);
     }

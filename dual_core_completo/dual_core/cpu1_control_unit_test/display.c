@@ -130,27 +130,29 @@ void updatePage(Uint16 page){
 
 void updatePage1()
 {
-    if(local_sh.status.status_shared & 0b00000001) scic_msg("main.hv.bco=GREENÿÿÿ\0");
+    if(local_sh.status.status_shared & 0x000000F0) scic_msg("main.hv.bco=GREENÿÿÿ\0");
     else scic_msg("main.hv.bco=REDÿÿÿ\0");
 
 
-    if(local_sh.status.status_shared & 0b00000010) scic_msg("main.air2.bco=GREENÿÿÿ\0");
+    if(local_sh.status.status_shared & 0x000F0000) scic_msg("main.air2.bco=GREENÿÿÿ\0");
     else scic_msg("main.air2.bco=REDÿÿÿ\0");
 
     // DA Sostituire con fault hv
     //if(local_sh.status.status_shared & 0b00000100) scic_msg("main.temp.bco=REDÿÿÿ\0");
     //else scic_msg("main.temp.bco=GREENÿÿÿ\0");
 
-
-    if(local_sh.status.status_shared & 0b00001000) scic_msg("main.pre.bco=GREENÿÿÿ\0");
+    /*
+     * PRE is now Implausibility brake/Thrott
+     */
+    if(local_sh.status.status_shared & 0x0F000000) scic_msg("main.pre.bco=GREENÿÿÿ\0");
     else scic_msg("main.pre.bco=REDÿÿÿ\0");
 
 
-    if(local_sh.status.status_shared & 0b00010000) scic_msg("main.r2d.bco=GREENÿÿÿ\0");
+    if(local_sh.status.status_shared & 0x00000F00) scic_msg("main.r2d.bco=GREENÿÿÿ\0");
     else scic_msg("main.r2d.bco=REDÿÿÿ\0");
 
 
-    if(local_sh.status.status_shared & 0b00100000) scic_msg("main.brk.bco=REDÿÿÿ\0");
+    if(local_sh.status.status_shared & 0xF0000000) scic_msg("main.brk.bco=REDÿÿÿ\0");
     else scic_msg("main.brk.bco=GREENÿÿÿ\0");
 
 
@@ -161,12 +163,12 @@ void updatePage1()
     else scic_msg("main.lc.bco=REDÿÿÿ\0");
 
 
-    if(local_sh.status.status_shared & 0b10000000) scic_msg("main.rf.bco=GREENÿÿÿ\0");
+    if(local_sh.status.status_shared & 0x00F00000) scic_msg("main.rf.bco=GREENÿÿÿ\0");
     else scic_msg("main.rf.bco=REDÿÿÿ\0");
 
 
-    sprintf(tmp, "main.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
-    scic_msg(tmp);
+//    sprintf(tmp, "main.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
+//    scic_msg(tmp);
 
     sprintf(tmp, "main.bms_high.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_voltage_shared);
     scic_msg(tmp);
