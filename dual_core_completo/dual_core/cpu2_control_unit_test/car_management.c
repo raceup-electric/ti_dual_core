@@ -389,16 +389,8 @@ void R2D_On()
     //GPIO_WritePin(ENABLE_PUMPS, 1U);  // pompa on - ok cooling
     //GPIO_WritePin(VENTOLA_Abil, 1U);  // ventole on
 
-    //TXCANA_ATMega_Data = TXCANA_ATMega_Data | 0x3;  // set the least two bits at one
-
     fan_enable = 1;
     pump_enable = 1;
-
-    TXCANA_ATMega_Data[0] = fan_enable;
-    TXCANA_ATMega_Data[1] = pump_enable;
-
-    //send_pwm_to_pcu();
-
 }
 
 void R2D_Off()
@@ -409,18 +401,8 @@ void R2D_Off()
     //GPIO_WritePin(ENABLE_PUMPS, 1U);  // pompa on - ok cooling
     //GPIO_WritePin(VENTOLA_Abil, 0U);  // ventole off
 
-    //TXCANA_ATMega_Data = (TXCANA_ATMega_Data | 0x1) & 0xFFFD;  // set the least significant bit to one and the second to zero
-
     fan_enable = 0;
     pump_enable = 1;
-
-    TXCANA_ATMega_Data[0] = fan_enable;
-    TXCANA_ATMega_Data[1] = pump_enable;
-
-    //send_pwm_to_pcu();
-
-
-
 }
 
 /*

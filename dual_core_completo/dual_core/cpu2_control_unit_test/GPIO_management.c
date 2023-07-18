@@ -39,16 +39,6 @@ void GPIOSetup()
     //GPIO_WritePin(ENABLE_PUMPS, 0);
     //GPIO_WritePin(VENTOLA_Abil, 0);
 
-    //TXCANA_ATMega_Data = TXCANA_ATMega_Data & 0xFFFC;  // set the least two bits at zero
-    //TXCANA_ATMega_Data = TXCANA_ATMega_Data & 0x0;  // set every bit to zero
-
-    fan_enable = 0;
-    pump_enable = 0;
-
-    TXCANA_ATMega_Data[0] = fan_enable;
-    TXCANA_ATMega_Data[1] = pump_enable;
-    send_pwm_to_pcu();
-
     GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);
     GPIO_WritePin(SCS_FAULT, 1U);
 

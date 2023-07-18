@@ -77,15 +77,34 @@ __interrupt void cpu_timer1_isr(void)
 
     brakeLight();
     readVelocity();
-    fanControl();
 
-    //Start pumps 30 sec after lv power on
-    if(time_elapsed >500){
-        pump_enable = 1;
-        setPumpSpeed(0);
+    /*
+     * Il codice finale in auto richiede fanControl();
+     */
+    //fanControl();
+
+    /*
+     * ONLY FOR TEST CODE
+     */
+    //Start fans 15 sec after lv power on
+    if(time_elapsed >1500){
+        fan_enable = 1;
+        setFanSpeed(80);    //duty cycle 20%
     } else {
-        pump_enable = 0;
-        setPumpSpeed(0);
+        fan_enable = 0;
+        setFanSpeed(100);
+    }
+    /*
+     * End test code
+     */
+
+    //Start pumps 5 sec after lv power on
+    if(time_elapsed >500){
+            pump_enable = 1;
+            setPumpSpeed(0);
+    } else {
+            pump_enable = 0;
+            setPumpSpeed(0);
     }
 
 
@@ -99,9 +118,6 @@ __interrupt void cpu_timer1_isr(void)
 
 
     updateGPIOState();
-
-    // Not used in 2023
-    //emergencyScreen();
 
 
 #ifndef DEBUG_NO_HV
@@ -209,7 +225,7 @@ __interrupt void cpu_timer1_isr(void)
     T_s = (time_elapsed - old_time_elapsed)/100;
     old_time_elapsed = time_elapsed;
 
-    if((time_elapsed - last_imu_message_time) > 300){
+    if((time_elapsed - last_imu_message_time) > 500){
         if (macros_settings.torque_vectoring)
             macros_settings.torque_vectoring = 0;
     }
