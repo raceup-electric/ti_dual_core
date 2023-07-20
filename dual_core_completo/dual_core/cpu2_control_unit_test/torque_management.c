@@ -462,7 +462,7 @@ void torqueLimit1(){
 void regBrake()
 {
     float sumrip = repFz[0] + repFz[1] + repFz[2] + repFz[3];
-    int rpm = SPEED_LIMIT;
+    int rpm = car_settings.max_speed;
     float rads = rpm*PI/30;
 
     float V_zero = batteryPackTension + RBATT * lem_current;

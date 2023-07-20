@@ -239,7 +239,7 @@ tCANMsgObject TXCANA_BmsHost_Message;
 tCANMsgObject RXCANA_BmsLV_Message;
 tCANMsgObject RXCANA_PwCtrl_Message;
 tCANMsgObject RXCANA_Wheel_Message;
-tCANMsgObject RXCANA_Lem_Message; //aggiunto lem
+tCANMsgObject RXCANA_Lem_Message;
 tCANMsgObject TXCANA_ATMega_Message;
 
 unsigned char RXA_Imu_Data[8];
@@ -252,7 +252,7 @@ unsigned char RXA_PwCtrl_Data[1];
 unsigned char RXA_Wheel_Data[1];
 unsigned char TXA_Host_Data[4];
 float TXA_Smu_Calibration[5][2];
-unsigned char RXA_Lem_Data[8]; //aggiunto lem
+unsigned char RXA_Lem_Data[8];
 unsigned char TXCANA_ATMega_Data[2];
 
 
@@ -312,7 +312,9 @@ Uint16 TempRadInLC_temp;
 Uint16 TempRadInRC_temp;
 
 
-//Shared structs
+/*
+ * Shared structs
+ */
 
 struct Share_struct sh;
 
@@ -326,7 +328,6 @@ struct motorSetPoints motorSetP_shared[4];
 
 struct BMS_Log bms_log;
 
-//struct Sendyne_Log sendyne_log;
 struct Power_Log power_log;
 
 struct FanSpeed_Log fanspeed_log;
@@ -345,11 +346,11 @@ struct Car_settings car_settings;
 
 struct Macros_settings macros_settings;
 
-#pragma DATA_SECTION(macros_settings,"SHARERAMGS15");
-#pragma DATA_SECTION(car_settings,"SHARERAMGS14");
 #pragma DATA_SECTION(sh,"SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS12");
 #pragma DATA_SECTION(display,"SHARERAMGS13");
+#pragma DATA_SECTION(macros_settings,"SHARERAMGS15");
+#pragma DATA_SECTION(car_settings,"SHARERAMGS14");
 
 
 //

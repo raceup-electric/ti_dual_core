@@ -377,7 +377,6 @@ void playRTDS()
     GPIO_WritePin(RTDS, 1U);  // sound
     CpuTimer2.InterruptCount = 0;
     CpuTimer2Regs.TCR.bit.TSS = 0;      //Start timer 2
-    //CPUTimer_startTimer(CPUTIMER1_BASE);    //timer for sound
 }
 
 void R2D_On()
@@ -740,10 +739,7 @@ void fanControl()
 }
 
 /*
- * Fan activation at 50° with 10% epwm
- * Fan follows a ramp until 60°
- *
- * Fan deactivation at 45°
+ * Always active at 20% then linearly increases from 60% to 80% when temperature is above between 60° and 80°
  */
 
 Uint16 fanSpeedFunction(int temp){
@@ -764,12 +760,15 @@ Uint16 fanSpeedFunction(int temp){
 //        return (9*temp) - 440;
 //    }
 
+    /*
+     * Reminder: fans actually work with pwm greater or equal than 40%
+     */
     if(temp <= 60){
-        return 20;
+        return 40;
     } else if (temp >= 80) {
         return 80;
     } else {
-        return (3*temp) - 160;
+        return (2*temp) - 80;
     }
 
 //#endif

@@ -352,6 +352,13 @@ void updatePage10(){
     sprintf(tmp, "pedalSetup.brk_req.val=%dÿÿÿ\0", local_sh.pedals.brk_req_shared);
     scic_msg(tmp);
 
+    sprintf(tmp, "pedalSetup.accpot1.val=%dÿÿÿ\0", (int)local_sh.pedals.acc_pot1_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "pedalSetup.accpot2.val=%dÿÿÿ\0", (int)local_sh.pedals.acc_pot2_shared);
+    scic_msg(tmp);
+    sprintf(tmp, "pedalSetup.brkpot.val=%dÿÿÿ\0", (int)local_sh.pedals.brk_pot_shared);
+    scic_msg(tmp);
+
     sprintf(tmp, "pedalSetup.thr.val=%dÿÿÿ\0", local_sh.status.throttle_shared);
     scic_msg(tmp);
     sprintf(tmp, "pedalSetup.brk.val=%dÿÿÿ\0", local_sh.status.brake_shared);

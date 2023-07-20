@@ -22,7 +22,6 @@ void loop()
     while(true) {
         if(isHVOn()) {
             if(!enableMotor) {
-                //DEVICE_DELAY_US(10000000);  // wait for precharge
                 enableMotor = true;
             }
         } else {
@@ -47,8 +46,6 @@ void setup()
        {
        }
 
-       //InitGpio();
-
        canSetup_phase1();
 
        DINT;
@@ -59,9 +56,6 @@ void setup()
        IFR = 0x0000;
 
        InitPieVectTable();
-
-
-
 
        GPIOSetup();
 

@@ -81,29 +81,8 @@ __interrupt void cpu_timer1_isr(void)
     /*
      * Il codice finale in auto richiede fanControl();
      */
-    //fanControl();
+    fanControl();
 
-    /*
-     * ONLY FOR TEST CODE
-     * Mi raccomando fate la prova con diversi duty cycles
-     */
-    //Start fans 15 sec after lv power on
-    if(time_elapsed > 1000){
-        fan_enable = 1;
-        setFanSpeed(20);    //duty cycle 80%
-        //setFanSpeed(80);    //duty cycle 20%
-        //setFanSpeed(100);    //duty cycle 0%
-    } else if (time_elapsed > 2000) {
-        fan_enable = 1;
-        setFanSpeed(20);    //duty cycle 80%
-    }
-    else {
-        fan_enable = 0;
-        setFanSpeed(100);
-    }
-    /*
-     * End test code
-     */
 
     //Start pumps 5 sec after lv power on
     if(time_elapsed >500){
@@ -150,9 +129,6 @@ __interrupt void cpu_timer1_isr(void)
 
     if(canSendAMK)
     {
-
-        /*brakeReg = brake > 10 && brake < REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;
-        brakeMec = brake >= REGENERATIVE_BRAKE_LIMIT && actualVelocityKMH > 5;*/
         brakeReg = brake > 10 && actualVelocityKMH > 5.f;
         noBrake = brake <= 10;
 
@@ -177,18 +153,6 @@ __interrupt void cpu_timer1_isr(void)
                     stopAMK();
                 else
                     brakeAMK(brake);       //Deleted the if-else statement with lem_curr < max_reg
-            }
-            else if(brakeMec)
-            {
-                if (!macros_settings.reg_brake)
-                    stopAMK();
-                else
-                    if(lem_current > car_settings.max_regen_current){
-                        brakeAMK(brake);
-                    }
-                    else {
-                        stopAMK();
-                    }
             }
             else if(noBrake)
             {
