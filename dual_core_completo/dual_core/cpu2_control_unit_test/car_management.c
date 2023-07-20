@@ -698,18 +698,11 @@ void checkImplausibility()
 }
 
 /*
- * Important: fans are only active after R2d
+ * Important: fans should be active after R2d
  */
 void fanControl()
 {
-#ifndef FAN_LV_ENABLE
-    if (!R2D_state)
-    {
-       leftFanSpeed = 0;
-       rightFanSpeed = 0;
-    }
-    else
-    {
+    if (fan_enable){
         /*
          * fan activation threshold is based on max temp among all inverters
          */
@@ -721,18 +714,12 @@ void fanControl()
 
             leftFanSpeed = fanSpeedFunction(maxTemp);
             rightFanSpeed = leftFanSpeed;
-
         }
 
     }
-#else
-    int leftTemp = fmax(motorVal2[0].AMK_TempInverter, motorVal2[2].AMK_TempInverter);
-    int rightTemp = fmax(motorVal2[1].AMK_TempInverter, motorVal2[3].AMK_TempInverter);
-    int maxTemp = fmax(leftTemp, rightTemp);
-
-    leftFanSpeed = fanSpeedFunction(maxTemp);
-    rightFanSpeed = fanSpeedFunction(maxTemp);
-#endif
+    else {
+        setFanSpeed(100);
+    }
 
 
     setFanSpeed(100 - leftFanSpeed);
