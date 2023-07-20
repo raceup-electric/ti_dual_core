@@ -170,6 +170,11 @@ void read_steering_wheel_message(Uint16 val[], int id){
      * PAGE INCREASE/DECREASE
      */
     int currentPage = display.page;
+    static int driving_page_index = 0;
+    static Uint16 old_val = 99;
+    static int over_macro = 0;
+    static int over_setup = 0;
+    static int over_pedal = 0;
     if (id == MSG_ID_STEERING_WHEEL_BASE){
         if(val[0] == NEXT_PAGE){
 
@@ -178,20 +183,21 @@ void read_steering_wheel_message(Uint16 val[], int id){
                 currentPage = currentPage % MAX_PAGE_NUMBER;
                 display.page = currentPage;
             } else if(screen_mode == SCREEN_DRIVING){
-                currentPage++;
-                currentPage = currentPage % MAX_DRIVING_PAGE + MAX_PAGE_NUMBER - MAX_DRIVING_PAGE;
+                driving_page_index++;
+                driving_page_index = driving_page_index % MAX_DRIVING_PAGE;
+                currentPage = driving_page_num[driving_page_index];
                 display.page = currentPage;
             }
 
         }
         else if(val[0] == PREVIOUS_PAGE){
+            currentPage = currentPage - 1 + MAX_PAGE_NUMBER;
+            currentPage = currentPage % MAX_PAGE_NUMBER;
             if(screen_mode == SCREEN_DEBUG){
-                currentPage = currentPage - 1 + MAX_PAGE_NUMBER;
-                currentPage = currentPage % MAX_PAGE_NUMBER;
                 display.page = currentPage;
             } else if(screen_mode == SCREEN_DRIVING){
-                currentPage = currentPage - 1 + MAX_DRIVING_PAGE;
-                currentPage = currentPage % MAX_DRIVING_PAGE + MAX_PAGE_NUMBER - MAX_DRIVING_PAGE;
+                driving_page_index = (driving_page_index - 1 + MAX_DRIVING_PAGE)  % MAX_DRIVING_PAGE;
+                currentPage = driving_page_num[driving_page_index];
                 display.page = currentPage;
             }
         }else if(val[0] == START_LAUNCH){
@@ -208,6 +214,12 @@ void read_steering_wheel_message(Uint16 val[], int id){
         else if(val[0] == CHANGE_SCREEN_MODE){
             screen_mode++;
             screen_mode %= 2;
+            if (screen_mode == SCREEN_DRIVING){
+                driving_page_index = 0;
+                display.page = driving_page_num[driving_page_index];
+            }
+            else if (screen_mode == SCREEN_DEBUG)
+                display.page = 0;
         }
 
     }
@@ -216,43 +228,78 @@ void read_steering_wheel_message(Uint16 val[], int id){
      * SELECTOR 1 UPDATE
      */
     if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == SETUP_PAGE){
-        display.selector_setup = val[0] % 7;
+        if(old_val == 8 && val[0] == 0x00)
+           over_setup++;
+       else if(old_val == 0 && val[0] == 0x08)
+           over_setup--;
+
+       display.selector_setup = (val[0] + 9*over_setup) % 7;
+
+       old_val = val[0];
     }
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == PEDAL_SETUP_PAGE){
-        display.selector_pedal_setup = val[0] % 4;
+        if(old_val == 8 && val[0] == 0x00)
+           over_pedal++;
+       else if(old_val == 0 && val[0] == 0x08)
+           over_pedal--;
+
+       display.selector_pedal_setup = (val[0] + 9*over_pedal) % 4;
+
+       old_val = val[0];
     }
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == MACROS_PAGE){
-        display.selector_macros = val[0] % 6;
+
+
+        if(old_val == 8 && val[0] == 0x00)
+            over_macro++;
+        else if(old_val == 0 && val[0] == 0x08)
+            over_macro--;
+
+        display.selector_macros = (val[0] + 9*over_macro) % 6;
+
+        old_val = val[0];
+
     }
     else if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP && currentPage == FANSPEED_PAGE){
 
        // if(!(val[0] % 2 == 1 && !display.manual_speed_selector))
-            display.selector_fan = val[0] % 2;
+            if(old_val == 8 && val[0] == 0x00)
+                display.selector_fan = (val[0]+1) % 2;
+            else
+                display.selector_fan = val[0] % 2;
+
+            old_val = val[0];
     }
 
     /*
      * SELECTOR 2 UPDATE
      */
     if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == SETUP_PAGE){
-        if (display.selector_setup == 0)
-            display.selector_regen = val[0] % 6;
-        else if (display.selector_setup == 1)
-            display.selector_maxpos = val[0] % 5;
-        else if (display.selector_setup == 2)
-            display.selector_maxneg = val[0] % 5;
-        else if (display.selector_setup == 3)
-            display.selector_power = val[0] % 8;
-        else if (display.selector_setup == 4)
-            display.selector_speed = val[0] % 6;
-        else if (display.selector_setup == 5)
-            display.selector_trqr = val[0] % 6;
-        else if (display.selector_setup == 6)
-            display.selector_trqf = val[0] % 6;
+
+        if (val[0] < 6){
+            if (display.selector_setup == 0)
+                display.selector_regen = val[0] % 6;
+            else if (display.selector_setup == 1)
+                display.selector_maxpos = val[0] % 5;
+            else if (display.selector_setup == 2)
+                display.selector_maxneg = val[0] % 5;
+            else if (display.selector_setup == 3)
+                display.selector_power = val[0] % 8;
+            else if (display.selector_setup == 4)
+                display.selector_speed = val[0] % 6;
+            else if (display.selector_setup == 5)
+                display.selector_trqr = val[0] % 6;
+            else if (display.selector_setup == 6)
+                display.selector_trqf = val[0] % 6;
+        }
     }
 
     if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == FANSPEED_PAGE){
         if (display.selector_fan == 1)
-            display.selector_speed_fan = (val[0] % 11)*10;
+            if (val[0] == 0)
+                display.selector_speed_fan = 0;
+            else
+                display.selector_speed_fan = (val[0] % 9)*10 + 20;
     }
 
     /*
@@ -294,8 +341,8 @@ void read_steering_wheel_message(Uint16 val[], int id){
             break;
 
             case(1):
-                pedals_log.acc1_low_calibration = pedals_log.acc_pot1_shared+30;
-                pedals_log.acc2_low_calibration = pedals_log.acc_pot2_shared+30;
+                pedals_log.acc1_low_calibration = pedals_log.acc_pot1_shared+40;
+                pedals_log.acc2_low_calibration = pedals_log.acc_pot2_shared+40;
             break;
 
             case(2):
@@ -303,7 +350,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
             break;
 
             case(3):
-                pedals_log.brk_low_calibration = pedals_log.brk_pot_shared+30;
+                pedals_log.brk_low_calibration = pedals_log.brk_pot_shared+40;
             break;
 
             }

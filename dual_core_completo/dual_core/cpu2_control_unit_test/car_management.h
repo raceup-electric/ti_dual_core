@@ -37,6 +37,7 @@ extern unsigned char fan_enable;
 extern unsigned char pump_enable;
 
 extern char screen_mode;
+extern const int driving_page_num[MAX_DRIVING_PAGE];
 
 
 //bms

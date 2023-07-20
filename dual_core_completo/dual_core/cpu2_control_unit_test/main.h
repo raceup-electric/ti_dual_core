@@ -67,9 +67,9 @@ const float presets_power[8] = {5000.f, 15000.f, 30000.f, 45000.f, 60000.f, 6500
 const float presets_max_pos[5] = {10.f, 13.f, 15.f, 17.f, 20.f};
 const float presets_max_neg[5] = {-3.f, -5.f, -7.f, -9.f, -11.f};
 const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};
-const float presets_speed[6] = {5000, 10000, 14000, 15000, 18000, 20000};
-const float presets_coppie_front[6] = {0.3f, 0.4f, 0.5f, 0.63f, 0.7f, 0.8f};
-const float presets_coppie_rear[6] = {0.5f, 1.f, 1.3f, 1.5f, 1.7f, 1.8f};
+const float presets_speed[6] = {5000, 10000, 15000, 17000, 18000, 20000};
+const float presets_coppie_front[6] = {0.5f, 0.63f, 0.7f, 0.8f, 0.9f, 1.f};
+const float presets_coppie_rear[6] = {1.f, 1.3f, 1.5f, 1.7f, 1.8f, 1.9f};
 
 // driver input
 // filtro max-nuotatori: media mobile, senza contare i top N valori
@@ -80,6 +80,7 @@ int brakes[20];
 int steerings[20];
 uint16_t value = 0;
 char screen_mode = 0;
+const int driving_page_num[MAX_DRIVING_PAGE] = {11, 12};
 
 //pumps and fans
 char RTDS_STATE = 0;  // RTDS

@@ -303,12 +303,12 @@
 #define MAX_PAGE_NUMBER     14
 #define MAX_DRIVING_PAGE    2
 
-#define CONFIRMATION        0x1
-#define NEXT_PAGE           0x2
+#define CONFIRMATION        0x2
+#define NEXT_PAGE           0x4
 #define CALIBRATION         0x3//TO REVIEW
-#define PREVIOUS_PAGE       0x4
-#define START_LAUNCH        0x8
-#define CHANGE_SCREEN_MODE  0x20
+#define PREVIOUS_PAGE       0x20
+#define START_LAUNCH        0x10
+#define CHANGE_SCREEN_MODE  0x8
 
 #define SETUP_PAGE          0x08
 #define PEDAL_SETUP_PAGE    0x09
