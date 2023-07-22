@@ -5,7 +5,7 @@
     <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROJECT.TMS320F28377D.ccxml.Texas Instruments XDS100v2 USB Debug Probe_0/C28xx_CPU1" value="cpu1_control_unit_test"/>
     <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:cpu1_control_unit_test}"/>
     <stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.TMS320F28377D.ccxml.Texas Instruments XDS100v2 USB Debug Probe_0/C28xx_CPU1" value="${build_artifact:cpu1_control_unit_test}"/>
-    <stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.TMS320F28377D.ccxml.Texas Instruments XDS100v2 USB Debug Probe_0/C28xx_CPU2" value="D:\Desktop\raceup\ecu\ti_dual_core\ti_dual_core\dual_core_completo\dual_core\cpu2_control_unit_test\CPU2_FLASH\cpu2_control_unit_test.out"/>
+    <stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.TMS320F28377D.ccxml.Texas Instruments XDS100v2 USB Debug Probe_0/C28xx_CPU2" value="C:\Users\utente\Documents\RaceUp\2022\Codice\ti_dual_core\dual_core_completo\dual_core\cpu2_control_unit_test\CPU2_FLASH\cpu2_control_unit_test.out"/>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
         <listEntry value="/cpu1_control_unit_test"/>
     </listAttribute>

@@ -215,17 +215,18 @@ void performancePack()
     for (i = 0; i < NUM_OF_MOTORS; i++)
     {
             //Save last setting of pos and neg troque
-        minTorquePos[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1]);
-        minTorquePos[i] = fminf(minTorquePos[i], posTorqueCandidate[i][2]);
-        minTorquePos[i] = fminf(minTorquePos[i], posTorqueCandidate[i][3]);
-        posTorqueNM_last[i] = posTorqueNM_last[i] - 0.2*(posTorqueNM_last[i] - (minTorquePos[i]));
-        negTorqueNM_last[i] = negTorqueNM_last[i] - 0.2*(negTorqueNM_last[i] - (negTorqueCandidate[i]));
+        minTorquePos[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][2]);
+        minTorquePos[i] = fminf(minTorquePos[i], posTorqueCandidate[i][2]*posTorqueCandidate[i][1]);
+        //Commented to not apply LC
+        //minTorquePos[i] = fminf(minTorquePos[i], posTorqueCandidate[i][3]);
+       // posTorqueNM_last[i] = posTorqueNM_last[i] - 0.2*(posTorqueNM_last[i] - (minTorquePos[i]));
+       // negTorqueNM_last[i] = negTorqueNM_last[i] - 0.2*(negTorqueNM_last[i] - (negTorqueCandidate[i]));
             //posTorquesNM[i] = fminf(posTorqueCandidate[i][0], posTorqueCandidate[i][1]);
             //negTorquesNM[i] = negTorqueCandidate[i];
 
             //Send them out of TV
-        posTorquesNM[i] = posTorqueNM_last[i];
-        negTorquesNM[i] = negTorqueNM_last[i];
+        posTorquesNM[i] = minTorquePos[i];
+        negTorquesNM[i] = negTorqueCandidate[i];
     }
 
 }
@@ -268,7 +269,7 @@ void speedCalculatorTV()
     int i;
     for (i = 0; i < 4; i++)
     {
-        re[i] = R0 - (fz[i] * 3.016126E-6f);
+        re[i] = R0 - (fz[i] * k_Re);
     }
 
     float tmp = ((th + brk)*0.1f)+1.0f;
@@ -290,7 +291,7 @@ void speedCalculatorTV()
     for (i = 0; i < 4; i++)
     {
         steers_tmp[i] = tanf(steers[i]);
-        steers_tmp[i]*=((FZF*W)/FZR);
+        steers_tmp[i]*=((B*W)/A);
         steers_tmp[i]*=yaw_r;
     }
 
@@ -303,6 +304,7 @@ void speedCalculatorTV()
 
     //Speed estimation
     speedTv = sum * 0.25f;
+    speedTv = saturateFloat(speedTv, SPEED_UPPER_BOUND, SPEED_LOWER_BOUND);
 }
 
 void FzCalculatorTV()
@@ -323,22 +325,22 @@ void FzCalculatorTV()
 
     fz[0] = -tmp_x;
     fz[0] += -tmp_yf;
-    fz[0] += FZF*G_ACC;
+    fz[0] += MASS*B/W/2.0f*G_ACC;
     fz[0] += tmp_u1;
 
     fz[1] = -tmp_x;
     fz[1]+= tmp_yf;
-    fz[1]+= FZF*G_ACC;
+    fz[1]+= MASS*B/W/2.0f*G_ACC;
     fz[1]+= tmp_u1;
 
     fz[2] = tmp_x;
     fz[2]+= -tmp_yr;
-    fz[2]+= FZR*G_ACC;
+    fz[2]+= MASS*A/W/2.0f*G_ACC;
     fz[2]+= tmp_u2;
 
     fz[3] = tmp_x;
     fz[3]+= tmp_yr;
-    fz[3]+= FZR*G_ACC;
+    fz[3]+= MASS*A/W/2.0f*G_ACC;
     fz[3]+= tmp_u2;
 
     int i;
@@ -402,13 +404,19 @@ void RECalculatorTC(){
 
 void torqueVectoring()
 {
+   float t_rat = 0.5f;
    torqueRepartition();
    int i;
    for (i = 0; i < 4; i++)
    {
        //SECONDO CANDIDATO
-       posTorqueCandidate[i][1] = repFz[i]*th*4*AMK_TorqueLimitPositive[i];
-       negTorqueCandidate[i] = repFz[i]*brk*4*AMK_TorqueLimitNegative[i];
+       if(i == MOTOR_FL || i == MOTOR_FR){
+           posTorqueCandidate[i][1] = repFz[i]*th*2.0f*MAX_POS_TORQUE*t_rat;//*4*AMK_TorqueLimitPositive[i];
+           negTorqueCandidate[i] = repFz[i]*brk*4.0f*MAX_NEG_TORQUE;
+       }else{
+           posTorqueCandidate[i][1] = repFz[i]*th*2.0f*MAX_POS_TORQUE*(1-t_rat);
+           negTorqueCandidate[i] = repFz[i]*brk*4.0f*MAX_NEG_TORQUE;
+       }
    }
 
 }
@@ -421,19 +429,20 @@ void torqueRepartition()
     for (i = 0; i < 4; i++)
         fzSum+= fz[i];
 
-    float fzSumDef = fzSum;
+    float fzSumDef = fz[2]+fz[3];
     //front repartition
     float repF = (fz[0] + fz[1])/fzSumDef;
     //Lateral front repartition
     repFz[0] = (fz[0]/(fz[0] + fz[1]))*repF;
-    repFz[1] = (fz[1]/(fz[0] + fz[1]))*repF;
+    repFz[1] = 1-repFz[0];
 
     fzSum = fzSum - (fz[0] + fz[1]);
     fzSum = fz[3]/fzSum;
 
     //Lateral rear repartition
-    repFz[2] = (1 - fzSum)*(1-repF);
-    repFz[3] = fzSum*(1-repF);
+    repFz[3] = fz[4]/fzSumDef;
+    repFz[2] = (1-repFz[3]);
+
 
 
 
@@ -448,13 +457,22 @@ void torqueLimit1(){
     }
     float tmp_steer[4];
     for(i = 0; i < NUM_OF_MOTORS; i++){
+        steers[i] = tanf(steers[i]);
+        steers[i] = saturateFloat(steers[i],0.2f, -0.2f);
         tmp_steer[i] = 1.0f + steers[i]*ALPHA1 + pow(steers[i], 2.0f)*ALPHA2 + pow(steers[i], 3.0f)*ALPHA3 + pow(steers[i], 4.0f)*ALPHA4 + pow(steers[i], 5.0f)*ALPHA5;
+    }
+
+    float tmp_y[4];
+
+    for(i = 0; i < NUM_OF_MOTORS; i++){
+        tmp_y[i] = saturateFloat(tmp_fz[i],2*fz[i], 1.0f);
     }
 
     for(i = 0; i < NUM_OF_MOTORS; i++){
         //TERZO CANDIDATO
         //1.0f cond di grip ideale 0.0grip inesistente
-        posTorqueCandidate[i][2] = tmp_steer[i] * tmp_fz[i] * 1.0f  + re[i];
+        posTorqueCandidate[i][2] = tmp_steer[i] * tmp_y[i] * re[i];
+        posTorqueCandidate[i][2] *= TAU;
     }
 }
 
