@@ -69,59 +69,59 @@ void updatePage(Uint16 page){
     switch(page){
         case PAGE_1:
           currentPage=PAGE_1;
-          scic_msg("page 1ÿÿÿ\0");
+          scic_msg("page 1ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_2:
             currentPage=PAGE_2;
-            scic_msg("page 2ÿÿÿ\0");
+            scic_msg("page 2ï¿½ï¿½ï¿½\0");
           break;
         case PAGE_3:
           currentPage=PAGE_3;
-          scic_msg("page 3ÿÿÿ\0");
+          scic_msg("page 3ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_4:
           currentPage=PAGE_4;
-          scic_msg("page 4ÿÿÿ\0");
+          scic_msg("page 4ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_5:
           currentPage=PAGE_5;
-          scic_msg("page 5ÿÿÿ\0");
+          scic_msg("page 5ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_6:
           currentPage=PAGE_6;
-          scic_msg("page 6ÿÿÿ\0");
+          scic_msg("page 6ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_7:
           currentPage=PAGE_7;
-          scic_msg("page 7ÿÿÿ\0");
+          scic_msg("page 7ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_8:
           currentPage=PAGE_8;
-          scic_msg("page 8ÿÿÿ\0");
+          scic_msg("page 8ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_9:
           currentPage=PAGE_9;
-          scic_msg("page 9ÿÿÿ\0");
+          scic_msg("page 9ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_10:
           currentPage=PAGE_10;
-          scic_msg("page 10ÿÿÿ\0");
+          scic_msg("page 10ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_11:
           currentPage=PAGE_11;
-          scic_msg("page 11ÿÿÿ\0");
+          scic_msg("page 11ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_12:
             currentPage=PAGE_12;
-            scic_msg("page 12ÿÿÿ\0");
+            scic_msg("page 12ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_13:
             currentPage=PAGE_13;
-            scic_msg("page 13ÿÿÿ\0");
+            scic_msg("page 13ï¿½ï¿½ï¿½\0");
         break;
         case PAGE_14:
             currentPage=PAGE_14;
-            scic_msg("page 14ÿÿÿ\0");
+            scic_msg("page 14ï¿½ï¿½ï¿½\0");
         break;
 
       }
@@ -130,112 +130,112 @@ void updatePage(Uint16 page){
 
 void updatePage1()
 {
-    if(local_sh.status.status_shared & 0x000000F0) scic_msg("main.hv.bco=GREENÿÿÿ\0");
-    else scic_msg("main.hv.bco=REDÿÿÿ\0");
+    if(local_sh.status.status_shared & 0x000000F0) scic_msg("main.hv.bco=GREENï¿½ï¿½ï¿½\0");
+    else scic_msg("main.hv.bco=REDï¿½ï¿½ï¿½\0");
 
 
-    if(local_sh.status.status_shared & 0x000F0000) scic_msg("main.air2.bco=GREENÿÿÿ\0");
-    else scic_msg("main.air2.bco=REDÿÿÿ\0");
+    if(local_sh.status.status_shared & 0x000F0000) scic_msg("main.air2.bco=GREENï¿½ï¿½ï¿½\0");
+    else scic_msg("main.air2.bco=REDï¿½ï¿½ï¿½\0");
 
     // DA Sostituire con fault hv
-    //if(local_sh.status.status_shared & 0b00000100) scic_msg("main.temp.bco=REDÿÿÿ\0");
-    //else scic_msg("main.temp.bco=GREENÿÿÿ\0");
+    //if(local_sh.status.status_shared & 0b00000100) scic_msg("main.temp.bco=REDï¿½ï¿½ï¿½\0");
+    //else scic_msg("main.temp.bco=GREENï¿½ï¿½ï¿½\0");
 
     /*
      * PRE is now Implausibility brake/Thrott
      */
-    if(local_sh.status.status_shared & 0x0F000000) scic_msg("main.pre.bco=GREENÿÿÿ\0");
-    else scic_msg("main.pre.bco=REDÿÿÿ\0");
+    if(local_sh.status.status_shared & 0x0F000000) scic_msg("main.pre.bco=GREENï¿½ï¿½ï¿½\0");
+    else scic_msg("main.pre.bco=REDï¿½ï¿½ï¿½\0");
 
 
-    if(local_sh.status.status_shared & 0x00000F00) scic_msg("main.r2d.bco=GREENÿÿÿ\0");
-    else scic_msg("main.r2d.bco=REDÿÿÿ\0");
+    if(local_sh.status.status_shared & 0x00000F00) scic_msg("main.r2d.bco=GREENï¿½ï¿½ï¿½\0");
+    else scic_msg("main.r2d.bco=REDï¿½ï¿½ï¿½\0");
 
 
-    if(local_sh.status.status_shared & 0xF0000000) scic_msg("main.brk.bco=REDÿÿÿ\0");
-    else scic_msg("main.brk.bco=GREENÿÿÿ\0");
+    if(local_sh.status.status_shared & 0xF0000000) scic_msg("main.brk.bco=REDï¿½ï¿½ï¿½\0");
+    else scic_msg("main.brk.bco=GREENï¿½ï¿½ï¿½\0");
 
 
-    //if(local_sh.status.status_shared & 0b01000000) scic_msg("main.imp.bco=REDÿÿÿ\0");
-    //else scic_msg("main.imp.bco=GREENÿÿÿ\0");
+    //if(local_sh.status.status_shared & 0b01000000) scic_msg("main.imp.bco=REDï¿½ï¿½ï¿½\0");
+    //else scic_msg("main.imp.bco=GREENï¿½ï¿½ï¿½\0");
 
-    if(car_settings.lauch_ready) scic_msg("main.lc.bco=GREENÿÿÿ\0");
-    else scic_msg("main.lc.bco=REDÿÿÿ\0");
-
-
-    if(local_sh.status.status_shared & 0x00F00000) scic_msg("main.rf.bco=GREENÿÿÿ\0");
-    else scic_msg("main.rf.bco=REDÿÿÿ\0");
+    if(car_settings.lauch_ready) scic_msg("main.lc.bco=GREENï¿½ï¿½ï¿½\0");
+    else scic_msg("main.lc.bco=REDï¿½ï¿½ï¿½\0");
 
 
-//    sprintf(tmp, "main.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
+    if(local_sh.status.status_shared & 0x00F00000) scic_msg("main.rf.bco=GREENï¿½ï¿½ï¿½\0");
+    else scic_msg("main.rf.bco=REDï¿½ï¿½ï¿½\0");
+
+
+//    sprintf(tmp, "main.speed.val=%dï¿½ï¿½ï¿½\0",local_sh.status.actualVelocityKMH_shared);
 //    scic_msg(tmp);
 
-    sprintf(tmp, "main.bms_high.val=%dÿÿÿ\0", (int)(local_sh.bms.max_bms_voltage_shared*1000));
+    sprintf(tmp, "main.bms_high.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms.max_bms_voltage_shared*1000));
     scic_msg(tmp);
 
-    sprintf(tmp, "main.bms_high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
+    sprintf(tmp, "main.bms_high_temp.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.bms.max_bms_temp_shared);
     scic_msg(tmp);
 
-    sprintf(tmp, "main.maxmot.val=%dÿÿÿ\0", getMaxTempMot());
+    sprintf(tmp, "main.maxmot.val=%dï¿½ï¿½ï¿½\0", getMaxTempMot());
     scic_msg(tmp);
-    sprintf(tmp, "main.maxinv.val=%dÿÿÿ\0", getMaxTempInv());
+    sprintf(tmp, "main.maxinv.val=%dï¿½ï¿½ï¿½\0", getMaxTempInv());
     scic_msg(tmp);
-//    sprintf(tmp, "main.maxigbt.val=%dÿÿÿ\0", getMaxTempIGBT());
+//    sprintf(tmp, "main.maxigbt.val=%dï¿½ï¿½ï¿½\0", getMaxTempIGBT());
 //    scic_msg(tmp);
-    sprintf(tmp, "main.maxigbt.val=%dÿÿÿ\0", (int)local_sh.status.steering_shared);
+    sprintf(tmp, "main.maxigbt.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.status.steering_shared);
     scic_msg(tmp);
-    sprintf(tmp, "main.maxsmu.val=%dÿÿÿ\0", getMaxTempSmu());
+    sprintf(tmp, "main.maxsmu.val=%dï¿½ï¿½ï¿½\0", getMaxTempSmu());
     scic_msg(tmp);
 
-    sprintf(tmp, "main.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
+    sprintf(tmp, "main.voltage_HV.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.power.batteryPack_voltage_shared);
     scic_msg(tmp);
 
     if(local_sh.gpio.Bms_shared)
-            scic_msg("main.bms.bco=REDÿÿÿ\0");
+            scic_msg("main.bms.bco=REDï¿½ï¿½ï¿½\0");
     else
-            scic_msg("main.bms.bco=GREENÿÿÿ\0");
+            scic_msg("main.bms.bco=GREENï¿½ï¿½ï¿½\0");
 
     if(local_sh.gpio.Imd_shared)
-            scic_msg("main.imd.bco=REDÿÿÿ\0");
+            scic_msg("main.imd.bco=REDï¿½ï¿½ï¿½\0");
     else
-            scic_msg("main.imd.bco=GREENÿÿÿ\0");
+            scic_msg("main.imd.bco=GREENï¿½ï¿½ï¿½\0");
 }
 
 void updatePage2()
 {
-    sprintf(tmp, "bms.high.val=%dÿÿÿ\0", (int)(local_sh.bms.max_bms_voltage_shared*1000));
+    sprintf(tmp, "bms.high.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms.max_bms_voltage_shared*1000));
     scic_msg(tmp);
-    sprintf(tmp, "bms.med.val=%dÿÿÿ\0", (int)(local_sh.bms.mean_bms_voltage_shared*1000));
+    sprintf(tmp, "bms.med.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms.mean_bms_voltage_shared*1000));
     scic_msg(tmp);
-    sprintf(tmp, "bms.low.val=%dÿÿÿ\0", (int)(local_sh.bms.min_bms_voltage_shared*1000));
+    sprintf(tmp, "bms.low.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms.min_bms_voltage_shared*1000));
     scic_msg(tmp);
-    sprintf(tmp, "bms.high_temp.val=%dÿÿÿ\0", (int)(local_sh.bms.max_bms_temp_shared));
+    sprintf(tmp, "bms.high_temp.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms.max_bms_temp_shared));
     scic_msg(tmp);
 
-    sprintf(tmp, "bms.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
+    sprintf(tmp, "bms.voltage_HV.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.power.batteryPack_voltage_shared);
     scic_msg(tmp);
-    sprintf(tmp, "bms.lem.val=%dfÿÿÿ\0", (int)local_sh.power.lem_current_shared);
+    sprintf(tmp, "bms.lem.val=%dfï¿½ï¿½ï¿½\0", (int)local_sh.power.lem_current_shared);
     scic_msg(tmp);
 
 }
 
 void updatePage3()
 {
-        sprintf(tmp, "LV.lv0.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[0]*1000));
+        sprintf(tmp, "LV.lv0.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms_lv[0]*1000));
         scic_msg(tmp);
-        sprintf(tmp, "LV.lv1.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[1]*1000));
+        sprintf(tmp, "LV.lv1.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms_lv[1]*1000));
         scic_msg(tmp);
-        sprintf(tmp, "LV.lv2.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[2]*1000));
+        sprintf(tmp, "LV.lv2.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms_lv[2]*1000));
         scic_msg(tmp);
-        sprintf(tmp, "LV.lv3.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[3]*1000));
+        sprintf(tmp, "LV.lv3.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms_lv[3]*1000));
         scic_msg(tmp);
-        sprintf(tmp, "LV.lv4.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[4]*1000));
+        sprintf(tmp, "LV.lv4.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms_lv[4]*1000));
         scic_msg(tmp);
-        sprintf(tmp, "LV.lv5.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[5]*1000));
+        sprintf(tmp, "LV.lv5.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms_lv[5]*1000));
         scic_msg(tmp);
-        sprintf(tmp, "LV.temp1.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[6]));
+        sprintf(tmp, "LV.temp1.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms_lv[6]));
         scic_msg(tmp);
-        sprintf(tmp, "LV.temp2.val=%dÿÿÿ\0", (int)(local_sh.bms_lv[7]));
+        sprintf(tmp, "LV.temp2.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.bms_lv[7]));
         scic_msg(tmp);
 
         float sum = 0;
@@ -244,45 +244,45 @@ void updatePage3()
         {
             sum += local_sh.bms_lv[i];
         }
-        sprintf(tmp, "LV.tot.val=%dÿÿÿ\0", (int)(sum*1000));
+        sprintf(tmp, "LV.tot.val=%dï¿½ï¿½ï¿½\0", (int)(sum*1000));
         scic_msg(tmp);
 
 }
 
 void updatePage4()
 {
-    sprintf(tmp, "motor.mot1.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempMotor);
+    sprintf(tmp, "motor.mot1.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[0].AMK_TempMotor);
     scic_msg(tmp);
-    sprintf(tmp, "motor.mot2.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempMotor);
+    sprintf(tmp, "motor.mot2.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[1].AMK_TempMotor);
     scic_msg(tmp);
-    sprintf(tmp, "motor.mot3.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempMotor);
+    sprintf(tmp, "motor.mot3.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[2].AMK_TempMotor);
     scic_msg(tmp);
-    sprintf(tmp, "motor.mot4.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempMotor);
+    sprintf(tmp, "motor.mot4.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[3].AMK_TempMotor);
     scic_msg(tmp);
 }
 
 
 void updatePage5()
 {
-    sprintf(tmp, "inverter.inv1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv1n.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[0].AMK_TempInverter);
     scic_msg(tmp);
-    sprintf(tmp, "inverter.inv2n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv2n.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[1].AMK_TempInverter);
     scic_msg(tmp);
-    sprintf(tmp, "inverter.inv3n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv3n.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[2].AMK_TempInverter);
     scic_msg(tmp);
-    sprintf(tmp, "inverter.inv4n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempInverter);
+    sprintf(tmp, "inverter.inv4n.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[3].AMK_TempInverter);
     scic_msg(tmp);
 }
 
 void updatePage6()
 {
-    sprintf(tmp, "igbt.igbt1n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[0].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt1n.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[0].AMK_TempIGBT);
     scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt2n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[1].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt2n.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[1].AMK_TempIGBT);
     scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt3n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[2].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt3n.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[2].AMK_TempIGBT);
     scic_msg(tmp);
-    sprintf(tmp, "igbt.igbt4n.val=%dÿÿÿ\0", (int)local_sh.motorVal2[3].AMK_TempIGBT);
+    sprintf(tmp, "igbt.igbt4n.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.motorVal2[3].AMK_TempIGBT);
     scic_msg(tmp);
 }
 
@@ -291,25 +291,25 @@ void updatePage6()
 void updatePage7()
 {
 
-    sprintf(tmp, "pwr_set.regcurr.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_regen_current);
+    sprintf(tmp, "pwr_set.regcurr.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.max_regen_current);
     scic_msg(tmp);
 
-    sprintf(tmp, "pwr_set.maxpostrq.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_pos_torque);
+    sprintf(tmp, "pwr_set.maxpostrq.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.max_pos_torque);
        scic_msg(tmp);
 
-    sprintf(tmp, "pwr_set.maxnegtrq.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_neg_torque);
+    sprintf(tmp, "pwr_set.maxnegtrq.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.max_neg_torque);
     scic_msg(tmp);
 
-    sprintf(tmp, "pwr_set.powerlim.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.power_limit / 1000));
+    sprintf(tmp, "pwr_set.powerlim.txt=\"%d\"ï¿½ï¿½ï¿½\0", (int) (car_settings.power_limit / 1000));
       scic_msg(tmp);
 
-    sprintf(tmp, "pwr_set.speedlim.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.max_speed / 1000));
+    sprintf(tmp, "pwr_set.speedlim.txt=\"%d\"ï¿½ï¿½ï¿½\0", (int) (car_settings.max_speed / 1000));
        scic_msg(tmp);
 
-    sprintf(tmp, "pwr_set.trqr.txt=\"%.1f\"ÿÿÿ\0", car_settings.rear_motor_scale);
+    sprintf(tmp, "pwr_set.trqr.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.rear_motor_scale);
        scic_msg(tmp);
 
-    sprintf(tmp, "pwr_set.trqf.txt=\"%.1f\"ÿÿÿ\0", car_settings.front_motor_scale);
+    sprintf(tmp, "pwr_set.trqf.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.front_motor_scale);
     scic_msg(tmp);
 
 }
@@ -317,21 +317,21 @@ void updatePage7()
 
 void updatePage8()
 {
-    sprintf(tmp, "smu.prerad.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[0] - 273.15));
+    sprintf(tmp, "smu.prerad.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.imu.temperatures_shared[0] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.precold.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[1] - 273.15));
+    sprintf(tmp, "smu.precold.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.imu.temperatures_shared[1] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.premot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[2] - 273.15));
+    sprintf(tmp, "smu.premot.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.imu.temperatures_shared[2] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.postmot.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[3] - 273.15));
+    sprintf(tmp, "smu.postmot.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.imu.temperatures_shared[3] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.prerad2.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
+    sprintf(tmp, "smu.prerad2.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.imu.temperatures_shared[4] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.precold2.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[5] - 273.15));
+    sprintf(tmp, "smu.precold2.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.imu.temperatures_shared[5] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.premot2.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[6] - 273.15));
+    sprintf(tmp, "smu.premot2.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.imu.temperatures_shared[6] - 273.15));
     scic_msg(tmp);
-    sprintf(tmp, "smu.postmot2.val=%dÿÿÿ\0", (int)(local_sh.imu.temperatures_shared[7] - 273.15));
+    sprintf(tmp, "smu.postmot2.val=%dï¿½ï¿½ï¿½\0", (int)(local_sh.imu.temperatures_shared[7] - 273.15));
     scic_msg(tmp);
 }
 
@@ -349,51 +349,51 @@ void updatePage9(){
 
 void updatePage10(){
 
-    sprintf(tmp, "pedalSetup.accpot1.val=%dÿÿÿ\0", (int)local_sh.pedals.acc_pot1_shared);
+    sprintf(tmp, "pedalSetup.accpot1.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.pedals.acc_pot1_shared);
     scic_msg(tmp);
-    sprintf(tmp, "pedalSetup.accpot2.val=%dÿÿÿ\0", (int)local_sh.pedals.acc_pot2_shared);
+    sprintf(tmp, "pedalSetup.accpot2.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.pedals.acc_pot2_shared);
     scic_msg(tmp);
-    sprintf(tmp, "pedalSetup.brkpot.val=%dÿÿÿ\0", (int)local_sh.pedals.brk_pot_shared);
+    sprintf(tmp, "pedalSetup.brkpot.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.pedals.brk_pot_shared);
     scic_msg(tmp);
 
-    sprintf(tmp, "pedalSetup.thr.val=%dÿÿÿ\0", local_sh.status.throttle_shared);
+    sprintf(tmp, "pedalSetup.thr.val=%dï¿½ï¿½ï¿½\0", local_sh.status.throttle_shared);
     scic_msg(tmp);
-    sprintf(tmp, "pedalSetup.brk.val=%dÿÿÿ\0", local_sh.status.brake_shared);
+    sprintf(tmp, "pedalSetup.brk.val=%dï¿½ï¿½ï¿½\0", local_sh.status.brake_shared);
     scic_msg(tmp);
 
     setSelectorPedalConfig();
     setAckPedalConfig();
 
-    sprintf(tmp, "pedalSetup.brk_rel.val=%dÿÿÿ\0", local_sh.pedals.brk_low_calibration);
+    sprintf(tmp, "pedalSetup.brk_rel.val=%dï¿½ï¿½ï¿½\0", local_sh.pedals.brk_low_calibration);
                     scic_msg(tmp);
 
-    sprintf(tmp, "pedalSetup.brk_pr.val=%dÿÿÿ\0", local_sh.pedals.brk_high_calibration);
+    sprintf(tmp, "pedalSetup.brk_pr.val=%dï¿½ï¿½ï¿½\0", local_sh.pedals.brk_high_calibration);
                     scic_msg(tmp);
 
-    sprintf(tmp, "pedalSetup.acc1_pr.val=%dÿÿÿ\0", local_sh.pedals.acc1_high_calibration);
+    sprintf(tmp, "pedalSetup.acc1_pr.val=%dï¿½ï¿½ï¿½\0", local_sh.pedals.acc1_high_calibration);
                     scic_msg(tmp);
-    sprintf(tmp, "pedalSetup.acc2_pr.val=%dÿÿÿ\0", local_sh.pedals.acc2_high_calibration);
+    sprintf(tmp, "pedalSetup.acc2_pr.val=%dï¿½ï¿½ï¿½\0", local_sh.pedals.acc2_high_calibration);
                     scic_msg(tmp);
 
-    sprintf(tmp, "pedalSetup.acc1_rel.val=%dÿÿÿ\0", local_sh.pedals.acc1_low_calibration);
+    sprintf(tmp, "pedalSetup.acc1_rel.val=%dï¿½ï¿½ï¿½\0", local_sh.pedals.acc1_low_calibration);
                     scic_msg(tmp);
-    sprintf(tmp, "pedalSetup.acc2_rel.val=%dÿÿÿ\0", local_sh.pedals.acc2_low_calibration);
+    sprintf(tmp, "pedalSetup.acc2_rel.val=%dï¿½ï¿½ï¿½\0", local_sh.pedals.acc2_low_calibration);
                     scic_msg(tmp);
 }
 
 void updatePage11(){
     setSelectorMacrosConfig();
 
-    if(macros_settings.torque_vectoring) scic_msg("macros.tv.bco=GREENÿÿÿ\0");
-        else scic_msg("macros.tv.bco=REDÿÿÿ\0");
-    if(macros_settings.one_pedal) scic_msg("macros.one.bco=GREENÿÿÿ\0");
-        else scic_msg("macros.one.bco=REDÿÿÿ\0");
-    if(macros_settings.traction_ctrl) scic_msg("macros.tr.bco=GREENÿÿÿ\0");
-        else scic_msg("macros.tr.bco=REDÿÿÿ\0");
-    if(macros_settings.reg_brake) scic_msg("macros.reg.bco=GREENÿÿÿ\0");
-        else scic_msg("macros.reg.bco=REDÿÿÿ\0");
-    if(macros_settings.thermal_power_ctrl) scic_msg("macros.therm.bco=GREENÿÿÿ\0");
-        else scic_msg("macros.therm.bco=REDÿÿÿ\0");
+    if(macros_settings.torque_vectoring) scic_msg("macros.tv.bco=GREENï¿½ï¿½ï¿½\0");
+        else scic_msg("macros.tv.bco=REDï¿½ï¿½ï¿½\0");
+    if(macros_settings.one_pedal) scic_msg("macros.one.bco=GREENï¿½ï¿½ï¿½\0");
+        else scic_msg("macros.one.bco=REDï¿½ï¿½ï¿½\0");
+    if(macros_settings.traction_ctrl) scic_msg("macros.tr.bco=GREENï¿½ï¿½ï¿½\0");
+        else scic_msg("macros.tr.bco=REDï¿½ï¿½ï¿½\0");
+    if(macros_settings.reg_brake) scic_msg("macros.reg.bco=GREENï¿½ï¿½ï¿½\0");
+        else scic_msg("macros.reg.bco=REDï¿½ï¿½ï¿½\0");
+    if(macros_settings.thermal_power_ctrl) scic_msg("macros.therm.bco=GREENï¿½ï¿½ï¿½\0");
+        else scic_msg("macros.therm.bco=REDï¿½ï¿½ï¿½\0");
 
 }
 
@@ -404,22 +404,22 @@ void updatePage12(){
     {
         sum += local_sh.bms_lv[i];
      }
-    sprintf(tmp, "Drv_END.tot.val=%dÿÿÿ\0", (int)(sum*1000));
+    sprintf(tmp, "Drv_END.tot.val=%dï¿½ï¿½ï¿½\0", (int)(sum*1000));
     scic_msg(tmp);
-    sprintf(tmp, "Drv_END.low_lv.val=%dÿÿÿ\0", (int)(getLowestLvVoltage()*1000));
+    sprintf(tmp, "Drv_END.low_lv.val=%dï¿½ï¿½ï¿½\0", (int)(getLowestLvVoltage()*1000));
     scic_msg(tmp);
-    sprintf(tmp, "Drv_END.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
+    sprintf(tmp, "Drv_END.high_temp.val=%dï¿½ï¿½ï¿½\0", (int)local_sh.bms.max_bms_temp_shared);
     scic_msg(tmp);
-    sprintf(tmp, "Drv_END.low.val=%dÿÿÿ\0",(int)(local_sh.bms.min_bms_voltage_shared*1000));
+    sprintf(tmp, "Drv_END.low.val=%dï¿½ï¿½ï¿½\0",(int)(local_sh.bms.min_bms_voltage_shared*1000));
     scic_msg(tmp);
-    sprintf(tmp, "Drv_END.med.val=%dÿÿÿ\0",(int)(local_sh.bms.mean_bms_voltage_shared*1000));
+    sprintf(tmp, "Drv_END.med.val=%dï¿½ï¿½ï¿½\0",(int)(local_sh.bms.mean_bms_voltage_shared*1000));
     scic_msg(tmp);
 }
 
 
 void updatePage13(){
 
-    sprintf(tmp, "Drv_SPEED.actualKmh.val=%dÿÿÿ\0", local_sh.status.actualVelocityKMH_shared);
+    sprintf(tmp, "Drv_SPEED.actualKmh.val=%dï¿½ï¿½ï¿½\0", local_sh.status.actualVelocityKMH_shared);
     scic_msg(tmp);
 
 }
@@ -431,7 +431,7 @@ void  updatePage14(){
     setSelector2_fan();
     setAckFan();
 
-    sprintf(tmp, "fan_SPEED.speed.val=%dÿÿÿ\0", local_sh.fanSpeed.rightFanSpeed_shared);
+    sprintf(tmp, "fan_SPEED.speed.val=%dï¿½ï¿½ï¿½\0", local_sh.fanSpeed.rightFanSpeed_shared);
     scic_msg(tmp);
 
 }
@@ -443,14 +443,14 @@ void setSelector1_fan(){
 
     if(old_fan != n_setup && n_setup== 0){
 
-        scic_msg("fan_SPEED.setup0.bco=YELLOWÿÿÿ\0");
-        scic_msg("fan_SPEED.setup1.bco=54938ÿÿÿ\0");
+        scic_msg("fan_SPEED.setup0.bco=YELLOWï¿½ï¿½ï¿½\0");
+        scic_msg("fan_SPEED.setup1.bco=54938ï¿½ï¿½ï¿½\0");
 
     }
     else if(old_fan != n_setup && n_setup == 1){
 
-        scic_msg("fan_SPEED.setup1.bco=YELLOWÿÿÿ\0");
-        scic_msg("fan_SPEED.setup0.bco=54938ÿÿÿ\0");
+        scic_msg("fan_SPEED.setup1.bco=YELLOWï¿½ï¿½ï¿½\0");
+        scic_msg("fan_SPEED.setup0.bco=54938ï¿½ï¿½ï¿½\0");
 
     }
 
@@ -462,8 +462,8 @@ void setSelector1_fan(){
 void setSelector2_fan(){
 
     if(display.selector_fan == 1){
-        //scic_msg("fan_SPEED.setup1.bco=YELLOWÿÿÿ\0");
-        sprintf(tmp, "fan_SPEED.setup1.txt=\"%d\"ÿÿÿ\0", display.selector_speed_fan);
+        //scic_msg("fan_SPEED.setup1.bco=YELLOWï¿½ï¿½ï¿½\0");
+        sprintf(tmp, "fan_SPEED.setup1.txt=\"%d\"ï¿½ï¿½ï¿½\0", display.selector_speed_fan);
         scic_msg(tmp);
     }
 
@@ -472,10 +472,10 @@ void setSelector2_fan(){
 
 void setAckFan(){
     if(display.manual_speed_selector){
-        scic_msg("fan_SPEED.manual.bco=GREENÿÿÿ\0");
+        scic_msg("fan_SPEED.manual.bco=GREENï¿½ï¿½ï¿½\0");
     }
     else{
-        scic_msg("fan_SPEED.manual.bco=REDÿÿÿ\0");
+        scic_msg("fan_SPEED.manual.bco=REDï¿½ï¿½ï¿½\0");
     }
 }
 
@@ -491,7 +491,7 @@ void setSelectorMacrosConfig(){
 
 
       if (old_macros != old_ack_macros){
-          sprintf(tmp, "macros.setup%d.bco=0ÿÿÿ\0", old_macros);
+          sprintf(tmp, "macros.setup%d.bco=0ï¿½ï¿½ï¿½\0", old_macros);
           scic_msg(tmp);
       }
 
@@ -499,7 +499,7 @@ void setSelectorMacrosConfig(){
       old_macros = n_setup;
 
       if (old_macros != old_ack_macros){
-          sprintf(tmp, "macros.setup%d.bco=31695ÿÿÿ\0", n_setup);
+          sprintf(tmp, "macros.setup%d.bco=31695ï¿½ï¿½ï¿½\0", n_setup);
           scic_msg(tmp);
 
       }
@@ -514,11 +514,11 @@ void setSelector1_update(){
     int i = 0;
     for (i = 0; i < 7; i++){
         if (i == display.selector_setup){
-            sprintf(tmp, "setupPage.setup%d.bco=YELLOWÿÿÿ\0", i);
+            sprintf(tmp, "setupPage.setup%d.bco=YELLOWï¿½ï¿½ï¿½\0", i);
             scic_msg(tmp);
         }
         else {
-            sprintf(tmp, "setupPage.setup%d.bco=54938ÿÿÿ\0", i);
+            sprintf(tmp, "setupPage.setup%d.bco=54938ï¿½ï¿½ï¿½\0", i);
             scic_msg(tmp);
         }
     }
@@ -526,7 +526,7 @@ void setSelector1_update(){
     if(old_setup != n_setup){
 
       if (old_setup != old_ack_setup){
-          sprintf(tmp, "setupPage.setup%d.bco=54938ÿÿÿ\0", old_setup);
+          sprintf(tmp, "setupPage.setup%d.bco=54938ï¿½ï¿½ï¿½\0", old_setup);
           scic_msg(tmp);
       }
 
@@ -534,7 +534,7 @@ void setSelector1_update(){
       old_setup = n_setup;
 
       if (old_setup != old_ack_setup){
-          sprintf(tmp, "setupPage.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
+          sprintf(tmp, "setupPage.setup%d.bco=YELLOWï¿½ï¿½ï¿½\0", n_setup);
           scic_msg(tmp);
 
       }
@@ -545,61 +545,61 @@ void setSelector1_update(){
 void setSelector2_update(){
 
     if(display.selector_setup == 0){
-        sprintf(tmp, "setupPage.setup0.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_regen[display.selector_regen]);
+        sprintf(tmp, "setupPage.setup0.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.presets_regen[display.selector_regen]);
         scic_msg(tmp);
     }
    else {
-       sprintf(tmp, "setupPage.setup0.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_regen_current);
+       sprintf(tmp, "setupPage.setup0.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.max_regen_current);
        scic_msg(tmp);
    }
 
     if(display.selector_setup == 1){
-        sprintf(tmp, "setupPage.setup1.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_max_pos[display.selector_maxpos]);
+        sprintf(tmp, "setupPage.setup1.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.presets_max_pos[display.selector_maxpos]);
            scic_msg(tmp);
     }
    else {
-       sprintf(tmp, "setupPage.setup1.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_pos_torque);
+       sprintf(tmp, "setupPage.setup1.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.max_pos_torque);
           scic_msg(tmp);
    }
 
     if(display.selector_setup == 2){
-        sprintf(tmp, "setupPage.setup2.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_max_neg[display.selector_maxneg]);
+        sprintf(tmp, "setupPage.setup2.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.presets_max_neg[display.selector_maxneg]);
         scic_msg(tmp);
     }
    else {
-       sprintf(tmp, "setupPage.setup2.txt=\"%.1f\"ÿÿÿ\0", car_settings.max_neg_torque);
+       sprintf(tmp, "setupPage.setup2.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.max_neg_torque);
        scic_msg(tmp);
    }
     if(display.selector_setup == 3){
-        sprintf(tmp, "setupPage.setup3.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.presets_power[display.selector_power] / 1000));
+        sprintf(tmp, "setupPage.setup3.txt=\"%d\"ï¿½ï¿½ï¿½\0", (int) (car_settings.presets_power[display.selector_power] / 1000));
           scic_msg(tmp);
     }
    else {
-       sprintf(tmp, "setupPage.setup3.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.power_limit / 1000));
+       sprintf(tmp, "setupPage.setup3.txt=\"%d\"ï¿½ï¿½ï¿½\0", (int) (car_settings.power_limit / 1000));
          scic_msg(tmp);
    }
     if(display.selector_setup == 4){
-        sprintf(tmp, "setupPage.setup4.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.presets_speed[display.selector_speed] / 1000));
+        sprintf(tmp, "setupPage.setup4.txt=\"%d\"ï¿½ï¿½ï¿½\0", (int) (car_settings.presets_speed[display.selector_speed] / 1000));
            scic_msg(tmp);
     }
    else {
-       sprintf(tmp, "setupPage.setup4.txt=\"%d\"ÿÿÿ\0", (int) (car_settings.max_speed / 1000));
+       sprintf(tmp, "setupPage.setup4.txt=\"%d\"ï¿½ï¿½ï¿½\0", (int) (car_settings.max_speed / 1000));
           scic_msg(tmp);
    }
     if(display.selector_setup == 5){
-        sprintf(tmp, "setupPage.setup5.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_coppie_rear[display.selector_trqr]);
+        sprintf(tmp, "setupPage.setup5.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.presets_coppie_rear[display.selector_trqr]);
            scic_msg(tmp);
     }
    else {
-       sprintf(tmp, "setupPage.setup5.txt=\"%.1f\"ÿÿÿ\0", car_settings.rear_motor_scale);
+       sprintf(tmp, "setupPage.setup5.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.rear_motor_scale);
           scic_msg(tmp);
    }
     if(display.selector_setup == 6){
-        sprintf(tmp, "setupPage.setup6.txt=\"%.1f\"ÿÿÿ\0", car_settings.presets_coppie_front[display.selector_trqf]);
+        sprintf(tmp, "setupPage.setup6.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.presets_coppie_front[display.selector_trqf]);
         scic_msg(tmp);
     }
    else {
-       sprintf(tmp, "setupPage.setup6.txt=\"%.1f\"ÿÿÿ\0", car_settings.front_motor_scale);
+       sprintf(tmp, "setupPage.setup6.txt=\"%.1f\"ï¿½ï¿½ï¿½\0", car_settings.front_motor_scale);
        scic_msg(tmp);
    }
 
@@ -613,12 +613,12 @@ void setAckSetup(){
     if (old_ack_setup != ack){
         for (i = 0; i < 7; i++){
             if (i == ack){
-                sprintf(tmp, "setupPage.setup%d.bco=GREENÿÿÿ\0", i);
+                sprintf(tmp, "setupPage.setup%d.bco=GREENï¿½ï¿½ï¿½\0", i);
                 old_ack_setup = ack;
                 scic_msg(tmp);
             }
             else {
-                sprintf(tmp, "setupPage.setup%d.bco=54938ÿÿÿ\0", i);
+                sprintf(tmp, "setupPage.setup%d.bco=54938ï¿½ï¿½ï¿½\0", i);
                 scic_msg(tmp);
             }
         }
@@ -631,10 +631,10 @@ void setSelectorPedalConfig(){
     int i = 0;
     for (i = 0; i < 3; i++){
         if (i == display.selector_pedal_setup){
-            sprintf(tmp, "pedalSetup.setup%d.bco=YELLOWÿÿÿ\0", i);
+            sprintf(tmp, "pedalSetup.setup%d.bco=YELLOWï¿½ï¿½ï¿½\0", i);
             scic_msg(tmp);
         } else {
-            sprintf(tmp, "pedalSetup.setup%d.bco=54938ÿÿÿ\0", i);
+            sprintf(tmp, "pedalSetup.setup%d.bco=54938ï¿½ï¿½ï¿½\0", i);
             scic_msg(tmp);
         }
     }
@@ -645,7 +645,7 @@ void setAckPedalConfig(){
     ack = display.ack_pedal_setup;
     if (old_ack_pedal_setup != ack){
 
-        sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
+        sprintf(tmp, "pedalSetup.setup%d.bco=GREENï¿½ï¿½ï¿½\0", ack);
         scic_msg(tmp);
 
         old_ack_pedal_setup = ack;
@@ -653,7 +653,7 @@ void setAckPedalConfig(){
         int i = 0;
         for (i = 0; i < 3; i++){
             if (i != ack){
-                sprintf(tmp, "pedalSetup.setup%d.bco=54938ÿÿÿ\0", i);
+                sprintf(tmp, "pedalSetup.setup%d.bco=54938ï¿½ï¿½ï¿½\0", i);
                 scic_msg(tmp);
             }
         }

@@ -19,9 +19,9 @@
 /*
  * SUPER IMPORTANT MACROS
  */
-#define ONE_PEDAL    1
-#define REG_BRAKE   1
-#define TORQUE_VECTORING    0
+#define ONE_PEDAL    0
+#define REG_BRAKE   0
+#define TORQUE_VECTORING    1
 #define TRACTION_CTRL   0
 #define THERMAL_POWER_CTRL    0
 
@@ -48,7 +48,7 @@
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
  */
-#define REAR_MOTOR_SCALE    1.8f
+#define REAR_MOTOR_SCALE    1.9f
 #define FRONT_MOTOR_SCALE   0.7f
 
 
@@ -62,7 +62,7 @@
 #define DEG_TO_RAD          0.017453292519943295769236907684886
 #define KMH2MS              (1 / 3.6)
 #define RAD_TO_DEG          57.295779513082320876798154814105
-#define RPM_TO_KMH          (TWO_PI*0.00084)
+#define RPM_TO_KMH          RPM_TO_RADS*3.6f*R0*TAU
 #define RPM_TO_RADS         (PI/30)
 
 #define THROTTLE_POWER_SCALE        10
@@ -94,10 +94,12 @@
 #define YAW_R_LOWER_BOUND           -2.0*PI_FLOAT
 #define STR_UPPER_BOUND             90
 #define STR_LOWER_BOUND             -90
-#define MOTOR_SPEED_UPPER_BOUND     20000
+#define MOTOR_SPEED_UPPER_BOUND     SPEED_LIMIT
 #define MOTOR_SPEED_LOWER_BOUND     0
 #define FZ_UPPER_BOUND              2000.0f
-#define FZ_LOWER_BOUND              50.0f
+#define FZ_LOWER_BOUND              0.0f
+#define SPEED_UPPER_BOUND           35.0f       //in [m/s]
+#define SPEED_LOWER_BOUND           -0.5f
 
 #define TAU                         (1.0f/14.44f)
 #define TAU_TC                      14.44f                  // gear unit reduction rate []
@@ -112,7 +114,7 @@
 #define zRC_r                       0.03824f                // rear roll center height [m]
 #define T_F                         1.23f                   // track front [m]
 #define T_R                         1.2f                    // track rear [m]
-#define K_F                         0.4775f
+#define K_F                         0.5279f
 #define K_R                         (1-K_F)
 #define C_Z_A                       CLA
 #define RHO                         1.225f                  // air density [kg/m^3]
@@ -123,6 +125,7 @@
 #define AX0                         0.5f                    // vehicle longitudinal acceleration threshold [m/s^2]
 #define TOE_F                       0.f                     // toe front: positive if toe IN [rad]
 #define TOE_R                       0.f                     // toe rear: positive if toe IN [rad]
+#define T_MAX_HC                    26.0f
 
 #define M_DF                        0.436f                   // mass distribution (front mass/total mass) []
 #define M_DR                        1 - M_DF                // mass distribution (rear mass/total mass) []
@@ -152,9 +155,9 @@
 
 #define S_MAX         0.12f
 #define S_MIN         -0.12f
-#define I_POS          0.005f
-#define P_POS          0.01f
-#define D_POS          0.008f
+#define I_POS          0.0005f
+#define P_POS          0.1f
+#define D_POS          0.03f
 #define I_NEG          I_POS
 #define P_NEG          P_POS
 #define D_NEG          D_POS
@@ -175,21 +178,21 @@
 
 #define ALPHA0                     1.f;
 #define ALPHA1                     0.f;
-#define ALPHA2                     0.f;
+#define ALPHA2                     -21.4167f;
 #define ALPHA3                     0.f;
-#define ALPHA4                     0.f;
+#define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              8.f
-#define MAX_NEG_TORQUE              -8.f
+#define MAX_POS_TORQUE              15.f
+#define MAX_NEG_TORQUE              -15.f
 
-#define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
+#define MAX_REGEN_CURRENT           25.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 
 
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         30000.0f       //Watt
+#define POWER_LIMIT         50000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f

@@ -74,7 +74,7 @@ int Read_steering() {
     strPot = Steering_temp;
     //strPot = readADC(STEERING);
     float newSteering = changeRange(strPot, STZ_LOW_TH, STZ_HIGH_TH, -STZ_RANGE, STZ_RANGE);
-    newSteering *= 1.0;
+   // newSteering *= -1.0;  // positive -> left, negative -> right
 #ifdef NO_STEERING_SENSOR
     return 0;
 #else
