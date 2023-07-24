@@ -542,7 +542,8 @@ void onePedalDriving()
     float E_one = (-100*F_onePedal*powf(B_p,F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(B_p,F_onePedal-1)+(powf(B_p,F_onePedal))*(F_onePedal-1));
     float G_one = (100*(powf(B_p,F_onePedal))*(F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(B_p,F_onePedal-1)+(powf(B_p,F_onePedal))*(F_onePedal-1));
 
-    dacc = throttle-prev_acc;
+    dacc = throttleReq-prev_acc;
+
 
     if(dacc > var_min){
        slope = 1;
@@ -553,12 +554,13 @@ void onePedalDriving()
     if (slope == -1 && actualVelocityKMH > 5.f) {
         flag_thr = 1;
         start_thr = 0;
-        if (throttle < B_p){
+        if (throttleReq < B_p){
             throttleReq = 0;
-            brakeReq = A_one*powf((float)throttle, f) + B_one*throttle + C_one;
+            brakeReq = A_one*powf((float)throttleReq, f) + B_one*throttleReq + C_one;
+            velocityRef = 0;
         } else {
-            throttleReq = D_one*powf((float)throttle, F_onePedal) + E_one*throttle + G_one;
-            //throttleReq = 100*(throttle - B_p)/(100 - B_p);
+            throttleReq = D_one*powf((float)throttleReq, F_onePedal) + E_one*throttleReq + G_one;
+            //throttleReq = 100*(throttleReq - B_p)/(100 - B_p);
             brakeReq = 0;
         }
 //    } else if (slope == -1 && actualVelocityKMH < 5.f) {
@@ -587,11 +589,199 @@ void onePedalDriving()
 //           throttleReq = 100*(throttle - B_p)/(100 - B_p);
 //      }
 //*** comment piu throttleReq = throttle;
+       //throttleReq = throttle;
+       brakeReq = 0;
+    }
+    prev_acc = throttleReq;
+
+}
+
+void onePedalDriving1()
+{
+    static float B_p = 20.f;        //activation threshold of negative torque
+    //static float V_max = 120.f;
+    static float F_onePedal = 2.f;
+    static float var_min = 2.f;
+    static float Vk = 90.f;
+    static float dacc = 0.f;
+    static float prev_acc = 0.f;
+    static int slope = 1;
+    static int flag_thr = 1;
+    static int start_thr = 0;
+
+    float f = 2.f;
+
+//    if(actualVelocityKMH > Vk - 10)
+//        f = 0.25;
+//    else
+//        f = Vk - actualVelocityKMH/150.f;
+
+    float A_one = -100/(powf(B_p, f)* (1-f));
+    float B_one = f*100/(B_p*(1-f));
+    float C_one = 100;
+
+    float D_one = 100/(powf(100,F_onePedal)-100*F_onePedal*powf(B_p,F_onePedal-1)+powf(B_p,F_onePedal)*(F_onePedal-1));
+    float E_one = (-100*F_onePedal*powf(B_p,F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(B_p,F_onePedal-1)+(powf(B_p,F_onePedal))*(F_onePedal-1));
+    float G_one = (100*(powf(B_p,F_onePedal))*(F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(B_p,F_onePedal-1)+(powf(B_p,F_onePedal))*(F_onePedal-1));
+
+    dacc = throttle-prev_acc;
+
+
+    if(dacc > var_min){
+       slope = 1;
+    }else if(dacc < -var_min){
+       slope = -1;
+    }
+
+    if (slope == -1 && actualVelocityKMH > 5.f) {
+        flag_thr = 1;
+        start_thr = 0;
+        if (throttle < B_p){
+            throttleReq = 0;
+            brakeReq = A_one*powf((float)throttle, f) + B_one*throttle + C_one;
+            velocityRef = 0;
+        } else {
+            throttleReq = D_one*powf((float)throttle, F_onePedal) + E_one*throttle + G_one;
+            //throttleReq = 100*(throttleReq - B_p)/(100 - B_p);
+            brakeReq = 0;
+        }
+//    } else if (slope == -1 && actualVelocityKMH < 5.f) {
+//        throttleReq = 0;
+//        brakeReq = 0;
+    } else {
+
+       /*
+        * Every time we enter the slope == 1 cycle
+        * we ensure to adjust the starting point of the line
+        * describing the throttleRequest
+        */
+//       if (throttle < B_p){
+
+//           if (flag_thr){
+//               flag_thr = 0;
+//               start_thr = throttle;
+//           }
+//           throttleReq = 100*(throttle - start_thr)/(100 - start_thr);
+
+//             throttleReq = 0;
+//             brakeReq = A_one*powf((float)throttle, f) + B_one*throttle + C_one;
+//             velocityRef = 0;
+
+//       } else {
+
+//             throttleReq = throttle;
+
+//             throttleReq = 100*(throttleReq - B_p)/(100 - B_p);
+
+//       }
+//***
+//       if (throttle < B_p){
+//           throttleReq = 0;
+//       } else {
+//           throttleReq = 100*(throttle - B_p)/(100 - B_p);
+//      }
+//*** comment piu throttleReq = throttle;
        throttleReq = throttle;
        brakeReq = 0;
     }
     prev_acc = throttle;
 
+}
+
+void onePedalDriving2()
+{
+    static float B_p = 20.f;        //activation threshold of negative torque
+    //static float V_max = 120.f;
+    static float F_onePedal = 2.f;
+    static float var_min = 2.f;
+    static float Vk = 90.f;
+    static float dacc = 0.f;
+    static float prev_acc = 0.f;
+    static int slope = 1;
+    static int flag_thr = 1;
+    static int start_thr = 0;
+
+    float f = 2.f;
+
+//    if(actualVelocityKMH > Vk - 10)
+//        f = 0.25;
+//    else
+//        f = Vk - actualVelocityKMH/150.f;
+
+    float A_one = -100/(powf(B_p, f)* (1-f));
+    float B_one = f*100/(B_p*(1-f));
+    float C_one = 100;
+
+    float D_one = 100/(powf(100,F_onePedal)-100*F_onePedal*powf(B_p,F_onePedal-1)+powf(B_p,F_onePedal)*(F_onePedal-1));
+    float E_one = (-100*F_onePedal*powf(B_p,F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(B_p,F_onePedal-1)+(powf(B_p,F_onePedal))*(F_onePedal-1));
+    float G_one = (100*(powf(B_p,F_onePedal))*(F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(B_p,F_onePedal-1)+(powf(B_p,F_onePedal))*(F_onePedal-1));
+
+    dacc = throttleReq-prev_acc;
+
+
+    if(dacc > var_min){
+       slope = 1;
+    }else if(dacc < -var_min){
+       slope = -1;
+    }
+
+    if(throttleReq == 0 && brake > 5){
+        brakeReq = 100;
+        velocityRef = 0;    //per setpoint AMK4
+        return;
+    }
+
+    if (slope == -1 && actualVelocityKMH > 5.f) {
+        flag_thr = 1;
+        start_thr = 0;
+        if (throttleReq < B_p){
+            throttleReq = 0;
+            brakeReq = A_one*powf((float)throttleReq, f) + B_one*throttleReq + C_one;
+            velocityRef = 0;
+        } else {
+            throttleReq = D_one*powf((float)throttleReq, F_onePedal) + E_one*throttleReq + G_one;
+            //throttleReq = 100*(throttleReq - B_p)/(100 - B_p);
+            brakeReq = 0;
+        }
+    } else if (slope == -1 && actualVelocityKMH < 5.f) {
+        throttleReq = 0;
+        brakeReq = 0;
+        velocityRef = 0;
+    } else {
+
+       /*
+        * Every time we enter the slope == 1 cycle
+        * we ensure to adjust the starting point of the line
+        * describing the throttleRequest
+        */
+       //throttleReq = throttle;
+       brakeReq = 0;
+    }
+    prev_acc = throttleReq;
+
+}
+
+
+void onePedalDriving3(){
+    float brake_point_limit = 35;
+    if(throttleReq > brake_point_limit){
+        throttleReq = ((throttleReq - brake_point_limit)*100)/(100-brake_point_limit);
+        brakeReq = 0;
+    }
+    else if(throttleReq==0 && brake > 5){
+        brakeReq = 100;
+        velocityRef = 0;    //per setpoint AMK4
+    } else {
+        if(actualVelocityKMH > 5.f){
+            brakeReq = (100 - throttleReq*100/brake_point_limit);
+            throttleReq = 0;
+            velocityRef = 0;    //per setpoint AMK4
+            }
+        else{            //sotto i 35 con throttle e velocità < 5 --> brake when slow --> solo freno meccanico
+            throttleReq = 0;
+            brakeReq = 0;
+        }
+    }
 }
 
 /*

@@ -846,9 +846,9 @@ void writeHeader()
         writeSD(str_init);
         sprintf(str_init , "TorqueLimitPositiveRL;TorqueLimitPositiveRR;TorqueLimitNegativeFL;TorqueLimitNegativeFR;TorqueLimitNegativeRL;");
         writeSD(str_init);
-        sprintf(str_init , "TorqueLimitNegativeRR;throttle;steering angle;brake;brake_press;status;actualVelocityKMH;max_volt;min_volt;");
+        sprintf(str_init , "TorqueLimitNegativeRR;throttle;steering angle;brake;brake_press;status;actualVelocityKMH;brk_req;thr_req;");
         writeSD(str_init);
-        sprintf(str_init , "avg_volt;max_temp;min_temp;avg_temp;bms_error_map;");
+        sprintf(str_init , "max_volt;min_volt;avg_volt;max_temp;min_temp;avg_temp;bms_error_map;");
         writeSD(str_init);
         sprintf(str_init , "bms_lv[0];bms_lv[1];bms_lv[2];bms_lv[3];bms_lv[4];bms_lv[5];bms_lv[6];bms_lv[7];");
         writeSD(str_init);

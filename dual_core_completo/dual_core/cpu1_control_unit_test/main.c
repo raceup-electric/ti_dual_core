@@ -230,7 +230,7 @@ __interrupt void cpu_timer1_isr(void)
         LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
 #endif
         sprintf(cmd ,
-                        "%d;%d;%d;%d;%lu;%d;"                //status
+                        "%d;%d;%d;%d;%lu;%d;%d;%d;"                //status
                         "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%u;"    //bms
                         "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
                         "%.1f;%.3f;%.2f;%.2f;",              //sendyne
@@ -238,6 +238,7 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.status.throttle_shared, local_sh.status.steering_shared,
                         local_sh.status.brake_shared, local_sh.status.brakePress_shared,
                         local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
+                        local_sh.pedals.brk_req_shared, local_sh.pedals.throttle_req_shared,
                         //bms
                         local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
                         local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,

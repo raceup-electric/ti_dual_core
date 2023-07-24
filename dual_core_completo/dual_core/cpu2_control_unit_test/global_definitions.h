@@ -62,7 +62,7 @@
 #define DEG_TO_RAD          0.017453292519943295769236907684886
 #define KMH2MS              (1 / 3.6)
 #define RAD_TO_DEG          57.295779513082320876798154814105
-#define RPM_TO_KMH          (TWO_PI*0.00095)
+#define RPM_TO_KMH          (TWO_PI*0.00084)
 #define RPM_TO_RADS         (PI/30)
 
 #define THROTTLE_POWER_SCALE        10
