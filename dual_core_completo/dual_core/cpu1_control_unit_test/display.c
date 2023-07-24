@@ -180,7 +180,8 @@ void updatePage1()
     scic_msg(tmp);
     sprintf(tmp, "main.maxinv.val=%dÿÿÿ\0", getMaxTempInv());
     scic_msg(tmp);
-    sprintf(tmp, "main.maxigbt.val=%dÿÿÿ\0", getMaxTempIGBT());
+    //Changed for debug purpose
+    sprintf(tmp, "main.maxigbt.val=%dÿÿÿ\0",(int)local_sh.status.steering_shared);
     scic_msg(tmp);
     sprintf(tmp, "main.maxsmu.val=%dÿÿÿ\0", getMaxTempSmu());
     scic_msg(tmp);

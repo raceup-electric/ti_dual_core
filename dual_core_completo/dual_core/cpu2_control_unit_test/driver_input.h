@@ -39,8 +39,8 @@
 
 
 // steering
-#define STZ_LOW_TH 1700
-#define STZ_HIGH_TH 3000
+#define STZ_LOW_TH 480
+#define STZ_HIGH_TH 1320
 
 #define IMPL_LIMIT 5
 

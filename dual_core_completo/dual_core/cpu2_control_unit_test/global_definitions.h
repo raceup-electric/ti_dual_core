@@ -20,8 +20,8 @@
  * SUPER IMPORTANT MACROS
  */
 #define ONE_PEDAL    0
-#define REG_BRAKE   1
-#define TORQUE_VECTORING    0
+#define REG_BRAKE   0
+#define TORQUE_VECTORING    1
 #define TRACTION_CTRL   0
 #define THERMAL_POWER_CTRL    0
 
@@ -94,11 +94,11 @@
 #define YAW_R_LOWER_BOUND           -2.0*PI_FLOAT
 #define STR_UPPER_BOUND             90
 #define STR_LOWER_BOUND             -90
-#define MOTOR_SPEED_UPPER_BOUND     20000
+#define MOTOR_SPEED_UPPER_BOUND     SPEED_LIMIT
 #define MOTOR_SPEED_LOWER_BOUND     0
 #define FZ_UPPER_BOUND              2000.0f
 #define FZ_LOWER_BOUND              0.0f
-#define SPEED_UPPER_BOUND           40.0f       //in [m/s]
+#define SPEED_UPPER_BOUND           35.0f       //in [m/s]
 #define SPEED_LOWER_BOUND           -0.5f
 
 #define TAU                         (1.0f/14.44f)
@@ -125,8 +125,7 @@
 #define AX0                         0.5f                    // vehicle longitudinal acceleration threshold [m/s^2]
 #define TOE_F                       0.f                     // toe front: positive if toe IN [rad]
 #define TOE_R                       0.f                     // toe rear: positive if toe IN [rad]
-
-
+#define T_MAX_HC                    26.0f
 
 #define M_DF                        0.436f                   // mass distribution (front mass/total mass) []
 #define M_DR                        1 - M_DF                // mass distribution (rear mass/total mass) []
@@ -184,7 +183,7 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              8.f
+#define MAX_POS_TORQUE              15.f
 #define MAX_NEG_TORQUE              -15.f
 
 #define MAX_REGEN_CURRENT           25.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
@@ -193,7 +192,7 @@
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         30000.0f       //Watt
+#define POWER_LIMIT         50000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f
