@@ -209,7 +209,7 @@ void updatePage2()
     scic_msg(tmp);
     sprintf(tmp, "bms.low.val=%dÿÿÿ\0", (int)(local_sh.bms.min_bms_voltage_shared*1000));
     scic_msg(tmp);
-    sprintf(tmp, "bms.high_temp.val=%dÿÿÿ\0", (int)(local_sh.bms.max_bms_temp_shared*1000));
+    sprintf(tmp, "bms.high_temp.val=%dÿÿÿ\0", (int)(local_sh.bms.max_bms_temp_shared));
     scic_msg(tmp);
 
     sprintf(tmp, "bms.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
