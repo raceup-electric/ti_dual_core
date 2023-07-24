@@ -170,7 +170,7 @@ void updatePage1()
 //    sprintf(tmp, "main.speed.val=%dÿÿÿ\0",local_sh.status.actualVelocityKMH_shared);
 //    scic_msg(tmp);
 
-    sprintf(tmp, "main.bms_high.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_voltage_shared);
+    sprintf(tmp, "main.bms_high.val=%dÿÿÿ\0", (int)(local_sh.bms.max_bms_voltage_shared*1000));
     scic_msg(tmp);
 
     sprintf(tmp, "main.bms_high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
@@ -180,7 +180,9 @@ void updatePage1()
     scic_msg(tmp);
     sprintf(tmp, "main.maxinv.val=%dÿÿÿ\0", getMaxTempInv());
     scic_msg(tmp);
-    sprintf(tmp, "main.maxigbt.val=%dÿÿÿ\0", getMaxTempIGBT());
+//    sprintf(tmp, "main.maxigbt.val=%dÿÿÿ\0", getMaxTempIGBT());
+//    scic_msg(tmp);
+    sprintf(tmp, "main.maxigbt.val=%dÿÿÿ\0", (int)local_sh.status.steering_shared);
     scic_msg(tmp);
     sprintf(tmp, "main.maxsmu.val=%dÿÿÿ\0", getMaxTempSmu());
     scic_msg(tmp);
@@ -201,13 +203,13 @@ void updatePage1()
 
 void updatePage2()
 {
-    sprintf(tmp, "bms.high.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_voltage_shared);
+    sprintf(tmp, "bms.high.val=%dÿÿÿ\0", (int)(local_sh.bms.max_bms_voltage_shared*1000));
     scic_msg(tmp);
-    sprintf(tmp, "bms.med.val=%dÿÿÿ\0", (int)local_sh.bms.mean_bms_voltage_shared);
+    sprintf(tmp, "bms.med.val=%dÿÿÿ\0", (int)(local_sh.bms.mean_bms_voltage_shared*1000));
     scic_msg(tmp);
-    sprintf(tmp, "bms.low.val=%dÿÿÿ\0", (int)local_sh.bms.min_bms_voltage_shared);
+    sprintf(tmp, "bms.low.val=%dÿÿÿ\0", (int)(local_sh.bms.min_bms_voltage_shared*1000));
     scic_msg(tmp);
-    sprintf(tmp, "bms.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
+    sprintf(tmp, "bms.high_temp.val=%dÿÿÿ\0", (int)(local_sh.bms.max_bms_temp_shared*1000));
     scic_msg(tmp);
 
     sprintf(tmp, "bms.voltage_HV.val=%dÿÿÿ\0", (int)local_sh.power.batteryPack_voltage_shared);
@@ -408,9 +410,9 @@ void updatePage12(){
     scic_msg(tmp);
     sprintf(tmp, "Drv_END.high_temp.val=%dÿÿÿ\0", (int)local_sh.bms.max_bms_temp_shared);
     scic_msg(tmp);
-    sprintf(tmp, "Drv_END.low.val=%dÿÿÿ\0",(int)local_sh.bms.min_bms_voltage_shared);
+    sprintf(tmp, "Drv_END.low.val=%dÿÿÿ\0",(int)(local_sh.bms.min_bms_voltage_shared*1000));
     scic_msg(tmp);
-    sprintf(tmp, "Drv_END.med.val=%dÿÿÿ\0",(int)local_sh.bms.mean_bms_voltage_shared);
+    sprintf(tmp, "Drv_END.med.val=%dÿÿÿ\0",(int)(local_sh.bms.mean_bms_voltage_shared*1000));
     scic_msg(tmp);
 }
 
@@ -513,7 +515,6 @@ void setSelector1_update(){
     for (i = 0; i < 7; i++){
         if (i == display.selector_setup){
             sprintf(tmp, "setupPage.setup%d.bco=YELLOWÿÿÿ\0", i);
-            old_ack_setup = ack;
             scic_msg(tmp);
         }
         else {
@@ -624,77 +625,24 @@ void setAckSetup(){
     }
 }
 
-/*
-void setSelectorPowerControl(){
-    n_setup = display.selector_p;
-    if(old_setup_power != n_setup){
-
-
-      if (old_setup_power != old_ack_power){
-          sprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", old_setup_power);
-          scic_msg(tmp);
-      }
-
-
-      old_setup_power = n_setup;
-
-      if (old_setup_power != old_ack_power){
-          sprintf(tmp, "powercontrol.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
-          scic_msg(tmp);
-      }
-
-    }
-}
-
-void setAckPowerControl(){
-    int i;
-    ack = display.ack_p;
-    if (old_ack_power != ack){
-        for (i = 0; i < 8; i++){
-            if (i == ack){
-                sprintf(tmp, "powercontrol.setup%d.bco=GREENÿÿÿ\0", i);
-                old_ack_power = ack;
-                scic_msg(tmp);
-            }
-            else {
-                sprintf(tmp, "powercontrol.setup%d.bco=54938ÿÿÿ\0", i);
-                scic_msg(tmp);
-            }
-        }
-
-    }
-}
-*/
-
 void setSelectorPedalConfig(){
     n_setup = display.selector_pedal_setup;
 
-    if(old_setup_pedal_setup != n_setup){
-
-
-      if (old_setup_pedal_setup != old_ack_pedal_setup){
-          sprintf(tmp, "pedalSetup.setup%d.bco=54938ÿÿÿ\0", old_setup_pedal_setup);
-          scic_msg(tmp);
-      }
-
-
-      old_setup_pedal_setup = n_setup;
-
-      if (old_setup_pedal_setup != old_ack_pedal_setup){
-          sprintf(tmp, "pedalSetup.setup%d.bco=YELLOWÿÿÿ\0", n_setup);
-          scic_msg(tmp);
-
-      }
-
+    int i = 0;
+    for (i = 0; i < 3; i++){
+        if (i == display.selector_pedal_setup){
+            sprintf(tmp, "pedalSetup.setup%d.bco=YELLOWÿÿÿ\0", i);
+            scic_msg(tmp);
+        } else {
+            sprintf(tmp, "pedalSetup.setup%d.bco=54938ÿÿÿ\0", i);
+            scic_msg(tmp);
+        }
     }
 }
 
 void setAckPedalConfig(){
 
     ack = display.ack_pedal_setup;
-
-
-
     if (old_ack_pedal_setup != ack){
 
         sprintf(tmp, "pedalSetup.setup%d.bco=GREENÿÿÿ\0", ack);
@@ -703,7 +651,7 @@ void setAckPedalConfig(){
         old_ack_pedal_setup = ack;
 
         int i = 0;
-        for (i = 0; i < 4; i++){
+        for (i = 0; i < 3; i++){
             if (i != ack){
                 sprintf(tmp, "pedalSetup.setup%d.bco=54938ÿÿÿ\0", i);
                 scic_msg(tmp);

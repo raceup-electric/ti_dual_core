@@ -19,7 +19,7 @@
 /*
  * SUPER IMPORTANT MACROS
  */
-#define ONE_PEDAL    0
+#define ONE_PEDAL    1
 #define REG_BRAKE   1
 #define TORQUE_VECTORING    0
 #define TRACTION_CTRL   0
@@ -48,7 +48,7 @@
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
  */
-#define REAR_MOTOR_SCALE    1.9f
+#define REAR_MOTOR_SCALE    1.8f
 #define FRONT_MOTOR_SCALE   0.7f
 
 
@@ -181,9 +181,9 @@
 #define ALPHA5                     0.f;
 
 #define MAX_POS_TORQUE              8.f
-#define MAX_NEG_TORQUE              -15.f
+#define MAX_NEG_TORQUE              -8.f
 
-#define MAX_REGEN_CURRENT           25.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
+#define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 
 
 /*
