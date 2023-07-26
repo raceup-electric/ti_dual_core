@@ -329,7 +329,7 @@ void performancePack()
 {
 
     //Traction refers to previous samples values
-    SimplifiedTractionControl(T_s);
+    //SimplifiedTractionControl(T_s);
 
     //Blocco di ingressi e saturatazioni e conversioni
 
@@ -483,8 +483,8 @@ void FzCalculatorTV()
     float tmp_yf = 0;
     float tmp_yr = 0;
 #else
-    float tmp_yf = (ay*MASS*Z_COG*K_F)/T_F;
-    float tmp_yr = (ay*MASS*Z_COG*K_R)/T_R;
+    float tmp_yf = 0.95f*(ay*MASS*Z_COG*K_F)/T_F;
+    float tmp_yr = 0.95f*(ay*MASS*Z_COG*K_R)/T_R;
 #endif
 
     float tmp_u1 = speedTv*speedTv*0.25f*RHO*C_Z_A*((1-A_A)/W);
@@ -571,7 +571,7 @@ void RECalculatorTC(){
 
 void torqueVectoring()
 {
-   float t_ratio = 0.5f;
+   float t_ratio = 0.6f;
    torqueRepartition();
    int i;
    for (i = 0; i < 4; i++)
