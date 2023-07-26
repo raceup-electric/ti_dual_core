@@ -9,11 +9,180 @@ float minTorquePos[4];
 double vecErrorP_last[4] = {0,0,0,0};
 double vecErrorM_last[4] = {0,0,0,0};
 
-double errP_last = 0;
-double errM_last = 0;
+double errP_last[4] = {0, 0, 0, 0};
+double errM_last[4] = {0, 0, 0, 0};
 
 
-void TractionControl(double T){
+//---------------------------------------------------------
+//
+//Simplified version for initial testing
+//
+
+//---------------------------------------------------------
+void SimplifiedTractionControl(double T){
+    //Velocity estimation [use speedTv from TV instead of estimated velocity]
+    double vx = speedTv;
+    double vy = 0.f;
+
+    //Riporto vx alle ruote
+    double tmp1 = yaw_r*T_F/2;
+    double tmp1a = vx-tmp1;
+    double tmp1b = vx+tmp1;
+
+    double tmp2 = yaw_r*T_R/2;
+    double tmp2a = vx-tmp2;
+    double tmp2b = vx+tmp2;
+
+    double vec1[] = {tmp1a,tmp1b,tmp2a,tmp2b};
+
+    //Riporto vy alle route
+    double tmp3 = yaw_r*A;
+    double tmp3a = vy+tmp3;
+
+    double tmp4 = yaw_r*(-B);
+    double tmp4a = -vy+tmp4;
+
+    double vec2[] = {tmp3a,tmp3a,tmp4a,tmp4a};
+
+    //Determino l'angolo delle gomme
+    double temp_angle1[4];
+    double temp_angle2[4];
+
+    //Uso steers  che sono le w_angles
+    temp_angle1[0] = cos(steers[0]);
+    temp_angle1[1] = cos(steers[1]);
+    temp_angle1[2] = cos(steers[2]);
+    temp_angle1[3] = cos(steers[3]);
+
+    temp_angle2[0] = sin(steers[0]);
+    temp_angle2[1] = sin(steers[1]);
+    temp_angle2[2] = sin(steers[2]);
+    temp_angle2[3] = sin(steers[3]);
+
+    //Moltiplico vettore per temp angles
+    double x1[] = {0,0,0,0};
+    mulvecElementWise(vec1, temp_angle1, x1, 1, 4);
+
+    double x2[] = {0,0,0,0};
+    mulvecElementWise(vec2, temp_angle2, x2, 1, 4);
+
+
+    double result1[] = {0,0,0,0};
+    add(x1,x2,result1,4);
+
+    //Utilizzo di v_wheels
+    double temp1[] = {0,0,0,0};
+    double temp2[] = {0,0,0,0};
+
+    mulscal(result1, 1+S_MAX, temp1, 1, 4);
+    mulscal(result1, 1+S_MIN, temp2, 1, 4);
+
+    double vecErrorP[] = {0,0,0,0};
+    double vecErrorM[] = {0,0,0,0};
+
+    //Calcolo v_wheels
+    int i = 0;
+    for(i = 0; i < NUM_OF_MOTORS; i++){
+        v_wheels[i] = re[i]*motorSpeeds[i];
+    }
+
+    sub(v_wheels, temp1, vecErrorP, 4);
+    sub(temp2, v_wheels, vecErrorM, 4);
+
+    double errP[4];
+    double errM[4];
+    for(i = 0; i < NUM_OF_MOTORS; i++){
+      errP[i] = max(vecErrorP[i],0);
+      errM[i] = max(vecErrorM[i],0);
+    }
+
+      double vecError2P[4] = {0,0,0,0};
+      double vecError2M[4] = {0,0,0,0};
+
+
+      sub(vecErrorP, vecErrorP_last, vecError2P, 4);
+      sub(vecErrorM, vecErrorM_last, vecError2M, 4);
+
+      mulscal(vecError2P,1/T,vecError2P,1,4);
+      mulscal(vecError2M,1/T,vecError2M,1,4);
+
+     double err2P[4];
+     double err2M[4];
+     for(i = 0; i < NUM_OF_MOTORS; i++){
+         err2P[i] = max(vecError2P[i], 0)*D_POS;
+         err2M[i] = max(vecError2M[i], 0)*D_NEG;
+     }
+
+     double rP[4] = {0,0,0,0};
+     double rM[4] = {0,0,0,0};
+
+     for(i = 0; i < NUM_OF_MOTORS; i++){
+         if(errP[i] != 0){
+             rP[i] = 1.f;
+         }
+         if(errM[i] != 0){
+             rM[i] = 1.f;
+         }
+     }
+     double intermediateP[4] = {0,0,0,0};
+     double intermediateM[4] = {0,0,0,0};
+     add(errP_last, errP, intermediateP,4);
+     add(errM_last, errM, intermediateM,4);
+
+     mulvecElementWise(intermediateP, rP, intermediateP, 1, 4);
+     mulscal(intermediateP,I_POS, intermediateP,1,4);
+
+     mulvecElementWise(intermediateM, rM, intermediateM, 1, 4);
+     mulscal(intermediateM,I_NEG, intermediateM,1,4);
+
+     double val1Pos[4] = {0,0,0,0};
+     double val1Neg[4] = {0,0,0,0};
+
+     for(i = 0; i < NUM_OF_MOTORS; i++){
+         val1Pos[i] = min(max_I_pos, intermediateP[i]);
+         val1Neg[i] = min(max_I_neg, intermediateM[i]);
+     }
+
+     double resultPos[4] = {0,0,0,0};
+     double resultNeg[4] = {0,0,0,0};
+
+     for(i = 0; i < NUM_OF_MOTORS; i++){
+         errP_last[i] = errP[i];
+         errM_last[i] = errM[i];
+     }
+
+
+     mulscal(errP, P_POS,errP, 1, 4);
+     mulscal(errM, P_NEG,errM, 1, 4);
+
+     add(val1Pos, err2P, resultPos, 4);
+     add(resultPos, errP, resultPos, 4);
+
+     add(val1Neg, err2M, resultNeg, 4);
+     add(resultNeg, errM, resultNeg, 4);
+
+     for(i = 0; i < NUM_OF_MOTORS; i++){
+         resultPos[i] = saturate(resultPos[i],0,1);
+         resultNeg[i] = saturate(resultNeg[i], 0, 1);
+     }
+
+     for(i = 0; i < NUM_OF_MOTORS; i++){
+         TC_pos[i] = 1 - resultPos[i];
+         TC_neg[i] = 1 - resultNeg[i];
+     }
+
+      //int i = 0;
+      for(i = 0; i<4; i++){
+
+          vecErrorP_last[i] = vecErrorP[i];
+          vecErrorM_last[i] = vecErrorM[i];
+
+      }
+
+
+}
+
+/*void TractionControl(double T){
 
     velocity_estimation(T);
 
@@ -135,7 +304,7 @@ void TractionControl(double T){
 
  // update I_POS etc in define global definition
 }
-
+*/
 
 
 void readVelocity()
@@ -159,6 +328,9 @@ float readRPMVelocity()
 void performancePack()
 {
 
+    //Traction refers to previous samples values
+    SimplifiedTractionControl(T_s);
+
     //Blocco di ingressi e saturatazioni e conversioni
 
     //PRIMO candidato: valore massimo di torque per ogni ruota
@@ -180,6 +352,7 @@ void performancePack()
     }
 
     saturationsAndConversions();
+
 
     //Blocco dei calcoli preliminari
     FzCalculatorTV();
@@ -530,12 +703,12 @@ void onePedalDriving()
     static float B_p = 20.f;        //activation threshold of negative torque
     static float F_onePedal = 2.f;
     static float var_min = 2.f;
-    static float Vk = 90.f;
+    //static float Vk = 90.f;
     static float dacc = 0.f;
     static float prev_acc = 0.f;
     static int slope = 1;
-    static int flag_thr = 1;
-    static int start_thr = 0;
+    //static int flag_thr = 1;
+    //static int start_thr = 0;
     static int thr_filter = 0;
 
     float f = 2.f;
@@ -567,8 +740,7 @@ void onePedalDriving()
     }
 
     if (slope == -1 && actualVelocityKMH > 5.f) {
-        flag_thr = 1;
-        start_thr = 0;
+
         if (throttleReq < B_p){
             throttleReq = 0;
             brakeReq = A_one*powf((float)throttleReq, f) + B_one*throttleReq + C_one;
@@ -722,7 +894,8 @@ void ExtendedKalmanFilter(double T){
     /*
      * Measurement Update
      */
-        double * Temp_9, * Temp_err;
+        double Temp_9[1];
+        double Temp_err[2];
         double New_x[2];
         mulmat(H, temp_x_minus, Temp_6, 1, 2, 1);
         sub(&z_k, Temp_6, Temp_9, 1);

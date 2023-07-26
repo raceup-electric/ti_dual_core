@@ -178,6 +178,7 @@ int LoRa_begin(long frequency){
     setSignalBandwidth(LORA_SIGNAL_BANDWIDTH);
     setSpreadingFactor(LORA_SF);
     setCodingRate(LORA_CODING_RATE);
+    enableCrc();
 
     // put in standby mode
     idle();
@@ -694,4 +695,14 @@ uint16_t LoRa_writeBuffer(uint8_t* buffer, uint16_t size)
   writeRegister(REG_PAYLOAD_LENGTH, currentLength + size);
 
   return size;
+}
+
+//-------------------------------------------------------------------
+//
+//Enable CRC on packet to count errors
+//
+//-------------------------------------------------------------------
+void enableCrc()
+{
+  writeRegister(REG_MODEM_CONFIG_2, readRegister(REG_MODEM_CONFIG_2) | 0x04);
 }

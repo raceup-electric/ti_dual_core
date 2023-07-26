@@ -72,8 +72,9 @@ extern double speed_state[2];
 extern double w_angles[4];
 extern double v_wheels[4];
 extern double delta_steer[2];
-extern double TC_pos;
-extern double TC_neg;
+extern double TC_pos[4];
+extern double TC_neg[4];
+
 
 //
 // prototypes
@@ -89,6 +90,9 @@ void performancePack();
 void saturationsAndConversions();
 
 void TractionControl(double T);
+
+//Debug version for initial implementation
+void SimplifiedTractionControl(double T);
 
 void FzCalculatorTV();
 

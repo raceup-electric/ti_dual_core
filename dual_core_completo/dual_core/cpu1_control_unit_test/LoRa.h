@@ -24,8 +24,8 @@ typedef uint16_t uint8_t;
 #define PA_OUTPUT_PA_BOOST_PIN     1
 
 //LoRa parameters
-#define LORA_SIGNAL_BANDWIDTH 250E3
-#define LORA_CODING_RATE 4
+#define LORA_SIGNAL_BANDWIDTH 500E3
+#define LORA_CODING_RATE 5
 #define LORA_SF 6
 #define LORA_TX_POWER 14
 #define LORA_IMPLICIT_HEADER 1
@@ -59,6 +59,9 @@ void setSignalBandwidth(long sbw);
 void setCodingRate(int denominator);
 void setPreambleLength(long length);
 void setLdoFlag();
+
+void enableCrc();
+
 
 long getSignalBandwidth();
 uint8_t getSpredingFactor();

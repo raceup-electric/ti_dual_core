@@ -629,7 +629,7 @@ void setSelectorPedalConfig(){
     n_setup = display.selector_pedal_setup;
 
     int i = 0;
-    for (i = 0; i < 3; i++){
+    for (i = 0; i < 4; i++){
         if (i == display.selector_pedal_setup){
             sprintf(tmp, "pedalSetup.setup%d.bco=YELLOWÿÿÿ\0", i);
             scic_msg(tmp);
@@ -651,7 +651,7 @@ void setAckPedalConfig(){
         old_ack_pedal_setup = ack;
 
         int i = 0;
-        for (i = 0; i < 3; i++){
+        for (i = 0; i < 4; i++){
             if (i != ack){
                 sprintf(tmp, "pedalSetup.setup%d.bco=54938ÿÿÿ\0", i);
                 scic_msg(tmp);

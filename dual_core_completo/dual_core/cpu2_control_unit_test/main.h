@@ -29,7 +29,7 @@ int counter;    //for debug
 //timestamp
 Uint32 time_elapsed = 0;
 Uint32 last_imu_message_time = 0;
-Uint32 T_s = 0;
+double T_s = 0;
 
 Uint16 batteryPackTension;
 unsigned long int reassembled_data;
@@ -141,8 +141,8 @@ double fzTC[4] = {0,0,0,0};
 double reTC[4];
 float repFz[4];
 
-double TC_pos = 0;
-double TC_neg = 0;
+double TC_pos[4] = {0, 0, 0, 0};
+double TC_neg[4] = {0, 0, 0, 0};
 
 float posTorqueCandidate[4][4];      //[MotorIndex][CandidateIndex]
 float negTorqueCandidate[4];      //[MotorIndex][CandidateIndex]
