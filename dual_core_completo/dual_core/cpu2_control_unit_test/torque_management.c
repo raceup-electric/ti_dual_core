@@ -483,8 +483,8 @@ void FzCalculatorTV()
     float tmp_yf = 0;
     float tmp_yr = 0;
 #else
-    float tmp_yf = 0.95f*(ay*MASS*Z_COG*K_F)/T_F;
-    float tmp_yr = 0.95f*(ay*MASS*Z_COG*K_R)/T_R;
+    float tmp_yf = (ay*MASS*Z_COG*K_F)/T_F;
+    float tmp_yr = (ay*MASS*Z_COG*K_R)/T_R;
 #endif
 
     float tmp_u1 = speedTv*speedTv*0.25f*RHO*C_Z_A*((1-A_A)/W);
@@ -571,7 +571,7 @@ void RECalculatorTC(){
 
 void torqueVectoring()
 {
-   float t_ratio = 0.6f;
+   float t_ratio = 0.5f;
    torqueRepartition();
    int i;
    for (i = 0; i < 4; i++)
@@ -701,7 +701,7 @@ void regBrake()
 void onePedalDriving()
 {
     static float B_p = 20.f;        //activation threshold of negative torque
-    static float F_onePedal = 2.f;
+    static float F_onePedal = 1.25f;
     static float var_min = 2.f;
     //static float Vk = 90.f;
     static float dacc = 0.f;
@@ -711,9 +711,9 @@ void onePedalDriving()
     //static int start_thr = 0;
     static int thr_filter = 0;
 
-    float f = 2.f;
+    float f = 3.f;
 
-    thr_filter = thr_filter * 0.8 + throttle * 0.2;
+    thr_filter = thr_filter * 0.5 + throttle * 0.5;
 
 
     float A_one = -100/(powf(B_p, f)* (1-f));
@@ -726,14 +726,13 @@ void onePedalDriving()
 
     dacc = thr_filter-prev_acc;
 
-
     if(dacc > var_min){
        slope = 1;
     }else if(dacc < -var_min){
        slope = -1;
     }
 
-    if(throttleReq == 0 && brake > 10){
+    if(throttleReq == 0 && brake > 20){
         brakeReq = 100;
         velocityRef = 0;    //per setpoint AMK4
         return;
@@ -742,18 +741,17 @@ void onePedalDriving()
     if (slope == -1 && actualVelocityKMH > 5.f) {
 
         if (throttleReq < B_p){
-            throttleReq = 0;
+
             brakeReq = A_one*powf((float)throttleReq, f) + B_one*throttleReq + C_one;
-            velocityRef = 0;
+
+            brakeAMK(brakeReq);
         } else {
             throttleReq = D_one*powf((float)throttleReq, F_onePedal) + E_one*throttleReq + G_one;
             //throttleReq = 100*(throttleReq - B_p)/(100 - B_p);
-            brakeReq = 0;
+            throttleAMK(throttleReq);
         }
     } else if (slope == -1 && actualVelocityKMH < 5.f) {
-        throttleReq = 0;
-        brakeReq = 0;
-        velocityRef = 0;
+        stopAMK();
     } else {
 
        /*
@@ -769,19 +767,23 @@ void onePedalDriving()
 //           }
 //           throttleReq = 100*(throttle - start_thr)/(100 - start_thr);
 
-             throttleReq = 0;
              brakeReq = A_one*powf((float)throttle, f) + B_one*throttle + C_one;
-             velocityRef = 0;
+
+             brakeAMK(brakeReq);
 
        } else {
 
 //           throttleReq = throttle;
 
+             //throttleReq = D_one*powf((float)throttleReq, F_onePedal) + E_one*throttleReq + G_one;
+
              throttleReq = 100*(throttleReq - B_p)/(100 - B_p);
+
+             throttleAMK(throttleReq);
 
        }
        //throttleReq = throttle;
-       brakeReq = 0;
+       //brakeReq = 0;
     }
     //prev_acc = throttleReq;
     prev_acc = thr_filter;
