@@ -29,6 +29,7 @@ int counter;    //for debug
 //timestamp
 Uint32 time_elapsed = 0;
 Uint32 last_imu_message_time = 0;
+Uint32 last_onepedal_slope_update = 0;
 double T_s = 0;
 
 Uint16 batteryPackTension;
@@ -114,6 +115,7 @@ float actualVelocityKMH = 0;
 int brake = 0;
 int steering = 0;
 int throttle = 0;
+int curOnepedalSlope = 1;
 const int STEERING_DEADBAND = 5;
 bool implBrakeAndThrottle = false;
 bool checkPower = false;

@@ -33,6 +33,8 @@ extern int brakeReq;
 extern int brake;
 extern int steering;
 extern int throttle;
+extern Uint32 last_onepedal_slope_update;
+extern int curOnepedalSlope;
 extern float sendyne_current;
 extern float sendyne_voltage;
 

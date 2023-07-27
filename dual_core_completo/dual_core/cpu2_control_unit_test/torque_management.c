@@ -725,11 +725,17 @@ void onePedalDriving()
     float G_one = (100*(powf(B_p,F_onePedal))*(F_onePedal-1))/(powf(100,F_onePedal)-100*F_onePedal*powf(B_p,F_onePedal-1)+(powf(B_p,F_onePedal))*(F_onePedal-1));
 
     dacc = thr_filter-prev_acc;
-
-    if(dacc > var_min){
-       slope = 1;
-    }else if(dacc < -var_min){
-       slope = -1;
+    // update curve slope only every 50 ms
+    if (time_elapsed - last_onepedal_slope_update < 5) {
+        slope = curOnepedalSlope;
+    }
+    else {
+        last_onepedal_slope_update = time_elapsed;
+        if(dacc > var_min){
+           slope = 1;
+        }else if(dacc < -var_min){
+           slope = -1;
+        }
     }
 
     if(throttleReq == 0 && brake > 20){
