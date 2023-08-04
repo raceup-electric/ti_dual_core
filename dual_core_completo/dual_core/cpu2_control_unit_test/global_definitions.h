@@ -48,8 +48,8 @@
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
  */
-#define REAR_MOTOR_SCALE    1.9f
-#define FRONT_MOTOR_SCALE   0.7f
+#define REAR_MOTOR_SCALE    1.f
+#define FRONT_MOTOR_SCALE   1.f
 
 
 #define STZ_RANGE           90
