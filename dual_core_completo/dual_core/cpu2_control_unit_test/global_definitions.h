@@ -70,7 +70,7 @@
 
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
-#define SPEED_LIMIT                 20000   // Typical value: 15000
+#define SPEED_LIMIT                 18000   // Typical value: 15000
 #define M_N                         9.8f
 
 /*
@@ -183,7 +183,7 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              17.f
+#define MAX_POS_TORQUE              12.f
 #define MAX_NEG_TORQUE              -8.f
 
 #define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
@@ -192,7 +192,7 @@
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         70000.0f       //Watt
+#define POWER_LIMIT         35000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f

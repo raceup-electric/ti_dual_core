@@ -17,12 +17,12 @@
  */
 
 // acc1
-#define ACC1_LOW_TH_INITIAL    2620
-#define ACC1_HIGH_TH_INITIAL   3900
+#define ACC1_LOW_TH_INITIAL    2630
+#define ACC1_HIGH_TH_INITIAL   3830
 
 // acc2
-#define ACC2_LOW_TH_INITIAL    1900
-#define ACC2_HIGH_TH_INITIAL   3280
+#define ACC2_LOW_TH_INITIAL    1910
+#define ACC2_HIGH_TH_INITIAL   3170
 
 // acc
 #define ACC1_DISC_THRES 100  //ABSOLUTE VAL
@@ -30,8 +30,8 @@
 #define ACC_IMPL_THRES 10 // implausibility threshold 10%
 
 // brake
-#define BRK_LOW_TH_INITIAL    2240
-#define BRK_HIGH_TH_INITIAL   2500
+#define BRK_LOW_TH_INITIAL    2170
+#define BRK_HIGH_TH_INITIAL   2450
 
 #define BRK_DISC_THRES 200  //ABSOLUTE VAL
 
