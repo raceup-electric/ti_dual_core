@@ -856,7 +856,7 @@ void writeHeader()
         writeSD(str_init);
         sprintf(str_init , "acceleration_x;acceleration_y;acceleration_z;omega_x;omega_y;omega_z;");
         writeSD(str_init);
-        sprintf(str_init , "SuspensionsRL;SuspensionsRR;SuspensionsFR;SuspensionsFL;");
+        sprintf(str_init , "SuspensionsRR;SuspensionsFR;SuspensionsFL;SuspensionsRL;");
         writeSD(str_init);
         sprintf(str_init , "temp_0;temp_1;temp_2;temp_3;temp_4;temp_5;temp_6;temp_7;");
         writeSD(str_init);
