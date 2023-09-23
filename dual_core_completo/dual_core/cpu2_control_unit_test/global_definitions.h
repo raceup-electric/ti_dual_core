@@ -20,7 +20,7 @@
  * SUPER IMPORTANT MACROS
  */
 #define ONE_PEDAL    0
-#define REG_BRAKE   0
+#define REG_BRAKE   1
 #define TORQUE_VECTORING    0
 #define TRACTION_CTRL   0
 #define THERMAL_POWER_CTRL    0
@@ -48,8 +48,8 @@
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
  */
-#define REAR_MOTOR_SCALE    0.0f
-#define FRONT_MOTOR_SCALE   2.5f
+#define REAR_MOTOR_SCALE    2.0f
+#define FRONT_MOTOR_SCALE   0.5f
 
 
 #define STZ_RANGE           90
@@ -192,7 +192,7 @@
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         50000.0f       //Watt
+#define POWER_LIMIT         75000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f
@@ -242,6 +242,9 @@
 #define ACQPS_                   240
 #define VREFLO                  0
 #define VREFHI                  3.3
+#define SUSP_ANG_M              1024.0f/70.0f
+#define SUSP_ANG_C              1024.0f + 163*SUSP_ANG_M
+#define ADC_TO_MM_SUSP(x)    (-x + SUSP_ANG_C)/SUSP_ANG_M    // Potenziometri sospensioni
 
 /*
  * CAN MANAGEMENT
