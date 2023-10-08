@@ -99,7 +99,7 @@ void read_SMU_Message(Uint16 smu_values[], int id){
     else if (id == MSG_ID_SMU_SUSPENSIONS){
         for(i = 0; i < NUM_SMU_SUSP; i++)
         {
-            suspensions[i] = (Uint32) ADC_TO_MM_SUSP(0x3FF & aux);
+            suspensions[i] = (Uint32) (-(0x3FF & aux) + SUSP_ANG_C)/SUSP_ANG_M;
             aux>>=10;
         }
     }

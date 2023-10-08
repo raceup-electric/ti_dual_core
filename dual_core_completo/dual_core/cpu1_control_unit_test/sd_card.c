@@ -838,9 +838,9 @@ void newSetupSD(void)
 void writeHeader()
 {
     char str_init[200];
-        sprintf(str_init , "timestamp;AmkStatusFL;AmkStatusFR;AmkStatusRL;AmkStatusRR;TempMotor;ErrorInfo;TempIGBT;TempInverter;TempMotor;");
+        sprintf(str_init , "timestamp;AmkStatusFL;AmkStatusFR;AmkStatusRL;AmkStatusRR;TempMotorFL;ErrorInfoFL;TempIGBT_FL;TempInverterFL;TempMotorFR;");
         writeSD(str_init);
-        sprintf(str_init , "ErrorInfo;TempIGBT;TempInverter;TempMotor;ErrorInfo;TempIGBT;TempInverter;TempMotor;ErrorInfo;TempIGBT;TempInverter;");
+        sprintf(str_init , "ErrorInfoFR;TempIGBT_FR;TempInverterFR;TempMotorRR;ErrorInfoRR;TempIGBT_RR;TempInverterRR;TempMotorRL;ErrorInfoRL;TempIGBT_RL;TempInverterRL;");
         writeSD(str_init);
         sprintf(str_init , "ActualVelocityFL;ActualVelocityFR;ActualVelocityRL;ActualVelocityRR;TorqueLimitPositiveFL;TorqueLimitPositiveFR;");
         writeSD(str_init);
@@ -856,7 +856,7 @@ void writeHeader()
         writeSD(str_init);
         sprintf(str_init , "acceleration_x;acceleration_y;acceleration_z;omega_x;omega_y;omega_z;");
         writeSD(str_init);
-        sprintf(str_init , "SuspensionsFL;SuspensionsFR;SuspensionsRL;SuspensionsFR;");
+        sprintf(str_init , "SuspensionsRL;SuspensionsFL;SuspensionsFR;SuspensionsRR;");
         writeSD(str_init);
         sprintf(str_init , "temp_inv_dx_2;temp_inv_sx_1;temp_inv_dx_1;temp_inv_sx_2;temp_mot_rr_1;temp_mot_rl_1;temp_mot_rl_2;temp_mot_rr_2;");
         writeSD(str_init);

@@ -244,7 +244,6 @@
 #define VREFHI                  3.3
 #define SUSP_ANG_M              1024.0f/70.0f
 #define SUSP_ANG_C              1024.0f + 163*SUSP_ANG_M
-#define ADC_TO_MM_SUSP(x)    (-x + SUSP_ANG_C)/SUSP_ANG_M    // Potenziometri sospensioni
 
 /*
  * CAN MANAGEMENT
