@@ -1,8 +1,6 @@
 #include "main.h"
 
-
-int LoRa_Packet_Counter = 1;
-int LoRa_initialized = 0;
+const int struct_size = sizeof(local_sh);
 
 void main(void)
 {
@@ -47,12 +45,6 @@ void main(void)
 
     uart_setup();
 
-#ifndef NO_LORA
-
-    GPIO_LoRa_Setup();
-    LoRa_initialized = LoRa_begin(LORA_DEFAULT_SPI_FREQUENCY);
-#endif
-
     // Write auth of some banks of Global Shared (GS) RAM is
     // given to CPU2
     while( !(
@@ -96,13 +88,7 @@ void main(void)
     //shared struct copied in local variable
     local_sh = sh;
 
-
-#ifndef NO_LORA_DEBUG
-    debugSet();
-    CpuTimer1Regs.TCR.bit.TSS = 1;      //Do not start timer 1 (SD) in LORA_DEBUG
-#else
     CpuTimer1Regs.TCR.bit.TSS = 0;      //Start SD timer
-#endif
 
     //stop timer2 - it's not used for the moment
     CpuTimer2Regs.TCR.bit.TSS = 1;
@@ -226,9 +212,13 @@ __interrupt void cpu_timer1_isr(void)
                         local_sh.motorSetP[2].AMK_TorqueLimitNegative,local_sh.motorSetP[3].AMK_TorqueLimitNegative
                         );
         writeSD(cmd);
-#ifndef NO_LORA
-        LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
-#endif
+
+        //LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
+        uint8_t encoded[sizeof(local_sh) + 1];
+
+        cobs_encode(encoded, sizeof(encoded), &local_sh, sizeof(local_sh));
+        scic_msg(encoded);
+
         sprintf(cmd ,
                         "%d;%d;%d;%d;%lu;%d;%d;%d;"                //status
                         "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%u;"    //bms
@@ -312,9 +302,6 @@ __interrupt void cpu_timer1_isr(void)
                 EDIS;
           // }
         }
-#ifndef NO_LORA
-        LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
-#endif
 }
 
 //not necessary at the moment
