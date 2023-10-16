@@ -213,10 +213,21 @@ __interrupt void cpu_timer1_isr(void)
                         );
         writeSD(cmd);
 
-        //LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
-        uint8_t encoded[sizeof(local_sh) + 1];
+        char data[sizeof(local_sh)];
+        memcpy(data, &local_sh, sizeof(local_sh));
 
-        cobs_encode(encoded, sizeof(encoded), &local_sh, sizeof(local_sh));
+        char ptr[sizeof(local_sh)*2];
+
+        int i;
+        for(i=0; i<sizeof(local_sh); i++){
+            ptr[i*2] = data[i] & 0x00FF;
+            ptr[i*2+1] = data[i] >> 8;
+        }
+
+        char encoded[sizeof(ptr) + 2];
+        cobs_encode(encoded, sizeof(encoded)-1, &ptr, sizeof(ptr));
+        encoded[sizeof(ptr) + 1] = '\0';
+
         scic_msg(encoded);
 
         sprintf(cmd ,

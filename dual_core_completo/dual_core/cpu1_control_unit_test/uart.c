@@ -74,6 +74,7 @@ void scic_msg(char * msg)
         scic_xmit(msg[i]);
         i++;
     }
+    scic_xmit(msg[i]);
 }
 
 //
