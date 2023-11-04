@@ -245,8 +245,7 @@ tCANMsgObject RXCANA_Wheel_Message;
 tCANMsgObject RXCANA_Lem_Message;
 tCANMsgObject TXCANA_ATMega_Message;
 //alberto patch
-tCANMsgObject TXCANA_Steering_Message;
-tCANMsgObject TXCANA_Throttle_Message;
+tCANMsgObject TXCANA_ATC_Message;
 
 
 unsigned char RXA_Imu_Data[8];
@@ -261,6 +260,7 @@ unsigned char TXA_Host_Data[4];
 float TXA_Smu_Calibration[5][2];
 unsigned char RXA_Lem_Data[8];
 unsigned char TXCANA_ATMega_Data[2];
+unsigned char RXA_ATC_DATA[8]; //8???
 
 
 unsigned char fan_enable;

@@ -272,9 +272,8 @@
 #define OBJ_ID_TO_ATMEGA        23
 #define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_FROM_AMK         26
-//alberto pathc
-#define OBJ_ID_FROM_THROTTLE    27
-#define OBJ_ID_FROM_STEERING    28
+//alberto patch
+#define OBJ_ID_FROM_ATC         27
 
 //Message IDs
 #define MSG_ID_CALIBRATION_TO_SMU 0x30

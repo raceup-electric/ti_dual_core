@@ -33,6 +33,7 @@ C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driver
 C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c \
 ../launch_controller.c \
 ../main.c \
+../matrix.c \
 ../motor_management.c \
 ../power_controller.c \
 ../timer_management.c \
@@ -61,6 +62,7 @@ C_DEPS += \
 ./interrupt.d \
 ./launch_controller.d \
 ./main.d \
+./matrix.d \
 ./motor_management.d \
 ./power_controller.d \
 ./timer_management.d \
@@ -91,6 +93,7 @@ OBJS += \
 ./interrupt.obj \
 ./launch_controller.obj \
 ./main.obj \
+./matrix.obj \
 ./motor_management.obj \
 ./power_controller.obj \
 ./timer_management.obj \
@@ -125,6 +128,7 @@ OBJS__QUOTED += \
 "interrupt.obj" \
 "launch_controller.obj" \
 "main.obj" \
+"matrix.obj" \
 "motor_management.obj" \
 "power_controller.obj" \
 "timer_management.obj" \
@@ -153,6 +157,7 @@ C_DEPS__QUOTED += \
 "interrupt.d" \
 "launch_controller.d" \
 "main.d" \
+"matrix.d" \
 "motor_management.d" \
 "power_controller.d" \
 "timer_management.d" \
@@ -185,6 +190,7 @@ C_SRCS__QUOTED += \
 "C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/deprecated/driverlib/interrupt.c" \
 "../launch_controller.c" \
 "../main.c" \
+"../matrix.c" \
 "../motor_management.c" \
 "../power_controller.c" \
 "../timer_management.c" \

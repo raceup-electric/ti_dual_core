@@ -131,13 +131,13 @@ void readADC_Bank(int num_bank)
 {
     switch (num_bank)
     {
-    //alberto patch
     case 1:
         AdcaRegs.ADCSOCFRC1.all = 0x003F; //SOC0 and SOC5
 
         while(AdcaRegs.ADCINTFLG.bit.ADCINT1 == 0);
                 AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
 
+        //alberto patch
         // Acc2_temp = AdcaResultRegs.ADCRESULT0;    //acc2 temp
         CurrSens_temp = AdcaResultRegs.ADCRESULT1;    //curr sens
         // Acc1_temp = AdcaResultRegs.ADCRESULT2;    //acc1 temp

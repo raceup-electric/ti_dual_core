@@ -2,6 +2,19 @@
 
 unsigned long gg;
 
+
+//alberto patch
+void setting_package_param(tCANMsgObject Object, unsigned int ID,unsigned int mask,
+                            unsigned int other_settings,unsigned int data_len, void * XA_DATA)
+{
+    Object.ui32MsgID = ID;
+    Object.ui32MsgIDMask = mask;
+    Object.ui32Flags = other_settings;
+    Object.ui32MsgLen = data_len;
+    Object.pucMsgData = XA_DATA;
+
+}
+
 void canSetup_phase1()
 {
 
@@ -147,7 +160,7 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_POWER_CONTROL, &RXCANA_PwCtrl_Message, MSG_OBJ_TYPE_RX);
 
-        //PACCHETTO DA VOLANTE
+        //PACCHETTO DA VOLANTE SCHERMO
         RXCANA_Wheel_Message.ui32MsgID = MSG_ID_STEERING_WHEEL_BASE;
         RXCANA_Wheel_Message.ui32MsgIDMask = 0x1FFFFFFC;
         RXCANA_Wheel_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
@@ -167,12 +180,23 @@ void canSetup_phase2()
 
         //Alberto Patch
 
+        //PACCHETTO DA ATC
 
-        TXCANA_ATMega_Message.ui32MsgID = MSG_ID_TO_ATMEGA;
-        TXCANA_ATMega_Message.ui32MsgIDMask = 0;
-        TXCANA_ATMega_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
-        TXCANA_ATMega_Message.ui32MsgLen = 2;
-        TXCANA_ATMega_Message.pucMsgData = TXCANA_ATMega_Data;
+        // MSG_OBJ_RX_INT_ENABLE; //to change ??
+        // MSG_DATA_LENGTH; //to change
+        // RXA_Lem_Data;   //to change
+
+        setting_package_param(TXCANA_ATC_Message,OBJ_ID_FROM_ATC,0x0,MSG_OBJ_RX_INT_ENABLE,MSG_DATA_LENGTH,RXA_ATC_DATA);
+        CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, MSG_OBJ_TYPE_RX);
+
+        //end Alberto Patch
+
+
+        TXCANA_Throttle_Message.ui32MsgID = MSG_ID_TO_ATMEGA;
+        TXCANA_Throttle_Message.ui32MsgIDMask = 0;
+        TXCANA_Throttle_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
+        TXCANA_Throttle_Message.ui32MsgLen = 2;
+        TXCANA_Throttle_Message.pucMsgData = TXCANA_ATMega_Data;
 
 
 
@@ -365,20 +389,16 @@ __interrupt void canISR_A(void)
             CANIntClear(CANA_BASE, OBJ_ID_FROM_LEM);
            break;
            //alberto patch
-        case OBJ_ID_FROM_THROTTLE:
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_THROTTLE, &TXCANA_Throttle_Message, true);
-            //do stuff with the data
+        case OBJ_ID_FROM_ATC:
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_THROTTLE, &TXCANA_ATC_Message, true);
+
+            read_ATC_message(RXA_ATC_DATA);
+
             rxAMsgCount++;
 
             CANIntClear(CANA_BASE,OBJ_ID_FROM_THROTTLE );
            break;
-        case OBJ_ID_FROM_STEERING:
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_STEERING, &TXCANA_Steering_Message, true);
-            //do stuff with the data
-            rxAMsgCount++;
-
-            CANIntClear(CANA_BASE,OBJ_ID_FROM_STEERING );
-           break;
+           //alberto patch
 
     }
     CANGlobalIntClear(CANA_BASE, CAN_GLB_INT_CANINT0);

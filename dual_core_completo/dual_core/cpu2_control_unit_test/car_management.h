@@ -119,6 +119,8 @@ extern struct motorValues1 motorVal1[4];  //  0 --> FL, 1 --> FR, 2 --> RL, 3 --
 //
 // prototypes
 //
+void read_ATC_message(unsigned char throttle_data[]);
+
 void read_SENDYNE_message(unsigned char sendyne_values[]);
 
 void read_LEM_message(unsigned char lem_values[]);
