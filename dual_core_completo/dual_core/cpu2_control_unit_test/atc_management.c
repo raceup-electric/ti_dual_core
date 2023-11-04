@@ -35,7 +35,7 @@ unsigned char atc_brake_pedal()
 {
     return ATC.brake_pedal;   
 }
-//suspension 200
+//suspension 0-200
 unsigned char atc_front_suspension()
 {
     return ATC.suspension_compression;

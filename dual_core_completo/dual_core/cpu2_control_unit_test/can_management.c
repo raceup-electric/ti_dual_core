@@ -1,17 +1,20 @@
 #include "can_management.h"
+#include "global_definitions.h"
+#include "main.h"
 
 unsigned long gg;
 
 
 //alberto patch
-void setting_package_param(tCANMsgObject Object, unsigned int ID,unsigned int mask,
-                            unsigned int other_settings,unsigned int data_len, void * XA_DATA)
+void setting_package_param(tCANMsgObject *Object, unsigned int ID,
+                            unsigned int mask, unsigned int other_settings,
+                            unsigned int data_len, void * XA_DATA)
 {
-    Object.ui32MsgID = ID;
-    Object.ui32MsgIDMask = mask;
-    Object.ui32Flags = other_settings;
-    Object.ui32MsgLen = data_len;
-    Object.pucMsgData = XA_DATA;
+    Object->ui32MsgID = ID;
+    Object->ui32MsgIDMask = mask;
+    Object->ui32Flags = other_settings;
+    Object->ui32MsgLen = data_len;
+    Object->pucMsgData = XA_DATA;
 
 }
 
@@ -57,48 +60,33 @@ void canSetup_phase2()
 
     for (i = 0; i<4; i++)
     {
-
-        RXCANB_AmkVal1_Message[i].ui32MsgID = AMK_VAL_1_IDS[i];
-        RXCANB_AmkVal1_Message[i].ui32MsgIDMask = 0x1FFFFFF0;
-        RXCANB_AmkVal1_Message[i].ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
-        RXCANB_AmkVal1_Message[i].ui32MsgLen = MSG_DATA_LENGTH;
-        RXCANB_AmkVal1_Message[i].pucMsgData = RXB_AmkVal_Data;
-
+        setting_package_param(&RXCANB_AmkVal1_Message[i],AMK_VAL_1_IDS[i],0x1FFFFFF0,
+                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXB_AmkVal_Data);
         CANMessageSet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal1_Message[i], MSG_OBJ_TYPE_RX);
 
 
-        RXCANB_AmkVal2_Message[i].ui32MsgID = AMK_VAL_2_IDS[i];
-        RXCANB_AmkVal2_Message[i].ui32MsgIDMask = 0x1FFFFFF0;
-        RXCANB_AmkVal2_Message[i].ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
-        RXCANB_AmkVal2_Message[i].ui32MsgLen = MSG_DATA_LENGTH;
-        RXCANB_AmkVal2_Message[i].pucMsgData = RXB_AmkVal_Data;
-
+        setting_package_param(&RXCANB_AmkVal2_Message[i],AMK_VAL_2_IDS[i],0x1FFFFFF0,
+                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXB_AmkVal_Data);
         CANMessageSet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal2_Message[i], MSG_OBJ_TYPE_RX);
 
 
-        TXCANB_Setpoints_Message[i].ui32MsgID = AMK_SETPOINTS_IDS[i];                      // CAN message ID - use 1
-        TXCANB_Setpoints_Message[i].ui32MsgIDMask = 0;                  // no mask needed for TX
-        TXCANB_Setpoints_Message[i].ui32Flags = MSG_OBJ_NO_FLAGS;  // enable interrupt on TX
-        TXCANB_Setpoints_Message[i].ui32MsgLen = sizeof(CAN_AMK_SET_POINT[i]);   // size of message is 8
-        TXCANB_Setpoints_Message[i].pucMsgData = TXB_Setpoints_Data[i];           // ptr to message content
+        // TXCANB_Setpoints_Message[i].ui32MsgID = AMK_SETPOINTS_IDS[i];                      // CAN message ID - use 1
+        // TXCANB_Setpoints_Message[i].ui32MsgIDMask = 0;                  // no mask needed for TX
+        // TXCANB_Setpoints_Message[i].ui32Flags = MSG_OBJ_NO_FLAGS;  // enable interrupt on TX
+        // TXCANB_Setpoints_Message[i].ui32MsgLen = sizeof(CAN_AMK_SET_POINT[i]);   // size of message is 8
+        // TXCANB_Setpoints_Message[i].pucMsgData = TXB_Setpoints_Data[i];           // ptr to message content
+        setting_package_param(&TXCANB_Setpoints_Message[i],AMK_SETPOINTS_IDS[i],0, MSG_OBJ_NO_FLAGS,sizeof(CAN_AMK_SET_POINT[i],TXB_Setpoints_Data[i]);
 
         }
 
         //Pacchetto accelerazioni IMU
-        RXCANA_Imu_Message.ui32MsgID = MSG_ID_IMU_BASE;
-        RXCANA_Imu_Message.ui32MsgIDMask = 0x1FFFFFFC;
-        RXCANA_Imu_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
-        RXCANA_Imu_Message.ui32MsgLen = MSG_DATA_LENGTH;
-        RXCANA_Imu_Message.pucMsgData = RXA_Imu_Data;
-
+        setting_package_param(&RXCANA_Imu_Message,MSG_ID_IMU_BASE,0x1FFFFFFC,
+                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXA_Imu_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, MSG_OBJ_TYPE_RX);
 
         //Pacchetto generico SMU
-        RXCANA_Smu_Message.ui32MsgID = MSG_ID_SMU_BASE;
-        RXCANA_Smu_Message.ui32MsgIDMask = 0x1FFFFFFC;
-        RXCANA_Smu_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
-        RXCANA_Smu_Message.ui32MsgLen = MSG_DATA_LENGTH;
-        RXCANA_Smu_Message.pucMsgData = RXA_Smu_Data;
+        setting_package_param(&RXCANA_Smu_Message,MSG_ID_SMU_BASE,0x1FFFFFFC,
+                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXA_Smu_Data);
 
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);
 
@@ -111,71 +99,41 @@ void canSetup_phase2()
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);*/
 
         for(i = 0; i < 5; i++){
-            TXCANA_Smu_Message[i].ui32MsgID = MSG_ID_CALIBRATION_TO_SMU;
-            TXCANA_Smu_Message[i].ui32MsgIDMask = 0;                  // no mask needed for TX
-            TXCANA_Smu_Message[i].ui32Flags = MSG_OBJ_NO_FLAGS;
-            TXCANA_Smu_Message[i].ui32MsgLen = MSG_DATA_LENGTH;
-            TXCANA_Smu_Message[i].pucMsgData = (unsigned char*)TXA_Smu_Calibration[i];
+            setting_package_param(&TXCANA_Smu_Message[i],MSG_ID_CALIBRATION_TO_SMU,0x0,
+                    MSG_OBJ_NO_FLAGS,MSG_DATA_LENGTH,(unsigned char*)TXA_Smu_Calibration[i]);
         }
 
         //Pacchetto BMS VOLTAGE
-        RXCANA_BmsVol_Message.ui32MsgID = MSG_ID_BMS_VOLTAGE;
-        RXCANA_BmsVol_Message.ui32MsgIDMask = 0x0;
-        RXCANA_BmsVol_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
-        RXCANA_BmsVol_Message.ui32MsgLen = 8;
-        RXCANA_BmsVol_Message.pucMsgData = RXA_BmsVol_Data;
-
+        setting_package_param(&RXCANA_BmsVol_Message,MSG_ID_BMS_VOLTAGE,0x0,
+                MSG_OBJ_RX_INT_ENABLE,8,RXA_BmsVol_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, MSG_OBJ_TYPE_RX);
 
         //PACCHETTO BMS TEMPERATURE
-        RXCANA_BmsTemp_Message.ui32MsgID = MSG_ID_BMS_TEMP;
-        RXCANA_BmsTemp_Message.ui32MsgIDMask = 0x0;
-        RXCANA_BmsTemp_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
-        RXCANA_BmsTemp_Message.ui32MsgLen = 7;
-        RXCANA_BmsTemp_Message.pucMsgData = RXA_BmsTemp_Data;
-
+        setting_package_param(&RXCANA_BmsTemp_Message,MSG_ID_BMS_TEMP,0x0,
+                MSG_OBJ_RX_INT_ENABLE,7,RXA_BmsTemp_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, MSG_OBJ_TYPE_RX);
 
-        TXCANA_BmsHost_Message.ui32MsgID = MSG_ID_HOST_SEND;
-        TXCANA_BmsHost_Message.ui32MsgIDMask = 0;
-        TXCANA_BmsHost_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
-        TXCANA_BmsHost_Message.ui32MsgLen = 4;
-        TXCANA_BmsHost_Message.pucMsgData = TXA_Host_Data;
+        setting_package_param(&TXCANA_BmsHost_Message,MSG_ID_HOST_SEND,0,
+                MSG_OBJ_NO_FLAGS,4,TXA_Host_Data);
 
         //PACCHETTO BMS LV
-        RXCANA_BmsLV_Message.ui32MsgID = MSG_ID_BMS_BASE;
-        RXCANA_BmsLV_Message.ui32MsgIDMask = 0x1FFFFFFC;
-        RXCANA_BmsLV_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
-        RXCANA_BmsLV_Message.ui32MsgLen = 8;
-        RXCANA_BmsLV_Message.pucMsgData = RXA_BmsLV_Data;
-
+        setting_package_param(&RXCANA_BmsLV_Message,MSG_ID_BMS_BASE,0x1FFFFFFC,
+                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,8,RXA_BmsLV_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, MSG_OBJ_TYPE_RX);
 
         //PACCHETTO POWER CONTROL DAL VOLANTE
-        RXCANA_PwCtrl_Message.ui32MsgID = MSG_ID_POWER_CONTROL;
-        RXCANA_PwCtrl_Message.ui32MsgIDMask = 0x0;
-        RXCANA_PwCtrl_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
-        RXCANA_PwCtrl_Message.ui32MsgLen = 1;
-        RXCANA_PwCtrl_Message.pucMsgData = RXA_PwCtrl_Data;
-
+        setting_package_param(&RXCANA_PwCtrl_Message,MSG_ID_POWER_CONTROL,0x0,
+                MSG_OBJ_RX_INT_ENABLE,1,RXA_PwCtrl_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_POWER_CONTROL, &RXCANA_PwCtrl_Message, MSG_OBJ_TYPE_RX);
 
         //PACCHETTO DA VOLANTE SCHERMO
-        RXCANA_Wheel_Message.ui32MsgID = MSG_ID_STEERING_WHEEL_BASE;
-        RXCANA_Wheel_Message.ui32MsgIDMask = 0x1FFFFFFC;
-        RXCANA_Wheel_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
-        RXCANA_Wheel_Message.ui32MsgLen = 1;
-        RXCANA_Wheel_Message.pucMsgData = RXA_Wheel_Data;
-
+        setting_package_param(&RXCANA_Wheel_Message,MSG_ID_STEERING_WHEEL_BASE,0x1FFFFFFC,
+                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,1,RXA_Wheel_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, MSG_OBJ_TYPE_RX);
 
         //PACCHETTO DA LEM
-        RXCANA_Lem_Message.ui32MsgID = MSG_ID_LEM;
-        RXCANA_Lem_Message.ui32MsgIDMask = 0x0;
-        RXCANA_Lem_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
-        RXCANA_Lem_Message.ui32MsgLen = MSG_DATA_LENGTH;
-        RXCANA_Lem_Message.pucMsgData = RXA_Lem_Data;
-
+        setting_package_param(&RXCANA_Lem_Message,MSG_ID_LEM,0x0,MSG_OBJ_RX_INT_ENABLE,
+                MSG_DATA_LENGTH,RXA_Lem_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, MSG_OBJ_TYPE_RX);
 
         //Alberto Patch
@@ -186,7 +144,8 @@ void canSetup_phase2()
         // MSG_DATA_LENGTH; //to change
         // RXA_Lem_Data;   //to change
 
-        setting_package_param(TXCANA_ATC_Message,OBJ_ID_FROM_ATC,0x0,MSG_OBJ_RX_INT_ENABLE,MSG_DATA_LENGTH,RXA_ATC_DATA);
+        setting_package_param(&TXCANA_ATC_Message,OBJ_ID_FROM_ATC,0x0,MSG_OBJ_RX_INT_ENABLE,
+                MSG_DATA_LENGTH,RXA_ATC_DATA);
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, MSG_OBJ_TYPE_RX);
 
         //end Alberto Patch
@@ -211,54 +170,47 @@ __interrupt void canISR_B(void)
     status = CANIntStatus(CANB_BASE, CAN_INT_STS_CAUSE);
 
 
-    if(status == CAN_INT_INT0ID_STATUS)
-    {
+    switch (status) {
+        case CAN_INT_INT0ID_STATUS:
+            status = CANStatusGet(CANB_BASE, CAN_STS_CONTROL);
 
-        status = CANStatusGet(CANB_BASE, CAN_STS_CONTROL);
-
-        if(((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 7) &&
-           ((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 0))
-        {
-            errorFlag = 1;
-            errorFrameCounterB++;
-        }
-
-
-        CANIntClear(CANB_BASE, CAN_INT_INT0ID_STATUS);
+            if(((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 7) &&
+                    ((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 0))
+            {
+                errorFlag = 1;
+                errorFrameCounterB++;
+            }
 
 
-    }
+            CANIntClear(CANB_BASE, CAN_INT_INT0ID_STATUS);
+            break;
+        //
+        // Check if the cause is the receive message object 2
+        //
+        case OBJ_ID_FROM_AMK:
+            //Uint16 amk_temp[8];
 
-    //
-    // Check if the cause is the receive message object 2
-    //
-    else if(status == OBJ_ID_FROM_AMK)
-    {
-        //Uint16 amk_temp[8];
-
-        CANMessageGet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal1_Message[0], true); //FORSE TRUE NON � GIUSTO
+            CANMessageGet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal1_Message[0], true); //FORSE TRUE NON � GIUSTO
 
 
-        int id = getMessageID(CANB_BASE,OBJ_ID_FROM_AMK);
+            int id = getMessageID(CANB_BASE,OBJ_ID_FROM_AMK);
 
-        if (getAMKValNumber(id) == 1)
-        {
-            rxBMsgCount++;
-            read_AMK_Values1((Uint16*)RXB_AmkVal_Data, getMotorIndex(id));
-        }
-        else if (getAMKValNumber(id) == 2)
-        {
-            rxBMsgCount++;
-            read_AMK_Values2((Uint16*)RXB_AmkVal_Data, getMotorIndex(id));
-        }
+            if (getAMKValNumber(id) == 1)
+            {
+                rxBMsgCount++;
+                read_AMK_Values1((Uint16*)RXB_AmkVal_Data, getMotorIndex(id));
+            }
+            else if (getAMKValNumber(id) == 2)
+            {
+                rxBMsgCount++;
+                read_AMK_Values2((Uint16*)RXB_AmkVal_Data, getMotorIndex(id));
+            }
 
-        CANIntClear(CANB_BASE, OBJ_ID_FROM_AMK);
+            CANIntClear(CANB_BASE, OBJ_ID_FROM_AMK);
 
-        errorFlag = 0;
-    }
-    else
-    {
-
+            errorFlag = 0;
+            break;
+        default:
     }
 
     CANGlobalIntClear(CANB_BASE, CAN_GLB_INT_CANINT0);

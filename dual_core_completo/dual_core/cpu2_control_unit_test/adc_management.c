@@ -137,12 +137,7 @@ void readADC_Bank(int num_bank)
         while(AdcaRegs.ADCINTFLG.bit.ADCINT1 == 0);
                 AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
 
-        //alberto patch
-        // Acc2_temp = AdcaResultRegs.ADCRESULT0;    //acc2 temp
         CurrSens_temp = AdcaResultRegs.ADCRESULT1;    //curr sens
-        // Acc1_temp = AdcaResultRegs.ADCRESULT2;    //acc1 temp
-        //BrakeClean_temp = AdcaResultRegs.ADCRESULT3;    //brakeclean
-        //BrakePress_temp = AdcaResultRegs.ADCRESULT4;    //brake press
         Steering_temp = AdcaResultRegs.ADCRESULT5;
 
     case 2:
