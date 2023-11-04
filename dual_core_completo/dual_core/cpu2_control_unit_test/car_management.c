@@ -21,7 +21,7 @@ bool rfGoneWrong[4] = {1,1,1,1};
 #endif
 
 //alberto patch
-unsigned int read_ATC_message(unsigned char atc_data[])
+inline unsigned int read_ATC_message(unsigned char atc_data[])
 {
     atc_rewrite(atc_data);
 }
@@ -53,27 +53,27 @@ void read_IMU_message(Uint16 imu_values[], int id)
     aux_2 |= ((int32_t)(imu_values[5])<<8);
     aux_2 |= ((int32_t)(imu_values[4])<<0);
 
-    if (id == MSG_ID_IMU_1)
-    {
-        accelerations[X] = accelerations[X] - 0.5*(accelerations[X] - (uint32_to_float(aux_1)));
-        accelerations[Y] = accelerations[Y] - 0.5*(accelerations[Y] - (-uint32_to_float(aux_2)));
-    }
-    else if (id == MSG_ID_IMU_2)
-    {
-        accelerations[Z] = accelerations[Z] - 0.5*(accelerations[Z] - (uint32_to_float(aux_1)));
-        apply_calibration();
-        omegas[X] = uint32_to_float(aux_2);
-    }
-    else if (id == MSG_ID_IMU_3)
-    {
-        omegas[Y] = uint32_to_float(aux_1);
-        omegas[Z] = uint32_to_float(aux_2);
+    switch (id) {
+        case MSG_ID_IMU_1:
+            accelerations[X] = accelerations[X] - 0.5*(accelerations[X] - (uint32_to_float(aux_1)));
+            accelerations[Y] = accelerations[Y] - 0.5*(accelerations[Y] - (-uint32_to_float(aux_2)));
+            break;
+        case MSG_ID_IMU_2:
+            accelerations[Z] = accelerations[Z] - 0.5*(accelerations[Z] - (uint32_to_float(aux_1)));
+            apply_calibration();
+            omegas[X] = uint32_to_float(aux_2);
+            break;
+        case MSG_ID_IMU_3:
+            omegas[Y] = uint32_to_float(aux_1);
+            omegas[Z] = uint32_to_float(aux_2);
+            break;
     }
 }
 
 void read_SMU_Message(Uint16 smu_values[], int id){
 
     uint64_t aux = 0;
+    Uint16 tmp = 0;
     int i;
 
     for(i = 7; i >= 0; i--){
@@ -83,32 +83,30 @@ void read_SMU_Message(Uint16 smu_values[], int id){
         aux = aux << 8;
         aux |= (0x00FF & smu_values[i]);
     }
-
-
-    if(id == MSG_ID_SMU_TEMPERATURES){
-        Uint16 tmp = 0;
-        for(i = 0; i < 8; i += 2)
-        {
-            tmp= (smu_values[i] | (smu_values[i+1]<<8));
-            temperatures[i/2] = ConvertTempToKelvin(tmp);
-        }
+    
+    switch (id) {
+        case MSG_ID_SMU_TEMPERATURES:
+            for(i = 0; i < 8; i += 2)
+            {
+                tmp= (smu_values[i] | (smu_values[i+1]<<8));
+                temperatures[i/2] = ConvertTempToKelvin(tmp);
+            }
+            break;
+        case (MSG_ID_SMU_TEMPERATURES + 1):
+            for(i = 0; i < 8; i += 2)
+            {
+                tmp= (smu_values[i] | (smu_values[i+1]<<8));
+                temperatures[i/2 + 4] = ConvertTempToKelvin(tmp);
+            }
+            break;
+        case MSG_ID_SMU_SUSPENSIONS:
+            for(i = 0; i < NUM_SMU_SUSP; i++)
+            {
+                suspensions[i] = -(((0x3FF & aux) + SUSP_ANG_C)/SUSP_ANG_M)*1000;
+                aux>>=10;
+            }
+            break;
     }
-    else if (id == MSG_ID_SMU_TEMPERATURES + 1){
-        Uint16 tmp = 0;
-        for(i = 0; i < 8; i += 2)
-        {
-            tmp= (smu_values[i] | (smu_values[i+1]<<8));
-            temperatures[i/2 + 4] = ConvertTempToKelvin(tmp);
-        }
-    }
-    else if (id == MSG_ID_SMU_SUSPENSIONS){
-        for(i = 0; i < NUM_SMU_SUSP; i++)
-        {
-            suspensions[i] = -(((0x3FF & aux) + SUSP_ANG_C)/SUSP_ANG_M)*1000;
-            aux>>=10;
-        }
-    }
-
 }
 
 void read_BMSLV_message(Uint16 bmslv_values[], int id){
@@ -181,52 +179,53 @@ void read_steering_wheel_message(Uint16 val[], int id){
     static int over_setup = 0;
     static int over_pedal = 0;
     if (id == MSG_ID_STEERING_WHEEL_BASE){
-        if(val[0] == NEXT_PAGE){
-
-            if(screen_mode == SCREEN_DEBUG){
-                currentPage++;
+        switch (val[0]) {
+            case NEXT_PAGE:
+                if(screen_mode == SCREEN_DEBUG){
+                    currentPage++;
+                    currentPage = currentPage % MAX_PAGE_NUMBER;
+                    display.page = currentPage;
+                } else if(screen_mode == SCREEN_DRIVING){
+                    driving_page_index++;
+                    driving_page_index = driving_page_index % MAX_DRIVING_PAGE;
+                    currentPage = driving_page_num[driving_page_index];
+                    display.page = currentPage;
+                }
+                break;
+            case PREVIOUS_PAGE:
+                currentPage = currentPage - 1 + MAX_PAGE_NUMBER;
                 currentPage = currentPage % MAX_PAGE_NUMBER;
-                display.page = currentPage;
-            } else if(screen_mode == SCREEN_DRIVING){
-                driving_page_index++;
-                driving_page_index = driving_page_index % MAX_DRIVING_PAGE;
-                currentPage = driving_page_num[driving_page_index];
-                display.page = currentPage;
-            }
-
-        }
-        else if(val[0] == PREVIOUS_PAGE){
-            currentPage = currentPage - 1 + MAX_PAGE_NUMBER;
-            currentPage = currentPage % MAX_PAGE_NUMBER;
-            if(screen_mode == SCREEN_DEBUG){
-                display.page = currentPage;
-            } else if(screen_mode == SCREEN_DRIVING){
-                driving_page_index = (driving_page_index - 1 + MAX_DRIVING_PAGE)  % MAX_DRIVING_PAGE;
-                currentPage = driving_page_num[driving_page_index];
-                display.page = currentPage;
-            }
-        }else if(val[0] == START_LAUNCH){
+                if(screen_mode == SCREEN_DEBUG){
+                    display.page = currentPage;
+                } else if(screen_mode == SCREEN_DRIVING){
+                    driving_page_index = (driving_page_index - 1 + MAX_DRIVING_PAGE)  % MAX_DRIVING_PAGE;
+                    currentPage = driving_page_num[driving_page_index];
+                    display.page = currentPage;
+                }
+                break;
+            case START_LAUNCH:
+                /*
+                 * To activate launch you must be: R2d and not moving
+                 */
+                if(R2D_state && actualVelocityKMH < 1.f){
+                    is_launch_inserted = true;
+                }
+                break;
             /*
-             * To activate launch you must be: R2d and not moving
+             * Selects between SCREEN_DEBUG and SCREEN_DRIVING mode
              */
-            if(R2D_state && actualVelocityKMH < 1.f){
-                is_launch_inserted = true;
-            }
+            case CHANGE_SCREEN_MODE:
+                screen_mode++;
+                screen_mode %= 2;
+                if (screen_mode == SCREEN_DRIVING){
+                    driving_page_index = 0;
+                    display.page = driving_page_num[driving_page_index];
+                }
+                else if (screen_mode == SCREEN_DEBUG){
+                    display.page = 0;
+                }
+                break;
         }
-        /*
-         * Selects between SCREEN_DEBUG and SCREEN_DRIVING mode
-         */
-        else if(val[0] == CHANGE_SCREEN_MODE){
-            screen_mode++;
-            screen_mode %= 2;
-            if (screen_mode == SCREEN_DRIVING){
-                driving_page_index = 0;
-                display.page = driving_page_num[driving_page_index];
-            }
-            else if (screen_mode == SCREEN_DEBUG)
-                display.page = 0;
-        }
-
     }
 
     /*
@@ -282,26 +281,34 @@ void read_steering_wheel_message(Uint16 val[], int id){
     if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == SETUP_PAGE){
 
         if (val[0] < 6){
-            if (display.selector_setup == 0)
-                display.selector_regen = val[0] % 6;
-            else if (display.selector_setup == 1)
-                display.selector_maxpos = val[0] % 5;
-            else if (display.selector_setup == 2)
-                display.selector_maxneg = val[0] % 5;
-            else if (display.selector_setup == 3)
-                display.selector_power = val[0] % 8;
-            else if (display.selector_setup == 4)
-                display.selector_speed = val[0] % 6;
-            else if (display.selector_setup == 5)
-                display.selector_trqr = val[0] % 6;
-            else if (display.selector_setup == 6)
-                display.selector_trqf = val[0] % 6;
+            switch (display.selector_setup) {
+                case 0:
+                    display.selector_regen = val[0] % 6;
+                    break;
+                case 1:
+                    display.selector_maxpos = val[0] % 5;
+                    break;
+                case 2:
+                    display.selector_maxneg = val[0] % 5;
+                    break;
+                case 3:
+                    display.selector_power = val[0] % 8;
+                    break;
+                case 4:
+                    display.selector_speed = val[0] % 6;
+                    break;
+                case 5:
+                    display.selector_trqr = val[0] % 6;
+                    break;
+                case 6:
+                    display.selector_trqf = val[0] % 6;
+            }
         }
     }
 
     if(id == MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2 && currentPage == FANSPEED_PAGE){
-        if (display.selector_fan == 1)
-            if (val[0] == 0)
+        if (display.selector_fan)
+            if (!val[0])
                 display.selector_speed_fan = 0;
             else
                 display.selector_speed_fan = (val[0] % 9)*10 + 20;
@@ -314,17 +321,23 @@ void read_steering_wheel_message(Uint16 val[], int id){
         if(display.page == SETUP_PAGE && !R2D_state){
             display.ack_setup = display.selector_setup;
 
-            if (display.ack_setup == 0)
-                car_settings.max_regen_current= car_settings.presets_regen[display.selector_regen];
-            else if (display.ack_setup == 1)
-                car_settings.max_pos_torque = car_settings.presets_max_pos[display.selector_maxpos];
-            else if (display.ack_setup == 2)
-                car_settings.max_neg_torque = car_settings.presets_max_neg[display.selector_maxneg];
-            else if (display.ack_setup == 3)
-                car_settings.power_limit = car_settings.presets_power[display.selector_power];
-            else if (display.ack_setup == 4)
-                car_settings.max_speed = car_settings.presets_speed[display.selector_speed];
-
+            switch (display.ack_setup) {
+                case 0:
+                    car_settings.max_regen_current= car_settings.presets_regen[display.selector_regen];
+                    break;
+                case 1:
+                    car_settings.max_pos_torque = car_settings.presets_max_pos[display.selector_maxpos];
+                    break;
+                case 2:
+                    car_settings.max_neg_torque = car_settings.presets_max_neg[display.selector_maxneg];
+                    break;
+                case 3:
+                    car_settings.power_limit = car_settings.presets_power[display.selector_power];
+                    break;
+                case 4:
+                    car_settings.max_speed = car_settings.presets_speed[display.selector_speed];
+                    break;
+            }
             /*
              *  Torques can be modified only if torque vectoring is disabled
              */
@@ -361,34 +374,41 @@ void read_steering_wheel_message(Uint16 val[], int id){
        else if(display.page == MACROS_PAGE && !R2D_state){
             display.ack_macros = display.selector_macros;
 
-            if (display.ack_macros == 0){
-                macros_settings.torque_vectoring = !macros_settings.torque_vectoring;
-                /*
-                 * After disabling TV, rear_motor_scale and front_motor_scale go back to default values
-                 */
-                if(macros_settings.torque_vectoring){
-                    car_settings.rear_motor_scale = 1.0f;
-                    car_settings.front_motor_scale = 1.0f;
-                    repFz[0] = 0.6;
-                    repFz[1] = 0.6;
-                    repFz[2] = 0.4;
-                    repFz[3] = 0.4;
-                } else {
-                    car_settings.rear_motor_scale = REAR_MOTOR_SCALE;
-                    car_settings.front_motor_scale = FRONT_MOTOR_SCALE;
-                }
+            switch (display.ack_macros) {
+                case 0:
+                    macros_settings.torque_vectoring = !macros_settings.torque_vectoring;
+                    /*
+                     * After disabling TV, rear_motor_scale and front_motor_scale go back to default values
+                     */
+                    if(macros_settings.torque_vectoring){
+                        car_settings.rear_motor_scale = 1.0f;
+                        car_settings.front_motor_scale = 1.0f;
+                        repFz[0] = 0.6;
+                        repFz[1] = 0.6;
+                        repFz[2] = 0.4;
+                        repFz[3] = 0.4;
+                    } else {
+                        car_settings.rear_motor_scale = REAR_MOTOR_SCALE;
+                        car_settings.front_motor_scale = FRONT_MOTOR_SCALE;
+                    }
+                    break;
+                case 1:
+                    macros_settings.traction_ctrl = !macros_settings.traction_ctrl;
+                    break;
+                case 2:
+                    macros_settings.one_pedal = !macros_settings.one_pedal;
+                    break;
+                case 3:
+                    macros_settings.thermal_power_ctrl = !macros_settings.thermal_power_ctrl;
+                    break;
+                case 4:
+                    macros_settings.reg_brake = !macros_settings.reg_brake;
+                    break;
+                case 5:
+                    //unused
+                    break;
+            
             }
-            else if (display.ack_macros == 1)
-                macros_settings.traction_ctrl = !macros_settings.traction_ctrl;
-            else if (display.ack_macros == 2)
-                macros_settings.one_pedal = !macros_settings.one_pedal;
-            else if (display.ack_macros == 3)
-                macros_settings.thermal_power_ctrl = !macros_settings.thermal_power_ctrl;
-            else if (display.ack_macros == 4)
-                macros_settings.reg_brake = !macros_settings.reg_brake;
-            else if (display.ack_macros == 5) {
-                // unused
-                }
       }
        else if (display.page == FANSPEED_PAGE && !R2D_state){
 
