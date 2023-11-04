@@ -6,6 +6,7 @@
 //
 #include "driver_input.h"
 #include "adc_management.h"
+#include "atc_management.h"
 #include "utils.h"
 #include "global_definitions.h"
 #include "epwm_management.h"

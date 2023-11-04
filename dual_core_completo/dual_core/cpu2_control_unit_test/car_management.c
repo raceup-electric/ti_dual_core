@@ -21,14 +21,10 @@ bool rfGoneWrong[4] = {1,1,1,1};
 #endif
 
 //alberto patch
-unsigned int read_ATC_message(unsigned char throttle_data[]){
- 
-    // Acc2_temp = AdcaResultRegs.ADCRESULT0;    //acc2 temp
-    // Acc1_temp = AdcaResultRegs.ADCRESULT2;    //acc1 temp
-    // BrakeClean_temp = AdcaResultRegs.ADCRESULT3;    //brakeclean
-    // BrakePress_temp = AdcaResultRegs.ADCRESULT4;    //brake press
+unsigned int read_ATC_message(unsigned char atc_data[])
+{
+    atc_rewrite(atc_data);
 }
-
 void read_LEM_message(unsigned char lem_values[]){
     reassembled_data= 0;
     Uint16 tmp= lem_values[0];
@@ -345,13 +341,11 @@ void read_steering_wheel_message(Uint16 val[], int id){
             switch(display.ack_pedal_setup){
 
             case(0):
-                pedals_log.acc1_high_calibration = pedals_log.acc_pot1_shared-30;
-                pedals_log.acc2_high_calibration = pedals_log.acc_pot2_shared-30;
+                pedals_log.acc_high_calibration = pedals_log.acc_shared-30;
             break;
 
             case(1):
-                pedals_log.acc1_low_calibration = pedals_log.acc_pot1_shared+40;
-                pedals_log.acc2_low_calibration = pedals_log.acc_pot2_shared+40;
+                pedals_log.acc_low_calibration = pedals_log.acc_shared+40;
             break;
 
             case(2):
@@ -988,8 +982,7 @@ void update_log_values()
 
 
     //Pedals update
-    pedals_log.acc_pot1_shared = AccPot1;
-    pedals_log.acc_pot2_shared = AccPot2;
+    pedals_log.acc_shared = atc_acceleration_pedal();
     pedals_log.brk_pot_shared = BrkPot;
     pedals_log.throttle_req_shared = throttleReq;
     pedals_log.brk_req_shared = brakeReq;

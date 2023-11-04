@@ -91,9 +91,10 @@ int Read_steering() {
  * After ADC reading a filter is applied
  */
 void readThrottleBrakeSteering() {
-    // throttle = Read_throttle();  //old adc filter
-    // brake = Read_brake(0);       //old adc filter
-    //steering = Read_steering();   //old adc filter
+    throttle = atc_acceleration_pedal();
+    brake = atc_brake_pedal();
+    steering = atc_steering_sensor();
+
     int i;
     for (i = filterValCount - 1; i > 0; i--) {
         throttles[i] = throttles[i-1];
