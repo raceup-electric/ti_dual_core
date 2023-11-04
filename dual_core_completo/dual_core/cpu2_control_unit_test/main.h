@@ -244,6 +244,10 @@ tCANMsgObject RXCANA_PwCtrl_Message;
 tCANMsgObject RXCANA_Wheel_Message;
 tCANMsgObject RXCANA_Lem_Message;
 tCANMsgObject TXCANA_ATMega_Message;
+//alberto patch
+tCANMsgObject TXCANA_Steering_Message;
+tCANMsgObject TXCANA_Throttle_Message;
+
 
 unsigned char RXA_Imu_Data[8];
 unsigned char RXA_Smu_Data[8];

@@ -20,6 +20,13 @@ bool rfGoneWrong[4] = {1,1,1,1};
     int rightFanDebug = 0;
 #endif
 
+//alberto patch
+void readThrottle(unsigned char throttle_data){
+ 
+        // Acc2_temp = AdcaResultRegs.ADCRESULT0;    //acc2 temp
+        // Acc1_temp = AdcaResultRegs.ADCRESULT2;    //acc1 temp
+
+}
 void read_LEM_message(unsigned char lem_values[]){
     reassembled_data= 0;
     Uint16 tmp= lem_values[0];

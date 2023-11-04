@@ -6,8 +6,7 @@
  * except for pedal variables which are in dirver_input.h.
  * Some variables must be modified accordingly with Powertrain
  * members (so ask them if you are not sure); variables are:
- *      POWER_LIMIT
- *      SPEED_LIMIT
+ *      POWER_LIMIT SPEED_LIMIT
  *      REAR_MOTOR_SCALE
  *      FRONT_MOTOR_SCALE
  *      MAX_POS_TORQUE
@@ -273,7 +272,9 @@
 #define OBJ_ID_TO_ATMEGA        23
 #define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_FROM_AMK         26
-
+//alberto pathc
+#define OBJ_ID_FROM_THROTTLE    27
+#define OBJ_ID_FROM_STEERING    28
 
 //Message IDs
 #define MSG_ID_CALIBRATION_TO_SMU 0x30
@@ -302,6 +303,9 @@
 #define MSG_ID_HOST_SEND                     0x120
 #define MSG_ID_TO_ATMEGA                     0x130
 #define MSG_ID_LEM                           0x3C2
+//alberto patch
+#define MSG_ID_TROTTHLE     0x400
+#define MSG_ID_BRAKE        0x401
 
 
 //SCHERMO

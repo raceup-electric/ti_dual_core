@@ -165,12 +165,15 @@ void canSetup_phase2()
 
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, MSG_OBJ_TYPE_RX);
 
+        //Alberto Patch
+
 
         TXCANA_ATMega_Message.ui32MsgID = MSG_ID_TO_ATMEGA;
         TXCANA_ATMega_Message.ui32MsgIDMask = 0;
         TXCANA_ATMega_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
         TXCANA_ATMega_Message.ui32MsgLen = 2;
         TXCANA_ATMega_Message.pucMsgData = TXCANA_ATMega_Data;
+
 
 
         CANEnable(CANA_BASE);
@@ -244,132 +247,140 @@ __interrupt void canISR_A(void)
 
     status = CANIntStatus(CANA_BASE, CAN_INT_STS_CAUSE);
     gg =status; // for debug
+    
+    //alberto patch
+    switch (status) {
+
+        case CAN_INT_INT0ID_STATUS:
+            status = CANStatusGet(CANA_BASE, CAN_STS_CONTROL);
 
 
-    if(status == CAN_INT_INT0ID_STATUS)
-    {
 
-        status = CANStatusGet(CANA_BASE, CAN_STS_CONTROL);
+            if(((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 7) &&
+                    ((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 0))
+            {
+
+                errorFlag = 1;
+                errorFrameCounterA++;
+            }
+
+            CANIntClear(CANA_BASE, CAN_INT_INT0ID_STATUS);
+            break;
+        case OBJ_ID_FROM_IMU:
+            //Uint16 imu_msg_temp[8];
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, true);
+
+            int id = getMessageID(CANA_BASE, OBJ_ID_FROM_IMU);
+
+            read_IMU_message((Uint16 *)RXA_Imu_Data, id);
+
+            rxAMsgCount++;
+
+            CANIntClear(CANA_BASE, OBJ_ID_FROM_IMU);
+            break;
+        case OBJ_ID_FROM_SMU:
+            //Ricevuto pacchetto da mailbox dello SMU
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, true);
+
+            int id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
+
+            read_SMU_Message((Uint16 *)RXA_Smu_Data, id);
+
+            rxAMsgCount++;
+
+            CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
+            break;
+        case OBJ_ID_BMS_VOLTAGE:
+            //Uint16 bms_msg_temp[6];
+
+            CANMessageGet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, true);
+
+            int id = getMessageID(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
+
+            read_BMS_VOLTAGE_message((Uint16 *)RXA_BmsVol_Data);
+
+            rxAMsgCount++;
+
+            CANIntClear(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
+            break;
+        case OBJ_ID_BMS_TEMP:
+            //Uint16 bms_msg_temp[6];
+
+            CANMessageGet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, true);
+
+            int id = getMessageID(CANA_BASE, OBJ_ID_BMS_TEMP);
 
 
+            read_BMS_TEMP_message((Uint16 *)RXA_BmsTemp_Data);
 
-        if(((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 7) &&
-           ((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 0))
-        {
+            rxAMsgCount++;
 
-            errorFlag = 1;
-            errorFrameCounterA++;
-        }
+            CANIntClear(CANA_BASE, OBJ_ID_BMS_TEMP);
+            break;
+        case OBJ_ID_FROM_BMS_LV:
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, true);
 
-        CANIntClear(CANA_BASE, CAN_INT_INT0ID_STATUS);
+            int id = getMessageID(CANA_BASE, OBJ_ID_FROM_BMS_LV);
+
+            read_BMSLV_message((Uint16 *)RXA_BmsLV_Data, id);
+
+            rxAMsgCount++;
+
+            CANIntClear(CANA_BASE, OBJ_ID_FROM_BMS_LV);
+            break;
+        // case OBJ_ID_POWER_CONTROL:
+        //      powerOK=true;
+        //      //Uint16 value[1];
+        //
+        //      CANMessageGet(CANA_BASE, OBJ_ID_POWER_CONTROL, &RXCANA_PwCtrl_Message, true);
+        //
+        //      //powersetup[0]=value[0]; -----> spostato in car management
+        //
+        //      int id = getMessageID(CANA_BASE, OBJ_ID_POWER_CONTROL);
+        //
+        //      read_power_control_message((Uint16 *)RXA_PwCtrl_Data);
+        //
+        //      rxAMsgCount++;
+        //
+        //      CANIntClear(CANA_BASE, OBJ_ID_POWER_CONTROL);
+        //      break;
+        case OBJ_ID_STEERING_WHEEL:
+            CANMessageGet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, true);
+
+            int id = getMessageID(CANA_BASE, OBJ_ID_STEERING_WHEEL);
+
+            read_steering_wheel_message((Uint16 *)RXA_Wheel_Data, id);
+
+            rxAMsgCount++;
+
+            CANIntClear(CANA_BASE, OBJ_ID_STEERING_WHEEL);
+            break;
+        case OBJ_ID_FROM_LEM: //aggiunto  lem message
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, true);
+
+            read_LEM_message(RXA_Lem_Data);
+
+            rxAMsgCount++;
+
+            CANIntClear(CANA_BASE, OBJ_ID_FROM_LEM);
+           break;
+           //alberto patch
+        case OBJ_ID_FROM_THROTTLE:
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_THROTTLE, &TXCANA_Throttle_Message, true);
+            //do stuff with the data
+            rxAMsgCount++;
+
+            CANIntClear(CANA_BASE,OBJ_ID_FROM_THROTTLE );
+           break;
+        case OBJ_ID_FROM_STEERING:
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_STEERING, &TXCANA_Steering_Message, true);
+            //do stuff with the data
+            rxAMsgCount++;
+
+            CANIntClear(CANA_BASE,OBJ_ID_FROM_STEERING );
+           break;
 
     }
-    else if (status == OBJ_ID_FROM_IMU){
-        //Uint16 imu_msg_temp[8];
-        CANMessageGet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, true);
-
-        int id = getMessageID(CANA_BASE, OBJ_ID_FROM_IMU);
-
-        read_IMU_message((Uint16 *)RXA_Imu_Data, id);
-
-        rxAMsgCount++;
-
-        CANIntClear(CANA_BASE, OBJ_ID_FROM_IMU);
-    }
-    else if(status == OBJ_ID_FROM_SMU){
-        //Ricevuto pacchetto da mailbox dello SMU
-        CANMessageGet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, true);
-
-        int id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
-
-        read_SMU_Message((Uint16 *)RXA_Smu_Data, id);
-
-        rxAMsgCount++;
-
-        CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
-    }
-    else if (status == OBJ_ID_BMS_VOLTAGE){
-       //Uint16 bms_msg_temp[6];
-
-       CANMessageGet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, true);
-
-       int id = getMessageID(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
-
-       read_BMS_VOLTAGE_message((Uint16 *)RXA_BmsVol_Data);
-
-       rxAMsgCount++;
-
-       CANIntClear(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
-
-   }
-   else if (status == OBJ_ID_BMS_TEMP){
-       //Uint16 bms_msg_temp[6];
-
-       CANMessageGet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, true);
-
-       int id = getMessageID(CANA_BASE, OBJ_ID_BMS_TEMP);
-
-
-       read_BMS_TEMP_message((Uint16 *)RXA_BmsTemp_Data);
-
-       rxAMsgCount++;
-
-       CANIntClear(CANA_BASE, OBJ_ID_BMS_TEMP);
-
-   }else if(status == OBJ_ID_FROM_BMS_LV){
-
-       CANMessageGet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, true);
-
-       int id = getMessageID(CANA_BASE, OBJ_ID_FROM_BMS_LV);
-
-       read_BMSLV_message((Uint16 *)RXA_BmsLV_Data, id);
-
-       rxAMsgCount++;
-
-       CANIntClear(CANA_BASE, OBJ_ID_FROM_BMS_LV);
-   }
-//   else if (status == OBJ_ID_POWER_CONTROL)
-//   {
-//       powerOK=true;
-//       //Uint16 value[1];
-//
-//       CANMessageGet(CANA_BASE, OBJ_ID_POWER_CONTROL, &RXCANA_PwCtrl_Message, true);
-//
-//       //powersetup[0]=value[0]; -----> spostato in car management
-//
-//       int id = getMessageID(CANA_BASE, OBJ_ID_POWER_CONTROL);
-//
-//       read_power_control_message((Uint16 *)RXA_PwCtrl_Data);
-//
-//       rxAMsgCount++;
-//
-//       CANIntClear(CANA_BASE, OBJ_ID_POWER_CONTROL);
-//   }
-   else if (status == OBJ_ID_STEERING_WHEEL)
-   {
-       CANMessageGet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, true);
-
-       int id = getMessageID(CANA_BASE, OBJ_ID_STEERING_WHEEL);
-
-       read_steering_wheel_message((Uint16 *)RXA_Wheel_Data, id);
-
-       rxAMsgCount++;
-
-       CANIntClear(CANA_BASE, OBJ_ID_STEERING_WHEEL);
-
-    } else if (status == OBJ_ID_FROM_LEM)   //aggiunto  lem message
-    {
-
-        CANMessageGet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, true);
-
-        read_LEM_message(RXA_Lem_Data);
-
-        rxAMsgCount++;
-
-        CANIntClear(CANA_BASE, OBJ_ID_FROM_LEM);
-
-    }
-
     CANGlobalIntClear(CANA_BASE, CAN_GLB_INT_CANINT0);
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 
