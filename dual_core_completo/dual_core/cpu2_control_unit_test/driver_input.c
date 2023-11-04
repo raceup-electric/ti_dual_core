@@ -9,6 +9,7 @@ float acc1Pos, acc2Pos, brkPos, strPot, brkAbsPos;
 float currSensVal, analogMuxVal;
 int temp;
 int media_acc_on = 1;
+//filtering throttle ADC
 int Read_throttle(){
     AccPot2 = Acc2_temp;
     AccPot1 = Acc1_temp;
@@ -53,6 +54,7 @@ int Read_throttle(){
     return saturateUnsigned(value, 100, 0);
 }
 
+//filtering brake ADC
 int Read_brake(int overrideProtectionOFF){
     BrkPot = BrakeClean_temp;
     //BrkPot = readADC(BRAKE_CLEAN);
@@ -70,6 +72,7 @@ int Read_brake(int overrideProtectionOFF){
     return saturateUnsigned(brkPos, 100, 0);
 }
 
+//filtering steering ADC
 int Read_steering() {
     strPot = Steering_temp;
     //strPot = readADC(STEERING);
@@ -83,14 +86,14 @@ int Read_steering() {
 }
 
 
+//alberto patch
 /*
  * After ADC reading a filter is applied
  */
 void readThrottleBrakeSteering() {
-    throttle = Read_throttle();
-    brake = Read_brake(0);
-    steering = Read_steering();
-
+    // throttle = Read_throttle();  //old adc filter
+    // brake = Read_brake(0);       //old adc filter
+    //steering = Read_steering();   //old adc filter
     int i;
     for (i = filterValCount - 1; i > 0; i--) {
         throttles[i] = throttles[i-1];

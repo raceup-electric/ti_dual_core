@@ -21,13 +21,14 @@ bool rfGoneWrong[4] = {1,1,1,1};
 #endif
 
 //alberto patch
-void read_ATC_message(unsigned char throttle_data[]){
+unsigned int read_ATC_message(unsigned char throttle_data[]){
  
-        // Acc2_temp = AdcaResultRegs.ADCRESULT0;    //acc2 temp
-        // Acc1_temp = AdcaResultRegs.ADCRESULT2;    //acc1 temp
-
-
+    // Acc2_temp = AdcaResultRegs.ADCRESULT0;    //acc2 temp
+    // Acc1_temp = AdcaResultRegs.ADCRESULT2;    //acc1 temp
+    // BrakeClean_temp = AdcaResultRegs.ADCRESULT3;    //brakeclean
+    // BrakePress_temp = AdcaResultRegs.ADCRESULT4;    //brake press
 }
+
 void read_LEM_message(unsigned char lem_values[]){
     reassembled_data= 0;
     Uint16 tmp= lem_values[0];

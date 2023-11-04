@@ -260,7 +260,7 @@ unsigned char TXA_Host_Data[4];
 float TXA_Smu_Calibration[5][2];
 unsigned char RXA_Lem_Data[8];
 unsigned char TXCANA_ATMega_Data[2];
-unsigned char RXA_ATC_DATA[8]; //8???
+unsigned char RXA_ATC_DATA[8];
 
 
 unsigned char fan_enable;

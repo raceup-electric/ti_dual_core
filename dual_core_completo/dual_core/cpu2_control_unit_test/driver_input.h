@@ -4,6 +4,7 @@
 #include <math.h>
 #include "utils.h"
 #include "adc_management.h"
+#include "car_management.h"
 #include "global_definitions.h"
 
 
