@@ -99,7 +99,14 @@ void read_SMU_Message(Uint16 smu_values[], int id){
     else if (id == MSG_ID_SMU_SUSPENSIONS){
         for(i = 0; i < NUM_SMU_SUSP; i++)
         {
-            suspensions[i] = -(((0x3FF & aux) + SUSP_ANG_C)/SUSP_ANG_M)*1000;
+            float travel = 70; // mm of travel
+            float res = 1024;
+            float min_len = 163;
+            //float mm_step = travel/res;
+            float m = -res/travel;
+            float q = res - (m*min_len);
+            float raw =  (float)(0x3FF & aux);
+            suspensions[i] = (raw-q)/m;
             aux>>=10;
         }
     }
