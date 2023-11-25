@@ -2,9 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL = cmd.exe
-
-CG_TOOL_ROOT := E:/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS
+CG_TOOL_ROOT := /home/mr_monopoly/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -24,6 +22,7 @@ ORDERED_OBJS += \
 "./F2837xD_usDelay.obj" \
 "./GPIO_management.obj" \
 "./adc_management.obj" \
+"./atc_management.obj" \
 "./can.obj" \
 "./can_management.obj" \
 "./car_management.obj" \
@@ -48,8 +47,8 @@ $(GEN_CMDS__FLAG) \
 
 -include ../makefile.init
 
-RM := DEL /F
-RMDIR := RMDIR /S/Q
+RM := rm -rf
+RMDIR := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -164,15 +163,15 @@ all: cpu2_control_unit_test.out
 cpu2_control_unit_test.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"E:/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --cla_support=cla1 --tmu_support=tmu0 --vcu_support=vcu2 -g --define=CPU2 --define=_FLASH --display_error_number --diag_warning=225 -z -m"cpu2_control_unit_test.map" --heap_size=0x400 --stack_size=0x3F8 --warn_sections -i"E:/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib" -i"E:/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/common/cmd" -i"C:/ti/c2000/C2000Ware_3_04_00_00/device_support/f2837xd/headers/cmd" --reread_libs --display_error_number --xml_link_info="cpu2_control_unit_test_linkInfo.xml" --rom_model -o "cpu2_control_unit_test.out" $(ORDERED_OBJS)
+	"/home/mr_monopoly/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --cla_support=cla1 --tmu_support=tmu0 --vcu_support=vcu2 -g --define=CPU2 --define=_FLASH --display_error_number --diag_warning=225 -z -m"cpu2_control_unit_test.map" --heap_size=0x400 --stack_size=0x3F8 --warn_sections -i"/home/mr_monopoly/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib" -i"/home/mr_monopoly/ti/ccs1120/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include" -i"/device_support/f2837xd/common/cmd" -i"/device_support/f2837xd/headers/cmd" --reread_libs --display_error_number --xml_link_info="cpu2_control_unit_test_linkInfo.xml" --rom_model -o "cpu2_control_unit_test.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "F2837xD_Adc.obj" "F2837xD_CodeStartBranch.obj" "F2837xD_CpuTimers.obj" "F2837xD_DefaultISR.obj" "F2837xD_GlobalVariableDefs.obj" "F2837xD_Gpio.obj" "F2837xD_Ipc.obj" "F2837xD_Ipc_Driver_Util.obj" "F2837xD_PieCtrl.obj" "F2837xD_PieVect.obj" "F2837xD_SysCtrl.obj" "F2837xD_usDelay.obj" "GPIO_management.obj" "adc_management.obj" "can.obj" "can_management.obj" "car_management.obj" "driver_input.obj" "epwm_management.obj" "interrupt.obj" "launch_controller.obj" "main.obj" "matrix.obj" "motor_management.obj" "power_controller.obj" "timer_management.obj" "torque_management.obj" "ustdlib.obj" "utils.obj" 
-	-$(RM) "F2837xD_Adc.d" "F2837xD_CpuTimers.d" "F2837xD_DefaultISR.d" "F2837xD_GlobalVariableDefs.d" "F2837xD_Gpio.d" "F2837xD_Ipc.d" "F2837xD_Ipc_Driver_Util.d" "F2837xD_PieCtrl.d" "F2837xD_PieVect.d" "F2837xD_SysCtrl.d" "GPIO_management.d" "adc_management.d" "can.d" "can_management.d" "car_management.d" "driver_input.d" "epwm_management.d" "interrupt.d" "launch_controller.d" "main.d" "matrix.d" "motor_management.d" "power_controller.d" "timer_management.d" "torque_management.d" "ustdlib.d" "utils.d" 
+	-$(RM) "F2837xD_Adc.obj" "F2837xD_CodeStartBranch.obj" "F2837xD_CpuTimers.obj" "F2837xD_DefaultISR.obj" "F2837xD_GlobalVariableDefs.obj" "F2837xD_Gpio.obj" "F2837xD_Ipc.obj" "F2837xD_Ipc_Driver_Util.obj" "F2837xD_PieCtrl.obj" "F2837xD_PieVect.obj" "F2837xD_SysCtrl.obj" "F2837xD_usDelay.obj" "GPIO_management.obj" "adc_management.obj" "atc_management.obj" "can.obj" "can_management.obj" "car_management.obj" "driver_input.obj" "epwm_management.obj" "interrupt.obj" "launch_controller.obj" "main.obj" "matrix.obj" "motor_management.obj" "power_controller.obj" "timer_management.obj" "torque_management.obj" "ustdlib.obj" "utils.obj" 
+	-$(RM) "F2837xD_Adc.d" "F2837xD_CpuTimers.d" "F2837xD_DefaultISR.d" "F2837xD_GlobalVariableDefs.d" "F2837xD_Gpio.d" "F2837xD_Ipc.d" "F2837xD_Ipc_Driver_Util.d" "F2837xD_PieCtrl.d" "F2837xD_PieVect.d" "F2837xD_SysCtrl.d" "GPIO_management.d" "adc_management.d" "atc_management.d" "can.d" "can_management.d" "car_management.d" "driver_input.d" "epwm_management.d" "interrupt.d" "launch_controller.d" "main.d" "matrix.d" "motor_management.d" "power_controller.d" "timer_management.d" "torque_management.d" "ustdlib.d" "utils.d" 
 	-$(RM) "F2837xD_CodeStartBranch.d" "F2837xD_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
