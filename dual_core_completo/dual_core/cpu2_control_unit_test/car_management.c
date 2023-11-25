@@ -1,8 +1,10 @@
 #include "car_management.h"
+#include "atc_management.h"
 
 int calibration_status = 0;
 int NUM_SMU_TEMP = 5;
-int NUM_SMU_SUSP = 4;
+//alberto patch
+int NUM_SMU_SUSP = 2;
 int fan_flag = 0;
 
 
@@ -991,7 +993,10 @@ void update_log_values()
         imu_log.accelerations_shared[i] = accelerations[i];
         imu_log.omegas_shared[i] = omegas[i];
     }
-    for(i = 0; i < 4; i++){
+
+    imu_log.suspensions_shared[0] = atc_front_suspension_left();
+    imu_log.suspensions_shared[1] = atc_front_suspension_right();
+    for(i = 0; i < 2; i++){
         imu_log.suspensions_shared[i] = suspensions[i];
     }
 
