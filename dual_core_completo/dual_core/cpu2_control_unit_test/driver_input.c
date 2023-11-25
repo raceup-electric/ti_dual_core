@@ -1,8 +1,9 @@
 #include "driver_input.h"
+#include "atc_management.h"
 
 //alberto patch
 /*
- * After ADC reading a filter is applied
+ * Retrieve data from ATC
  */
 void readThrottleBrakeSteering() {
     throttle = atc_acceleration_pedal();

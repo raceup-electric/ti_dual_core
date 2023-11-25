@@ -144,7 +144,7 @@ void canSetup_phase2()
         // MSG_DATA_LENGTH; //to change
         // RXA_Lem_Data;   //to change
 
-        setting_package_param(&TXCANA_ATC_Message,OBJ_ID_FROM_ATC,0x0,MSG_OBJ_RX_INT_ENABLE,
+        setting_package_param(&TXCANA_ATC_Message,MSG_ID_ATC,0x0,MSG_OBJ_RX_INT_ENABLE,
                 MSG_DATA_LENGTH,RXA_ATC_DATA);
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, MSG_OBJ_TYPE_RX);
 
@@ -342,13 +342,13 @@ __interrupt void canISR_A(void)
            break;
            //alberto patch
         case OBJ_ID_FROM_ATC:
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_THROTTLE, &TXCANA_ATC_Message, true);
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, true);
 
             read_ATC_message(RXA_ATC_DATA);
 
             rxAMsgCount++;
 
-            CANIntClear(CANA_BASE,OBJ_ID_FROM_THROTTLE );
+            CANIntClear(CANA_BASE,OBJ_ID_FROM_ATC);
            break;
            //alberto patch
 

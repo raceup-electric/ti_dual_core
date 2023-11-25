@@ -23,7 +23,7 @@ bool rfGoneWrong[4] = {1,1,1,1};
 //alberto patch
 inline unsigned int read_ATC_message(unsigned char atc_data[])
 {
-    atc_rewrite(atc_data);
+    atc_update(atc_data);
 }
 void read_LEM_message(unsigned char lem_values[]){
     reassembled_data= 0;

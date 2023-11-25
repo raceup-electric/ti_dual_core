@@ -1,23 +1,25 @@
+#include <stdint.h>
+
 #include "atc_management.h"
 
-struct atc_data
-{
-    char steering_sensor;
-    unsigned char acc_pedal;
-    unsigned char brake_pedal;
-    unsigned char suspension_compression;
-    unsigned char temperature_sensor;
+struct atc_data{
+    uint8_t throttle_pedal;
+    uint8_t front_suspensions;
+    int8_t motor_temperature;
+    int8_t steering_sensor;
+    uint8_t brake_pedal;
 };
+
 
 static struct atc_data ATC;
 
-void atc_rewrite(unsigned char *atc_data)
+void atc_update(unsigned char atc_data[DATA_AMOUNT])
 {
-    ATC.steering_sensor = atc_data[0];
-    ATC.acc_pedal = atc_data[1];
-    ATC.brake_pedal = atc_data[2];
-    ATC.suspension_compression = atc_data[3];
-    ATC.temperature_sensor = atc_data[4];
+    ATC.throttle_pedal=atc_data[0];
+    ATC.front_suspensions=atc_data[1];
+    ATC.motor_temperature=atc_data[2];
+    ATC.steering_sensor=atc_data[3];
+    ATC.brake_pedal=atc_data[4];
 }
 
 //steering -180 + 180
@@ -28,7 +30,7 @@ unsigned char atc_steering_sensor()
 //acceleration 0-100
 unsigned char atc_acceleration_pedal()
 {
-    return ATC.acc_pedal;
+    return ATC.throttle_pedal;
 }
 //brake 0-100
 unsigned char atc_brake_pedal()
@@ -38,11 +40,11 @@ unsigned char atc_brake_pedal()
 //suspension 0-200
 unsigned char atc_front_suspension()
 {
-    return ATC.suspension_compression;
+    return ATC.front_suspensions;
 }
 //temperature 0-150
 unsigned char atc_motor_temperature()
 {
-    return ATC.temperature_sensor;
+    return ATC.motor_temperature;
 }
 

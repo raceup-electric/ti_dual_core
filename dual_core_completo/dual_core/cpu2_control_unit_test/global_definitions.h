@@ -303,8 +303,7 @@
 #define MSG_ID_TO_ATMEGA                     0x130
 #define MSG_ID_LEM                           0x3C2
 //alberto patch
-#define MSG_ID_TROTTHLE     0x400
-#define MSG_ID_BRAKE        0x401
+#define MSG_ID_ATC          0x400
 
 
 //SCHERMO

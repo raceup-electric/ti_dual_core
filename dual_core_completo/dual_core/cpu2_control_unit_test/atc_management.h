@@ -1,6 +1,8 @@
 #ifndef _ATC_MANAGEMENT_
 #define _ATC_MANAGEMENT_
 
+#define DATA_AMOUNT 5
+
 //steering -180 + 180
 unsigned char atc_steering_sensor();
 //acceleration 0-100
@@ -13,6 +15,6 @@ unsigned char atc_front_suspension();
 unsigned char atc_motor_temperature();
 
 
-void atc_rewrite(unsigned char *atc_data);
+void atc_update(unsigned char *atc_data);
 
 #endif
