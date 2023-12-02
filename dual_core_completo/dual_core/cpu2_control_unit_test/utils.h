@@ -51,6 +51,7 @@ struct Status_Log {
     int actualVelocityKMH_shared;
 };
 
+//alberto patch
 struct Pedals_Log{
    float acc_shared;
    float  brk_pot_shared;

@@ -1,7 +1,7 @@
 #ifndef _ATC_MANAGEMENT_
 #define _ATC_MANAGEMENT_
 
-#define DATA_AMOUNT 5
+#define DATA_AMOUNT 7 //must coincide with the ATC
 
 //steering -180 + 180
 unsigned char atc_steering_sensor();
