@@ -195,7 +195,7 @@ bool noBrake = 0;
 float accelerations[3]; //g
 float omegas[3];        //rad/s
 float temperatures[8];
-float suspensions[4];
+float suspensions[2]; //only back
 
 float bms_lv_cell[8]; //gli ultimi due valori sono temperature
 
