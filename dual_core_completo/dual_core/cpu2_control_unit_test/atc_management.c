@@ -11,7 +11,7 @@ struct atc_data
 
 static struct atc_data ATC;
 
-void atc_rewrite(unsigned char *atc_data)
+void atc_rewrite(unsigned char atc_data[5])
 {
     ATC.steering_sensor = atc_data[0];
     ATC.acc_pedal = atc_data[1];
