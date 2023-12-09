@@ -20,7 +20,7 @@ void timerSetup()
 
     //
     // Configure CPU-Timer 0 to __interrupt every 500 milliseconds:
-    // 60MHz CPU Freq, 50 millisecond Period (in uSeconds)
+    // 200MHz CPU Freq, millisecond Period (in uSeconds)
     //
        ConfigCpuTimer(&CpuTimer0, 200, 10000);
        ConfigCpuTimer(&CpuTimer1, 200, 10000);

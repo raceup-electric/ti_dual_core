@@ -773,7 +773,7 @@ void fanControl()
 }
 
 /*
- * Always active at 20% then linearly increases from 60% to 80% when temperature is above between 60° and 80°
+ * Always active at 20% then linearly increases from 60% to 80% when temperature is above between 60ï¿½ and 80ï¿½
  */
 
 Uint16 fanSpeedFunction(int temp){

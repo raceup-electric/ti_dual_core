@@ -303,6 +303,7 @@ void sendAMKData() {
 
     for (i = 0; i < NUM_OF_MOTORS; i++)
     {
+        // Richiesta di coppia passando da pedale a setpoint AMK %0.1 Mn
         posTorquesNM[i] = torqueSetpointToNM(throttleReq*THROTTLE_POWER_SCALE);
         negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
     }

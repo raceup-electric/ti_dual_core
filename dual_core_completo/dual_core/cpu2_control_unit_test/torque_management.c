@@ -645,15 +645,18 @@ void torqueLimit1(){
 //torque_reg_IPM in uscita � POSITIVO
 void regBrake()
 {
+    // =1 per ogni assale (Ripartizione ant)
     float sumrip = repFz[0] + repFz[1] + repFz[2] + repFz[3];
     int rpm = car_settings.max_speed;
     float rads = rpm*PI/30;
 
     float V_zero = batteryPackTension + RBATT * lem_current;
+    // Limita corrente in base alla tensione a vuoto della batteria (quindi in base alla carica) se V0 sale batteria piu' carica => meno corrente
     float current_batterylimit = (600-V_zero)/(RBATT+0.1f);
 
     float current_limit = fminf(current_batterylimit, car_settings.max_regen_current);
     //float Pemax = (sendyne_voltage+RBATT*max_regen_current)*max_regen_current/ETA_INV; //sendyne_deprecated
+    // Potenza da buttare in batteria per avere corrente uguale a current_limit
     float Pemax = (V_zero+RBATT*current_limit)*current_limit/ETA_INV;
 
     float Pmot = 0;

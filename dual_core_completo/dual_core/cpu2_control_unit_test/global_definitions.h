@@ -71,7 +71,7 @@
 #define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
 #define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
 #define SPEED_LIMIT                 18000   // Typical value: 15000
-#define M_N                         9.8f
+#define M_N                         9.8f // Nominal torque 9.8 Nm
 
 /*
  * AERO
