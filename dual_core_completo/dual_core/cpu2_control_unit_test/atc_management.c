@@ -12,9 +12,10 @@ struct atc_data{
     uint8_t brake_pedal;
 };
 
-
+//private
 static struct atc_data ATC;
 
+//public
 void atc_update(unsigned char atc_data[DATA_AMOUNT])
 {
     ATC.throttle_pedal=atc_data[0];
@@ -27,22 +28,22 @@ void atc_update(unsigned char atc_data[DATA_AMOUNT])
 }
 
 //steering -180 + 180
-inline unsigned char atc_steering_sensor()
+inline unsigned char atc_steering_sensor() 
 {
     return ATC.steering_sensor;
 }
 //acceleration 0-100
-inline unsigned char atc_acceleration_pedal()
+inline unsigned char atc_acceleration_pedal() 
 {
     return ATC.throttle_pedal;
 }
 //brake 0-100
-inline unsigned char atc_brake_pedal()
+inline unsigned char atc_brake_pedal() 
 {
     return ATC.brake_pedal;   
 }
 //suspension 0-200
-inline unsigned char atc_front_suspension_left()
+inline unsigned char atc_front_suspension_left() 
 {
     return ATC.front_suspension_left;
 }
@@ -52,12 +53,12 @@ inline unsigned char atc_front_suspension_right()
     return ATC.front_suspension_right;
 }
 //temperature 0-150
-inline unsigned char atc_motor_temperature_left()
+inline unsigned char atc_motor_temperature_left() 
 {
     return ATC.motor_temperature_left;
 }
 
-inline unsigned char atc_motor_temperature_right()
+inline unsigned char atc_motor_temperature_right() 
 {
     return ATC.motor_temperature_right;
 }
