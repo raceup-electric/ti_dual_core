@@ -195,6 +195,9 @@ Uint16 getTempZTP135SR(Uint16 digital){
     return (Uint16)(tempK - 273.15f);
 }
 
-int getPressAvSP100(Uint16 digital){ return 0; }
+int getPressAvSP100(Uint16 digital){ 
+    // TODO We don't know the transfer function of the sensor so just dump the adc value
+    return digital; 
+}
 
 

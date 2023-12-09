@@ -10,9 +10,9 @@
 
 void uart_setup()
 {
-    GPIO_SetupPinMux(UART_RX, GPIO_MUX_CPU1, 6);    //RX
+    GPIO_SetupPinMux(UART_RX, GPIO_MUX_CPU1, 6);    //RX J5-43
     GPIO_SetupPinOptions(UART_RX, GPIO_INPUT, GPIO_PUSHPULL);
-    GPIO_SetupPinMux(UART_TX, GPIO_MUX_CPU1, 6);     //TX
+    GPIO_SetupPinMux(UART_TX, GPIO_MUX_CPU1, 6);     //TX J5-44
     GPIO_SetupPinOptions(UART_TX, GPIO_OUTPUT, GPIO_ASYNC);
 
     scic_fifo_init();       // Initialize the SCI FIFO
@@ -74,6 +74,7 @@ void scic_msg(char * msg)
         scic_xmit(msg[i]);
         i++;
     }
+    scic_xmit(msg[i]);
 }
 
 //
