@@ -88,6 +88,7 @@ void read_SMU_Message(Uint16 smu_values[], int id){
     
     switch (id) {
         case MSG_ID_SMU_TEMPERATURES:
+            //alberto
             for(i = 0; i < 8; i += 2)
             {
                 tmp= (smu_values[i] | (smu_values[i+1]<<8));
