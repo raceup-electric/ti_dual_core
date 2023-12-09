@@ -341,15 +341,24 @@ __interrupt void canISR_A(void)
             CANIntClear(CANA_BASE, OBJ_ID_FROM_LEM);
            break;
            //alberto patch
-        case OBJ_ID_FROM_ATC:
+        case OBJ_ID_FROM_ATC_1:
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, true);
 
-            read_ATC_message(RXA_ATC_DATA);
+            read_ATC_message(RXA_ATC_DATA,2);
 
             rxAMsgCount++;
 
             CANIntClear(CANA_BASE,OBJ_ID_FROM_ATC);
-           break;
+            break;
+       case OBJ_ID_FROM_ATC_1:
+           CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, true);
+
+           read_ATC_message(RXA_ATC_DATA,2);
+
+           rxAMsgCount++;
+
+           CANIntClear(CANA_BASE,OBJ_ID_FROM_ATC);
+       break;
            //alberto patch
 
     }

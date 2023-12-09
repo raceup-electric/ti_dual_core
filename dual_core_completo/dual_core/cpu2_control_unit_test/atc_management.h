@@ -1,24 +1,24 @@
 #ifndef _ATC_MANAGEMENT_
 #define _ATC_MANAGEMENT_
+#include <stdint.h>
 
-#define DATA_AMOUNT 7 //must coincide with the ATC
 
 //steering -180 + 180
-unsigned char atc_steering_sensor();
+uint16_t atc_steering_sensor();
 //acceleration 0-100
-unsigned char atc_acceleration_pedal();
+uint16_t atc_acceleration_pedal();
 //brake 0-100
-unsigned char atc_brake_pedal();
+uint16_t atc_brake_pedal();
 //suspension 200
-inline unsigned char atc_front_suspension_left();
+inline uint16_t atc_front_suspension_left();
 
-inline unsigned char atc_front_suspension_right();
+inline uint16_t atc_front_suspension_right();
 //temperature 0-150
-inline unsigned char atc_motor_temperature_left();
+inline uint16_t atc_motor_temperature_left();
 
-inline unsigned char atc_motor_temperature_right();
+inline uint16_t atc_motor_temperature_right();
 
 
-void atc_update(unsigned char *atc_data);
+void atc_update(uint16_t *atc_data,unsigned int message_number);
 
 #endif
