@@ -344,7 +344,7 @@ __interrupt void canISR_A(void)
         case OBJ_ID_FROM_ATC_1:
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, true);
 
-            read_ATC_message(RXA_ATC_DATA,2);
+            read_ATC_message(RXA_ATC_DATA,1);
 
             rxAMsgCount++;
 
