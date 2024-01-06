@@ -137,17 +137,15 @@ void canSetup_phase2()
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, MSG_OBJ_TYPE_RX);
 
         //Alberto Patch
+        //TBS_ATC PACKAGE
+        setting_package_param(&TXCANA_ATC_Message,MSG_ID_ATC_TBS,0x0,MSG_OBJ_RX_INT_ENABLE,
+                MSG_DATA_LENGTH,RXA_ATC_DATA_TBS);
+        CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, MSG_OBJ_TYPE_RX);
 
-        //PACCHETTO DA ATC
-
-        // MSG_OBJ_RX_INT_ENABLE; //to change ??
-        // MSG_DATA_LENGTH; //to change
-        // RXA_Lem_Data;   //to change
-
-        setting_package_param(&TXCANA_ATC_Message,MSG_ID_ATC,0x0,MSG_OBJ_RX_INT_ENABLE,
-                MSG_DATA_LENGTH,RXA_ATC_DATA);
-        CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, MSG_OBJ_TYPE_RX);
-
+        //SENSORS_ATC PACKAGE
+        setting_package_param(&TXCANA_ATC_Message,MSG_ID_ATC_SENSORS,0x0,MSG_OBJ_RX_INT_ENABLE,
+                MSG_DATA_LENGTH,RXA_ATC_DATA_SENSORS);
+        CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, MSG_OBJ_TYPE_RX);
         //end Alberto Patch
 
 
@@ -341,24 +339,24 @@ __interrupt void canISR_A(void)
             CANIntClear(CANA_BASE, OBJ_ID_FROM_LEM);
            break;
            //alberto patch
-        case OBJ_ID_FROM_ATC_1:
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, true);
-
-            read_ATC_message(RXA_ATC_DATA,1);
+        case OBJ_ID_FROM_ATC_TBS:
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, true);
+        
+            read_ATC_message(RXA_ATC_DATA_TBS,1);
 
             rxAMsgCount++;
 
-            CANIntClear(CANA_BASE,OBJ_ID_FROM_ATC);
+            CANIntClear(CANA_BASE,OBJ_ID_FROM_ATC_TBS);
             break;
-       case OBJ_ID_FROM_ATC_1:
-           CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC, &TXCANA_ATC_Message, true);
+        case OBJ_ID_FROM_ATC_SENSORS:
+            CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, true);
+        
+            read_ATC_message(RXA_ATC_DATA_SENSORS,2);
 
-           read_ATC_message(RXA_ATC_DATA,2);
+            rxAMsgCount++;
 
-           rxAMsgCount++;
-
-           CANIntClear(CANA_BASE,OBJ_ID_FROM_ATC);
-       break;
+            CANIntClear(CANA_BASE,OBJ_ID_FROM_ATC_SENSORS);
+            break;
            //alberto patch
 
     }

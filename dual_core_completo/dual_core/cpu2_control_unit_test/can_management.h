@@ -57,7 +57,8 @@ extern tCANMsgObject RXCANA_Wheel_Message;
 extern tCANMsgObject RXCANA_Lem_Message; //aggiunto lem
 extern tCANMsgObject TXCANA_ATMega_Message;
 //alberto patch
-extern tCANMsgObject TXCANA_ATC_Message;
+extern tCANMsgObject TXCANA_ATC_Message_TBS;
+extern tCANMsgObject TXCANA_ATC_Message_SENSORS;
 
 extern unsigned char RXA_Imu_Data[8];
 extern unsigned char RXA_Smu_Data[8];

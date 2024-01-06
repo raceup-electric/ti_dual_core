@@ -273,8 +273,8 @@
 #define OBJ_ID_POWER_CONTROL    25
 #define OBJ_ID_FROM_AMK         26
 //alberto patch
-#define OBJ_ID_FROM_ATC_1         27
-#define OBJ_ID_FROM_ATC_2         28
+#define OBJ_ID_FROM_ATC_TBS             27 
+#define OBJ_ID_FROM_ATC_SENSORS         28
 
 //Message IDs
 #define MSG_ID_CALIBRATION_TO_SMU 0x30
@@ -304,7 +304,8 @@
 #define MSG_ID_TO_ATMEGA                     0x130
 #define MSG_ID_LEM                           0x3C2
 //alberto patch
-#define MSG_ID_ATC          0x400
+#define MSG_ID_ATC_TBS                  0x083
+#define MSG_ID_ATC_SENSORS              0x258
 
 
 //SCHERMO
