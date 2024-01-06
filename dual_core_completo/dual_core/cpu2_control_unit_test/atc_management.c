@@ -16,19 +16,19 @@ struct atc_data{
 static struct atc_data ATC;
 
 //public
-void atc_update(uint16_t *atc_data,unsigned int message_number)
+void atc_update(can_obj_can2_h_t *atc_data,unsigned int message_number)
 {
     switch (message_number) {
         case 1:
-            ATC.front_suspension_right  =atc_data[0];
-            ATC.front_suspension_left   =atc_data[1];
-            ATC.motor_temperature_left  =atc_data[2];
-            ATC.motor_temperature_right =atc_data[3];
+            ATC.front_suspension_right  = atc_data->can_0x102_SuspFront.susp_fr; 
+            ATC.front_suspension_left   = atc_data->can_0x102_SuspFront.susp_fl;
+            ATC.motor_temperature_left  = 0;
+            ATC.motor_temperature_right = 0;
             break;
         case 2:
-            ATC.throttle_pedal          =atc_data[0];
-            ATC.brake_pedal             =atc_data[1];
-            ATC.steering_sensor         =atc_data[2];
+            ATC.throttle_pedal          =atc_data->can_0x053_Driver.throttle;
+            ATC.brake_pedal             =atc_data->can_0x053_Driver.brake;
+            ATC.steering_sensor         =atc_data->can_0x053_Driver.steering;
             break;
         default:
             //invalid packet

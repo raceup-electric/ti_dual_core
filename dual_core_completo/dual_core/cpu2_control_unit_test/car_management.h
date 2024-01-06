@@ -11,6 +11,7 @@
 #include "global_definitions.h"
 #include "epwm_management.h"
 #include "can_management.h"
+#include "dbc_gen/can2.h"
 
 
 //
@@ -120,7 +121,7 @@ extern struct motorValues1 motorVal1[4];  //  0 --> FL, 1 --> FR, 2 --> RL, 3 --
 //
 // prototypes
 //
-unsigned int read_ATC_message(unsigned char throttle_data[],unsigned int message_number);
+unsigned int read_ATC_message(can_obj_can2_h_t *atc_data,unsigned int message_number);
 
 void read_SENDYNE_message(unsigned char sendyne_values[]);
 

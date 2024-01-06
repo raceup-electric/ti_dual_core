@@ -2,6 +2,7 @@
 #define _ATC_MANAGEMENT_
 #include <stdint.h>
 
+#include "dbc_gen/can2.h"
 
 //steering -180 + 180
 uint16_t atc_steering_sensor();
@@ -19,6 +20,6 @@ inline uint16_t atc_motor_temperature_left();
 inline uint16_t atc_motor_temperature_right();
 
 
-void atc_update(uint16_t *atc_data,unsigned int message_number);
+void atc_update(can_obj_can2_h_t *atc_data,unsigned int message_number);
 
 #endif

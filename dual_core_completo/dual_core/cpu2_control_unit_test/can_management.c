@@ -1,6 +1,7 @@
 #include "can_management.h"
 #include "global_definitions.h"
 #include "main.h"
+#include "dbc_gen/can2.h"
 
 unsigned long gg;
 
@@ -341,8 +342,15 @@ __interrupt void canISR_A(void)
            //alberto patch
         case OBJ_ID_FROM_ATC_TBS:
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, true);
-        
-            read_ATC_message(RXA_ATC_DATA_TBS,1);
+            
+            can_obj_can2_h_t o;
+            unpack_message(&o, 
+                            TXCANA_ATC_Message_TBS.ui32MsgID, 
+                            RXA_ATC_DATA_TBS,
+                            TXCANA_ATC_Message_TBS.ui32MsgLen, 
+                            0);//not using timestamp
+
+            read_ATC_message(&o,1);
 
             rxAMsgCount++;
 
@@ -351,7 +359,15 @@ __interrupt void canISR_A(void)
         case OBJ_ID_FROM_ATC_SENSORS:
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, true);
         
-            read_ATC_message(RXA_ATC_DATA_SENSORS,2);
+
+            can_obj_can2_h_t o;
+            unpack_message(&o, 
+                            TXCANA_ATC_Message_SENSORS.ui32MsgID, 
+                            RXA_ATC_DATA_SENSORS,
+                            TXCANA_ATC_Message_SENSORS.ui32MsgLen, 
+                            0);//not using timestamp
+
+            read_ATC_message(&o,2);
 
             rxAMsgCount++;
 

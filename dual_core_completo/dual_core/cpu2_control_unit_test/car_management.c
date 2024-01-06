@@ -23,9 +23,9 @@ bool rfGoneWrong[4] = {1,1,1,1};
 #endif
 
 //alberto patch
-inline unsigned int read_ATC_message(unsigned char atc_data[], unsigned int message_number)
+inline unsigned int read_ATC_message(can_obj_can2_h_t *atc_data, unsigned int message_number)
 {
-    atc_update((uint16_t *)atc_data,message_number);
+    atc_update(atc_data,message_number);
 }
 
 void read_LEM_message(unsigned char lem_values[]){
