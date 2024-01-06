@@ -20,15 +20,15 @@ void atc_update(uint16_t *atc_data,unsigned int message_number)
 {
     switch (message_number) {
         case 1:
-            ATC.throttle_pedal          =atc_data[0];
+            ATC.front_suspension_right  =atc_data[0];
             ATC.front_suspension_left   =atc_data[1];
-            ATC.front_suspension_right  =atc_data[2];
+            ATC.motor_temperature_left  =atc_data[2];
             ATC.motor_temperature_right =atc_data[3];
             break;
         case 2:
-            ATC.motor_temperature_left  =atc_data[0];
-            ATC.steering_sensor         =atc_data[1];
-            ATC.brake_pedal             =atc_data[2];
+            ATC.throttle_pedal          =atc_data[0];
+            ATC.brake_pedal             =atc_data[1];
+            ATC.steering_sensor         =atc_data[2];
             break;
         default:
             //invalid packet
