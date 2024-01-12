@@ -1249,9 +1249,17 @@ static int pack_can_0x102_SuspFront(can_obj_can2_h_t *o, uint64_t *data) {
 	x = ((uint16_t)(o->can_0x102_SuspFront.susp_fl)) & 0x3ff;
 	x <<= 10; 
 	i |= x;
+	/* temp_mr: start-bit 20, length 10, endianess intel, scaling 1, offset 0 */
+	x = ((uint16_t)(o->can_0x102_SuspFront.temp_mr)) & 0x3ff;
+	x <<= 20; 
+	i |= x;
+	/* temp_ml: start-bit 30, length 10, endianess intel, scaling 1, offset 0 */
+	x = ((uint16_t)(o->can_0x102_SuspFront.temp_ml)) & 0x3ff;
+	x <<= 30; 
+	i |= x;
 	*data = (i);
 	o->can_0x102_SuspFront_tx = 1;
-	return 3;
+	return 5;
 }
 
 static int unpack_can_0x102_SuspFront(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
@@ -1259,7 +1267,7 @@ static int unpack_can_0x102_SuspFront(can_obj_can2_h_t *o, uint64_t data, uint8_
 	assert(dlc <= 8);
 	register uint64_t x;
 	register uint64_t i = (data);
-	if (dlc < 3)
+	if (dlc < 5)
 		return -1;
 	/* susp_fr: start-bit 0, length 10, endianess intel, scaling 1, offset 0 */
 	x = i & 0x3ff;
@@ -1267,9 +1275,15 @@ static int unpack_can_0x102_SuspFront(can_obj_can2_h_t *o, uint64_t data, uint8_
 	/* susp_fl: start-bit 10, length 10, endianess intel, scaling 1, offset 0 */
 	x = (i >> 10) & 0x3ff;
 	o->can_0x102_SuspFront.susp_fl = x;
+	/* temp_mr: start-bit 20, length 10, endianess intel, scaling 1, offset 0 */
+	x = (i >> 20) & 0x3ff;
+	o->can_0x102_SuspFront.temp_mr = x;
+	/* temp_ml: start-bit 30, length 10, endianess intel, scaling 1, offset 0 */
+	x = (i >> 30) & 0x3ff;
+	o->can_0x102_SuspFront.temp_ml = x;
 	o->can_0x102_SuspFront_rx = 1;
 	o->can_0x102_SuspFront_time_stamp_rx = time_stamp;
-	return 3;
+	return 5;
 }
 
 int decode_can_0x102_susp_fr(const can_obj_can2_h_t *o, uint16_t *out) {
@@ -1300,12 +1314,42 @@ int encode_can_0x102_susp_fl(can_obj_can2_h_t *o, uint16_t in) {
 	return 0;
 }
 
+int decode_can_0x102_temp_mr(const can_obj_can2_h_t *o, uint16_t *out) {
+	assert(o);
+	assert(out);
+	uint16_t rval = (uint16_t)(o->can_0x102_SuspFront.temp_mr);
+	*out = rval;
+	return 0;
+}
+
+int encode_can_0x102_temp_mr(can_obj_can2_h_t *o, uint16_t in) {
+	assert(o);
+	o->can_0x102_SuspFront.temp_mr = in;
+	return 0;
+}
+
+int decode_can_0x102_temp_ml(const can_obj_can2_h_t *o, uint16_t *out) {
+	assert(o);
+	assert(out);
+	uint16_t rval = (uint16_t)(o->can_0x102_SuspFront.temp_ml);
+	*out = rval;
+	return 0;
+}
+
+int encode_can_0x102_temp_ml(can_obj_can2_h_t *o, uint16_t in) {
+	assert(o);
+	o->can_0x102_SuspFront.temp_ml = in;
+	return 0;
+}
+
 int print_can_0x102_SuspFront(const can_obj_can2_h_t *o, FILE *output) {
 	assert(o);
 	assert(output);
 	int r = 0;
 	r = print_helper(r, fprintf(output, "susp_fr = (wire: %.0f)\n", (double)(o->can_0x102_SuspFront.susp_fr)));
 	r = print_helper(r, fprintf(output, "susp_fl = (wire: %.0f)\n", (double)(o->can_0x102_SuspFront.susp_fl)));
+	r = print_helper(r, fprintf(output, "temp_mr = (wire: %.0f)\n", (double)(o->can_0x102_SuspFront.temp_mr)));
+	r = print_helper(r, fprintf(output, "temp_ml = (wire: %.0f)\n", (double)(o->can_0x102_SuspFront.temp_ml)));
 	return r;
 }
 

@@ -207,6 +207,8 @@ typedef PREPACK struct {
 	/* susp_fl: FL suspension travel in mm */
 	/* scaling 1.0, offset 0.0, units mm  */
 	uint16_t susp_fl;
+	uint16_t temp_mr; /* scaling 1.0, offset 0.0, units c  */
+	uint16_t temp_ml; /* scaling 1.0, offset 0.0, units c  */
 } POSTPACK can_0x102_SuspFront_t;
 
 typedef PREPACK struct {
@@ -448,6 +450,10 @@ int decode_can_0x102_susp_fr(const can_obj_can2_h_t *o, uint16_t *out);
 int encode_can_0x102_susp_fr(can_obj_can2_h_t *o, uint16_t in);
 int decode_can_0x102_susp_fl(const can_obj_can2_h_t *o, uint16_t *out);
 int encode_can_0x102_susp_fl(can_obj_can2_h_t *o, uint16_t in);
+int decode_can_0x102_temp_mr(const can_obj_can2_h_t *o, uint16_t *out);
+int encode_can_0x102_temp_mr(can_obj_can2_h_t *o, uint16_t in);
+int decode_can_0x102_temp_ml(const can_obj_can2_h_t *o, uint16_t *out);
+int encode_can_0x102_temp_ml(can_obj_can2_h_t *o, uint16_t in);
 
 
 int decode_can_0x103_susp_rr(const can_obj_can2_h_t *o, uint16_t *out);

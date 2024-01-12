@@ -7,9 +7,9 @@
 //steering -180 + 180
 uint16_t atc_steering_sensor();
 //acceleration 0-100
-uint16_t atc_acceleration_pedal();
+uint8_t atc_acceleration_pedal();
 //brake 0-100
-uint16_t atc_brake_pedal();
+uint8_t atc_brake_pedal();
 //suspension 200
 inline uint16_t atc_front_suspension_left();
 

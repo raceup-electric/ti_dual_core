@@ -1,34 +1,44 @@
 #include <stdint.h>
 
 #include "atc_management.h"
+#include "dbc_gen/can2.h"
+
 
 struct atc_data{
-    uint16_t throttle_pedal;
-    uint16_t front_suspension_left;
-    uint16_t front_suspension_right;
-    uint16_t motor_temperature_right;
-    uint16_t motor_temperature_left;
-    uint16_t steering_sensor;
-    uint16_t brake_pedal;
+    can_0x053_Driver_t data_1;
+    can_0x102_SuspFront_t data_2;
 };
 
 //private
-static struct atc_data ATC;
+static struct atc_data ATC=
+{
+    .data_1.steering=0,
+    .data_1.throttle=0,
+    .data_1.brake =0,
+    .data_2.susp_fr=0,
+    .data_2.susp_fl=0,
+    .data_2.temp_ml=0,
+    .data_2.temp_mr=0,
+};
 
 //public
 void atc_update(can_obj_can2_h_t *atc_data,unsigned int message_number)
 {
+    can_0x053_Driver_t *driver;
+    can_0x102_SuspFront_t *susp;
     switch (message_number) {
         case 1:
-            ATC.front_suspension_right  = atc_data->can_0x102_SuspFront.susp_fr; 
-            ATC.front_suspension_left   = atc_data->can_0x102_SuspFront.susp_fl;
-            ATC.motor_temperature_left  = 0;
-            ATC.motor_temperature_right = 0;
+            driver = &atc_data->can_0x053_Driver;
+            ATC.data_1.throttle = driver->throttle;
+            ATC.data_1.brake= driver->brake;
+            ATC.data_1.steering= driver->steering;
             break;
         case 2:
-            ATC.throttle_pedal          =atc_data->can_0x053_Driver.throttle;
-            ATC.brake_pedal             =atc_data->can_0x053_Driver.brake;
-            ATC.steering_sensor         =atc_data->can_0x053_Driver.steering;
+            susp=&atc_data->can_0x102_SuspFront;
+            ATC.data_2.susp_fl = susp->susp_fl;
+            ATC.data_2.susp_fr= susp->susp_fr;
+            ATC.data_2.temp_ml= susp->temp_ml;
+            ATC.data_2.temp_mr= susp->temp_mr;
             break;
         default:
             //invalid packet
@@ -39,35 +49,35 @@ void atc_update(can_obj_can2_h_t *atc_data,unsigned int message_number)
 //steering -180 + 180
 inline uint16_t atc_steering_sensor() 
 {
-    return ATC.steering_sensor;
+    return ATC.data_1.steering;
 }
 //acceleration 0-100
-inline uint16_t atc_acceleration_pedal() 
+inline uint8_t atc_acceleration_pedal() 
 {
-    return ATC.throttle_pedal;
+    return ATC.data_1.throttle;
 }
 //brake 0-100
-inline uint16_t atc_brake_pedal() 
+inline uint8_t atc_brake_pedal() 
 {
-    return ATC.brake_pedal;   
+    return ATC.data_1.brake;   
 }
 //suspension 0-200
 inline uint16_t atc_front_suspension_left() 
 {
-    return ATC.front_suspension_left;
+    return ATC.data_2.susp_fl;
 }
 
 inline uint16_t atc_front_suspension_right()
 {
-    return ATC.front_suspension_right;
+    return ATC.data_2.susp_fr;
 }
 //temperature 0-150
 inline uint16_t atc_motor_temperature_left() 
 {
-    return ATC.motor_temperature_left;
+    return ATC.data_2.temp_ml;
 }
 
 inline uint16_t atc_motor_temperature_right() 
 {
-    return ATC.motor_temperature_right;
+    return ATC.data_2.temp_mr;
 }
