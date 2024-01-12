@@ -1665,6 +1665,72 @@ int print_can_0x131_Calib(const can_obj_can2_h_t *o, FILE *output) {
 	return r;
 }
 
+static int pack_can_0x132_CalibStep(can_obj_can2_h_t *o, uint64_t *data) {
+	assert(o);
+	assert(data);
+	register uint64_t x;
+	register uint64_t i = 0;
+	/* position: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
+	x = ((uint8_t)(o->can_0x132_CalibStep.position)) & 0xff;
+	i |= x;
+	switch (o->can_0x132_CalibStep.position) {
+	default:
+		return -1;
+	}
+	*data = (i);
+	o->can_0x132_CalibStep_tx = 1;
+	return 1;
+}
+
+static int unpack_can_0x132_CalibStep(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+	assert(o);
+	assert(dlc <= 8);
+	register uint64_t x;
+	register uint64_t i = (data);
+	if (dlc < 1)
+		return -1;
+	/* position: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
+	x = i & 0xff;
+	o->can_0x132_CalibStep.position = x;
+	switch (o->can_0x132_CalibStep.position) {
+	default:
+		return -1;
+	}
+	o->can_0x132_CalibStep_rx = 1;
+	o->can_0x132_CalibStep_time_stamp_rx = time_stamp;
+	return 1;
+}
+
+int decode_can_0x132_position(const can_obj_can2_h_t *o, uint8_t *out) {
+	assert(o);
+	assert(out);
+	uint8_t rval = (uint8_t)(o->can_0x132_CalibStep.position);
+	if (rval <= 1) {
+		*out = rval;
+		return 0;
+	} else {
+		*out = (uint8_t)0;
+		return -1;
+	}
+}
+
+int encode_can_0x132_position(can_obj_can2_h_t *o, uint8_t in) {
+	assert(o);
+	o->can_0x132_CalibStep.position = 0;
+	if (in > 1)
+		return -1;
+	o->can_0x132_CalibStep.position = in;
+	return 0;
+}
+
+int print_can_0x132_CalibStep(const can_obj_can2_h_t *o, FILE *output) {
+	assert(o);
+	assert(output);
+	int r = 0;
+	r = print_helper(r, fprintf(output, "position = (wire: %.0f)\n", (double)(o->can_0x132_CalibStep.position)));
+	return r;
+}
+
 static int pack_can_0x3c2_Lem(can_obj_can2_h_t *o, uint64_t *data) {
 	assert(o);
 	assert(data);
@@ -1738,6 +1804,7 @@ int unpack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t data, u
 	case 0x120: return unpack_can_0x120_InvVolt(o, data, dlc, time_stamp);
 	case 0x130: return unpack_can_0x130_Pcu(o, data, dlc, time_stamp);
 	case 0x131: return unpack_can_0x131_Calib(o, data, dlc, time_stamp);
+	case 0x132: return unpack_can_0x132_CalibStep(o, data, dlc, time_stamp);
 	case 0x3c2: return unpack_can_0x3c2_Lem(o, data, dlc, time_stamp);
 	default: break; 
 	}
@@ -1765,6 +1832,7 @@ int pack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t *data) {
 	case 0x120: return pack_can_0x120_InvVolt(o, data);
 	case 0x130: return pack_can_0x130_Pcu(o, data);
 	case 0x131: return pack_can_0x131_Calib(o, data);
+	case 0x132: return pack_can_0x132_CalibStep(o, data);
 	case 0x3c2: return pack_can_0x3c2_Lem(o, data);
 	default: break; 
 	}
@@ -1793,6 +1861,7 @@ int print_message(const can_obj_can2_h_t *o, const unsigned long id, FILE *outpu
 	case 0x120: return print_can_0x120_InvVolt(o, output);
 	case 0x130: return print_can_0x130_Pcu(o, output);
 	case 0x131: return print_can_0x131_Calib(o, output);
+	case 0x132: return print_can_0x132_CalibStep(o, output);
 	case 0x3c2: return print_can_0x3c2_Lem(o, output);
 	default: break; 
 	}

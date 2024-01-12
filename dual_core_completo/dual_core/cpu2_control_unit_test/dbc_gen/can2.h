@@ -54,6 +54,7 @@ typedef enum {
 #define CAN_ID_INVVOLT (288) /* 0x120 */
 #define CAN_ID_PCU (304) /* 0x130 */
 #define CAN_ID_CALIB (305) /* 0x131 */
+#define CAN_ID_CALIBSTEP (306) /* 0x132 */
 #define CAN_ID_LEM (962) /* 0x3c2 */
 
 typedef PREPACK struct {
@@ -248,6 +249,10 @@ typedef PREPACK struct {
 } POSTPACK can_0x131_Calib_t;
 
 typedef PREPACK struct {
+	uint8_t position; /* scaling 1.0, offset 0.0, units high  */
+} POSTPACK can_0x132_CalibStep_t;
+
+typedef PREPACK struct {
 	/* current: Current seen from LEM on car side (PDB) */
 	/* scaling 1.0, offset 0.0, units mA  */
 	uint32_t current;
@@ -271,6 +276,7 @@ typedef PREPACK struct {
 	dbcc_time_stamp_t can_0x120_InvVolt_time_stamp_rx;
 	dbcc_time_stamp_t can_0x130_Pcu_time_stamp_rx;
 	dbcc_time_stamp_t can_0x131_Calib_time_stamp_rx;
+	dbcc_time_stamp_t can_0x132_CalibStep_time_stamp_rx;
 	dbcc_time_stamp_t can_0x3c2_Lem_time_stamp_rx;
 	unsigned can_0x053_Driver_status : 2;
 	unsigned can_0x053_Driver_tx : 1;
@@ -323,6 +329,9 @@ typedef PREPACK struct {
 	unsigned can_0x131_Calib_status : 2;
 	unsigned can_0x131_Calib_tx : 1;
 	unsigned can_0x131_Calib_rx : 1;
+	unsigned can_0x132_CalibStep_status : 2;
+	unsigned can_0x132_CalibStep_tx : 1;
+	unsigned can_0x132_CalibStep_rx : 1;
 	unsigned can_0x3c2_Lem_status : 2;
 	unsigned can_0x3c2_Lem_tx : 1;
 	unsigned can_0x3c2_Lem_rx : 1;
@@ -343,6 +352,7 @@ typedef PREPACK struct {
 	can_0x120_InvVolt_t can_0x120_InvVolt;
 	can_0x130_Pcu_t can_0x130_Pcu;
 	can_0x131_Calib_t can_0x131_Calib;
+	can_0x132_CalibStep_t can_0x132_CalibStep;
 	can_0x3c2_Lem_t can_0x3c2_Lem;
 } POSTPACK can_obj_can2_h_t;
 
@@ -478,6 +488,10 @@ int encode_can_0x130_pump_enable(can_obj_can2_h_t *o, uint8_t in);
 
 int decode_can_0x131_position(const can_obj_can2_h_t *o, uint8_t *out);
 int encode_can_0x131_position(can_obj_can2_h_t *o, uint8_t in);
+
+
+int decode_can_0x132_position(const can_obj_can2_h_t *o, uint8_t *out);
+int encode_can_0x132_position(can_obj_can2_h_t *o, uint8_t in);
 
 
 int decode_can_0x3c2_current(const can_obj_can2_h_t *o, uint32_t *out);
