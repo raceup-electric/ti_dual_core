@@ -112,9 +112,9 @@ Uint32 status = 0x00000000;
 //torque
 int actualVelocityRPM = 0;
 float actualVelocityKMH = 0;
-int brake = 0;
-int steering = 0;
-int throttle = 0;
+int brake = 0; 
+int steering = 0; 
+int throttle = 0; 
 int curOnepedalSlope = 1;
 const int STEERING_DEADBAND = 5;
 bool implBrakeAndThrottle = false;
@@ -195,7 +195,7 @@ bool noBrake = 0;
 float accelerations[3]; //g
 float omegas[3];        //rad/s
 float temperatures[8];
-float suspensions[2]; //only back
+float suspensions[4]; 
 
 float bms_lv_cell[8]; //gli ultimi due valori sono temperature
 

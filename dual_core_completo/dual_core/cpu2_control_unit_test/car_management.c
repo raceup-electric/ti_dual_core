@@ -995,19 +995,14 @@ void update_log_values()
         imu_log.accelerations_shared[i] = accelerations[i];
         imu_log.omegas_shared[i] = omegas[i];
     }
-
-    imu_log.suspensions_shared[0] = atc_front_suspension_left();
-    imu_log.suspensions_shared[1] = atc_front_suspension_right();
-    for(i = 0; i < 2; i++){
+    
+    for(i = 0; i < 4; i++){
         imu_log.suspensions_shared[i] = suspensions[i];
     }
 
-    for(i = 0; i < 6; i++){
+    for(i = 0; i < 8; i++){
         imu_log.temperatures_shared[i] = temperatures[i];
     }
-    imu_log.temperatures_shared[i] = atc_motor_temperature_left();
-    imu_log.temperatures_shared[i+1] = atc_motor_temperature_right();
-
 
 
     //Pedals update

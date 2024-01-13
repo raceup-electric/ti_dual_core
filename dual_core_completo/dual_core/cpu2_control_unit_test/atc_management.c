@@ -3,6 +3,12 @@
 #include "atc_management.h"
 #include "dbc_gen/can2.h"
 
+//only for compatibility with legacy code
+//--------------------------------------
+#include "main.h" 
+#include "car_management.h"
+//--------------------------------------
+
 
 struct atc_data{
     can_0x053_Driver_t data_1;
@@ -32,6 +38,12 @@ void atc_update(can_obj_can2_h_t *atc_data,unsigned int message_number)
             ATC.data_1.throttle = driver->throttle;
             ATC.data_1.brake= driver->brake;
             ATC.data_1.steering= driver->steering;
+            //only for compatibility with legacy code
+            //--------------------------------------
+            throttle = driver->throttle;
+            brake = driver->brake;
+            steering = driver->steering;
+            //--------------------------------------
             break;
         case 2:
             susp=&atc_data->can_0x102_SuspFront;
@@ -39,6 +51,14 @@ void atc_update(can_obj_can2_h_t *atc_data,unsigned int message_number)
             ATC.data_2.susp_fr= susp->susp_fr;
             ATC.data_2.temp_ml= susp->temp_ml;
             ATC.data_2.temp_mr= susp->temp_mr;
+            
+            //only for compatibility with legacy code
+            //--------------------------------------
+            suspensions[1] = susp->susp_fr;
+            suspensions[0] = susp->susp_fl;
+            temperatures[0] = susp->susp_fl;
+            temperatures[1] = susp->susp_fr;
+            //--------------------------------------
             break;
         default:
             //invalid packet

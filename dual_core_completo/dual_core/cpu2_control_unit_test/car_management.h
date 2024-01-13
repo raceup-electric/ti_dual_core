@@ -63,7 +63,7 @@ extern int throttleReq;
 
 extern float accelerations[3];
 extern float omegas[3];
-extern float suspensions[2];
+extern float suspensions[4];
 extern float temperatures[8];
 
 extern float bms_lv_cell[8];
