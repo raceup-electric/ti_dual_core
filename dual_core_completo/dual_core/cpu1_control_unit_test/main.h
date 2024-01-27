@@ -5,7 +5,6 @@
 #include "F28x_Project.h"
 #include "F2837xD_Ipc_drivers.h"
 #include "GPIO_management.h"
-#include <stdint.h>
 #include <stdbool.h>
 //#include "math.h"
 #include <stdio.h>
@@ -77,8 +76,8 @@ char AmkStatus[4];
 #pragma DATA_SECTION(display,"SHARERAMGS13");
 
 
-uint16_t error;
-uint16_t multiplier;
+Uint16 error;
+Uint16 multiplier;
 
 //
 // Function Prototypes

@@ -8,7 +8,6 @@
    the -n option. */
 #define DBCC_GENERATOR_VERSION (3)
 
-#include <stdint.h>
 #include <stdio.h>
 
 #ifdef __cplusplus
@@ -25,7 +24,7 @@ extern "C" {
 
 #ifndef DBCC_TIME_STAMP
 #define DBCC_TIME_STAMP
-typedef uint32_t dbcc_time_stamp_t; /* Time stamp for message; you decide on units */
+typedef Uint32 dbcc_time_stamp_t; /* Time stamp for message; you decide on units */
 #endif
 
 #ifndef DBCC_STATUS_ENUM
@@ -63,76 +62,76 @@ typedef PREPACK struct {
 	int16_t steering;
 	/* throttle: % of throttle */
 	/* scaling 1.0, offset 0.0, units %  */
-	uint8_t throttle;
+	unsigned char throttle;
 	/* brake: % of brake pedal */
 	/* scaling 1.0, offset 0.0, units %  */
-	uint8_t brake;
+	unsigned char brake;
 } POSTPACK can_0x053_Driver_t;
 
 typedef PREPACK struct {
 	/* regen: % of regen paddle travel */
 	/* scaling 1.0, offset 0.0, units %  */
-	uint8_t regen;
+	unsigned char regen;
 } POSTPACK can_0x054_Paddle_t;
 
 typedef PREPACK struct {
 	/* max_volt: Maximum cell voltage in mv */
 	/* scaling 0.1, offset 0.0, units mV  */
-	uint16_t max_volt;
+	Uint16 max_volt;
 	/* min_volt: Minimum cell voltage in mv */
 	/* scaling 0.1, offset 0.0, units mV  */
-	uint16_t min_volt;
+	Uint16 min_volt;
 	/* avg_volt: Average cell voltage in mv */
 	/* scaling 0.1, offset 0.0, units mV  */
-	uint16_t avg_volt;
+	Uint16 avg_volt;
 	/* soc: HV battery SOC in % */
 	/* scaling 1.0, offset 0.0, units %  */
-	uint8_t soc;
+	unsigned char soc;
 } POSTPACK can_0x055_BmsHv1_t;
 
 typedef PREPACK struct {
 	/* max_temp: Maximum cell temperature in celsius */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t max_temp;
+	Uint16 max_temp;
 	/* min_temp: Minimum cell temperature in celsius */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t min_temp;
+	Uint16 min_temp;
 	/* avg_temp: Average cell temperature in celsius */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t avg_temp;
+	Uint16 avg_temp;
 	/* fan_speed: % of HV battery fan speed */
 	/* scaling 1.0, offset 0.0, units %  */
-	uint8_t fan_speed;
+	unsigned char fan_speed;
 } POSTPACK can_0x056_BmsHv2_t;
 
 typedef PREPACK struct {
 	/* volt1: Cell 1 voltage in mv */
 	/* scaling 0.1, offset 0.0, units mV  */
-	uint16_t volt1;
+	Uint16 volt1;
 	/* volt2: Cell 2 voltage in mv */
 	/* scaling 0.1, offset 0.0, units mV  */
-	uint16_t volt2;
+	Uint16 volt2;
 	/* volt3: Cell 3 voltage in mv */
 	/* scaling 0.1, offset 0.0, units mV  */
-	uint16_t volt3;
+	Uint16 volt3;
 	/* volt4: Cell 4 voltage in mv */
 	/* scaling 0.1, offset 0.0, units mV  */
-	uint16_t volt4;
+	Uint16 volt4;
 } POSTPACK can_0x057_BmsLv1_t;
 
 typedef PREPACK struct {
 	/* volt5: Cell 5 voltage in mv */
 	/* scaling 0.1, offset 0.0, units mV  */
-	uint16_t volt5;
+	Uint16 volt5;
 	/* volt6: Cell 6 voltage in mv */
 	/* scaling 0.1, offset 0.0, units mV  */
-	uint16_t volt6;
+	Uint16 volt6;
 	/* temp1: Temperature sensor 1 reading in celsius */
 	/* scaling 0.0, offset 0.0, units C  */
-	uint16_t temp1;
+	Uint16 temp1;
 	/* temp2: Temperature sensor 2 reading in celsius */
 	/* scaling 0.0, offset 0.0, units C  */
-	uint16_t temp2;
+	Uint16 temp2;
 } POSTPACK can_0x058_BmsLv2_t;
 
 typedef PREPACK struct {
@@ -165,97 +164,97 @@ typedef PREPACK struct {
 typedef PREPACK struct {
 	/* power: Map selected number */
 	/* scaling 1.0, offset 0.0, units map  */
-	uint8_t power;
+	unsigned char power;
 	/* regen: Map selected for regen braking */
 	/* scaling 1.0, offset 0.0, units map  */
-	uint8_t regen;
+	unsigned char regen;
 } POSTPACK can_0x063_Map_t;
 
 typedef PREPACK struct {
 	/* r_inv_temp_in: Right inverter inlet water temperature */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t r_inv_temp_in;
+	Uint16 r_inv_temp_in;
 	/* r_inv_temp_out: Right inverter outlet water temperature */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t r_inv_temp_out;
+	Uint16 r_inv_temp_out;
 	/* l_inv_temp_in: Left inverter inlet water temperature */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t l_inv_temp_in;
+	Uint16 l_inv_temp_in;
 	/* l_inv_temp_out: Left inverter outlet water temperature */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t l_inv_temp_out;
+	Uint16 l_inv_temp_out;
 } POSTPACK can_0x100_Temp1_t;
 
 typedef PREPACK struct {
 	/* r_mot_temp_in: Right motor inlet water temperature */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t r_mot_temp_in;
+	Uint16 r_mot_temp_in;
 	/* r_mot_temp_out: Right motor outlet water temperature */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t r_mot_temp_out;
+	Uint16 r_mot_temp_out;
 	/* l_mot_temp_in: Left motor inlet water temperature */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t l_mot_temp_in;
+	Uint16 l_mot_temp_in;
 	/* l_mot_temp_out: Right motor outlet water temperature */
 	/* scaling 1.0, offset 0.0, units C  */
-	uint16_t l_mot_temp_out;
+	Uint16 l_mot_temp_out;
 } POSTPACK can_0x101_Temp2_t;
 
 typedef PREPACK struct {
 	/* susp_fr: FR suspension travel in mm */
 	/* scaling 1.0, offset 0.0, units mm  */
-	uint16_t susp_fr;
+	Uint16 susp_fr;
 	/* susp_fl: FL suspension travel in mm */
 	/* scaling 1.0, offset 0.0, units mm  */
-	uint16_t susp_fl;
-	uint16_t temp_mr; /* scaling 1.0, offset 0.0, units c  */
-	uint16_t temp_ml; /* scaling 1.0, offset 0.0, units c  */
+	Uint16 susp_fl;
+	Uint16 temp_mr; /* scaling 1.0, offset 0.0, units c  */
+	Uint16 temp_ml; /* scaling 1.0, offset 0.0, units c  */
 } POSTPACK can_0x102_SuspFront_t;
 
 typedef PREPACK struct {
 	/* susp_rr: RR suspension travel in mm */
 	/* scaling 1.0, offset 0.0, units mm  */
-	uint16_t susp_rr;
+	Uint16 susp_rr;
 	/* susp_rl: RL suspension travel in mm */
 	/* scaling 1.0, offset 0.0, units mm  */
-	uint16_t susp_rl;
+	Uint16 susp_rl;
 } POSTPACK can_0x103_SuspRear_t;
 
 typedef PREPACK struct {
 	/* car_voltage: Voltage seen from car side (inverter) in volts */
 	/* scaling 1.0, offset 0.0, units V  */
-	uint16_t car_voltage;
+	Uint16 car_voltage;
 } POSTPACK can_0x120_InvVolt_t;
 
 typedef PREPACK struct {
 	/* fan_speed: Water radiator fan speed in % */
 	/* scaling 1.0, offset 0.0, units %  */
-	uint8_t fan_speed;
+	unsigned char fan_speed;
 	/* pump_speed: Water pump speed */
 	/* scaling 1.0, offset 0.0, units %  */
-	uint8_t pump_speed;
+	unsigned char pump_speed;
 	/* fan_enable: Water radiator fan enable */
 	/* scaling 1.0, offset 0.0, units on  */
-	uint8_t fan_enable;
+	unsigned char fan_enable;
 	/* pump_enable: Water pump enable */
 	/* scaling 1.0, offset 0.0, units on  */
-	uint8_t pump_enable;
+	unsigned char pump_enable;
 } POSTPACK can_0x130_Pcu_t;
 
 typedef PREPACK struct {
 	/* position: Set calibration of rest value (0) or 100% (1) */
 	/* scaling 1.0, offset 0.0, units high  */
-	uint8_t position;
+	unsigned char position;
 } POSTPACK can_0x131_Calib_t;
 
 typedef PREPACK struct {
-	uint8_t position; /* scaling 1.0, offset 0.0, units high  */
+	unsigned char position; /* scaling 1.0, offset 0.0, units high  */
 } POSTPACK can_0x132_CalibStep_t;
 
 typedef PREPACK struct {
 	/* current: Current seen from LEM on car side (PDB) */
 	/* scaling 1.0, offset 0.0, units mA  */
-	uint32_t current;
+	Uint32 current;
 } POSTPACK can_0x3c2_Lem_t;
 
 typedef PREPACK struct {
@@ -356,20 +355,20 @@ typedef PREPACK struct {
 	can_0x3c2_Lem_t can_0x3c2_Lem;
 } POSTPACK can_obj_can2_h_t;
 
-int unpack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp);
-int pack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t *data);
+int unpack_message(can_obj_can2_h_t *o, const unsigned long id, Uint64 data, unsigned char dlc, dbcc_time_stamp_t time_stamp);
+int pack_message(can_obj_can2_h_t *o, const unsigned long id, Uint64 *data);
 int print_message(const can_obj_can2_h_t *o, const unsigned long id, FILE *output);
 
 int decode_can_0x053_steering(const can_obj_can2_h_t *o, int16_t *out);
 int encode_can_0x053_steering(can_obj_can2_h_t *o, int16_t in);
-int decode_can_0x053_throttle(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x053_throttle(can_obj_can2_h_t *o, uint8_t in);
-int decode_can_0x053_brake(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x053_brake(can_obj_can2_h_t *o, uint8_t in);
+int decode_can_0x053_throttle(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x053_throttle(can_obj_can2_h_t *o, unsigned char in);
+int decode_can_0x053_brake(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x053_brake(can_obj_can2_h_t *o, unsigned char in);
 
 
-int decode_can_0x054_regen(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x054_regen(can_obj_can2_h_t *o, uint8_t in);
+int decode_can_0x054_regen(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x054_regen(can_obj_can2_h_t *o, unsigned char in);
 
 
 int decode_can_0x055_max_volt(const can_obj_can2_h_t *o, double *out);
@@ -378,18 +377,18 @@ int decode_can_0x055_min_volt(const can_obj_can2_h_t *o, double *out);
 int encode_can_0x055_min_volt(can_obj_can2_h_t *o, double in);
 int decode_can_0x055_avg_volt(const can_obj_can2_h_t *o, double *out);
 int encode_can_0x055_avg_volt(can_obj_can2_h_t *o, double in);
-int decode_can_0x055_soc(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x055_soc(can_obj_can2_h_t *o, uint8_t in);
+int decode_can_0x055_soc(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x055_soc(can_obj_can2_h_t *o, unsigned char in);
 
 
-int decode_can_0x056_max_temp(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x056_max_temp(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x056_min_temp(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x056_min_temp(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x056_avg_temp(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x056_avg_temp(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x056_fan_speed(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x056_fan_speed(can_obj_can2_h_t *o, uint8_t in);
+int decode_can_0x056_max_temp(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x056_max_temp(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x056_min_temp(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x056_min_temp(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x056_avg_temp(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x056_avg_temp(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x056_fan_speed(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x056_fan_speed(can_obj_can2_h_t *o, unsigned char in);
 
 
 int decode_can_0x057_volt1(const can_obj_can2_h_t *o, double *out);
@@ -430,72 +429,72 @@ int decode_can_0x062_omega_z(const can_obj_can2_h_t *o, int32_t *out);
 int encode_can_0x062_omega_z(can_obj_can2_h_t *o, int32_t in);
 
 
-int decode_can_0x063_power(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x063_power(can_obj_can2_h_t *o, uint8_t in);
-int decode_can_0x063_regen(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x063_regen(can_obj_can2_h_t *o, uint8_t in);
+int decode_can_0x063_power(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x063_power(can_obj_can2_h_t *o, unsigned char in);
+int decode_can_0x063_regen(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x063_regen(can_obj_can2_h_t *o, unsigned char in);
 
 
-int decode_can_0x100_r_inv_temp_in(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x100_r_inv_temp_in(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x100_r_inv_temp_out(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x100_r_inv_temp_out(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x100_l_inv_temp_in(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x100_l_inv_temp_in(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x100_l_inv_temp_out(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x100_l_inv_temp_out(can_obj_can2_h_t *o, uint16_t in);
+int decode_can_0x100_r_inv_temp_in(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x100_r_inv_temp_in(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x100_r_inv_temp_out(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x100_r_inv_temp_out(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x100_l_inv_temp_in(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x100_l_inv_temp_in(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x100_l_inv_temp_out(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x100_l_inv_temp_out(can_obj_can2_h_t *o, Uint16 in);
 
 
-int decode_can_0x101_r_mot_temp_in(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x101_r_mot_temp_in(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x101_r_mot_temp_out(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x101_r_mot_temp_out(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x101_l_mot_temp_in(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x101_l_mot_temp_in(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x101_l_mot_temp_out(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x101_l_mot_temp_out(can_obj_can2_h_t *o, uint16_t in);
+int decode_can_0x101_r_mot_temp_in(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x101_r_mot_temp_in(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x101_r_mot_temp_out(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x101_r_mot_temp_out(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x101_l_mot_temp_in(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x101_l_mot_temp_in(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x101_l_mot_temp_out(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x101_l_mot_temp_out(can_obj_can2_h_t *o, Uint16 in);
 
 
-int decode_can_0x102_susp_fr(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x102_susp_fr(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x102_susp_fl(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x102_susp_fl(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x102_temp_mr(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x102_temp_mr(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x102_temp_ml(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x102_temp_ml(can_obj_can2_h_t *o, uint16_t in);
+int decode_can_0x102_susp_fr(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x102_susp_fr(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x102_susp_fl(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x102_susp_fl(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x102_temp_mr(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x102_temp_mr(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x102_temp_ml(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x102_temp_ml(can_obj_can2_h_t *o, Uint16 in);
 
 
-int decode_can_0x103_susp_rr(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x103_susp_rr(can_obj_can2_h_t *o, uint16_t in);
-int decode_can_0x103_susp_rl(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x103_susp_rl(can_obj_can2_h_t *o, uint16_t in);
+int decode_can_0x103_susp_rr(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x103_susp_rr(can_obj_can2_h_t *o, Uint16 in);
+int decode_can_0x103_susp_rl(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x103_susp_rl(can_obj_can2_h_t *o, Uint16 in);
 
 
-int decode_can_0x120_car_voltage(const can_obj_can2_h_t *o, uint16_t *out);
-int encode_can_0x120_car_voltage(can_obj_can2_h_t *o, uint16_t in);
+int decode_can_0x120_car_voltage(const can_obj_can2_h_t *o, Uint16 *out);
+int encode_can_0x120_car_voltage(can_obj_can2_h_t *o, Uint16 in);
 
 
-int decode_can_0x130_fan_speed(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x130_fan_speed(can_obj_can2_h_t *o, uint8_t in);
-int decode_can_0x130_pump_speed(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x130_pump_speed(can_obj_can2_h_t *o, uint8_t in);
-int decode_can_0x130_fan_enable(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x130_fan_enable(can_obj_can2_h_t *o, uint8_t in);
-int decode_can_0x130_pump_enable(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x130_pump_enable(can_obj_can2_h_t *o, uint8_t in);
+int decode_can_0x130_fan_speed(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x130_fan_speed(can_obj_can2_h_t *o, unsigned char in);
+int decode_can_0x130_pump_speed(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x130_pump_speed(can_obj_can2_h_t *o, unsigned char in);
+int decode_can_0x130_fan_enable(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x130_fan_enable(can_obj_can2_h_t *o, unsigned char in);
+int decode_can_0x130_pump_enable(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x130_pump_enable(can_obj_can2_h_t *o, unsigned char in);
 
 
-int decode_can_0x131_position(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x131_position(can_obj_can2_h_t *o, uint8_t in);
+int decode_can_0x131_position(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x131_position(can_obj_can2_h_t *o, unsigned char in);
 
 
-int decode_can_0x132_position(const can_obj_can2_h_t *o, uint8_t *out);
-int encode_can_0x132_position(can_obj_can2_h_t *o, uint8_t in);
+int decode_can_0x132_position(const can_obj_can2_h_t *o, unsigned char *out);
+int encode_can_0x132_position(can_obj_can2_h_t *o, unsigned char in);
 
 
-int decode_can_0x3c2_current(const can_obj_can2_h_t *o, uint32_t *out);
-int encode_can_0x3c2_current(can_obj_can2_h_t *o, uint32_t in);
+int decode_can_0x3c2_current(const can_obj_can2_h_t *o, Uint32 *out);
+int encode_can_0x3c2_current(can_obj_can2_h_t *o, Uint32 in);
 
 
 #ifdef __cplusplus

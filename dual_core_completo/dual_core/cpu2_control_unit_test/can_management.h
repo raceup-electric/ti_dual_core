@@ -11,7 +11,6 @@
 #include "motor_management.h"
 #include "adc_management.h"
 #include "car_management.h"
-#include <stdint.h>
 #include <stdbool.h>
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"

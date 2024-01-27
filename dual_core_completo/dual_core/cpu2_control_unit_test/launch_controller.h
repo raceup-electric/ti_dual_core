@@ -11,7 +11,6 @@
 
 #include "F28x_Project.h"
 #include <math.h>
-#include <stdint.h>
 #include <stdbool.h>
 #include "utils.h"
 

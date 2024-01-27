@@ -6,7 +6,6 @@
 //
 #include "F28x_Project.h"
 #include "global_definitions.h"
-#include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
 //#include "device.h"
