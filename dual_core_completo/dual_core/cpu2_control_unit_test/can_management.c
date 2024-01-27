@@ -1,6 +1,5 @@
 #include "can_management.h"
 #include "global_definitions.h"
-#include "main.h"
 #include "dbc_gen/can2.h"
 
 unsigned long gg;
@@ -76,7 +75,7 @@ void canSetup_phase2()
         // TXCANB_Setpoints_Message[i].ui32Flags = MSG_OBJ_NO_FLAGS;  // enable interrupt on TX
         // TXCANB_Setpoints_Message[i].ui32MsgLen = sizeof(CAN_AMK_SET_POINT[i]);   // size of message is 8
         // TXCANB_Setpoints_Message[i].pucMsgData = TXB_Setpoints_Data[i];           // ptr to message content
-        setting_package_param(&TXCANB_Setpoints_Message[i],AMK_SETPOINTS_IDS[i],0, MSG_OBJ_NO_FLAGS,sizeof(CAN_AMK_SET_POINT[i],TXB_Setpoints_Data[i]);
+        setting_package_param(&TXCANB_Setpoints_Message[i],AMK_SETPOINTS_IDS[i],0, MSG_OBJ_NO_FLAGS,sizeof(CAN_AMK_SET_POINT[i]),TXB_Setpoints_Data[i]);
 
         }
 
@@ -139,22 +138,22 @@ void canSetup_phase2()
 
         //Alberto Patch
         //TBS_ATC PACKAGE
-        setting_package_param(&TXCANA_ATC_Message,MSG_ID_ATC_TBS,0x0,MSG_OBJ_RX_INT_ENABLE,
+        setting_package_param(&TXCANA_ATC_Message_TBS,MSG_ID_ATC_TBS,0x0,MSG_OBJ_RX_INT_ENABLE,
                 MSG_DATA_LENGTH,RXA_ATC_DATA_TBS);
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, MSG_OBJ_TYPE_RX);
 
         //SENSORS_ATC PACKAGE
-        setting_package_param(&TXCANA_ATC_Message,MSG_ID_ATC_SENSORS,0x0,MSG_OBJ_RX_INT_ENABLE,
+        setting_package_param(&TXCANA_ATC_Message_SENSORS,MSG_ID_ATC_SENSORS,0x0,MSG_OBJ_RX_INT_ENABLE,
                 MSG_DATA_LENGTH,RXA_ATC_DATA_SENSORS);
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, MSG_OBJ_TYPE_RX);
         //end Alberto Patch
 
 
-        TXCANA_Throttle_Message.ui32MsgID = MSG_ID_TO_ATMEGA;
-        TXCANA_Throttle_Message.ui32MsgIDMask = 0;
-        TXCANA_Throttle_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
-        TXCANA_Throttle_Message.ui32MsgLen = 2;
-        TXCANA_Throttle_Message.pucMsgData = TXCANA_ATMega_Data;
+        TXCANA_ATMega_Message.ui32MsgID = MSG_ID_TO_ATMEGA;
+        TXCANA_ATMega_Message.ui32MsgIDMask = 0;
+        TXCANA_ATMega_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
+        TXCANA_ATMega_Message.ui32MsgLen = 2;
+        TXCANA_ATMega_Message.pucMsgData = TXCANA_ATMega_Data;
 
 
 
@@ -219,7 +218,8 @@ __interrupt void canISR_B(void)
 __interrupt void canISR_A(void)
 {
     uint32_t status;
-
+    int id;
+    can_obj_can2_h_t o;
     status = CANIntStatus(CANA_BASE, CAN_INT_STS_CAUSE);
     gg =status; // for debug
     
@@ -245,7 +245,7 @@ __interrupt void canISR_A(void)
             //Uint16 imu_msg_temp[8];
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, true);
 
-            int id = getMessageID(CANA_BASE, OBJ_ID_FROM_IMU);
+            id = getMessageID(CANA_BASE, OBJ_ID_FROM_IMU);
 
             read_IMU_message((Uint16 *)RXA_Imu_Data, id);
 
@@ -257,7 +257,7 @@ __interrupt void canISR_A(void)
             //Ricevuto pacchetto da mailbox dello SMU
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, true);
 
-            int id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
+            id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
 
             read_SMU_Message((Uint16 *)RXA_Smu_Data, id);
 
@@ -270,7 +270,7 @@ __interrupt void canISR_A(void)
 
             CANMessageGet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, true);
 
-            int id = getMessageID(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
+            id = getMessageID(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
 
             read_BMS_VOLTAGE_message((Uint16 *)RXA_BmsVol_Data);
 
@@ -283,7 +283,7 @@ __interrupt void canISR_A(void)
 
             CANMessageGet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, true);
 
-            int id = getMessageID(CANA_BASE, OBJ_ID_BMS_TEMP);
+            id = getMessageID(CANA_BASE, OBJ_ID_BMS_TEMP);
 
 
             read_BMS_TEMP_message((Uint16 *)RXA_BmsTemp_Data);
@@ -295,7 +295,7 @@ __interrupt void canISR_A(void)
         case OBJ_ID_FROM_BMS_LV:
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, true);
 
-            int id = getMessageID(CANA_BASE, OBJ_ID_FROM_BMS_LV);
+            id = getMessageID(CANA_BASE, OBJ_ID_FROM_BMS_LV);
 
             read_BMSLV_message((Uint16 *)RXA_BmsLV_Data, id);
 
@@ -311,7 +311,7 @@ __interrupt void canISR_A(void)
         //
         //      //powersetup[0]=value[0]; -----> spostato in car management
         //
-        //      int id = getMessageID(CANA_BASE, OBJ_ID_POWER_CONTROL);
+        //      id = getMessageID(CANA_BASE, OBJ_ID_POWER_CONTROL);
         //
         //      read_power_control_message((Uint16 *)RXA_PwCtrl_Data);
         //
@@ -322,7 +322,7 @@ __interrupt void canISR_A(void)
         case OBJ_ID_STEERING_WHEEL:
             CANMessageGet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, true);
 
-            int id = getMessageID(CANA_BASE, OBJ_ID_STEERING_WHEEL);
+            id = getMessageID(CANA_BASE, OBJ_ID_STEERING_WHEEL);
 
             read_steering_wheel_message((Uint16 *)RXA_Wheel_Data, id);
 
@@ -343,11 +343,10 @@ __interrupt void canISR_A(void)
         case OBJ_ID_FROM_ATC_TBS:
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, true);
             
-            can_obj_can2_h_t o;
-            unpack_message(&o, 
-                            TXCANA_ATC_Message_TBS.ui32MsgID, 
-                            RXA_ATC_DATA_TBS,
-                            TXCANA_ATC_Message_TBS.ui32MsgLen, 
+            can2_unpack_message(&o,
+                            &TXCANA_ATC_Message_TBS.ui32MsgID,
+                            &RXA_ATC_DATA_TBS,
+                            &TXCANA_ATC_Message_TBS.ui32MsgLen,
                             0);//not using timestamp
 
             read_ATC_message(&o,1);
@@ -360,11 +359,11 @@ __interrupt void canISR_A(void)
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, true);
         
 
-            can_obj_can2_h_t o;
-            unpack_message(&o, 
-                            TXCANA_ATC_Message_SENSORS.ui32MsgID, 
-                            RXA_ATC_DATA_SENSORS,
-                            TXCANA_ATC_Message_SENSORS.ui32MsgLen, 
+
+            can2_unpack_message(&o,
+                            &TXCANA_ATC_Message_SENSORS.ui32MsgID,
+                            &RXA_ATC_DATA_SENSORS,
+                            &TXCANA_ATC_Message_SENSORS.ui32MsgLen,
                             0);//not using timestamp
 
             read_ATC_message(&o,2);

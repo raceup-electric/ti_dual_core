@@ -2,6 +2,7 @@
 #include "can2.h"
 #include <inttypes.h>
 #include <assert.h>
+#include <stdint.h>
 
 #define UNUSED(X) ((void)(X))
 
@@ -26,10 +27,10 @@ static int pack_can_0x053_Driver(can_obj_can2_h_t *o, uint64_t *data) {
 	x <<= 16; 
 	i |= x;
 	/* throttle: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x053_Driver.throttle)) & 0xff;
+	x = ((unsigned char)(o->can_0x053_Driver.throttle)) & 0xff;
 	i |= x;
 	/* brake: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x053_Driver.brake)) & 0xff;
+	x = ((unsigned char)(o->can_0x053_Driver.brake)) & 0xff;
 	x <<= 8; 
 	i |= x;
 	*data = (i);
@@ -37,7 +38,7 @@ static int pack_can_0x053_Driver(can_obj_can2_h_t *o, uint64_t *data) {
 	return 4;
 }
 
-static int unpack_can_0x053_Driver(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x053_Driver(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -59,7 +60,7 @@ static int unpack_can_0x053_Driver(can_obj_can2_h_t *o, uint64_t data, uint8_t d
 	return 4;
 }
 
-int decode_can_0x053_steering(const can_obj_can2_h_t *o, int16_t *out) {
+int decode_can_0x053_steering(const can_obj_can2_h_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	int16_t rval = (int16_t)(o->can_0x053_Driver.steering);
@@ -67,12 +68,12 @@ int decode_can_0x053_steering(const can_obj_can2_h_t *o, int16_t *out) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (int16_t)0;
+		*out = (uint16_t)0;
 		return -1;
 	}
 }
 
-int encode_can_0x053_steering(can_obj_can2_h_t *o, int16_t in) {
+int encode_can_0x053_steering(can_obj_can2_h_t *o, uint16_t in) {
 	assert(o);
 	o->can_0x053_Driver.steering = 0;
 	if (in < -1570)
@@ -83,20 +84,20 @@ int encode_can_0x053_steering(can_obj_can2_h_t *o, int16_t in) {
 	return 0;
 }
 
-int decode_can_0x053_throttle(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x053_throttle(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x053_Driver.throttle);
+	unsigned char rval = (unsigned char)(o->can_0x053_Driver.throttle);
 	if (rval <= 100) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (uint8_t)0;
+		*out = (unsigned char)0;
 		return -1;
 	}
 }
 
-int encode_can_0x053_throttle(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x053_throttle(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x053_Driver.throttle = 0;
 	if (in > 100)
@@ -105,20 +106,20 @@ int encode_can_0x053_throttle(can_obj_can2_h_t *o, uint8_t in) {
 	return 0;
 }
 
-int decode_can_0x053_brake(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x053_brake(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x053_Driver.brake);
+	unsigned char rval = (unsigned char)(o->can_0x053_Driver.brake);
 	if (rval <= 100) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (uint8_t)0;
+		*out = (unsigned char)0;
 		return -1;
 	}
 }
 
-int encode_can_0x053_brake(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x053_brake(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x053_Driver.brake = 0;
 	if (in > 100)
@@ -143,14 +144,14 @@ static int pack_can_0x054_Paddle(can_obj_can2_h_t *o, uint64_t *data) {
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* regen: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x054_Paddle.regen)) & 0xff;
+	x = ((unsigned char)(o->can_0x054_Paddle.regen)) & 0xff;
 	i |= x;
 	*data = (i);
 	o->can_0x054_Paddle_tx = 1;
 	return 1;
 }
 
-static int unpack_can_0x054_Paddle(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x054_Paddle(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -165,20 +166,20 @@ static int unpack_can_0x054_Paddle(can_obj_can2_h_t *o, uint64_t data, uint8_t d
 	return 1;
 }
 
-int decode_can_0x054_regen(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x054_regen(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x054_Paddle.regen);
+	unsigned char rval = (unsigned char)(o->can_0x054_Paddle.regen);
 	if (rval <= 100) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (uint8_t)0;
+		*out = (unsigned char)0;
 		return -1;
 	}
 }
 
-int encode_can_0x054_regen(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x054_regen(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x054_Paddle.regen = 0;
 	if (in > 100)
@@ -212,7 +213,7 @@ static int pack_can_0x055_BmsHv1(can_obj_can2_h_t *o, uint64_t *data) {
 	x <<= 32; 
 	i |= x;
 	/* soc: start-bit 48, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x055_BmsHv1.soc)) & 0xff;
+	x = ((unsigned char)(o->can_0x055_BmsHv1.soc)) & 0xff;
 	x <<= 48; 
 	i |= x;
 	*data = (i);
@@ -220,7 +221,7 @@ static int pack_can_0x055_BmsHv1(can_obj_can2_h_t *o, uint64_t *data) {
 	return 7;
 }
 
-static int unpack_can_0x055_BmsHv1(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x055_BmsHv1(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -292,20 +293,20 @@ int encode_can_0x055_avg_volt(can_obj_can2_h_t *o, double in) {
 	return 0;
 }
 
-int decode_can_0x055_soc(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x055_soc(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x055_BmsHv1.soc);
+	unsigned char rval = (unsigned char)(o->can_0x055_BmsHv1.soc);
 	if (rval <= 100) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (uint8_t)0;
+		*out = (unsigned char)0;
 		return -1;
 	}
 }
 
-int encode_can_0x055_soc(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x055_soc(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x055_BmsHv1.soc = 0;
 	if (in > 100)
@@ -342,7 +343,7 @@ static int pack_can_0x056_BmsHv2(can_obj_can2_h_t *o, uint64_t *data) {
 	x <<= 32; 
 	i |= x;
 	/* fan_speed: start-bit 48, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x056_BmsHv2.fan_speed)) & 0xff;
+	x = ((unsigned char)(o->can_0x056_BmsHv2.fan_speed)) & 0xff;
 	x <<= 48; 
 	i |= x;
 	*data = (i);
@@ -350,7 +351,7 @@ static int pack_can_0x056_BmsHv2(can_obj_can2_h_t *o, uint64_t *data) {
 	return 7;
 }
 
-static int unpack_can_0x056_BmsHv2(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x056_BmsHv2(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -416,20 +417,20 @@ int encode_can_0x056_avg_temp(can_obj_can2_h_t *o, uint16_t in) {
 	return 0;
 }
 
-int decode_can_0x056_fan_speed(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x056_fan_speed(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x056_BmsHv2.fan_speed);
+	unsigned char rval = (unsigned char)(o->can_0x056_BmsHv2.fan_speed);
 	if (rval <= 100) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (uint8_t)0;
+		*out = (unsigned char)0;
 		return -1;
 	}
 }
 
-int encode_can_0x056_fan_speed(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x056_fan_speed(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x056_BmsHv2.fan_speed = 0;
 	if (in > 100)
@@ -474,7 +475,7 @@ static int pack_can_0x057_BmsLv1(can_obj_can2_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x057_BmsLv1(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x057_BmsLv1(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -598,7 +599,7 @@ static int pack_can_0x058_BmsLv2(can_obj_can2_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x058_BmsLv2(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x058_BmsLv2(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -714,7 +715,7 @@ static int pack_can_0x060_Imu1(can_obj_can2_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x060_Imu1(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x060_Imu1(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -786,7 +787,7 @@ static int pack_can_0x061_Imu2(can_obj_can2_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x061_Imu2(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x061_Imu2(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -858,7 +859,7 @@ static int pack_can_0x062_Imu3(can_obj_can2_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x062_Imu3(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x062_Imu3(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -919,10 +920,10 @@ static int pack_can_0x063_Map(can_obj_can2_h_t *o, uint64_t *data) {
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* power: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x063_Map.power)) & 0xf;
+	x = ((unsigned char)(o->can_0x063_Map.power)) & 0xf;
 	i |= x;
 	/* regen: start-bit 4, length 4, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x063_Map.regen)) & 0xf;
+	x = ((unsigned char)(o->can_0x063_Map.regen)) & 0xf;
 	x <<= 4; 
 	i |= x;
 	*data = (i);
@@ -930,7 +931,7 @@ static int pack_can_0x063_Map(can_obj_can2_h_t *o, uint64_t *data) {
 	return 1;
 }
 
-static int unpack_can_0x063_Map(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x063_Map(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -948,20 +949,20 @@ static int unpack_can_0x063_Map(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc,
 	return 1;
 }
 
-int decode_can_0x063_power(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x063_power(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x063_Map.power);
+	unsigned char rval = (unsigned char)(o->can_0x063_Map.power);
 	if ((rval >= 1) && (rval <= 12)) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (uint8_t)0;
+		*out = (unsigned char)0;
 		return -1;
 	}
 }
 
-int encode_can_0x063_power(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x063_power(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x063_Map.power = 0;
 	if (in < 1)
@@ -972,20 +973,20 @@ int encode_can_0x063_power(can_obj_can2_h_t *o, uint8_t in) {
 	return 0;
 }
 
-int decode_can_0x063_regen(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x063_regen(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x063_Map.regen);
+	unsigned char rval = (unsigned char)(o->can_0x063_Map.regen);
 	if ((rval >= 1) && (rval <= 12)) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (uint8_t)0;
+		*out = (unsigned char)0;
 		return -1;
 	}
 }
 
-int encode_can_0x063_regen(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x063_regen(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x063_Map.regen = 0;
 	if (in < 1)
@@ -1030,7 +1031,7 @@ static int pack_can_0x100_Temp1(can_obj_can2_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x100_Temp1(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x100_Temp1(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1146,7 +1147,7 @@ static int pack_can_0x101_Temp2(can_obj_can2_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x101_Temp2(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x101_Temp2(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1262,7 +1263,7 @@ static int pack_can_0x102_SuspFront(can_obj_can2_h_t *o, uint64_t *data) {
 	return 5;
 }
 
-static int unpack_can_0x102_SuspFront(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x102_SuspFront(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1370,7 +1371,7 @@ static int pack_can_0x103_SuspRear(can_obj_can2_h_t *o, uint64_t *data) {
 	return 3;
 }
 
-static int unpack_can_0x103_SuspRear(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x103_SuspRear(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1438,7 +1439,7 @@ static int pack_can_0x120_InvVolt(can_obj_can2_h_t *o, uint64_t *data) {
 	return 4;
 }
 
-static int unpack_can_0x120_InvVolt(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x120_InvVolt(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1489,18 +1490,18 @@ static int pack_can_0x130_Pcu(can_obj_can2_h_t *o, uint64_t *data) {
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* fan_speed: start-bit 1, length 7, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x130_Pcu.fan_speed)) & 0x7f;
+	x = ((unsigned char)(o->can_0x130_Pcu.fan_speed)) & 0x7f;
 	x <<= 1; 
 	i |= x;
 	/* pump_speed: start-bit 9, length 7, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x130_Pcu.pump_speed)) & 0x7f;
+	x = ((unsigned char)(o->can_0x130_Pcu.pump_speed)) & 0x7f;
 	x <<= 9; 
 	i |= x;
 	/* fan_enable: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x130_Pcu.fan_enable)) & 0x1;
+	x = ((unsigned char)(o->can_0x130_Pcu.fan_enable)) & 0x1;
 	i |= x;
 	/* pump_enable: start-bit 8, length 1, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x130_Pcu.pump_enable)) & 0x1;
+	x = ((unsigned char)(o->can_0x130_Pcu.pump_enable)) & 0x1;
 	x <<= 8; 
 	i |= x;
 	*data = (i);
@@ -1508,7 +1509,7 @@ static int pack_can_0x130_Pcu(can_obj_can2_h_t *o, uint64_t *data) {
 	return 2;
 }
 
-static int unpack_can_0x130_Pcu(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x130_Pcu(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1532,57 +1533,57 @@ static int unpack_can_0x130_Pcu(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc,
 	return 2;
 }
 
-int decode_can_0x130_fan_speed(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x130_fan_speed(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x130_Pcu.fan_speed);
+	unsigned char rval = (unsigned char)(o->can_0x130_Pcu.fan_speed);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x130_fan_speed(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x130_fan_speed(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x130_Pcu.fan_speed = in;
 	return 0;
 }
 
-int decode_can_0x130_pump_speed(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x130_pump_speed(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x130_Pcu.pump_speed);
+	unsigned char rval = (unsigned char)(o->can_0x130_Pcu.pump_speed);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x130_pump_speed(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x130_pump_speed(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x130_Pcu.pump_speed = in;
 	return 0;
 }
 
-int decode_can_0x130_fan_enable(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x130_fan_enable(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x130_Pcu.fan_enable);
+	unsigned char rval = (unsigned char)(o->can_0x130_Pcu.fan_enable);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x130_fan_enable(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x130_fan_enable(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x130_Pcu.fan_enable = in;
 	return 0;
 }
 
-int decode_can_0x130_pump_enable(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x130_pump_enable(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x130_Pcu.pump_enable);
+	unsigned char rval = (unsigned char)(o->can_0x130_Pcu.pump_enable);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x130_pump_enable(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x130_pump_enable(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x130_Pcu.pump_enable = in;
 	return 0;
@@ -1605,7 +1606,7 @@ static int pack_can_0x131_Calib(can_obj_can2_h_t *o, uint64_t *data) {
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* position: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x131_Calib.position)) & 0xff;
+	x = ((unsigned char)(o->can_0x131_Calib.position)) & 0xff;
 	i |= x;
 	switch (o->can_0x131_Calib.position) {
 	default:
@@ -1616,7 +1617,7 @@ static int pack_can_0x131_Calib(can_obj_can2_h_t *o, uint64_t *data) {
 	return 1;
 }
 
-static int unpack_can_0x131_Calib(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x131_Calib(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1635,20 +1636,20 @@ static int unpack_can_0x131_Calib(can_obj_can2_h_t *o, uint64_t data, uint8_t dl
 	return 1;
 }
 
-int decode_can_0x131_position(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x131_position(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x131_Calib.position);
+	unsigned char rval = (unsigned char)(o->can_0x131_Calib.position);
 	if (rval <= 1) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (uint8_t)0;
+		*out = (unsigned char)0;
 		return -1;
 	}
 }
 
-int encode_can_0x131_position(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x131_position(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x131_Calib.position = 0;
 	if (in > 1)
@@ -1671,7 +1672,7 @@ static int pack_can_0x132_CalibStep(can_obj_can2_h_t *o, uint64_t *data) {
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* position: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x132_CalibStep.position)) & 0xff;
+	x = ((unsigned char)(o->can_0x132_CalibStep.position)) & 0xff;
 	i |= x;
 	switch (o->can_0x132_CalibStep.position) {
 	default:
@@ -1682,7 +1683,7 @@ static int pack_can_0x132_CalibStep(can_obj_can2_h_t *o, uint64_t *data) {
 	return 1;
 }
 
-static int unpack_can_0x132_CalibStep(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x132_CalibStep(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1701,20 +1702,20 @@ static int unpack_can_0x132_CalibStep(can_obj_can2_h_t *o, uint64_t data, uint8_
 	return 1;
 }
 
-int decode_can_0x132_position(const can_obj_can2_h_t *o, uint8_t *out) {
+int decode_can_0x132_position(const can_obj_can2_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x132_CalibStep.position);
+	unsigned char rval = (unsigned char)(o->can_0x132_CalibStep.position);
 	if (rval <= 1) {
 		*out = rval;
 		return 0;
 	} else {
-		*out = (uint8_t)0;
+		*out = (unsigned char)0;
 		return -1;
 	}
 }
 
-int encode_can_0x132_position(can_obj_can2_h_t *o, uint8_t in) {
+int encode_can_0x132_position(can_obj_can2_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x132_CalibStep.position = 0;
 	if (in > 1)
@@ -1745,7 +1746,7 @@ static int pack_can_0x3c2_Lem(can_obj_can2_h_t *o, uint64_t *data) {
 	return 4;
 }
 
-static int unpack_can_0x3c2_Lem(can_obj_can2_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x3c2_Lem(can_obj_can2_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1782,7 +1783,7 @@ int print_can_0x3c2_Lem(const can_obj_can2_h_t *o, FILE *output) {
 	return r;
 }
 
-int unpack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+int can2_unpack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(dlc <= 8);         /* Maximum of 8 bytes in a CAN packet */
@@ -1811,7 +1812,7 @@ int unpack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t data, u
 	return -1; 
 }
 
-int pack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t *data) {
+int can2_pack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t *data) {
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	switch (id) {
@@ -1839,7 +1840,7 @@ int pack_message(can_obj_can2_h_t *o, const unsigned long id, uint64_t *data) {
 	return -1; 
 }
 
-int print_message(const can_obj_can2_h_t *o, const unsigned long id, FILE *output) {
+int can2_print_message(const can_obj_can2_h_t *o, const unsigned long id, FILE *output) {
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(output);

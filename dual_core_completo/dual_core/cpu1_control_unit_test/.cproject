@@ -42,6 +42,10 @@
 								<option id="com.ti.ccstudio.buildDefinitions.C2000_15.12.compilerID.VCU_SUPPORT.386852585" name="Specify VCU support (--vcu_support)" superClass="com.ti.ccstudio.buildDefinitions.C2000_15.12.compilerID.VCU_SUPPORT" value="com.ti.ccstudio.buildDefinitions.C2000_15.12.compilerID.VCU_SUPPORT.vcu2" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.C2000_15.12.compilerID.INCLUDE_PATH.1939504376" name="Add dir to #include search path (--include_path, -I)" superClass="com.ti.ccstudio.buildDefinitions.C2000_15.12.compilerID.INCLUDE_PATH" valueType="includePath">
 									<listOptionValue builtIn="false" value="${COM_TI_C2000WARE_SOFTWARE_PACKAGE_INCLUDE_PATH}"/>
+									<listOptionValue builtIn="false" value="${PROJECT_ROOT}"/>
+									<listOptionValue builtIn="false" value="C:\ti\c2000\C2000Ware_3_04_00_00\utilities\third_party\f2837xd"/>
+									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/ff14b/source"/>
+									<listOptionValue builtIn="false" value="C:\ti\c2000\C2000Ware_3_04_00_00\device_support\f2837xd\common\deprecated"/>
 									<listOptionValue builtIn="false" value="${CG_TOOL_ROOT}/include"/>
 									<listOptionValue builtIn="false" value="${INSTALLROOT_F2837XD}/headers/include"/>
 									<listOptionValue builtIn="false" value="${INSTALLROOT_F2837XD}/common/include"/>

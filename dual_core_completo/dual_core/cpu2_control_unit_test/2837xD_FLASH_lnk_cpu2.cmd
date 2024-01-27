@@ -62,7 +62,7 @@ SECTIONS
 {
    /* Allocate program areas: */
    .cinit              : > FLASHB      PAGE = 0, ALIGN(8)
-   .text               : > FLASHG      PAGE = 0, ALIGN(8)
+   .text               : >> FLASHH | FLASHI     PAGE = 0, ALIGN(8)
    codestart           : > BEGIN       PAGE = 0, ALIGN(8)
 
    /* Allocate uninitalized data sections: */
@@ -87,7 +87,7 @@ SECTIONS
    .esysmem            : > RAMLS5,       PAGE = 1
    .cio                : > RAMLS5,       PAGE = 1
    /* Initalized sections go in Flash */
-   .econst             : >> FLASHF       PAGE = 0, ALIGN(8)
+   .econst             : >> FLASHF | FLASHG     PAGE = 0, ALIGN(8)
 #endif
 
    SHARERAMGS0		: > RAMGS0,		PAGE = 1

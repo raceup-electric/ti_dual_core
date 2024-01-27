@@ -82,16 +82,16 @@ typedef PREPACK struct {
 	uint16_t ActualVelocity; /* scaling 1.0, offset 0.0, units none  */
 	uint16_t MagCurr; /* scaling 1.0, offset 0.0, units none  */
 	uint16_t TorqCurr; /* scaling 1.0, offset 0.0, units none  */
-	uint8_t Reserved; /* scaling 1.0, offset 0.0, units none  */
-	uint8_t Status; /* scaling 1.0, offset 0.0, units none  */
+	unsigned char Reserved; /* scaling 1.0, offset 0.0, units none  */
+	unsigned char Status; /* scaling 1.0, offset 0.0, units none  */
 } POSTPACK can_0x283_InverterFL1_t;
 
 typedef PREPACK struct {
 	uint16_t ActualVel; /* scaling 1.0, offset 0.0, units none  */
 	uint16_t MagCurr; /* scaling 1.0, offset 0.0, units none  */
 	uint16_t TorqCurr; /* scaling 1.0, offset 0.0, units none  */
-	uint8_t Reserved; /* scaling 1.0, offset 0.0, units none  */
-	uint8_t Status; /* scaling 1.0, offset 0.0, units none  */
+	unsigned char Reserved; /* scaling 1.0, offset 0.0, units none  */
+	unsigned char Status; /* scaling 1.0, offset 0.0, units none  */
 } POSTPACK can_0x284_InverterFR1_t;
 
 typedef PREPACK struct {
@@ -112,16 +112,16 @@ typedef PREPACK struct {
 	uint16_t ActualVel; /* scaling 1.0, offset 0.0, units none  */
 	uint16_t MagCurr; /* scaling 1.0, offset 0.0, units none  */
 	uint16_t TorqCurr; /* scaling 1.0, offset 0.0, units none  */
-	uint8_t Reserved; /* scaling 1.0, offset 0.0, units none  */
-	uint8_t Status; /* scaling 1.0, offset 0.0, units none  */
+	unsigned char Reserved; /* scaling 1.0, offset 0.0, units none  */
+	unsigned char Status; /* scaling 1.0, offset 0.0, units none  */
 } POSTPACK can_0x287_InverterRL1_t;
 
 typedef PREPACK struct {
 	uint16_t ActualVel; /* scaling 1.0, offset 0.0, units none  */
 	uint16_t MagCurr; /* scaling 1.0, offset 0.0, units none  */
 	uint16_t TorqCurr; /* scaling 1.0, offset 0.0, units none  */
-	uint8_t Reserved; /* scaling 1.0, offset 0.0, units none  */
-	uint8_t Status; /* scaling 1.0, offset 0.0, units none  */
+	unsigned char Reserved; /* scaling 1.0, offset 0.0, units none  */
+	unsigned char Status; /* scaling 1.0, offset 0.0, units none  */
 } POSTPACK can_0x288_InverterRR1_t;
 
 typedef PREPACK struct {
@@ -201,9 +201,9 @@ typedef PREPACK struct {
 	can_0x28a_InverterRR2_t can_0x28a_InverterRR2;
 } POSTPACK can_obj_can1_h_t;
 
-int unpack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp);
-int pack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t *data);
-int print_message(const can_obj_can1_h_t *o, const unsigned long id, FILE *output);
+int can1_unpack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp);
+int can1_pack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t *data);
+int can1_print_message(const can_obj_can1_h_t *o, const unsigned long id, FILE *output);
 
 int decode_can_0x184_ControlWord(const can_obj_can1_h_t *o, uint16_t *out);
 int encode_can_0x184_ControlWord(can_obj_can1_h_t *o, uint16_t in);
@@ -251,10 +251,10 @@ int decode_can_0x283_MagCurr(const can_obj_can1_h_t *o, uint16_t *out);
 int encode_can_0x283_MagCurr(can_obj_can1_h_t *o, uint16_t in);
 int decode_can_0x283_TorqCurr(const can_obj_can1_h_t *o, uint16_t *out);
 int encode_can_0x283_TorqCurr(can_obj_can1_h_t *o, uint16_t in);
-int decode_can_0x283_Reserved(const can_obj_can1_h_t *o, uint8_t *out);
-int encode_can_0x283_Reserved(can_obj_can1_h_t *o, uint8_t in);
-int decode_can_0x283_Status(const can_obj_can1_h_t *o, uint8_t *out);
-int encode_can_0x283_Status(can_obj_can1_h_t *o, uint8_t in);
+int decode_can_0x283_Reserved(const can_obj_can1_h_t *o, unsigned char *out);
+int encode_can_0x283_Reserved(can_obj_can1_h_t *o, unsigned char in);
+int decode_can_0x283_Status(const can_obj_can1_h_t *o, unsigned char *out);
+int encode_can_0x283_Status(can_obj_can1_h_t *o, unsigned char in);
 
 
 int decode_can_0x284_ActualVel(const can_obj_can1_h_t *o, uint16_t *out);
@@ -263,10 +263,10 @@ int decode_can_0x284_MagCurr(const can_obj_can1_h_t *o, uint16_t *out);
 int encode_can_0x284_MagCurr(can_obj_can1_h_t *o, uint16_t in);
 int decode_can_0x284_TorqCurr(const can_obj_can1_h_t *o, uint16_t *out);
 int encode_can_0x284_TorqCurr(can_obj_can1_h_t *o, uint16_t in);
-int decode_can_0x284_Reserved(const can_obj_can1_h_t *o, uint8_t *out);
-int encode_can_0x284_Reserved(can_obj_can1_h_t *o, uint8_t in);
-int decode_can_0x284_Status(const can_obj_can1_h_t *o, uint8_t *out);
-int encode_can_0x284_Status(can_obj_can1_h_t *o, uint8_t in);
+int decode_can_0x284_Reserved(const can_obj_can1_h_t *o, unsigned char *out);
+int encode_can_0x284_Reserved(can_obj_can1_h_t *o, unsigned char in);
+int decode_can_0x284_Status(const can_obj_can1_h_t *o, unsigned char *out);
+int encode_can_0x284_Status(can_obj_can1_h_t *o, unsigned char in);
 
 
 int decode_can_0x285_TempMotor(const can_obj_can1_h_t *o, uint16_t *out);
@@ -295,10 +295,10 @@ int decode_can_0x287_MagCurr(const can_obj_can1_h_t *o, uint16_t *out);
 int encode_can_0x287_MagCurr(can_obj_can1_h_t *o, uint16_t in);
 int decode_can_0x287_TorqCurr(const can_obj_can1_h_t *o, uint16_t *out);
 int encode_can_0x287_TorqCurr(can_obj_can1_h_t *o, uint16_t in);
-int decode_can_0x287_Reserved(const can_obj_can1_h_t *o, uint8_t *out);
-int encode_can_0x287_Reserved(can_obj_can1_h_t *o, uint8_t in);
-int decode_can_0x287_Status(const can_obj_can1_h_t *o, uint8_t *out);
-int encode_can_0x287_Status(can_obj_can1_h_t *o, uint8_t in);
+int decode_can_0x287_Reserved(const can_obj_can1_h_t *o, unsigned char *out);
+int encode_can_0x287_Reserved(can_obj_can1_h_t *o, unsigned char in);
+int decode_can_0x287_Status(const can_obj_can1_h_t *o, unsigned char *out);
+int encode_can_0x287_Status(can_obj_can1_h_t *o, unsigned char in);
 
 
 int decode_can_0x288_ActualVel(const can_obj_can1_h_t *o, uint16_t *out);
@@ -307,10 +307,10 @@ int decode_can_0x288_MagCurr(const can_obj_can1_h_t *o, uint16_t *out);
 int encode_can_0x288_MagCurr(can_obj_can1_h_t *o, uint16_t in);
 int decode_can_0x288_TorqCurr(const can_obj_can1_h_t *o, uint16_t *out);
 int encode_can_0x288_TorqCurr(can_obj_can1_h_t *o, uint16_t in);
-int decode_can_0x288_Reserved(const can_obj_can1_h_t *o, uint8_t *out);
-int encode_can_0x288_Reserved(can_obj_can1_h_t *o, uint8_t in);
-int decode_can_0x288_Status(const can_obj_can1_h_t *o, uint8_t *out);
-int encode_can_0x288_Status(can_obj_can1_h_t *o, uint8_t in);
+int decode_can_0x288_Reserved(const can_obj_can1_h_t *o, unsigned char *out);
+int encode_can_0x288_Reserved(can_obj_can1_h_t *o, unsigned char in);
+int decode_can_0x288_Status(const can_obj_can1_h_t *o, unsigned char *out);
+int encode_can_0x288_Status(can_obj_can1_h_t *o, unsigned char in);
 
 
 int decode_can_0x289_TempMotor(const can_obj_can1_h_t *o, uint16_t *out);

@@ -3,7 +3,6 @@
 
 //only for compatibility with legacy code
 //--------------------------------------
-#include "main.h" 
 #include "car_management.h"
 //--------------------------------------
 
@@ -65,37 +64,37 @@ void atc_update(can_obj_can2_h_t *atc_data,unsigned int message_number)
 }
 
 //steering -180 + 180
-inline Uint16 atc_steering_sensor() 
+unsigned int atc_steering_sensor()
 {
     return ATC.data_1.steering;
 }
 //acceleration 0-100
-inline usigned char atc_acceleration_pedal() 
+unsigned char atc_acceleration_pedal()
 {
     return ATC.data_1.throttle;
 }
 //brake 0-100
-inline usigned char atc_brake_pedal() 
+unsigned char atc_brake_pedal()
 {
     return ATC.data_1.brake;   
 }
 //suspension 0-200
-inline Uint16 atc_front_suspension_left() 
+unsigned int atc_front_suspension_left()
 {
     return ATC.data_2.susp_fl;
 }
 
-inline Uint16 atc_front_suspension_right()
+unsigned int atc_front_suspension_right()
 {
     return ATC.data_2.susp_fr;
 }
 //temperature 0-150
-inline Uint16 atc_motor_temperature_left() 
+unsigned int atc_motor_temperature_left()
 {
     return ATC.data_2.temp_ml;
 }
 
-inline Uint16 atc_motor_temperature_right() 
+unsigned int atc_motor_temperature_right()
 {
     return ATC.data_2.temp_mr;
 }

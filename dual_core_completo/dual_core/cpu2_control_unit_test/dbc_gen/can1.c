@@ -2,6 +2,7 @@
 #include "can1.h"
 #include <inttypes.h>
 #include <assert.h>
+#include <stdint.h>
 
 #define UNUSED(X) ((void)(X))
 
@@ -41,7 +42,7 @@ static int pack_can_0x184_VCUInvFL(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x184_VCUInvFL(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x184_VCUInvFL(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -157,7 +158,7 @@ static int pack_can_0x185_VCUInvFR(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x185_VCUInvFR(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x185_VCUInvFR(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -273,7 +274,7 @@ static int pack_can_0x188_VCUInvRL(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x188_VCUInvRL(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x188_VCUInvRL(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -389,7 +390,7 @@ static int pack_can_0x189_VCUInvRR(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x189_VCUInvRR(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x189_VCUInvRR(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -498,10 +499,10 @@ static int pack_can_0x283_InverterFL1(can_obj_can1_h_t *o, uint64_t *data) {
 	x <<= 48; 
 	i |= x;
 	/* Reserved: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x283_InverterFL1.Reserved)) & 0xff;
+	x = ((unsigned char)(o->can_0x283_InverterFL1.Reserved)) & 0xff;
 	i |= x;
 	/* Status: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x283_InverterFL1.Status)) & 0xff;
+	x = ((unsigned char)(o->can_0x283_InverterFL1.Status)) & 0xff;
 	x <<= 8; 
 	i |= x;
 	*data = (i);
@@ -509,7 +510,7 @@ static int pack_can_0x283_InverterFL1(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x283_InverterFL1(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x283_InverterFL1(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -578,29 +579,29 @@ int encode_can_0x283_TorqCurr(can_obj_can1_h_t *o, uint16_t in) {
 	return 0;
 }
 
-int decode_can_0x283_Reserved(const can_obj_can1_h_t *o, uint8_t *out) {
+int decode_can_0x283_Reserved(const can_obj_can1_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x283_InverterFL1.Reserved);
+	unsigned char rval = (unsigned char)(o->can_0x283_InverterFL1.Reserved);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x283_Reserved(can_obj_can1_h_t *o, uint8_t in) {
+int encode_can_0x283_Reserved(can_obj_can1_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x283_InverterFL1.Reserved = in;
 	return 0;
 }
 
-int decode_can_0x283_Status(const can_obj_can1_h_t *o, uint8_t *out) {
+int decode_can_0x283_Status(const can_obj_can1_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x283_InverterFL1.Status);
+	unsigned char rval = (unsigned char)(o->can_0x283_InverterFL1.Status);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x283_Status(can_obj_can1_h_t *o, uint8_t in) {
+int encode_can_0x283_Status(can_obj_can1_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x283_InverterFL1.Status = in;
 	return 0;
@@ -636,10 +637,10 @@ static int pack_can_0x284_InverterFR1(can_obj_can1_h_t *o, uint64_t *data) {
 	x <<= 48; 
 	i |= x;
 	/* Reserved: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x284_InverterFR1.Reserved)) & 0xff;
+	x = ((unsigned char)(o->can_0x284_InverterFR1.Reserved)) & 0xff;
 	i |= x;
 	/* Status: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x284_InverterFR1.Status)) & 0xff;
+	x = ((unsigned char)(o->can_0x284_InverterFR1.Status)) & 0xff;
 	x <<= 8; 
 	i |= x;
 	*data = (i);
@@ -647,7 +648,7 @@ static int pack_can_0x284_InverterFR1(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x284_InverterFR1(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x284_InverterFR1(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -716,29 +717,29 @@ int encode_can_0x284_TorqCurr(can_obj_can1_h_t *o, uint16_t in) {
 	return 0;
 }
 
-int decode_can_0x284_Reserved(const can_obj_can1_h_t *o, uint8_t *out) {
+int decode_can_0x284_Reserved(const can_obj_can1_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x284_InverterFR1.Reserved);
+	unsigned char rval = (unsigned char)(o->can_0x284_InverterFR1.Reserved);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x284_Reserved(can_obj_can1_h_t *o, uint8_t in) {
+int encode_can_0x284_Reserved(can_obj_can1_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x284_InverterFR1.Reserved = in;
 	return 0;
 }
 
-int decode_can_0x284_Status(const can_obj_can1_h_t *o, uint8_t *out) {
+int decode_can_0x284_Status(const can_obj_can1_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x284_InverterFR1.Status);
+	unsigned char rval = (unsigned char)(o->can_0x284_InverterFR1.Status);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x284_Status(can_obj_can1_h_t *o, uint8_t in) {
+int encode_can_0x284_Status(can_obj_can1_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x284_InverterFR1.Status = in;
 	return 0;
@@ -781,7 +782,7 @@ static int pack_can_0x285_InverterFL2(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x285_InverterFL2(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x285_InverterFL2(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -897,7 +898,7 @@ static int pack_can_0x286_InverterFR2(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x286_InverterFR2(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x286_InverterFR2(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1006,10 +1007,10 @@ static int pack_can_0x287_InverterRL1(can_obj_can1_h_t *o, uint64_t *data) {
 	x <<= 48; 
 	i |= x;
 	/* Reserved: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x287_InverterRL1.Reserved)) & 0xff;
+	x = ((unsigned char)(o->can_0x287_InverterRL1.Reserved)) & 0xff;
 	i |= x;
 	/* Status: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x287_InverterRL1.Status)) & 0xff;
+	x = ((unsigned char)(o->can_0x287_InverterRL1.Status)) & 0xff;
 	x <<= 8; 
 	i |= x;
 	*data = (i);
@@ -1017,7 +1018,7 @@ static int pack_can_0x287_InverterRL1(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x287_InverterRL1(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x287_InverterRL1(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1086,29 +1087,29 @@ int encode_can_0x287_TorqCurr(can_obj_can1_h_t *o, uint16_t in) {
 	return 0;
 }
 
-int decode_can_0x287_Reserved(const can_obj_can1_h_t *o, uint8_t *out) {
+int decode_can_0x287_Reserved(const can_obj_can1_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x287_InverterRL1.Reserved);
+	unsigned char rval = (unsigned char)(o->can_0x287_InverterRL1.Reserved);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x287_Reserved(can_obj_can1_h_t *o, uint8_t in) {
+int encode_can_0x287_Reserved(can_obj_can1_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x287_InverterRL1.Reserved = in;
 	return 0;
 }
 
-int decode_can_0x287_Status(const can_obj_can1_h_t *o, uint8_t *out) {
+int decode_can_0x287_Status(const can_obj_can1_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x287_InverterRL1.Status);
+	unsigned char rval = (unsigned char)(o->can_0x287_InverterRL1.Status);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x287_Status(can_obj_can1_h_t *o, uint8_t in) {
+int encode_can_0x287_Status(can_obj_can1_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x287_InverterRL1.Status = in;
 	return 0;
@@ -1144,10 +1145,10 @@ static int pack_can_0x288_InverterRR1(can_obj_can1_h_t *o, uint64_t *data) {
 	x <<= 48; 
 	i |= x;
 	/* Reserved: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x288_InverterRR1.Reserved)) & 0xff;
+	x = ((unsigned char)(o->can_0x288_InverterRR1.Reserved)) & 0xff;
 	i |= x;
 	/* Status: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x288_InverterRR1.Status)) & 0xff;
+	x = ((unsigned char)(o->can_0x288_InverterRR1.Status)) & 0xff;
 	x <<= 8; 
 	i |= x;
 	*data = (i);
@@ -1155,7 +1156,7 @@ static int pack_can_0x288_InverterRR1(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x288_InverterRR1(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x288_InverterRR1(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1224,29 +1225,29 @@ int encode_can_0x288_TorqCurr(can_obj_can1_h_t *o, uint16_t in) {
 	return 0;
 }
 
-int decode_can_0x288_Reserved(const can_obj_can1_h_t *o, uint8_t *out) {
+int decode_can_0x288_Reserved(const can_obj_can1_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x288_InverterRR1.Reserved);
+	unsigned char rval = (unsigned char)(o->can_0x288_InverterRR1.Reserved);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x288_Reserved(can_obj_can1_h_t *o, uint8_t in) {
+int encode_can_0x288_Reserved(can_obj_can1_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x288_InverterRR1.Reserved = in;
 	return 0;
 }
 
-int decode_can_0x288_Status(const can_obj_can1_h_t *o, uint8_t *out) {
+int decode_can_0x288_Status(const can_obj_can1_h_t *o, unsigned char *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x288_InverterRR1.Status);
+	unsigned char rval = (unsigned char)(o->can_0x288_InverterRR1.Status);
 	*out = rval;
 	return 0;
 }
 
-int encode_can_0x288_Status(can_obj_can1_h_t *o, uint8_t in) {
+int encode_can_0x288_Status(can_obj_can1_h_t *o, unsigned char in) {
 	assert(o);
 	o->can_0x288_InverterRR1.Status = in;
 	return 0;
@@ -1289,7 +1290,7 @@ static int pack_can_0x289_InverterRL2(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x289_InverterRL2(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x289_InverterRL2(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1405,7 +1406,7 @@ static int pack_can_0x28a_InverterRR2(can_obj_can1_h_t *o, uint64_t *data) {
 	return 8;
 }
 
-static int unpack_can_0x28a_InverterRR2(can_obj_can1_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x28a_InverterRR2(can_obj_can1_h_t *o, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -1496,7 +1497,7 @@ int print_can_0x28a_InverterRR2(const can_obj_can1_h_t *o, FILE *output) {
 	return r;
 }
 
-int unpack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+int can1_unpack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t data, unsigned char dlc, dbcc_time_stamp_t time_stamp) {
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(dlc <= 8);         /* Maximum of 8 bytes in a CAN packet */
@@ -1518,7 +1519,7 @@ int unpack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t data, u
 	return -1; 
 }
 
-int pack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t *data) {
+int can1_pack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t *data) {
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	switch (id) {
@@ -1539,7 +1540,7 @@ int pack_message(can_obj_can1_h_t *o, const unsigned long id, uint64_t *data) {
 	return -1; 
 }
 
-int print_message(const can_obj_can1_h_t *o, const unsigned long id, FILE *output) {
+int can1_print_message(const can_obj_can1_h_t *o, const unsigned long id, FILE *output) {
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(output);
