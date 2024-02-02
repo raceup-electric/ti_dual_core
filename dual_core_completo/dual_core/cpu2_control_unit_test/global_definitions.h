@@ -1,3 +1,4 @@
+
 #ifndef GLOBAL_DEFINITIONS_H_
 #define GLOBAL_DEFINITIONS_H_
 
@@ -270,7 +271,7 @@
 #define OBJ_ID_FROM_LEM         21
 #define OBJ_ID_FROM_IMU         22
 #define OBJ_ID_TO_ATMEGA        23
-#define OBJ_ID_POWER_CONTROL    25
+#define OBJ_ID_MAP_SW    25
 #define OBJ_ID_FROM_AMK         26
 //alberto patch
 #define OBJ_ID_FROM_ATC_TBS             27 
@@ -289,7 +290,7 @@
 #define MSG_ID_IMU_1            0x60
 #define MSG_ID_IMU_2            0x61
 #define MSG_ID_IMU_3            0x62
-#define MSG_ID_POWER_CONTROL    0X81
+#define MSG_ID_MAP_SW    0X64
 #define MSG_ID_AMK_SETPOINTS    0x82
 #define MSG_ID_STEERING_WHEEL_BASE 0x90
 #define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90   //buttons ID
@@ -402,3 +403,4 @@
 #define SIGMA_W1        7.f
 
 #endif
+

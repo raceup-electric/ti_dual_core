@@ -1,3 +1,4 @@
+
 #ifndef MAIN_H_
 #define MAIN_H_
 
@@ -240,7 +241,7 @@ tCANMsgObject RXCANA_BmsVol_Message;
 tCANMsgObject RXCANA_BmsTemp_Message;
 tCANMsgObject TXCANA_BmsHost_Message;
 tCANMsgObject RXCANA_BmsLV_Message;
-tCANMsgObject RXCANA_PwCtrl_Message;
+tCANMsgObject RXCANA_Map_SW_Message;
 tCANMsgObject RXCANA_Wheel_Message;
 tCANMsgObject RXCANA_Lem_Message;
 tCANMsgObject TXCANA_ATMega_Message;
@@ -255,7 +256,7 @@ unsigned char RXA_Sendyne_Data[8];
 unsigned char RXA_BmsVol_Data[8];
 unsigned char RXA_BmsTemp_Data[7];
 unsigned char RXA_BmsLV_Data[8];
-unsigned char RXA_PwCtrl_Data[1];
+unsigned char RXA_Map_SW_Data[1];
 unsigned char RXA_Wheel_Data[1];
 unsigned char TXA_Host_Data[4];
 float TXA_Smu_Calibration[5][2];
@@ -370,6 +371,5 @@ void setup(void);
 void loop();
 
 #endif
-
 
 

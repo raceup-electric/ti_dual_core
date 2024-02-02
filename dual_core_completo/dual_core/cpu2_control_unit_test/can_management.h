@@ -51,7 +51,7 @@ extern tCANMsgObject RXCANA_BmsVol_Message;
 extern tCANMsgObject RXCANA_BmsTemp_Message;
 extern tCANMsgObject RXCANA_BmsLV_Message;
 extern tCANMsgObject TXCANA_BmsHost_Message;
-extern tCANMsgObject RXCANA_PwCtrl_Message;
+extern tCANMsgObject RXCANA_Map_SW_Message;
 extern tCANMsgObject RXCANA_Wheel_Message;
 extern tCANMsgObject RXCANA_Lem_Message; //aggiunto lem
 extern tCANMsgObject TXCANA_ATMega_Message;
@@ -64,7 +64,7 @@ extern unsigned char RXA_Smu_Data[8];
 extern unsigned char RXA_Sendyne_Data[8];
 extern unsigned char RXA_BmsVol_Data[8];
 extern unsigned char RXA_BmsTemp_Data[7];
-extern unsigned char RXA_PwCtrl_Data[1];
+extern unsigned char RXA_Map_SW_Data[1];
 extern unsigned char RXA_Wheel_Data[1];
 extern unsigned char RXA_BmsLV_Data[8];
 extern float TXA_Smu_Calibration[5][2];

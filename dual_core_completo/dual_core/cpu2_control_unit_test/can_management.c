@@ -121,15 +121,15 @@ void canSetup_phase2()
                 MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,8,RXA_BmsLV_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, MSG_OBJ_TYPE_RX);
 
-        //PACCHETTO POWER CONTROL DAL VOLANTE
-        setting_package_param(&RXCANA_PwCtrl_Message,MSG_ID_POWER_CONTROL,0x0,
-                MSG_OBJ_RX_INT_ENABLE,1,RXA_PwCtrl_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_POWER_CONTROL, &RXCANA_PwCtrl_Message, MSG_OBJ_TYPE_RX);
+        //PACCHETTO MAP DAL VOLANTE
+        setting_package_param(&RXCANA_Map_SW_Message,MSG_ID_MAP_SW,0x0,
+                MSG_OBJ_RX_INT_ENABLE,1,RXA_Map_SW_Data);
+        CANMessageSet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, MSG_OBJ_TYPE_RX);
 
         //PACCHETTO DA VOLANTE SCHERMO
-        setting_package_param(&RXCANA_Wheel_Message,MSG_ID_STEERING_WHEEL_BASE,0x1FFFFFFC,
+     /*   setting_package_param(&RXCANA_Wheel_Message,MSG_ID_STEERING_WHEEL_BASE,0x1FFFFFFC,
                 MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,1,RXA_Wheel_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, MSG_OBJ_TYPE_RX);
+        CANMessageSet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, MSG_OBJ_TYPE_RX); */
 
         //PACCHETTO DA LEM
         setting_package_param(&RXCANA_Lem_Message,MSG_ID_LEM,0x0,MSG_OBJ_RX_INT_ENABLE,
@@ -303,23 +303,16 @@ __interrupt void canISR_A(void)
 
             CANIntClear(CANA_BASE, OBJ_ID_FROM_BMS_LV);
             break;
-        // case OBJ_ID_POWER_CONTROL:
-        //      powerOK=true;
-        //      //Uint16 value[1];
-        //
-        //      CANMessageGet(CANA_BASE, OBJ_ID_POWER_CONTROL, &RXCANA_PwCtrl_Message, true);
-        //
-        //      //powersetup[0]=value[0]; -----> spostato in car management
-        //
-        //      id = getMessageID(CANA_BASE, OBJ_ID_POWER_CONTROL);
-        //
-        //      read_power_control_message((Uint16 *)RXA_PwCtrl_Data);
-        //
-        //      rxAMsgCount++;
-        //
-        //      CANIntClear(CANA_BASE, OBJ_ID_POWER_CONTROL);
-        //      break;
-        case OBJ_ID_STEERING_WHEEL:
+         case OBJ_ID_MAP_SW:
+
+             CANMessageGet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, true);
+             read_map_sw_message(RXA_Map_SW_Data[0]);
+
+              rxAMsgCount++;
+
+              CANIntClear(CANA_BASE, OBJ_ID_MAP_SW);
+              break;
+       /* case OBJ_ID_STEERING_WHEEL:
             CANMessageGet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, true);
 
             id = getMessageID(CANA_BASE, OBJ_ID_STEERING_WHEEL);
@@ -329,7 +322,7 @@ __interrupt void canISR_A(void)
             rxAMsgCount++;
 
             CANIntClear(CANA_BASE, OBJ_ID_STEERING_WHEEL);
-            break;
+            break; */
         case OBJ_ID_FROM_LEM: //aggiunto  lem message
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, true);
 

@@ -1,3 +1,4 @@
+
 #include "car_management.h"
 #include "atc_management.h"
 
@@ -27,6 +28,20 @@ unsigned int read_ATC_message(can_obj_can2_h_t *atc_data, unsigned int message_n
 {
     atc_update(atc_data,message_number);
 }
+
+
+void read_map_sw_message(Uint16 val) {
+
+    Uint16 power_index = val & 0xF;
+    Uint16 regen_index = ( val >> 4 ) & 0xF;
+
+    car_settings.power_limit = presets_power[power_index%8];
+    car_settings.max_regen_current= presets_regen[regen_index%5];
+
+}
+
+
+
 
 void read_LEM_message(unsigned char lem_values[]){
     reassembled_data= 0;
@@ -92,21 +107,19 @@ void read_SMU_Message(Uint16 smu_values[], int id){
             //alberto
             for(i = 0; i < 8; i += 2)
             {
-                tmp= (smu_values[i] | (smu_values[i+1]<<8));
-                temperatures[i/2] = ConvertTempToKelvin(tmp);
+                temperatures[i/2] = (smu_values[i] | (smu_values[i+1]<<8));
             }
             break;
         case (MSG_ID_SMU_TEMPERATURES + 1):
             for(i = 0; i < 4; i += 2)
             {
-                tmp= (smu_values[i] | (smu_values[i+1]<<8));
-                temperatures[i/2 + 4] = ConvertTempToKelvin(tmp);
+                temperatures[i/2 + 4] = (smu_values[i] | (smu_values[i+1]<<8));
             }
             break;
         case MSG_ID_SMU_SUSPENSIONS:
             for(i = 0; i < NUM_SMU_SUSP; i++)
             {
-                suspensions[i] = -(((0x3FF & aux) + SUSP_ANG_C)/SUSP_ANG_M)*1000;
+                suspensions[i] = (0x3FF & aux);
                 aux>>=10;
             }
             break;
@@ -800,7 +813,7 @@ void fanControl()
 }
 
 /*
- * Always active at 20% then linearly increases from 60% to 80% when temperature is above between 60° and 80°
+ * Always active at 20% then linearly increases from 60% to 80% when temperature is above between 60  and 80
  */
 
 Uint16 fanSpeedFunction(int temp){
@@ -1041,4 +1054,5 @@ void update_shared_mem()
     sh.pedals = pedals_log;
     sh.power_setup = power_setup_log;
 }
+
 
