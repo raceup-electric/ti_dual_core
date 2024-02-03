@@ -54,16 +54,9 @@ struct Status_Log {
 //alberto patch
 struct Pedals_Log{
    float acc_shared;
-   float  brk_pot_shared;
+   float  brk_shared;
    int brk_req_shared;
    int throttle_req_shared;
-
-   Uint16 acc_high_calibration;
-   Uint16 acc_low_calibration;
-   
-   Uint16 brk_low_calibration;
-   Uint16 brk_high_calibration;
-
 
 };
 struct BMS_Log {

@@ -13,12 +13,6 @@ extern Uint16 increment;
 extern Uint32 time_elapsed;
 extern double T_s;
 
-extern bool brakeWhenSlow;
-extern bool brakeReg;
-extern bool brakeMec;
-extern bool noBrake;
-extern bool implausibility_occurred;
-
 
 void timerSetup(void);
 __interrupt void cpu_timer0_isr(void);

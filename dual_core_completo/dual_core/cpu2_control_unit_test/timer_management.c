@@ -118,67 +118,10 @@ __interrupt void cpu_timer1_isr(void)
      */
 #endif
 
-    bool canSendAMK = R2D_state && readRF() && isHVOn();
-
 #ifdef DEBUG_NO_HV  //for debug purposes with no inverter and no HV > HV ON is simulated by ECU
     canSendAMK = true; //debug
 #endif
 
-    if(canSendAMK)
-    {
-        brakeReg = brake > 10 && actualVelocityKMH > 5.f;
-        noBrake = brake <= 10;
-
-
-        checkImplausibility();
-
-        if (!implausibility_occurred)       //REGOLA EV 2.3
-        {
-            if (implBrakeAndThrottle || brk_disconnected)
-            {
-                stopAMK();
-                implausibility_occurred = true;
-            }
-            else if(brakeWhenSlow)
-            {
-                stopAMK();
-                //implausibility_occurred = true;
-            }
-            else if(brakeReg)
-            {
-                if (!macros_settings.reg_brake)
-                    stopAMK();
-                else
-                    brakeAMK(brake);       //Deleted the if-else statement with lem_curr < max_reg
-            }
-            else if(noBrake)
-            {
-                throttleAMK(throttle);
-            }
-            else
-            {
-                stopAMK();
-            }
-        }
-        /*
-         * if implausibility occurred it can be cleared if throttle e is released under 5%
-         */
-        else if (throttle  < 5)   //REGOLA EV 2.3
-        {
-            implausibility_occurred = false;     //implausibility is cleared
-        }
-        /*
-         * if implausibility is not cleared motor stay still
-         */
-        else
-        {
-            stopAMK();
-        }
-    }
-    else                        //REGOLA EV 2.3
-    {
-        stopAMK();
-    }
 
     sendAMKData();
 

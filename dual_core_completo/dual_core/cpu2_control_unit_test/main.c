@@ -89,8 +89,6 @@ void setup()
        sh.power_setup = power_setup_log;
 
 
-       setup_intialValue_pedals();
-
        setup_car_settings();
 
        setupOk = 1;    //debug

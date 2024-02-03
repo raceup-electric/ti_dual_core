@@ -20,8 +20,6 @@
 //
 extern bool R2D_first_state;
 extern bool R2D_state;
-extern bool brk_disconnected;
-extern bool implBrakeAndThrottle;
 
 extern Uint32 last_imu_message_time;
 
@@ -53,10 +51,6 @@ extern float mean_bms_temp;
 extern Uint16 max_temp_nslave;
 extern Uint16 bms_bitmap;
 
-//Pedals
-extern float AccPot1;
-extern float AccPot2;
-extern float BrkPot;
 
 extern int brakeReq;
 extern int throttleReq;
@@ -157,7 +151,7 @@ bool isHVOn();
 
 bool readRF();
 
-void checkImplausibility();
+
 
 void checkTemps();
 

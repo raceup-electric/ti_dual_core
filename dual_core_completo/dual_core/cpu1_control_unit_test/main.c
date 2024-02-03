@@ -281,7 +281,7 @@ __interrupt void cpu_timer1_isr(void)
                         //gpio
                         local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
                         local_sh.bms.max_bms_temp_nslave_shared,
-                        (int)local_sh.pedals.acc_pot1_shared,(int)local_sh.pedals.acc_pot2_shared,(int)local_sh.pedals.brk_pot_shared);
+                        (int)local_sh.pedals.acc_shared,(int)local_sh.pedals.acc_shared,(int)local_sh.pedals.brk_shared);
         writeSD(cmd);
 
 

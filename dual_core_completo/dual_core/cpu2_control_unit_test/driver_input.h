@@ -17,36 +17,7 @@
  *      THEN ALWAYS VERIFY IT IS WORKING RIGHT
  */
 
-// acc1
-#define ACC1_LOW_TH_INITIAL    2630
-#define ACC1_HIGH_TH_INITIAL   3830
 
-// acc2
-#define ACC2_LOW_TH_INITIAL    1910
-#define ACC2_HIGH_TH_INITIAL   3170
-
-// acc
-#define ACC1_DISC_THRES 100  //ABSOLUTE VAL
-#define ACC2_DISC_THRES 100  //ABSOLUTE VAL
-#define ACC_IMPL_THRES 10 // implausibility threshold 10%
-
-// brake
-#define BRK_LOW_TH_INITIAL    2170
-#define BRK_HIGH_TH_INITIAL   2450
-
-#define BRK_DISC_THRES 200  //ABSOLUTE VAL
-
-#define INPUT_RANGE(x, y) (x-y)
-
-
-// steering
-#define STZ_LOW_TH 480
-#define STZ_HIGH_TH 1320
-
-#define IMPL_LIMIT 5
-
-#define THROTTLE_IMPL_THRESHOLD     25      //% of throttle
-#define BRAKE_IMPL_THRESHOLD        15      //% of brake
 
 //
 // variables
@@ -76,14 +47,6 @@ extern struct Pedals_Log pedals_log;
 //
 // prototypes
 //
-
-void setup_intialValue_pedals();
-
-int Read_throttle();
-
-int Read_brake(int);
-
-int Read_steering(void);
 
 void readThrottleBrakeSteering();
 

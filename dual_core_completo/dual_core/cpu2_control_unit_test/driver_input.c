@@ -82,16 +82,6 @@ void readThrottleBrakeSteering() {
 }
 
 
-void setup_intialValue_pedals(){
-
-    pedals_log.acc_high_calibration = ACC1_HIGH_TH_INITIAL; //to fix
-
-    pedals_log.acc_low_calibration = ACC1_LOW_TH_INITIAL;   //to fix
-
-    pedals_log.brk_high_calibration = BRK_HIGH_TH_INITIAL;
-    pedals_log.brk_low_calibration = BRK_LOW_TH_INITIAL;
-
-}
 
 void wheels_angles(){
     w_angles[0] = delta_steer[0] - TOE_F;

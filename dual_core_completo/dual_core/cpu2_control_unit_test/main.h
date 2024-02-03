@@ -47,8 +47,7 @@ int driving_configuration;
 //R2D
 bool R2D_first_state = 0;
 bool R2D_state = 0;
-bool brk_disconnected = false;
-bool implausibility_occurred = false;
+
 
 bool is_launch_inserted = false;
 
@@ -99,14 +98,9 @@ int steering = 0;
 int throttle = 0; 
 int curOnepedalSlope = 1;
 const int STEERING_DEADBAND = 5;
-bool implBrakeAndThrottle = false;
 bool checkPower = false;
 int posTorques[4];
 int negTorques[4];
-
-float AccPot1;
-float AccPot2;
-float BrkPot;
 
 float posTorquesNM[4];
 float negTorquesNM[4];
@@ -167,11 +161,6 @@ int velocityRef = 0;
 int throttleReq = 0;
 int brakeReq = 0;
 int drivingMode = 0;
-
-bool brakeWhenSlow = 0;
-bool brakeReg = 0;
-bool brakeMec = 0;
-bool noBrake = 0;
 
 //IMU
 float accelerations[3]; //g

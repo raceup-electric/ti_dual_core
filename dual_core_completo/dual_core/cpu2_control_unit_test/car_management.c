@@ -497,31 +497,6 @@ bool readRF()
 
 }
 
-/*
- * Managing brake and throttle implausibilities
- */
-void checkImplausibility()
-{
-    /*
-     * First implausibility
-     */
-    if (implBrakeAndThrottle)
-    {
-        /*
-         * if implausiblity occurred and throttle is over 5%, implausibility reamins
-         */
-        implBrakeAndThrottle = (throttle > 5);  // regardless of brake
-    }
-    else
-    {
-        implBrakeAndThrottle = ((brake > BRAKE_IMPL_THRESHOLD) && (throttle > THROTTLE_IMPL_THRESHOLD));
-    }
-
-    /*
-     * Second implausibility
-     */
-    brakeWhenSlow = brake > 10 && actualVelocityKMH <= 5.f;
-}
 
 /*
  * Important: fans should be active after R2d
@@ -587,10 +562,10 @@ void checkStatus()
         mstatus |= 0x000F0000;
     if (readRF())
         mstatus |= 0x00F00000;
-    if (implBrakeAndThrottle)
+   /* if (implBrakeAndThrottle)
         mstatus |= 0x0F000000;
     if (brk_disconnected)
-        mstatus |= 0xF0000000;
+        mstatus |= 0xF0000000; */
 
     status = mstatus;
 }
@@ -694,7 +669,7 @@ void update_log_values()
 
     //Pedals update
     pedals_log.acc_shared = atc_acceleration_pedal();
-    pedals_log.brk_pot_shared = BrkPot;
+    pedals_log.brk_shared = atc_brake_pedal();
     pedals_log.throttle_req_shared = throttleReq;
     pedals_log.brk_req_shared = brakeReq;
 
