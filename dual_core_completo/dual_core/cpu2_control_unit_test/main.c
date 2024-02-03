@@ -63,7 +63,6 @@ void setup()
 
        timerSetup();
 
-
        EINT;
        ERTM;
 
@@ -89,15 +88,6 @@ void setup()
        sh.pedals = pedals_log;
        sh.power_setup = power_setup_log;
 
-
-       display.ack_setup = 99;
-       display.ack_pedal_setup = 99;
-       display.ack_macros = 99;
-       display.manual_speed_selector = false;
-       display.ack_fan = 99;
-
-
-       display.emergencyBrk_isNotSet = 1;
 
        setup_intialValue_pedals();
 

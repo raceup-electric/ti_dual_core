@@ -15,7 +15,6 @@ void setting_package_param(tCANMsgObject *Object, unsigned int ID,
     Object->ui32Flags = other_settings;
     Object->ui32MsgLen = data_len;
     Object->pucMsgData = XA_DATA;
-
 }
 
 void canSetup_phase1()
@@ -70,11 +69,6 @@ void canSetup_phase2()
         CANMessageSet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal2_Message[i], MSG_OBJ_TYPE_RX);
 
 
-        // TXCANB_Setpoints_Message[i].ui32MsgID = AMK_SETPOINTS_IDS[i];                      // CAN message ID - use 1
-        // TXCANB_Setpoints_Message[i].ui32MsgIDMask = 0;                  // no mask needed for TX
-        // TXCANB_Setpoints_Message[i].ui32Flags = MSG_OBJ_NO_FLAGS;  // enable interrupt on TX
-        // TXCANB_Setpoints_Message[i].ui32MsgLen = sizeof(CAN_AMK_SET_POINT[i]);   // size of message is 8
-        // TXCANB_Setpoints_Message[i].pucMsgData = TXB_Setpoints_Data[i];           // ptr to message content
         setting_package_param(&TXCANB_Setpoints_Message[i],AMK_SETPOINTS_IDS[i],0, MSG_OBJ_NO_FLAGS,sizeof(CAN_AMK_SET_POINT[i]),TXB_Setpoints_Data[i]);
 
         }
@@ -87,16 +81,8 @@ void canSetup_phase2()
         //Pacchetto generico SMU
         setting_package_param(&RXCANA_Smu_Message,MSG_ID_SMU_BASE,0x1FFFFFFC,
                 MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXA_Smu_Data);
-
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);
 
-        /*RXCANA_Smu_Message.ui32MsgID = MSG_ID_SMU_BASE;
-        RXCANA_Smu_Message.ui32MsgIDMask = 0x0;
-        RXCANA_Smu_Message.ui32Flags = MSG_OBJ_RX_INT_ENABLE;
-        RXCANA_Smu_Message.ui32MsgLen = MSG_DATA_LENGTH;
-        RXCANA_Smu_Message.pucMsgData = RXA_Smu_Data;
-
-        CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);*/
 
         for(i = 0; i < 5; i++){
             setting_package_param(&TXCANA_Smu_Message[i],MSG_ID_CALIBRATION_TO_SMU,0x0,
@@ -126,11 +112,6 @@ void canSetup_phase2()
                 MSG_OBJ_RX_INT_ENABLE,1,RXA_Map_SW_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, MSG_OBJ_TYPE_RX);
 
-        //PACCHETTO DA VOLANTE SCHERMO
-     /*   setting_package_param(&RXCANA_Wheel_Message,MSG_ID_STEERING_WHEEL_BASE,0x1FFFFFFC,
-                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,1,RXA_Wheel_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, MSG_OBJ_TYPE_RX); */
-
         //PACCHETTO DA LEM
         setting_package_param(&RXCANA_Lem_Message,MSG_ID_LEM,0x0,MSG_OBJ_RX_INT_ENABLE,
                 MSG_DATA_LENGTH,RXA_Lem_Data);
@@ -149,12 +130,9 @@ void canSetup_phase2()
         //end Alberto Patch
 
 
-        TXCANA_ATMega_Message.ui32MsgID = MSG_ID_TO_ATMEGA;
-        TXCANA_ATMega_Message.ui32MsgIDMask = 0;
-        TXCANA_ATMega_Message.ui32Flags = MSG_OBJ_NO_FLAGS;
-        TXCANA_ATMega_Message.ui32MsgLen = 2;
-        TXCANA_ATMega_Message.pucMsgData = TXCANA_ATMega_Data;
-
+        // PACCHETTO PER PCU
+        setting_package_param(&TXCANA_ATMega_Message,MSG_ID_TO_ATMEGA,0x0,MSG_OBJ_NO_FLAGS,
+                        2,TXCANA_ATMega_Data);
 
 
         CANEnable(CANA_BASE);
@@ -242,7 +220,7 @@ __interrupt void canISR_A(void)
             CANIntClear(CANA_BASE, CAN_INT_INT0ID_STATUS);
             break;
         case OBJ_ID_FROM_IMU:
-            //Uint16 imu_msg_temp[8];
+
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, true);
 
             id = getMessageID(CANA_BASE, OBJ_ID_FROM_IMU);
@@ -254,7 +232,7 @@ __interrupt void canISR_A(void)
             CANIntClear(CANA_BASE, OBJ_ID_FROM_IMU);
             break;
         case OBJ_ID_FROM_SMU:
-            //Ricevuto pacchetto da mailbox dello SMU
+
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, true);
 
             id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
@@ -266,7 +244,6 @@ __interrupt void canISR_A(void)
             CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
             break;
         case OBJ_ID_BMS_VOLTAGE:
-            //Uint16 bms_msg_temp[6];
 
             CANMessageGet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, true);
 
@@ -279,7 +256,6 @@ __interrupt void canISR_A(void)
             CANIntClear(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
             break;
         case OBJ_ID_BMS_TEMP:
-            //Uint16 bms_msg_temp[6];
 
             CANMessageGet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, true);
 
@@ -312,17 +288,7 @@ __interrupt void canISR_A(void)
 
               CANIntClear(CANA_BASE, OBJ_ID_MAP_SW);
               break;
-       /* case OBJ_ID_STEERING_WHEEL:
-            CANMessageGet(CANA_BASE, OBJ_ID_STEERING_WHEEL, &RXCANA_Wheel_Message, true);
 
-            id = getMessageID(CANA_BASE, OBJ_ID_STEERING_WHEEL);
-
-            read_steering_wheel_message((Uint16 *)RXA_Wheel_Data, id);
-
-            rxAMsgCount++;
-
-            CANIntClear(CANA_BASE, OBJ_ID_STEERING_WHEEL);
-            break; */
         case OBJ_ID_FROM_LEM: //aggiunto  lem message
             CANMessageGet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, true);
 

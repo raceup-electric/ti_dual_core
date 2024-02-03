@@ -113,33 +113,6 @@ struct Power_Setup_Log{
     float power_limit_shared;
 };
 
-struct Display_command{
-    Uint16 page;
-    Uint16 selector_setup;
-    Uint16 ack_setup;
-    Uint16 selector_macros;
-    Uint16 ack_macros;
-
-    Uint16 selector_regen;
-    Uint16 selector_maxpos;
-    Uint16 selector_maxneg;
-    Uint16 selector_power;
-    Uint16 selector_speed;
-    Uint16 selector_trqf;
-    Uint16 selector_trqr;
-
-    Uint16 selector_pedal_setup;
-    Uint16 ack_pedal_setup;
-
-    Uint16 selector_fan;
-    Uint16 selector_speed_fan;
-    bool manual_speed_selector;
-    Uint16 ack_fan;
-
-    int emergencyBrk_active;
-    int emergencyBrk_isNotSet;
-
-};
 
 struct Macros_settings{
     bool torque_vectoring;

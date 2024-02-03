@@ -113,8 +113,6 @@ extern struct Power_Setup_Log power_setup_log;
 
 extern struct Car_settings car_settings;
 
-extern struct Display_command display;
-
 extern struct motorValues1 motorVal1[4];  //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
 
 
@@ -164,8 +162,6 @@ void checkImplausibility();
 void checkTemps();
 
 void checkStatus();
-
-void emergencyScreen();
 
 void update_shared_mem();
 

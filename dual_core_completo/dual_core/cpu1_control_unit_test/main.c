@@ -298,19 +298,9 @@ __interrupt void cpu_timer1_isr(void)
 #endif
         if(CpuTimer1.InterruptCount % 5 == 0)
         {
-            /*if(display.emergencyBrk_active){
-                if(display.emergencyBrk_isNotSet){
-                    scic_msg("page 18ÿÿÿ\0");
-                    display.emergencyBrk_isNotSet = 0;
-                }
-            }else{*/
                 EALLOW;
                 GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-                updatePage(display.page);
-                updateValues();
-                display.emergencyBrk_isNotSet = 1;
                 EDIS;
-          // }
         }
 #ifndef NO_LORA
         LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);

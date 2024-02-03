@@ -5,19 +5,10 @@
 
 #include "F28x_Project.h"
 #include "global_definitions.h"
-//#include "can_management.h"
-//#include "timer_management.h"
 #include "motor_management.h"
 #include "epwm_management.h"
-//#include "car_management.h"
-//#include "adc_management.h"
-
 #include "GPIO_management.h"
-//#include "torque_management.h"
-//#include "power_controller.h"
 #include "utils.h"
-
-
 
 
 
@@ -97,15 +88,6 @@ Uint16 fanSpeed = 0;
 
 bool temp_warning = false;
 Uint16 Temps[8];
-
-//Temps[0]=getTempAvPT1000(TempRadOutLC_temp);
-//Temps[1]=getTempAvPT1000(TempRadOutRC_temp);
-//Temps[2]=getTempAvPT1000(TempRadInLC_temp);
-//Temps[3]=getTempAvPT1000(TempRadInRC_temp);
-//Temps[4]=0;
-//Temps[5]=0;
-//Temps[6]=leftFanSpeed;
-//Temps[7]=rightFanSpeed;
 
 Uint32 status = 0x00000000;
 
@@ -341,8 +323,6 @@ struct FanSpeed_Log fanspeed_log;
 struct Imu_Log imu_log;
 
 struct Gpio_Log gpio_log;
-
-struct Display_command display;
 
 struct Pedals_Log pedals_log;
 

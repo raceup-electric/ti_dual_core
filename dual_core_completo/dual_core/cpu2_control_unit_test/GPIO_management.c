@@ -36,8 +36,6 @@ void GPIOSetup()
     GPIO_WritePin(BLUE_BLINK, 0);
     GPIO_WritePin(R2D, R2D_LED_OFF);
     GPIO_WritePin(RTDS, 0);
-    //GPIO_WritePin(ENABLE_PUMPS, 0);
-    //GPIO_WritePin(VENTOLA_Abil, 0);
 
     GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);
     GPIO_WritePin(SCS_FAULT, 1U);

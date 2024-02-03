@@ -6,14 +6,13 @@
 #include "F2837xD_Ipc_drivers.h"
 #include "GPIO_management.h"
 #include <stdbool.h>
-//#include "math.h"
 #include <stdio.h>
+#include <struct_definition_log.h>
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
 #include "inc/hw_can.h"
 #include "driverlib/can.h"
 #include "sd_card.h"
-#include "display.h"
 #include "LoRa.h"
 #include "Telemetry.h"
 
@@ -38,32 +37,11 @@ Uint32 local_time_elapsed;
 int file_counter;
 char filename[20];
 
-//Schermo
-Uint16 currentPage=99;
-char tmp[TMP_SIZE];
-Uint16 n_setup = 0;
-
-Uint16 old_setup = 99;
-Uint16 old_setup_pedal_setup = 99;
-Uint16 old_macros = 99;
-Uint16 old_fan = 99;
-
-
-Uint16 ack = 99;
-Uint16 old_ack_setup = 99;
-Uint16 old_ack_pedal_setup = 99;
-Uint16 old_ack_macros = 99;
-Uint16 old_ack_fan = 99;
-
-Uint16 sel; //for debug
-
 
 struct Share_struct sh;
 struct Share_struct local_sh;
 
 struct Car_settings car_settings;
-
-struct Display_command display;
 
 struct Macros_settings macros_settings;
 

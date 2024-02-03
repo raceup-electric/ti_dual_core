@@ -1,66 +1,17 @@
-/*
- * display.h
- *
- *  Created on: 18 feb 2022
- *      Author: ludon
- */
 
-#ifndef DISPLAY_H_
-#define DISPLAY_H_
+#ifndef STRUCT_DEFINITION_LOG_H_
+#define STRUCT_DEFINITION_LOG_H_
 #include "F28x_Project.h"
 #include "uart.h"
 #include "stdio.h"
 #include "global_definitions.h"
 
-#define TMP_SIZE 50
 
-extern Uint16 currentPage;
-extern char tmp[50];
 extern struct Share_struct local_sh;
-extern struct Display_command display;
 extern struct Car_settings car_settings;
 extern struct Macros_settings macros_settings;
-extern Uint16 n_setup;
-extern Uint16 ack;
-
-extern Uint16 old_setup;
-extern Uint16 old_setup_pedal_setup;
-extern Uint16 old_macros;
-extern Uint16 old_fan;
 
 
-extern Uint16 old_ack_setup;
-extern Uint16 old_ack_pedal_setup;
-extern Uint16 old_ack_macros;
-extern Uint16 old_ack_fan;
-
-
-struct Display_command{
-    Uint16 page;
-    Uint16 selector_setup;
-    Uint16 ack_setup;
-    Uint16 selector_macros;
-    Uint16 ack_macros;
-
-    Uint16 selector_regen;
-    Uint16 selector_maxpos;
-    Uint16 selector_maxneg;
-    Uint16 selector_power;
-    Uint16 selector_speed;
-    Uint16 selector_trqf;
-    Uint16 selector_trqr;
-
-    Uint16 selector_pedal_setup;
-    Uint16 ack_pedal_setup;
-
-    Uint16 selector_fan;
-    Uint16 selector_speed_fan;
-    bool manual_speed_selector;
-    Uint16 ack_fan;
-
-    int emergencyBrk_active;
-    int emergencyBrk_isNotSet;
-};
 
 //Logging
 struct motorValues1 {
@@ -216,60 +167,5 @@ struct Share_struct {
 
 
 
-void updateValues();
-void updatePage(Uint16 page);
 
-void updatePage1();
-void updatePage2();
-void updatePage3();
-void updatePage4();
-void updatePage5();
-void updatePage6();
-void updatePage7();
-void updatePage8();
-void updatePage9();
-void updatePage10();
-void updatePage11();
-void updatePage12();
-void updatePage13();
-void updatePage14();
-
-void setSelector1_fan();
-
-void setSelector2_fan();
-
-void setAckFan();
-
-void changePreset(Uint16 preset, Uint16 page, Uint16 ack);
-
-void setBMS_voltage();
-
-void setRRstatus();
-
-void setSelectorPowerControl();
-
-void setAckPowerControl();
-
-void setSelectorPedalConfig();
-
-void setAckPedalConfig();
-
-void setSelectorMacrosConfig();
-
-void setSelector1_update();
-
-void setSelector2_update();
-
-void setAckSetup();
-
-float getLowestLvVoltage();
-
-int getMaxTempSmu();
-
-int getMaxTempInv();
-
-int getMaxTempMot();
-
-int getMaxTempIGBT();
-
-#endif /* DISPLAY_H_ */
+#endif /* STRUCT_DEFINITION_LOG_H_ */

@@ -5,10 +5,10 @@
  *      Author: Davide Frasson
  */
 
+#include <struct_definition_log.h>
 #include "Telemetry.h"
 #include "stdio.h"
 #include "string.h"
-#include "display.h"
 
 
 
@@ -24,6 +24,18 @@ float negTorquesNM[4];
 
 char toSendData[255];
 char tempData[255];
+
+
+float getLowestLvVoltage()
+{
+    float min=4300.0f;
+    int i;
+    for(i =0;i<6;i++)
+        if(min>local_sh.bms_lv[i])
+            min=local_sh.bms_lv[i];
+    return min;
+}
+
 
 int send_Motors(){
     memset(toSendData, 0, 255 * sizeof *toSendData);

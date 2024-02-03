@@ -22,6 +22,8 @@ int send_Status_Imu_BMS_Sendyne();
 
 int send_Single_Data(int counter);
 void debugSet();
+float getLowestLvVoltage();
+
 
 uint32_t float_to_uint32(float value);
 
