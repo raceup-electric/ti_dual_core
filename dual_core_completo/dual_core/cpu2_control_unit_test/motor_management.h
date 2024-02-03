@@ -33,8 +33,6 @@ extern const int AMK_SETPOINTS_IDS[4];
 //extern tCANMsgObject TX_CAN_AMK_SET_POINT[4];
 extern Uint16 CAN_AMK_SET_POINT[4][8];
 
-extern int amkVal1ForwardCounter[4];
-extern int amkVal2ForwardCounter[4];
 extern int drivingMode;
 extern bool motorInitialized[4];
 extern bool enableMotor;

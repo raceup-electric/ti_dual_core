@@ -152,9 +152,6 @@ struct Share_struct {
 
 
 extern float repFz[4];
-extern float versx[3];
-extern float versy[3];
-extern float versz[3];
 extern float V[3][3];
 
 extern const float presets_power[8];

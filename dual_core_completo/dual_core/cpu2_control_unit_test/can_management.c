@@ -2,8 +2,6 @@
 #include "global_definitions.h"
 #include "dbc_gen/can2.h"
 
-unsigned long gg;
-
 
 //alberto patch
 void setting_package_param(tCANMsgObject *Object, unsigned int ID,
@@ -83,12 +81,6 @@ void canSetup_phase2()
                 MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXA_Smu_Data);
         CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);
 
-
-        for(i = 0; i < 5; i++){
-            setting_package_param(&TXCANA_Smu_Message[i],MSG_ID_CALIBRATION_TO_SMU,0x0,
-                    MSG_OBJ_NO_FLAGS,MSG_DATA_LENGTH,(unsigned char*)TXA_Smu_Calibration[i]);
-        }
-
         //Pacchetto BMS VOLTAGE
         setting_package_param(&RXCANA_BmsVol_Message,MSG_ID_BMS_VOLTAGE,0x0,
                 MSG_OBJ_RX_INT_ENABLE,8,RXA_BmsVol_Data);
@@ -132,7 +124,7 @@ void canSetup_phase2()
 
         // PACCHETTO PER PCU
         setting_package_param(&TXCANA_ATMega_Message,MSG_ID_TO_ATMEGA,0x0,MSG_OBJ_NO_FLAGS,
-                        2,TXCANA_ATMega_Data);
+                        2,TXCANA_PCU_Data);
 
 
         CANEnable(CANA_BASE);
@@ -144,7 +136,6 @@ __interrupt void canISR_B(void)
     uint32_t status;
 
     status = CANIntStatus(CANB_BASE, CAN_INT_STS_CAUSE);
-
 
     switch (status) {
         case CAN_INT_INT0ID_STATUS:
@@ -199,7 +190,6 @@ __interrupt void canISR_A(void)
     int id;
     can_obj_can2_h_t o;
     status = CANIntStatus(CANA_BASE, CAN_INT_STS_CAUSE);
-    gg =status; // for debug
     
     //alberto patch
     switch (status) {
@@ -343,8 +333,6 @@ Uint32 getMessageID(Uint32 base, Uint32 objID)
 {
     Uint32 msgID = 0;
 
-    //CAN_transferMessage(base, 2, objID, false);
-
     msgID = HWREG(base + CAN_O_IF2ARB);
     msgID &= CAN_IF2ARB_STD_ID_M;
     msgID = msgID >> CAN_IF2ARB_STD_ID_S;
@@ -355,7 +343,7 @@ Uint32 getMessageID(Uint32 base, Uint32 objID)
 
 void send_pwm_to_pcu(){
 
-    CANMessageSet(CANA_BASE, OBJ_ID_TO_ATMEGA, &TXCANA_ATMega_Message, MSG_OBJ_TYPE_TX);
+    CANMessageSet(CANA_BASE, OBJ_ID_TO_PCU, &TXCANA_ATMega_Message, MSG_OBJ_TYPE_TX);
 
 }
 

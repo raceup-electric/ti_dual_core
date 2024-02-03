@@ -1,8 +1,6 @@
 #include <math.h>
 #include "utils.h"
 
-extern float corrected_accelerations[3];
-
 void setup_car_settings(){
 
     /*

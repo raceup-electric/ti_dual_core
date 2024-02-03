@@ -1,28 +1,6 @@
 #ifndef GLOBAL_DEFINITIONS_H_
 #define GLOBAL_DEFINITIONS_H_
 
-//
-// Schermo
-//
-#define PAGE_1 0x00
-#define PAGE_2 0x01
-#define PAGE_3 0x02
-#define PAGE_4 0x03
-#define PAGE_5 0x04
-#define PAGE_6 0x05
-#define PAGE_7 0x06
-#define PAGE_8 0x07
-#define PAGE_9 0x08
-#define PAGE_10 0x09
-#define PAGE_11 0x0A
-#define PAGE_12 0x0B
-#define PAGE_13 0x0C
-#define PAGE_14 0x0D
-
-
-
-#define MAX_PAGE_NUMBER 13
-
 
 //
 // GPIOs

@@ -23,7 +23,7 @@ bool rfGoneWrong[4] = {1,1,1,1};
 #endif
 
 //alberto patch
-unsigned int read_ATC_message(can_obj_can2_h_t *atc_data, unsigned int message_number)
+void read_ATC_message(can_obj_can2_h_t *atc_data, unsigned int message_number)
 {
     atc_update(atc_data,message_number);
 }
@@ -534,7 +534,7 @@ void update_log_values()
     status_log.actualVelocityKMH_shared = actualVelocityKMH;
     status_log.brake_shared = brake;
     status_log.status_shared = status;
-    status_log.brakePress_shared = (int)getPressAvSP100(BrakePress_temp);
+    status_log.brakePress_shared = 0;  // not implemented
     status_log.steering_shared = steering;
 
     //Bms

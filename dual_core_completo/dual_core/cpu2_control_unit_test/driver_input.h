@@ -37,7 +37,6 @@ extern float actualVelocityKMH;
 extern int brake;
 extern int steering;
 extern int throttle;
-extern uint16_t value;
 extern float AccPot1;
 extern float AccPot2;
 extern float BrkPot;

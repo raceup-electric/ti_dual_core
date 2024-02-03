@@ -31,18 +31,14 @@
 
 
 #define R_P   0.01898f                          // %pinion radius [m]
-#define Atraction     0.84425f
-#define Btraction     0.69075f
 
 #define R2D_BRAKE_TRESHOLD  10
 
-#define FIFTEEN_SEC   15 * 1000 * 1000
 
 //
 // torque
 //
 #define NUM_OF_MOTORS       4
-#define KMH2MS              (1 / 3.6)
 
 /*
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
@@ -52,24 +48,16 @@
 #define FRONT_MOTOR_SCALE   0.5f
 
 
-#define STZ_RANGE           90
-
 #define G_ACC               9.81f                   // gravity acceleration [m/s^2]
 #define PI_FLOAT            3.14159265f
-#define HALF_PI             1.5707963267948966192313216916398
 #define PI                  3.1415926535897932384626433832795
 #define TWO_PI              6.283185307179586476925286766559
-#define DEG_TO_RAD          0.017453292519943295769236907684886
-#define KMH2MS              (1 / 3.6)
-#define RAD_TO_DEG          57.295779513082320876798154814105
 #define RPM_TO_KMH          RPM_TO_RADS*3.6f*R0*TAU
 #define RPM_TO_RADS         (PI/30)
 
 #define THROTTLE_POWER_SCALE        10
 #define REG_POWER_SCALE             10
 
-#define REGENERATIVE_BRAKE_LIMIT    75     //Regenerative brake position limit
-#define NEGATIVE_TORQUE_LIMIT       -21       //% of M_N
 #define SPEED_LIMIT                 18000   // Typical value: 15000
 #define M_N                         9.8f
 
@@ -80,7 +68,6 @@
 #define CDA                         1.098f                  // drag coefficient*surface, positive rearwards [m^2]
 // center of pressure coordinates [m^2]; reference system: t/2, w/2; x positive rearwards, z positive upwards
 #define CoP_0                       -0.112f
-#define CoP_1                       0.f
 #define CoP_2                       0.115f
 
 //
@@ -103,10 +90,7 @@
 
 #define TAU                         (1.0f/14.44f)
 #define TAU_TC                      14.44f                  // gear unit reduction rate []
-#define K_DELTA                     0.2776853f
 #define R0                          0.2032f                 // unloaded radius [m]
-#define FZR                         MASS*M_DR*G_ACC
-#define FZF                         MASS*M_DF*G_ACC
 #define W                           1.535f                  // wheelbase  [m]
 #define MASS                        270.0f                  // total mass (vehicle + driver) [kg]
 #define Z_COG                       0.3f                    // center of gravity height [m]
@@ -169,12 +153,6 @@
 #define NU4                          4.6481093251002E-09;
 #define NU5                         -3.5206874715397E-12;
 #define NU6                         1.31537731918249E-15;
-//#define ALPHA0                      1.0f;
-//#define ALPHA1                      0.000387300865455914f;
-//#define ALPHA2                      -3.14517395274217E-06;
-//#define ALPHA3                      4.64810932510023E-09;
-//#define ALPHA4                      -3.5206874715397E-12;
-//#define ALPHA5                      1.31537731918249E-15;
 
 #define ALPHA0                     1.f;
 #define ALPHA1                     0.f;
@@ -237,13 +215,7 @@
 //
 // adc management
 //
-#define RESULTS_BUFFER_SIZE     256
-#define EX_ADC_RESOLUTION       12
 #define ACQPS_                   240
-#define VREFLO                  0
-#define VREFHI                  3.3
-#define SUSP_ANG_M              1024.0f/70.0f
-#define SUSP_ANG_C              1024.0f + 163*SUSP_ANG_M
 
 /*
  * CAN MANAGEMENT
@@ -252,8 +224,7 @@
  * in a specific mailbox.
  * Note: mailboxes after 28 are usually problematic, try to avoid them.
  */
-#define RX_OBJ_ID               1       //ID della "mailbox"
-#define TX_OBJ_ID               2
+
 
 #define MSG_DATA_LENGTH         8
 
@@ -270,7 +241,7 @@
 #define OBJ_ID_FROM_BMS_LV      18
 #define OBJ_ID_FROM_LEM         21
 #define OBJ_ID_FROM_IMU         22
-#define OBJ_ID_TO_ATMEGA        23
+#define OBJ_ID_TO_PCU        23
 #define OBJ_ID_MAP_SW    25
 #define OBJ_ID_FROM_AMK         26
 //alberto patch
@@ -278,7 +249,6 @@
 #define OBJ_ID_FROM_ATC_SENSORS         28
 
 //Message IDs
-#define MSG_ID_CALIBRATION_TO_SMU 0x30
 #define MSG_ID_AMK1_DATA_BASE   0x40
 #define MSG_ID_AMK2_DATA_BASE   0x44
 #define MSG_ID_TEMPS            0x49
@@ -309,54 +279,11 @@
 #define MSG_ID_ATC_SENSORS              0x258
 
 
-//SCHERMO
-#define MAX_PAGE_NUMBER     14
-#define MAX_DRIVING_PAGE    2
 
-#define CONFIRMATION        0x2
-#define NEXT_PAGE           0x4
-#define CALIBRATION         0x3//TO REVIEW
-#define PREVIOUS_PAGE       0x20
-#define START_LAUNCH        0x10
-#define CHANGE_SCREEN_MODE  0x8
-
-#define SETUP_PAGE          0x08
-#define PEDAL_SETUP_PAGE    0x09
-#define MACROS_PAGE         0x0A
-#define FANSPEED_PAGE       0x0D
-
-
-/*
- * In SCREEN_DEBUG mode we use every page
- * In SCREEN_DRIVING mode we use only the last pages.
- * MAX_DRIVING_PAGE defines the number of pages used in SCREEN_DRIVING mode
- */
-#define SCREEN_DEBUG        0x00
-#define SCREEN_DRIVING      0x01
-
-
-//
-// ePWM
-//
-#define EPWM_CMP_UP             1U
-#define EPWM_CMP_DOWN           0U
-#define EPWM_TIMER_TBPRD        2000U       //pi� basso il numero, pi� alta la frequenza
-                                            //vedi la guida per calcolare la frequenza
-#define VENTOLA_DX              1
-#define VENTOLA_SX              2
-#define POMPA_DX                3
-#define POMPA_SX                4
-
-//Temp ventole accensione
-#define FAN_MAX_TEMP 60
-#define FAN_MIN_TEMP 50
-#define FAN_THRESHOLD 5
 
 #define IMD_STATE           14      //PIN74     //INPUT
 #define BMS_STATE           15      //PIN73     //INPUT
 
-#define ENABLE_PUMPS        94      //PIN45
-#define VENTOLA_Abil         97      //PIN46
 #define AIR_1_STATE         40      //PIN50     //INPUT
 #define AIR_2_STATE         41      //PIN49     //INPUT
 #define RTDS                27      //PIN52
@@ -380,7 +307,6 @@
 #define BRAKE_LIGHT_ON      1U
 #define BRAKE_LIGHT_OFF     0
 
-#define RED_BLINK           34
 #define BLUE_BLINK          31
 
 //

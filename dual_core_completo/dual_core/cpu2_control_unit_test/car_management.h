@@ -20,6 +20,7 @@
 //
 extern bool R2D_first_state;
 extern bool R2D_state;
+extern Uint32 status;
 
 extern Uint32 last_imu_message_time;
 
@@ -36,9 +37,6 @@ extern unsigned char CAN_SENDYNE_ACT_VALUES[8];
 
 extern unsigned char fan_enable;
 extern unsigned char pump_enable;
-
-extern char screen_mode;
-extern const int driving_page_num[MAX_DRIVING_PAGE];
 
 
 //bms
@@ -63,16 +61,6 @@ extern float temperatures[8];
 
 extern float bms_lv_cell[8];
 
-extern char RTDS_STATE;  // RTDS
-extern char OIL_PUMP_STATE;
-extern char WAT_PUMP_STATE;
-extern char FAN_STATE;
-extern int pump;
-extern int stopPumpLimit;
-extern int enablePumpLimit;
-
-extern Uint16 Temps[8];
-extern Uint32 status;
 
 extern Uint16 fanSpeed;
 
@@ -113,7 +101,7 @@ extern struct motorValues1 motorVal1[4];  //  0 --> FL, 1 --> FR, 2 --> RL, 3 --
 //
 // prototypes
 //
-unsigned int read_ATC_message(can_obj_can2_h_t *atc_data,unsigned int message_number);
+void read_ATC_message(can_obj_can2_h_t *atc_data,unsigned int message_number);
 
 void read_SENDYNE_message(unsigned char sendyne_values[]);
 

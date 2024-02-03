@@ -29,11 +29,7 @@
     //SOC9 --> ADCINC3 --> PIN24 --> TempRadINR
 
 
-extern Uint16 Acc2_temp;
 extern Uint16 CurrSens_temp;
-extern Uint16 Acc1_temp;
-extern Uint16 BrakeClean_temp;
-extern Uint16 BrakePress_temp;
 extern Uint16 Steering_temp;
 extern Uint16 TempRadOutLC_temp;
 extern Uint16 TempRadOutRC_temp;
@@ -49,14 +45,6 @@ void adcSetup(void);                        //setup degli adc e dei soc
 void readAllADC(void);
 
 void readADC_Bank(int num_bank);
-
-
-
-Uint16 getTempAvPT1000(Uint16 digital);  //converte la lettura digitale in temperatura (°C) per il sensore AvioracePT1000
-
-Uint16 getTempZTP135SR(Uint16 digital);  //converte la lettura digitale in temperatura (°C) per il sensore ZTP-135SR
-
-int getPressAvSP100(Uint16 digital);  //converte la lettura digitale in pressione (bar) per il sensore Aviorace SP100
 
 float getVoltage(Uint16 digital);     //scala la tensione (0-3)
 

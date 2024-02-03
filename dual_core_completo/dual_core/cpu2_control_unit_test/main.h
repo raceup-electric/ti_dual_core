@@ -16,7 +16,6 @@
 #error "Error! Both DEBUG_HV and DEBUG_NO_HV are defined! Define only one of the two debug configurations at the same time"
 #endif
 
-int counter;    //for debug
 
 //timestamp
 Uint32 time_elapsed = 0;
@@ -41,9 +40,6 @@ Uint16 max_temp_nslave;
 Uint16 bms_bitmap;
 
 
-//configuration
-int driving_configuration;
-
 //R2D
 bool R2D_first_state = 0;
 bool R2D_state = 0;
@@ -66,23 +62,12 @@ const int filterDiscardCount = 10;
 int throttles[20];  //20 = filterValCount
 int brakes[20];
 int steerings[20];
-uint16_t value = 0;
-char screen_mode = 0;
-const int driving_page_num[MAX_DRIVING_PAGE] = {11, 12};
 
-//pumps and fans
-char RTDS_STATE = 0;  // RTDS
-char OIL_PUMP_STATE = 0;
-char WAT_PUMP_STATE = 0;
-char FAN_STATE = 0;
-int pump;
-int stopPumpLimit;
-int enablePumpLimit;
+
 
 Uint16 fanSpeed = 0;
 
-bool temp_warning = false;
-Uint16 Temps[8];
+
 
 Uint32 status = 0x00000000;
 
@@ -126,14 +111,6 @@ float AMK_TorqueLimitNegative[4];
 float torque_reg_IPM[4];            //massima coppia rigenerativa per motore
 
 
-//AMK
-int amkVal1ForwardCounter[4] = {0,0,0,0};
-int amkVal2ForwardCounter[4] = {0,0,0,0};
-Uint16 RX_A_temp[8];
-//volatile Uint32 id;
-
-uint16_t rxMsg[8];
-uint16_t txMsg[8];
 
 const int AMK_VAL_1_IDS[4] = {0x283, 0x284, 0x287, 0x288};
 const int AMK_VAL_2_IDS[4] = {0x285, 0x286, 0x289, 0x28A};
@@ -167,18 +144,8 @@ float suspensions[4];
 float bms_lv_cell[8]; //gli ultimi due valori sono temperature
 
 //Calibration parameter
-float versx[3];
-float versy[3];
-float versz[3];
+
 float V[3][3] = {{0.9989f,-0.0464f,0.0076f},{0.0463f,0.9988f,-0.0128f},{0.0082f,0.0125f,0.9999f}};
-float corrected_accelerations[3];
-
-//timer
-volatile uint16_t cpuTimer0IntCount;
-volatile uint16_t cpuTimer1IntCount;
-volatile uint16_t cpuTimer2IntCount;
-volatile Uint32 pinValue;
-
 
 
 //power control
@@ -189,7 +156,6 @@ float reduction_factor;
 
 float thermal_power_lim = POWER_LIMIT;
 float thermal_power_min = 15000;
-bool powerOK = false;
 
 
 
@@ -201,14 +167,12 @@ int errorFrameCounterB = 0;
 int errorFrameCounterA = 0;
 tCANMsgObject RXCANA_Imu_Message;
 tCANMsgObject RXCANA_Smu_Message;
-tCANMsgObject TXCANA_Smu_Message[5];
 tCANMsgObject RXCANA_Sendyne_Message;
 tCANMsgObject RXCANA_BmsVol_Message;
 tCANMsgObject RXCANA_BmsTemp_Message;
 tCANMsgObject TXCANA_BmsHost_Message;
 tCANMsgObject RXCANA_BmsLV_Message;
 tCANMsgObject RXCANA_Map_SW_Message;
-tCANMsgObject RXCANA_Wheel_Message;
 tCANMsgObject RXCANA_Lem_Message;
 tCANMsgObject TXCANA_ATMega_Message;
 //alberto patch
@@ -223,11 +187,9 @@ unsigned char RXA_BmsVol_Data[8];
 unsigned char RXA_BmsTemp_Data[7];
 unsigned char RXA_BmsLV_Data[8];
 unsigned char RXA_Map_SW_Data[1];
-unsigned char RXA_Wheel_Data[1];
 unsigned char TXA_Host_Data[4];
-float TXA_Smu_Calibration[5][2];
 unsigned char RXA_Lem_Data[8];
-unsigned char TXCANA_ATMega_Data[2];
+unsigned char TXCANA_PCU_Data[2];
 unsigned char RXA_ATC_DATA_TBS[8];
 unsigned char RXA_ATC_DATA_SENSORS[8];
 
@@ -273,11 +235,7 @@ Uint16 Sdc5_State;
 Uint16 Sdc6_State;
 
 //ADC
-Uint16 Acc2_temp;
 Uint16 CurrSens_temp;
-Uint16 Acc1_temp;
-Uint16 BrakeClean_temp;
-Uint16 BrakePress_temp;
 Uint16 Steering_temp;
 Uint16 TempRadOutLC_temp;
 Uint16 TempRadOutRC_temp;

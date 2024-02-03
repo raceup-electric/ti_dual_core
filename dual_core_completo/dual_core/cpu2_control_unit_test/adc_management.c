@@ -176,21 +176,3 @@ float getVoltage(Uint16 digital){
 }
 
 
-Uint16 getTempAvPT1000(Uint16 digital)
-{
-    float vin = getVoltage(digital);
-    float aux = (vin*1000.0f)/(3.3f-vin);
-    return (Uint16) ((0.263f*aux)-263.168f);
-}
-
-
-Uint16 getTempZTP135SR(Uint16 digital){
-    float vin = getVoltage(digital);
-    float aux = vin/(3.3f-vin);
-    float tempK = (298.15f*3960)/(3960+(298.15f*log(aux)));
-    return (Uint16)(tempK - 273.15f);
-}
-
-int getPressAvSP100(Uint16 digital){ return 0; }
-
-

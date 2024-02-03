@@ -107,15 +107,9 @@ void main(void)
     //stop timer2 - it's not used for the moment
     CpuTimer2Regs.TCR.bit.TSS = 1;
 
+    volatile int x = true;
+    while (x) {x=x;}
 
-
-    Uint16 i;
-    while(1)
-    {
-        if(i > 1000)
-            i = 0;
-        i++;
-    }
 }
 
 void cpu1_timer_setup(void)
