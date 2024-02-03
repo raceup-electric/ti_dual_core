@@ -7,7 +7,6 @@
 
 #include "SPI_LoRa.h"
 
-
 //===============================================
 //
 // InitSPI - This function initializes the SPI to a known state
@@ -23,7 +22,7 @@ void InitSpi(void)
     // Disable loop-back
     SpiaRegs.SPICCR.bit.SPISWRESET = 0;
     SpiaRegs.SPICCR.bit.CLKPOLARITY = 0;
-    SpiaRegs.SPICCR.bit.SPICHAR = (16-1);
+    SpiaRegs.SPICCR.bit.SPICHAR = (16 - 1);
     SpiaRegs.SPICCR.bit.SPILBK = 0;
 
     // Enable master (0 == slave, 1 == master)
@@ -48,17 +47,18 @@ void InitSpi(void)
 
 //===============================================
 //
-//Reset SPIA
+// Reset SPIA
 //
 //===============================================
-void ResetRxFIFOSpia(){
+void ResetRxFIFOSpia()
+{
     SpiaRegs.SPIFFRX.bit.RXFIFORESET = 0;
     SpiaRegs.SPIFFRX.bit.RXFIFORESET = 1;
 }
 
 //===============================================
 //
-//Initialize the SPIA FIFO
+// Initialize the SPIA FIFO
 //
 //===============================================
 void spi_fifo_init()
@@ -81,8 +81,11 @@ void spi_fifo_init()
 // spi_receive - Read a value from the SPI
 //
 //===============================================
-Uint16 spi_receive(){
-    while(SpiaRegs.SPIFFRX.bit.RXFFST == 0){}
+Uint16 spi_receive()
+{
+    while (SpiaRegs.SPIFFRX.bit.RXFFST == 0)
+    {
+    }
     return SpiaRegs.SPIRXBUF;
 }
 
@@ -94,8 +97,4 @@ Uint16 spi_receive(){
 void spi_xmit(Uint16 a)
 {
     SpiaRegs.SPITXBUF = a;
-
 }
-
-
-

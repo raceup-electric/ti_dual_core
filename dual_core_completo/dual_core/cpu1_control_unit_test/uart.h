@@ -17,7 +17,7 @@
 void uart_setup(void);
 void scic_init(void);
 void scic_fifo_init(void);
-//void scic_xmit(int a);
+// void scic_xmit(int a);
 void scic_xmit();
 void scic_msg(char *msg);
 

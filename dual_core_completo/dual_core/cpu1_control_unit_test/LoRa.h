@@ -14,16 +14,16 @@
 typedef uint16_t uint8_t;
 
 //
-//Pinout of the LoRa and the SPI that is used
-#define LORA_DEFAULT_SPI           SPIA_BASE
+// Pinout of the LoRa and the SPI that is used
+#define LORA_DEFAULT_SPI SPIA_BASE
 #define LORA_DEFAULT_SPI_FREQUENCY 868E6
-#define LORA_DEFAULT_SS_PIN        61
-#define LORA_DEFAULT_RESET_PIN     19
-#define LORA_DEFAULT_DIO0_PIN      111
-#define PA_OUTPUT_RFO_PIN          0
-#define PA_OUTPUT_PA_BOOST_PIN     1
+#define LORA_DEFAULT_SS_PIN 61
+#define LORA_DEFAULT_RESET_PIN 19
+#define LORA_DEFAULT_DIO0_PIN 111
+#define PA_OUTPUT_RFO_PIN 0
+#define PA_OUTPUT_PA_BOOST_PIN 1
 
-//LoRa parameters
+// LoRa parameters
 #define LORA_SIGNAL_BANDWIDTH 500E3
 #define LORA_CODING_RATE 5
 #define LORA_SF 6
@@ -37,7 +37,7 @@ void GPIO_LoRa_Setup();
 int LoRa_begin(long frequency);
 void LoRa_end();
 
-//Funzioni di inizializzazione dei pacchetti
+// Funzioni di inizializzazione dei pacchetti
 int beginPacket(int implicitHeader);
 int endPacket(bool async);
 
@@ -62,7 +62,6 @@ void setLdoFlag();
 
 void enableCrc();
 
-
 long getSignalBandwidth();
 uint8_t getSpredingFactor();
 
@@ -75,6 +74,6 @@ uint8_t readRegister(uint8_t address);
 void writeRegister(uint8_t address, uint8_t value);
 
 uint16_t LoRa_write(char byte);
-uint16_t LoRa_writeBuffer(uint8_t* buffer, uint16_t size);
+uint16_t LoRa_writeBuffer(uint8_t *buffer, uint16_t size);
 
 #endif /* LORA_H_ */

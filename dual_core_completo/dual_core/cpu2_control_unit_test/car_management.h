@@ -14,7 +14,6 @@
 #include "can_management.h"
 #include "dbc_gen/can2.h"
 
-
 //
 // variables
 //
@@ -24,22 +23,19 @@ extern Uint32 status;
 
 extern Uint32 last_imu_message_time;
 
-
 // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
-//extern float sendyne_current;
-//extern float sendyne_voltage;
+// extern float sendyne_current;
+// extern float sendyne_voltage;
 
 extern Uint16 batteryPackTension;
 extern float lem_current;
 extern unsigned long int reassembled_data;
 extern unsigned char CAN_SENDYNE_ACT_VALUES[8];
 
-
 extern unsigned char fan_enable;
 extern unsigned char pump_enable;
 
-
-//bms
+// bms
 extern float max_bms_voltage;
 extern float min_bms_voltage;
 extern float mean_bms_voltage;
@@ -49,10 +45,8 @@ extern float mean_bms_temp;
 extern Uint16 max_temp_nslave;
 extern Uint16 bms_bitmap;
 
-
 extern int brakeReq;
 extern int throttleReq;
-
 
 extern float accelerations[3];
 extern float omegas[3];
@@ -61,23 +55,20 @@ extern float temperatures[8];
 
 extern float bms_lv_cell[8];
 
-
 extern Uint16 fanSpeed;
 
-//AMK
+// AMK
 extern int hvCounter[4];
 extern int rfCounter[4];
 
 extern bool inverterHV[4];
 extern bool inverterRF[4];
 
-
-
 extern float repFz[4];
 
-//Launch setting
+// Launch setting
 extern bool is_launch_inserted;
-//logging
+// logging
 extern struct Share_struct sh;
 extern struct Status_Log status_log;
 extern struct BMS_Log bms_log;
@@ -95,13 +86,12 @@ extern struct Power_Setup_Log power_setup_log;
 
 extern struct Car_settings car_settings;
 
-extern struct motorValues1 motorVal1[4];  //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
-
+extern struct motorValues1 motorVal1[4]; //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
 
 //
 // prototypes
 //
-void read_ATC_message(can_obj_can2_h_t *atc_data,unsigned int message_number);
+void read_ATC_message(can_obj_can2_h_t *atc_data, unsigned int message_number);
 
 void read_SENDYNE_message(unsigned char sendyne_values[]);
 
@@ -136,8 +126,6 @@ void checkRF();
 bool isHVOn();
 
 bool readRF();
-
-
 
 void checkTemps();
 

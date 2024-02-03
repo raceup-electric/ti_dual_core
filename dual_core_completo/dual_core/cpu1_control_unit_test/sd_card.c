@@ -13,8 +13,7 @@ typedef struct
 {
     FRESULT fresult;
     char *pcResultStr;
-}
-tFresultString;
+} tFresultString;
 
 //
 // A table that holds a mapping between the numerical FRESULT code and
@@ -22,22 +21,21 @@ tFresultString;
 // printing to the console.
 //
 tFresultString g_sFresultStrings[] =
-{
-    FRESULT_ENTRY(FR_OK),
-    FRESULT_ENTRY(FR_NOT_READY),
-    FRESULT_ENTRY(FR_NO_FILE),
-    FRESULT_ENTRY(FR_NO_PATH),
-    FRESULT_ENTRY(FR_INVALID_NAME),
-    FRESULT_ENTRY(FR_INVALID_DRIVE),
-    FRESULT_ENTRY(FR_DENIED),
-    FRESULT_ENTRY(FR_EXIST),
-    //FRESULT_ENTRY(FR_RW_ERROR),
-    FRESULT_ENTRY(FR_WRITE_PROTECTED),
-    FRESULT_ENTRY(FR_NOT_ENABLED),
-    FRESULT_ENTRY(FR_NO_FILESYSTEM),
-    FRESULT_ENTRY(FR_INVALID_OBJECT),
-    FRESULT_ENTRY(FR_MKFS_ABORTED)
-};
+    {
+        FRESULT_ENTRY(FR_OK),
+        FRESULT_ENTRY(FR_NOT_READY),
+        FRESULT_ENTRY(FR_NO_FILE),
+        FRESULT_ENTRY(FR_NO_PATH),
+        FRESULT_ENTRY(FR_INVALID_NAME),
+        FRESULT_ENTRY(FR_INVALID_DRIVE),
+        FRESULT_ENTRY(FR_DENIED),
+        FRESULT_ENTRY(FR_EXIST),
+        // FRESULT_ENTRY(FR_RW_ERROR),
+        FRESULT_ENTRY(FR_WRITE_PROTECTED),
+        FRESULT_ENTRY(FR_NOT_ENABLED),
+        FRESULT_ENTRY(FR_NO_FILESYSTEM),
+        FRESULT_ENTRY(FR_INVALID_OBJECT),
+        FRESULT_ENTRY(FR_MKFS_ABORTED)};
 
 const char *g_ppcDirListStrings[NUM_LIST_STRINGS]; // Storage for the filename
                                                    // listbox widget string
@@ -60,14 +58,13 @@ char g_pcStatus[NUM_STATUS_STRINGS][MAX_STATUS_STRING_LEN];
 // Storage for the status listbox widget string table.
 //
 const char *g_ppcStatusStrings[NUM_STATUS_STRINGS] =
-{
-    g_pcStatus[0],
-    g_pcStatus[1],
-    g_pcStatus[2],
-    g_pcStatus[3],
-    g_pcStatus[4],
-    g_pcStatus[5]
-};
+    {
+        g_pcStatus[0],
+        g_pcStatus[1],
+        g_pcStatus[2],
+        g_pcStatus[3],
+        g_pcStatus[4],
+        g_pcStatus[5]};
 unsigned long g_ulStatusStringIndex = 0;
 
 //
@@ -85,15 +82,15 @@ StringFromFresult(FRESULT fresult)
     // Enter a loop to search the error code table for a matching
     // error code.
     //
-    for(uIdx = 0; uIdx < NUM_FRESULT_CODES; uIdx++)
+    for (uIdx = 0; uIdx < NUM_FRESULT_CODES; uIdx++)
     {
         //
         // If a match is found, then return the string name of the
         // error code.
         //
-        if(g_sFresultStrings[uIdx].fresult == fresult)
+        if (g_sFresultStrings[uIdx].fresult == fresult)
         {
-            return(g_sFresultStrings[uIdx].pcResultStr);
+            return (g_sFresultStrings[uIdx].pcResultStr);
         }
     }
 
@@ -101,7 +98,7 @@ StringFromFresult(FRESULT fresult)
     // At this point no matching code was found, so return a
     // string indicating unknown error.
     //
-    return("UNKNOWN ERROR CODE");
+    return ("UNKNOWN ERROR CODE");
 }
 
 //
@@ -126,8 +123,7 @@ SysTickHandler(void)
 //          time and date, and the file size, along with the name.  It shows a
 //          summary of file sizes at the end along with free space.
 //
-int
-Cmd_ls(int argc, char *argv[])
+int Cmd_ls(int argc, char *argv[])
 {
     unsigned long ulTotalSize, ulItemCount, ulFileCount, ulDirCount;
     FRESULT fresult;
@@ -141,9 +137,9 @@ Cmd_ls(int argc, char *argv[])
     //
     // Check for error and return if there is a problem.
     //
-    if(fresult != FR_OK)
+    if (fresult != FR_OK)
     {
-        return(fresult);
+        return (fresult);
     }
 
     ulTotalSize = 0;
@@ -157,7 +153,7 @@ Cmd_ls(int argc, char *argv[])
     //
     // Enter loop to enumerate through all directory entries.
     //
-    for(;;)
+    for (;;)
     {
         //
         // Read an entry from the directory.
@@ -167,38 +163,37 @@ Cmd_ls(int argc, char *argv[])
         //
         // Check for error and return if there is a problem.
         //
-        if(fresult != FR_OK)
+        if (fresult != FR_OK)
         {
-            return(fresult);
+            return (fresult);
         }
 
         //
         // If the file name is blank, then this is the end of the
         // listing.
         //
-        if(!g_sFileInfo.fname[0])
+        if (!g_sFileInfo.fname[0])
         {
             break;
         }
 
-
         //
         // Add the information as a line in the listbox widget.
         //
-//        if(ulItemCount < NUM_LIST_STRINGS)
-//        {
-//            usprintf(g_pcFilenames[ulItemCount], "(%c) %12s",
-//                     (g_sFileInfo.fattrib & AM_DIR) ? 'D' : 'F',
-//                     g_sFileInfo.fname);
-//        }
+        //        if(ulItemCount < NUM_LIST_STRINGS)
+        //        {
+        //            usprintf(g_pcFilenames[ulItemCount], "(%c) %12s",
+        //                     (g_sFileInfo.fattrib & AM_DIR) ? 'D' : 'F',
+        //                     g_sFileInfo.fname);
+        //        }
 
         //
         // If the attribute is directory, then increment the directory count.
         //
-//        if(g_sFileInfo.fattrib & AM_DIR)
-//        {
-//            ulDirCount++;
-//        }
+        //        if(g_sFileInfo.fattrib & AM_DIR)
+        //        {
+        //            ulDirCount++;
+        //        }
         //
         // Otherwise, it is a file.  Increment the file count, and
         // add in the file size to the total.
@@ -206,7 +201,7 @@ Cmd_ls(int argc, char *argv[])
         else
         {
             ulFileCount++;
-            //ulTotalSize += g_sFileInfo.fsize;
+            // ulTotalSize += g_sFileInfo.fsize;
         }
 
         //
@@ -214,23 +209,20 @@ Cmd_ls(int argc, char *argv[])
         // list box.
         //
         ulItemCount++;
-
     }
 
     //
     // Get the free space.
     //
-    //fresult = f_getfree("/", &ulTotalSize, &pFatFs);
+    // fresult = f_getfree("/", &ulTotalSize, &pFatFs);
 
     //
     // Check for error and return if there is a problem.
     //
-    if(fresult != FR_OK)
+    if (fresult != FR_OK)
     {
-        return(fresult);
+        return (fresult);
     }
-
-
 
     return ulItemCount;
 }
@@ -271,15 +263,15 @@ ChangeToDirectory(char *pcDirectory, unsigned long *pulReason)
     // If the first character is /, then this is a fully specified
     // path, and it should just be used as-is.
     //
-    if(pcDirectory[0] == '/')
+    if (pcDirectory[0] == '/')
     {
         //
         // Make sure the new path is not bigger than the cwd buffer.
         //
-        if(strlen(pcDirectory) + 1 > sizeof(g_cCwdBuf))
+        if (strlen(pcDirectory) + 1 > sizeof(g_cCwdBuf))
         {
             *pulReason = NAME_TOO_LONG_ERROR;
-            return(FR_OK);
+            return (FR_OK);
         }
         //
         // If the new path name (in argv[1])  is not too long, then
@@ -294,7 +286,7 @@ ChangeToDirectory(char *pcDirectory, unsigned long *pulReason)
     // If the argument is .. then attempt to remove the lowest level
     // on the CWD.
     //
-    else if(!strcmp(pcDirectory, ".."))
+    else if (!strcmp(pcDirectory, ".."))
     {
         //
         // Get the index to the last character in the current path.
@@ -305,7 +297,7 @@ ChangeToDirectory(char *pcDirectory, unsigned long *pulReason)
         // Back up from the end of the path name until a separator (/)
         // is found, or until we bump up to the start of the path.
         //
-        while((g_cTmpBuf[uIdx] != '/') && (uIdx > 1))
+        while ((g_cTmpBuf[uIdx] != '/') && (uIdx > 1))
         {
             //
             // Back up one character.
@@ -333,10 +325,10 @@ ChangeToDirectory(char *pcDirectory, unsigned long *pulReason)
         // for the full new path.  It needs to include a new separator,
         // and a trailing null character.
         //
-        if(strlen(g_cTmpBuf) + strlen(pcDirectory) + 1 + 1 > sizeof(g_cCwdBuf))
+        if (strlen(g_cTmpBuf) + strlen(pcDirectory) + 1 + 1 > sizeof(g_cCwdBuf))
         {
             *pulReason = NAME_TOO_LONG_ERROR;
-            return(FR_INVALID_OBJECT);
+            return (FR_INVALID_OBJECT);
         }
         //
         // The new path is okay, so add the separator and then append
@@ -347,7 +339,7 @@ ChangeToDirectory(char *pcDirectory, unsigned long *pulReason)
             //
             // If not already at the root level, then append a /
             //
-            if(strcmp(g_cTmpBuf, "/"))
+            if (strcmp(g_cTmpBuf, "/"))
             {
                 strcat(g_cTmpBuf, "/");
             }
@@ -369,10 +361,10 @@ ChangeToDirectory(char *pcDirectory, unsigned long *pulReason)
     // If it cant be opened, then it is a bad path.  Inform
     // user and return.
     //
-    if(fresult != FR_OK)
+    if (fresult != FR_OK)
     {
         *pulReason = OPENDIR_ERROR;
-        return(fresult);
+        return (fresult);
     }
     //
     // Otherwise, it is a valid new path, so copy it into the CWD and update
@@ -386,7 +378,7 @@ ChangeToDirectory(char *pcDirectory, unsigned long *pulReason)
     //
     // Return success.
     //
-    return(FR_OK);
+    return (FR_OK);
 }
 
 //
@@ -405,8 +397,7 @@ ChangeToDirectory(char *pcDirectory, unsigned long *pulReason)
 //          successfully, then the current working directory (cwd) is changed
 //          to the new path.
 //
-int
-Cmd_cd(int argc, char *argv[])
+int Cmd_cd(int argc, char *argv[])
 {
     unsigned long ulReason;
     FRESULT fresult;
@@ -419,42 +410,41 @@ Cmd_cd(int argc, char *argv[])
     //
     // If an error was reported, try to offer some helpful information.
     //
-    if(fresult != FR_OK)
+    if (fresult != FR_OK)
     {
-        switch(ulReason)
+        switch (ulReason)
         {
-            case OPENDIR_ERROR:
+        case OPENDIR_ERROR:
 
-                break;
+            break;
 
-            case NAME_TOO_LONG_ERROR:
+        case NAME_TOO_LONG_ERROR:
 
-                break;
+            break;
 
-            default:
+        default:
 
-                break;
+            break;
         }
     }
 
     //
     // Return the appropriate error code.
     //
-    return(fresult);
+    return (fresult);
 }
 
 //
 // Cmd_pwd - This function implements the "pwd" command.  It simply prints the
 //           current working directory.
 //
-int
-Cmd_pwd(int argc, char *argv[])
+int Cmd_pwd(int argc, char *argv[])
 {
 
     //
     // Return success.
     //
-    return(0);
+    return (0);
 }
 
 //
@@ -463,8 +453,7 @@ Cmd_pwd(int argc, char *argv[])
 //           on text files.  If it is used on a binary file, then a bunch of
 //           garbage is likely to printed on the console.
 //
-int
-Cmd_cat(int argc, char *argv[])
+int Cmd_cat(int argc, char *argv[])
 {
     FRESULT fresult;
     unsigned short usBytesRead;
@@ -476,10 +465,10 @@ Cmd_cat(int argc, char *argv[])
     // file name.  The file name must be fully specified, with path,
     // to FatFs.
     //
-    if(strlen(g_cCwdBuf) + strlen(argv[1]) + 1 + 1 > sizeof(g_cTmpBuf))
+    if (strlen(g_cCwdBuf) + strlen(argv[1]) + 1 + 1 > sizeof(g_cTmpBuf))
     {
 
-        return(0);
+        return (0);
     }
 
     //
@@ -490,7 +479,7 @@ Cmd_cat(int argc, char *argv[])
     //
     // If not already at the root level, then append a separator.
     //
-    if(strcmp("/", g_cCwdBuf))
+    if (strcmp("/", g_cCwdBuf))
     {
         strcat(g_cTmpBuf, "/");
     }
@@ -509,9 +498,9 @@ Cmd_cat(int argc, char *argv[])
     // If there was some problem opening the file, then return
     // an error.
     //
-    if(fresult != FR_OK)
+    if (fresult != FR_OK)
     {
-        return(fresult);
+        return (fresult);
     }
 
     //
@@ -531,10 +520,10 @@ Cmd_cat(int argc, char *argv[])
         // If there was an error reading, then print a newline and
         // return the error to the user.
         //
-        if(fresult != FR_OK)
+        if (fresult != FR_OK)
         {
 
-            return(fresult);
+            return (fresult);
         }
 
         //
@@ -543,19 +532,16 @@ Cmd_cat(int argc, char *argv[])
         //
         g_cTmpBuf[usBytesRead] = 0;
 
-
-
         //
         // Continue reading until less than the full number of bytes are
         // read.  That means the end of the buffer was reached.
         //
-    }
-    while(usBytesRead == sizeof(g_cTmpBuf) - 1);
+    } while (usBytesRead == sizeof(g_cTmpBuf) - 1);
 
     //
     // Return success.
     //
-    return(0);
+    return (0);
 }
 
 //*****************************************************************************
@@ -565,8 +551,7 @@ Cmd_cat(int argc, char *argv[])
 // does not exist, it creates a new file with the given file name.
 //
 //*****************************************************************************
-int
-Cmd_write(int argc, char *argv[])
+int Cmd_write(int argc, char *argv[])
 {
     FRESULT fresult;
     UINT usBytesWritten;
@@ -579,9 +564,9 @@ Cmd_write(int argc, char *argv[])
     // buffer that will be used to hold the file name.  The file name must be
     // fully specified, with path, to FatFs.
     //
-    if(strlen(g_cCwdBuf) + strlen(argv[1]) + 1 + 1 > sizeof(g_cTmpBuf))
+    if (strlen(g_cCwdBuf) + strlen(argv[1]) + 1 + 1 > sizeof(g_cTmpBuf))
     {
-        return(0);
+        return (0);
     }
 
     //
@@ -592,7 +577,7 @@ Cmd_write(int argc, char *argv[])
     //
     // If not already at the root level, then append a separator.
     //
-    if(strcmp("/", g_cCwdBuf))
+    if (strcmp("/", g_cCwdBuf))
     {
         strcat(g_cTmpBuf, "/");
     }
@@ -605,27 +590,27 @@ Cmd_write(int argc, char *argv[])
     //
     // Open the file for writing.
     //
-    fresult = f_open(&g_sFileObject, g_cTmpBuf, FA_WRITE | FA_OPEN_EXISTING |FA_OPEN_APPEND);
+    fresult = f_open(&g_sFileObject, g_cTmpBuf, FA_WRITE | FA_OPEN_EXISTING | FA_OPEN_APPEND);
 
     //
     // Check for error and return if there is a problem.
     //
-    if(fresult != FR_OK)
+    if (fresult != FR_OK)
     {
-        return(fresult);
+        return (fresult);
     }
 
     //
     // Creates the string to be written to a file.
     //
-    while(i < argc)
+    while (i < argc)
     {
         strcat(writeBuff, argv[i]);
 
         //
         // Adds a space if necessary.
         //
-        if(i < argc-1)
+        if (i < argc - 1)
         {
             strcat(writeBuff, " ");
         }
@@ -641,9 +626,9 @@ Cmd_write(int argc, char *argv[])
     //
     // Check for error and return if there is a problem.
     //
-    if(fresult != FR_OK)
+    if (fresult != FR_OK)
     {
-        return(fresult);
+        return (fresult);
     }
 
     //
@@ -651,7 +636,7 @@ Cmd_write(int argc, char *argv[])
     //
     f_close(&g_sFileObject);
 
-    return(0);
+    return (0);
 }
 
 //*****************************************************************************
@@ -660,8 +645,7 @@ Cmd_write(int argc, char *argv[])
 // with the name given in the argument.
 //
 //*****************************************************************************
-int
-Cmd_mkdir(int argc, char *argv[])
+int Cmd_mkdir(int argc, char *argv[])
 {
     FRESULT fresult;
     //
@@ -670,10 +654,10 @@ Cmd_mkdir(int argc, char *argv[])
     // buffer that will be used to hold the file name.  The file name must be
     // fully specified, with path, to FatFs.
     //
-    if(strlen(g_cCwdBuf) + strlen(argv[1]) + 1 + 1 > sizeof(g_cTmpBuf))
+    if (strlen(g_cCwdBuf) + strlen(argv[1]) + 1 + 1 > sizeof(g_cTmpBuf))
     {
-        //UARTprintf("Resulting path name is too long\n");
-        return(0);
+        // UARTprintf("Resulting path name is too long\n");
+        return (0);
     }
 
     //
@@ -684,7 +668,7 @@ Cmd_mkdir(int argc, char *argv[])
     //
     // If not already at the root level, then append a separator.
     //
-    if(strcmp("/", g_cCwdBuf))
+    if (strcmp("/", g_cCwdBuf))
     {
         strcat(g_cTmpBuf, "/");
     }
@@ -703,12 +687,12 @@ Cmd_mkdir(int argc, char *argv[])
     //
     // Check for error and return if there is a problem.
     //
-    if(fresult != FR_OK)
+    if (fresult != FR_OK)
     {
-        return(fresult);
+        return (fresult);
     }
 
-    return(0);
+    return (0);
 }
 
 //*****************************************************************************
@@ -717,60 +701,51 @@ Cmd_mkdir(int argc, char *argv[])
 // subdirectory specified by the argument.
 //
 //*****************************************************************************
-int
-Cmd_rm(int argc, char *argv[])
+int Cmd_rm(int argc, char *argv[])
 {
     FRESULT fresult;
 
-
-    if(strlen(g_cCwdBuf) + strlen(argv[1]) + 1 + 1 > sizeof(g_cTmpBuf))
+    if (strlen(g_cCwdBuf) + strlen(argv[1]) + 1 + 1 > sizeof(g_cTmpBuf))
     {
-        return(0);
+        return (0);
     }
-
 
     strcpy(g_cTmpBuf, g_cCwdBuf);
 
-
-    if(strcmp("/", g_cCwdBuf))
+    if (strcmp("/", g_cCwdBuf))
     {
         strcat(g_cTmpBuf, "/");
     }
 
-
     strcat(g_cTmpBuf, argv[1]);
-
 
     fresult = f_unlink(g_cTmpBuf);
 
-
-    if(fresult != FR_OK)
+    if (fresult != FR_OK)
     {
-        return(fresult);
+        return (fresult);
     }
 
-
-    return(0);
+    return (0);
 }
 
 //
 // Cmd_help - This function implements the "help" command.  It prints a simple
 //            list of the available commands with a brief description.
 //
-int
-Cmd_help(int argc, char *argv[])
+int Cmd_help(int argc, char *argv[])
 {
     tCmdLineEntry *pEntry;
 
     pEntry = &g_psCmdTable[0];
 
-    while(pEntry->pcCmd)
+    while (pEntry->pcCmd)
     {
 
         pEntry++;
     }
 
-    return(0);
+    return (0);
 }
 
 //
@@ -778,28 +753,26 @@ Cmd_help(int argc, char *argv[])
 // and brief description.
 //
 tCmdLineEntry g_psCmdTable[] =
-{
-    { "help",   Cmd_help,      " : Display list of commands" },
-    { "h",      Cmd_help,   "    : alias for help" },
-    { "?",      Cmd_help,   "    : alias for help" },
-    { "ls",     Cmd_ls,      "   : Display list of files" },
-    { "chdir",  Cmd_cd,         ": Change directory" },
-    { "cd",     Cmd_cd,      "   : alias for chdir" },
-    { "pwd",    Cmd_pwd,      "  : Show current working directory" },
-    { "cat",    Cmd_cat,      "  : Show contents of a text file" },
-    { "write",  Cmd_write,      ": writes to a file. Creates one if file doesn't exist"},
-    { "mkdir",  Cmd_mkdir,      ": makes a new file directory"},
-    { "rm",     Cmd_rm,      "   : removes a file or directory"},
-    { 0, 0, 0 }
-};
+    {
+        {"help", Cmd_help, " : Display list of commands"},
+        {"h", Cmd_help, "    : alias for help"},
+        {"?", Cmd_help, "    : alias for help"},
+        {"ls", Cmd_ls, "   : Display list of files"},
+        {"chdir", Cmd_cd, ": Change directory"},
+        {"cd", Cmd_cd, "   : alias for chdir"},
+        {"pwd", Cmd_pwd, "  : Show current working directory"},
+        {"cat", Cmd_cat, "  : Show contents of a text file"},
+        {"write", Cmd_write, ": writes to a file. Creates one if file doesn't exist"},
+        {"mkdir", Cmd_mkdir, ": makes a new file directory"},
+        {"rm", Cmd_rm, "   : removes a file or directory"},
+        {0, 0, 0}};
 
 /*
  * SD card libraries use Timer0 for synchronization purpose,
  * so it cannot be used for other tasks. The first part of the
  * function sets up the timer (in a deprecated way).
  */
-void
-setupSD(void)
+void setupSD(void)
 {
 
     //
@@ -824,12 +797,11 @@ setupSD(void)
 }
 void newSetupSD(void)
 {
-       //
-       // Mount the file system, using logical disk 0.
-       //
-       f_mount(&g_sFatFs, "0:", 1);
-       diskResult = disk_initialize(0);
-
+    //
+    // Mount the file system, using logical disk 0.
+    //
+    f_mount(&g_sFatFs, "0:", 1);
+    diskResult = disk_initialize(0);
 }
 
 /*
@@ -838,31 +810,30 @@ void newSetupSD(void)
 void writeHeader()
 {
     char str_init[200];
-        sprintf(str_init , "timestamp;AmkStatusFL;AmkStatusFR;AmkStatusRL;AmkStatusRR;TempMotorFL;ErrorInfoFL;TempIGBT_FL;TempInverterFL;TempMotorFR;");
-        writeSD(str_init);
-        sprintf(str_init , "ErrorInfoFR;TempIGBT_FR;TempInverterFR;TempMotorRR;ErrorInfoRR;TempIGBT_RR;TempInverterRR;TempMotorRL;ErrorInfoRL;TempIGBT_RL;TempInverterRL;");
-        writeSD(str_init);
-        sprintf(str_init , "ActualVelocityFL;ActualVelocityFR;ActualVelocityRL;ActualVelocityRR;TorqueLimitPositiveFL;TorqueLimitPositiveFR;");
-        writeSD(str_init);
-        sprintf(str_init , "TorqueLimitPositiveRL;TorqueLimitPositiveRR;TorqueLimitNegativeFL;TorqueLimitNegativeFR;TorqueLimitNegativeRL;");
-        writeSD(str_init);
-        sprintf(str_init , "TorqueLimitNegativeRR;throttle;steering angle;brake;brake_press;status;actualVelocityKMH;brk_req;thr_req;");
-        writeSD(str_init);
-        sprintf(str_init , "max_volt;min_volt;avg_volt;max_temp;min_temp;avg_temp;bms_error_map;");
-        writeSD(str_init);
-        sprintf(str_init , "bms_lv[0];bms_lv[1];bms_lv[2];bms_lv[3];bms_lv[4];bms_lv[5];bms_lv[6];bms_lv[7];");
-        writeSD(str_init);
-        sprintf(str_init , "Car_voltage;Lem_current;current_sens;total_power;fan_speed_r;fan_speed_l;");
-        writeSD(str_init);
-        sprintf(str_init , "acceleration_x;acceleration_y;acceleration_z;omega_x;omega_y;omega_z;");
-        writeSD(str_init);
-        sprintf(str_init , "SuspensionsRR;SuspensionsFL;SuspensionsRL;SuspensionsFR;");
-        writeSD(str_init);
-        sprintf(str_init , "temp_inv_dx_2;temp_inv_sx_1;temp_inv_dx_1;temp_inv_sx_2;temp_mot_rr_1;temp_mot_rl_1;temp_mot_rl_2;temp_mot_rr_2;");
-        writeSD(str_init);
-        sprintf(str_init , "Gpio_bms;Gpio_imd;MaxtempNslave;AccPot1;AccPot2;BrkPot\n");
-        writeSD(str_init);
-
+    sprintf(str_init, "timestamp;AmkStatusFL;AmkStatusFR;AmkStatusRL;AmkStatusRR;TempMotorFL;ErrorInfoFL;TempIGBT_FL;TempInverterFL;TempMotorFR;");
+    writeSD(str_init);
+    sprintf(str_init, "ErrorInfoFR;TempIGBT_FR;TempInverterFR;TempMotorRR;ErrorInfoRR;TempIGBT_RR;TempInverterRR;TempMotorRL;ErrorInfoRL;TempIGBT_RL;TempInverterRL;");
+    writeSD(str_init);
+    sprintf(str_init, "ActualVelocityFL;ActualVelocityFR;ActualVelocityRL;ActualVelocityRR;TorqueLimitPositiveFL;TorqueLimitPositiveFR;");
+    writeSD(str_init);
+    sprintf(str_init, "TorqueLimitPositiveRL;TorqueLimitPositiveRR;TorqueLimitNegativeFL;TorqueLimitNegativeFR;TorqueLimitNegativeRL;");
+    writeSD(str_init);
+    sprintf(str_init, "TorqueLimitNegativeRR;throttle;steering angle;brake;brake_press;status;actualVelocityKMH;brk_req;thr_req;");
+    writeSD(str_init);
+    sprintf(str_init, "max_volt;min_volt;avg_volt;max_temp;min_temp;avg_temp;bms_error_map;");
+    writeSD(str_init);
+    sprintf(str_init, "bms_lv[0];bms_lv[1];bms_lv[2];bms_lv[3];bms_lv[4];bms_lv[5];bms_lv[6];bms_lv[7];");
+    writeSD(str_init);
+    sprintf(str_init, "Car_voltage;Lem_current;current_sens;total_power;fan_speed_r;fan_speed_l;");
+    writeSD(str_init);
+    sprintf(str_init, "acceleration_x;acceleration_y;acceleration_z;omega_x;omega_y;omega_z;");
+    writeSD(str_init);
+    sprintf(str_init, "SuspensionsRR;SuspensionsFL;SuspensionsRL;SuspensionsFR;");
+    writeSD(str_init);
+    sprintf(str_init, "temp_inv_dx_2;temp_inv_sx_1;temp_inv_dx_1;temp_inv_sx_2;temp_mot_rr_1;temp_mot_rl_1;temp_mot_rl_2;temp_mot_rr_2;");
+    writeSD(str_init);
+    sprintf(str_init, "Gpio_bms;Gpio_imd;MaxtempNslave;AccPot1;AccPot2;BrkPot\n");
+    writeSD(str_init);
 }
 void createFile()
 {
@@ -870,7 +841,6 @@ void createFile()
     sprintf(temp, "test%d.txt ", file_counter);
     memcpy(filename, temp, 20);
     file_counter++;
-
 }
 void createFirstFile()
 {
@@ -878,7 +848,6 @@ void createFirstFile()
     sprintf(temp, "Stest%d.txt ", file_counter);
     memcpy(filename, temp, 20);
     file_counter++;
-
 }
 
 /*
@@ -889,15 +858,16 @@ void writeSD(char *str)
 {
     char a[290] = "write ";
     strcat(a, filename);
-    const char* b = str;
+    const char *b = str;
     strcat(a, b);
     CmdLineProcess(a);
 }
 
-void reverse(char* str, int len)
+void reverse(char *str, int len)
 {
     int i = 0, j = len - 1, temp;
-    while (i < j) {
+    while (i < j)
+    {
         temp = str[i];
         str[i] = str[j];
         str[j] = temp;
@@ -905,6 +875,3 @@ void reverse(char* str, int len)
         j--;
     }
 }
-
-
-

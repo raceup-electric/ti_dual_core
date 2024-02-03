@@ -7,7 +7,6 @@
 #include "car_management.h"
 #include "global_definitions.h"
 
-
 /*
  * Those variables are fundamental for pedal calibration.
  * The calibration method is the following:
@@ -16,8 +15,6 @@
  *      to set the high threshold remove 20/30 to the real value
  *      THEN ALWAYS VERIFY IT IS WORKING RIGHT
  */
-
-
 
 //
 // variables

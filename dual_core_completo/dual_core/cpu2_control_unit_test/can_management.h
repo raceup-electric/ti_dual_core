@@ -25,7 +25,6 @@
 //  GPIO12 - CANTXB - Modulo can j12
 //
 
-
 //
 // variables
 //
@@ -38,7 +37,6 @@ extern int errorFrameCounterA;
 
 extern bool temp_warning;
 
-
 extern tCANMsgObject RXCANA_Imu_Message;
 extern tCANMsgObject RXCANA_Smu_Message;
 extern tCANMsgObject RXCANA_Sendyne_Message;
@@ -47,9 +45,9 @@ extern tCANMsgObject RXCANA_BmsTemp_Message;
 extern tCANMsgObject RXCANA_BmsLV_Message;
 extern tCANMsgObject TXCANA_BmsHost_Message;
 extern tCANMsgObject RXCANA_Map_SW_Message;
-extern tCANMsgObject RXCANA_Lem_Message; //aggiunto lem
+extern tCANMsgObject RXCANA_Lem_Message; // aggiunto lem
 extern tCANMsgObject TXCANA_ATMega_Message;
-//alberto patch
+// alberto patch
 extern tCANMsgObject TXCANA_ATC_Message_TBS;
 extern tCANMsgObject TXCANA_ATC_Message_SENSORS;
 
@@ -60,7 +58,7 @@ extern unsigned char RXA_BmsVol_Data[8];
 extern unsigned char RXA_BmsTemp_Data[7];
 extern unsigned char RXA_Map_SW_Data[1];
 extern unsigned char RXA_BmsLV_Data[8];
-extern unsigned char RXA_Lem_Data[8]; //aggiunto lem
+extern unsigned char RXA_Lem_Data[8]; // aggiunto lem
 extern unsigned char TXA_Host_Data[4];
 extern unsigned char TXCANA_PCU_Data[2];
 
@@ -71,13 +69,12 @@ extern tCANMsgObject RXCANB_AmkVal1_Message[4];
 extern tCANMsgObject RXCANB_AmkVal2_Message[4];
 extern unsigned char RXB_AmkVal_Data[8];
 
-//alberto patch
+// alberto patch
 extern unsigned char RXA_ATC_DATA_TBS[8];
 extern unsigned char RXA_ATC_DATA_SENSORS[8];
 
 extern unsigned char fan_enable;
 extern unsigned char pump_enable;
-
 
 //
 // prototypes

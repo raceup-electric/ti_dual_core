@@ -2,11 +2,10 @@
 #include "global_definitions.h"
 #include "dbc_gen/can2.h"
 
-
-//alberto patch
+// alberto patch
 void setting_package_param(tCANMsgObject *Object, unsigned int ID,
-                            unsigned int mask, unsigned int other_settings,
-                            unsigned int data_len, void * XA_DATA)
+                           unsigned int mask, unsigned int other_settings,
+                           unsigned int data_len, void *XA_DATA)
 {
     Object->ui32MsgID = ID;
     Object->ui32MsgIDMask = mask;
@@ -23,15 +22,14 @@ void canSetup_phase1()
     CpuSysRegs.PCLKCR10.bit.CAN_B = 1;
     EDIS;
 
-//    CANInit(CANA_BASE);
-//    CANInit(CANB_BASE);
-
+    //    CANInit(CANA_BASE);
+    //    CANInit(CANB_BASE);
 
     CANClkSourceSelect(CANA_BASE, 0);
     CANClkSourceSelect(CANB_BASE, 0);
 
-//    CANBitRateSet(CANA_BASE, 200000000, 1000000);   //Manca un parametro rispetto al vecchio metodo
-    //Prova con CAN linea A a 500kbps
+    //    CANBitRateSet(CANA_BASE, 200000000, 1000000);   //Manca un parametro rispetto al vecchio metodo
+    // Prova con CAN linea A a 500kbps
     CANBitRateSet(CANA_BASE, 200000000, 500000);
     CANBitRateSet(CANB_BASE, 200000000, 1000000);
 
@@ -46,8 +44,8 @@ void canSetup_phase2()
     PieVectTable.CANB0_INT = canISR_B;
     EDIS;
 
-    PieCtrlRegs.PIEIER9.bit.INTx5 = 1;  //Can A
-    PieCtrlRegs.PIEIER9.bit.INTx7 = 1;  //Can B
+    PieCtrlRegs.PIEIER9.bit.INTx5 = 1; // Can A
+    PieCtrlRegs.PIEIER9.bit.INTx7 = 1; // Can B
     IER |= M_INT9;
 
     CANGlobalIntEnable(CANA_BASE, CAN_GLB_INT_CANINT0);
@@ -55,80 +53,75 @@ void canSetup_phase2()
 
     int i;
 
-    for (i = 0; i<4; i++)
+    for (i = 0; i < 4; i++)
     {
-        setting_package_param(&RXCANB_AmkVal1_Message[i],AMK_VAL_1_IDS[i],0x1FFFFFF0,
-                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXB_AmkVal_Data);
+        setting_package_param(&RXCANB_AmkVal1_Message[i], AMK_VAL_1_IDS[i], 0x1FFFFFF0,
+                              MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER, MSG_DATA_LENGTH, RXB_AmkVal_Data);
         CANMessageSet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal1_Message[i], MSG_OBJ_TYPE_RX);
 
-
-        setting_package_param(&RXCANB_AmkVal2_Message[i],AMK_VAL_2_IDS[i],0x1FFFFFF0,
-                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXB_AmkVal_Data);
+        setting_package_param(&RXCANB_AmkVal2_Message[i], AMK_VAL_2_IDS[i], 0x1FFFFFF0,
+                              MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER, MSG_DATA_LENGTH, RXB_AmkVal_Data);
         CANMessageSet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal2_Message[i], MSG_OBJ_TYPE_RX);
 
+        setting_package_param(&TXCANB_Setpoints_Message[i], AMK_SETPOINTS_IDS[i], 0, MSG_OBJ_NO_FLAGS, sizeof(CAN_AMK_SET_POINT[i]), TXB_Setpoints_Data[i]);
+    }
 
-        setting_package_param(&TXCANB_Setpoints_Message[i],AMK_SETPOINTS_IDS[i],0, MSG_OBJ_NO_FLAGS,sizeof(CAN_AMK_SET_POINT[i]),TXB_Setpoints_Data[i]);
+    // Pacchetto accelerazioni IMU
+    setting_package_param(&RXCANA_Imu_Message, MSG_ID_IMU_BASE, 0x1FFFFFFC,
+                          MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER, MSG_DATA_LENGTH, RXA_Imu_Data);
+    CANMessageSet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, MSG_OBJ_TYPE_RX);
 
-        }
+    // Pacchetto generico SMU
+    setting_package_param(&RXCANA_Smu_Message, MSG_ID_SMU_BASE, 0x1FFFFFFC,
+                          MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER, MSG_DATA_LENGTH, RXA_Smu_Data);
+    CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);
 
-        //Pacchetto accelerazioni IMU
-        setting_package_param(&RXCANA_Imu_Message,MSG_ID_IMU_BASE,0x1FFFFFFC,
-                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXA_Imu_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, MSG_OBJ_TYPE_RX);
+    // Pacchetto BMS VOLTAGE
+    setting_package_param(&RXCANA_BmsVol_Message, MSG_ID_BMS_VOLTAGE, 0x0,
+                          MSG_OBJ_RX_INT_ENABLE, 8, RXA_BmsVol_Data);
+    CANMessageSet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, MSG_OBJ_TYPE_RX);
 
-        //Pacchetto generico SMU
-        setting_package_param(&RXCANA_Smu_Message,MSG_ID_SMU_BASE,0x1FFFFFFC,
-                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,MSG_DATA_LENGTH,RXA_Smu_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, MSG_OBJ_TYPE_RX);
+    // PACCHETTO BMS TEMPERATURE
+    setting_package_param(&RXCANA_BmsTemp_Message, MSG_ID_BMS_TEMP, 0x0,
+                          MSG_OBJ_RX_INT_ENABLE, 7, RXA_BmsTemp_Data);
+    CANMessageSet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, MSG_OBJ_TYPE_RX);
 
-        //Pacchetto BMS VOLTAGE
-        setting_package_param(&RXCANA_BmsVol_Message,MSG_ID_BMS_VOLTAGE,0x0,
-                MSG_OBJ_RX_INT_ENABLE,8,RXA_BmsVol_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, MSG_OBJ_TYPE_RX);
+    setting_package_param(&TXCANA_BmsHost_Message, MSG_ID_HOST_SEND, 0,
+                          MSG_OBJ_NO_FLAGS, 4, TXA_Host_Data);
 
-        //PACCHETTO BMS TEMPERATURE
-        setting_package_param(&RXCANA_BmsTemp_Message,MSG_ID_BMS_TEMP,0x0,
-                MSG_OBJ_RX_INT_ENABLE,7,RXA_BmsTemp_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, MSG_OBJ_TYPE_RX);
+    // PACCHETTO BMS LV
+    setting_package_param(&RXCANA_BmsLV_Message, MSG_ID_BMS_BASE, 0x1FFFFFFC,
+                          MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER, 8, RXA_BmsLV_Data);
+    CANMessageSet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, MSG_OBJ_TYPE_RX);
 
-        setting_package_param(&TXCANA_BmsHost_Message,MSG_ID_HOST_SEND,0,
-                MSG_OBJ_NO_FLAGS,4,TXA_Host_Data);
+    // PACCHETTO MAP DAL VOLANTE
+    setting_package_param(&RXCANA_Map_SW_Message, MSG_ID_MAP_SW, 0x0,
+                          MSG_OBJ_RX_INT_ENABLE, 1, RXA_Map_SW_Data);
+    CANMessageSet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, MSG_OBJ_TYPE_RX);
 
-        //PACCHETTO BMS LV
-        setting_package_param(&RXCANA_BmsLV_Message,MSG_ID_BMS_BASE,0x1FFFFFFC,
-                MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER,8,RXA_BmsLV_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, MSG_OBJ_TYPE_RX);
+    // PACCHETTO DA LEM
+    setting_package_param(&RXCANA_Lem_Message, MSG_ID_LEM, 0x0, MSG_OBJ_RX_INT_ENABLE,
+                          MSG_DATA_LENGTH, RXA_Lem_Data);
+    CANMessageSet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, MSG_OBJ_TYPE_RX);
 
-        //PACCHETTO MAP DAL VOLANTE
-        setting_package_param(&RXCANA_Map_SW_Message,MSG_ID_MAP_SW,0x0,
-                MSG_OBJ_RX_INT_ENABLE,1,RXA_Map_SW_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, MSG_OBJ_TYPE_RX);
+    // Alberto Patch
+    // TBS_ATC PACKAGE
+    setting_package_param(&TXCANA_ATC_Message_TBS, MSG_ID_ATC_TBS, 0x0, MSG_OBJ_RX_INT_ENABLE,
+                          MSG_DATA_LENGTH, RXA_ATC_DATA_TBS);
+    CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, MSG_OBJ_TYPE_RX);
 
-        //PACCHETTO DA LEM
-        setting_package_param(&RXCANA_Lem_Message,MSG_ID_LEM,0x0,MSG_OBJ_RX_INT_ENABLE,
-                MSG_DATA_LENGTH,RXA_Lem_Data);
-        CANMessageSet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, MSG_OBJ_TYPE_RX);
+    // SENSORS_ATC PACKAGE
+    setting_package_param(&TXCANA_ATC_Message_SENSORS, MSG_ID_ATC_SENSORS, 0x0, MSG_OBJ_RX_INT_ENABLE,
+                          MSG_DATA_LENGTH, RXA_ATC_DATA_SENSORS);
+    CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, MSG_OBJ_TYPE_RX);
+    // end Alberto Patch
 
-        //Alberto Patch
-        //TBS_ATC PACKAGE
-        setting_package_param(&TXCANA_ATC_Message_TBS,MSG_ID_ATC_TBS,0x0,MSG_OBJ_RX_INT_ENABLE,
-                MSG_DATA_LENGTH,RXA_ATC_DATA_TBS);
-        CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, MSG_OBJ_TYPE_RX);
+    // PACCHETTO PER PCU
+    setting_package_param(&TXCANA_ATMega_Message, MSG_ID_TO_ATMEGA, 0x0, MSG_OBJ_NO_FLAGS,
+                          2, TXCANA_PCU_Data);
 
-        //SENSORS_ATC PACKAGE
-        setting_package_param(&TXCANA_ATC_Message_SENSORS,MSG_ID_ATC_SENSORS,0x0,MSG_OBJ_RX_INT_ENABLE,
-                MSG_DATA_LENGTH,RXA_ATC_DATA_SENSORS);
-        CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, MSG_OBJ_TYPE_RX);
-        //end Alberto Patch
-
-
-        // PACCHETTO PER PCU
-        setting_package_param(&TXCANA_ATMega_Message,MSG_ID_TO_ATMEGA,0x0,MSG_OBJ_NO_FLAGS,
-                        2,TXCANA_PCU_Data);
-
-
-        CANEnable(CANA_BASE);
-        CANEnable(CANB_BASE);
+    CANEnable(CANA_BASE);
+    CANEnable(CANB_BASE);
 }
 
 __interrupt void canISR_B(void)
@@ -137,47 +130,46 @@ __interrupt void canISR_B(void)
 
     status = CANIntStatus(CANB_BASE, CAN_INT_STS_CAUSE);
 
-    switch (status) {
-        case CAN_INT_INT0ID_STATUS:
-            status = CANStatusGet(CANB_BASE, CAN_STS_CONTROL);
+    switch (status)
+    {
+    case CAN_INT_INT0ID_STATUS:
+        status = CANStatusGet(CANB_BASE, CAN_STS_CONTROL);
 
-            if(((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 7) &&
-                    ((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 0))
-            {
-                errorFlag = 1;
-                errorFrameCounterB++;
-            }
+        if (((status & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 7) &&
+            ((status & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 0))
+        {
+            errorFlag = 1;
+            errorFrameCounterB++;
+        }
 
+        CANIntClear(CANB_BASE, CAN_INT_INT0ID_STATUS);
+        break;
+    //
+    // Check if the cause is the receive message object 2
+    //
+    case OBJ_ID_FROM_AMK:
+        // Uint16 amk_temp[8];
 
-            CANIntClear(CANB_BASE, CAN_INT_INT0ID_STATUS);
-            break;
-        //
-        // Check if the cause is the receive message object 2
-        //
-        case OBJ_ID_FROM_AMK:
-            //Uint16 amk_temp[8];
+        CANMessageGet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal1_Message[0], true); // FORSE TRUE NON � GIUSTO
 
-            CANMessageGet(CANB_BASE, OBJ_ID_FROM_AMK, &RXCANB_AmkVal1_Message[0], true); //FORSE TRUE NON � GIUSTO
+        int id = getMessageID(CANB_BASE, OBJ_ID_FROM_AMK);
 
+        if (getAMKValNumber(id) == 1)
+        {
+            rxBMsgCount++;
+            read_AMK_Values1((Uint16 *)RXB_AmkVal_Data, getMotorIndex(id));
+        }
+        else if (getAMKValNumber(id) == 2)
+        {
+            rxBMsgCount++;
+            read_AMK_Values2((Uint16 *)RXB_AmkVal_Data, getMotorIndex(id));
+        }
 
-            int id = getMessageID(CANB_BASE,OBJ_ID_FROM_AMK);
+        CANIntClear(CANB_BASE, OBJ_ID_FROM_AMK);
 
-            if (getAMKValNumber(id) == 1)
-            {
-                rxBMsgCount++;
-                read_AMK_Values1((Uint16*)RXB_AmkVal_Data, getMotorIndex(id));
-            }
-            else if (getAMKValNumber(id) == 2)
-            {
-                rxBMsgCount++;
-                read_AMK_Values2((Uint16*)RXB_AmkVal_Data, getMotorIndex(id));
-            }
-
-            CANIntClear(CANB_BASE, OBJ_ID_FROM_AMK);
-
-            errorFlag = 0;
-            break;
-        default:
+        errorFlag = 0;
+        break;
+    default:
     }
 
     CANGlobalIntClear(CANB_BASE, CAN_GLB_INT_CANINT0);
@@ -190,143 +182,137 @@ __interrupt void canISR_A(void)
     int id;
     can_obj_can2_h_t o;
     status = CANIntStatus(CANA_BASE, CAN_INT_STS_CAUSE);
-    
-    //alberto patch
-    switch (status) {
 
-        case CAN_INT_INT0ID_STATUS:
-            status = CANStatusGet(CANA_BASE, CAN_STS_CONTROL);
+    // alberto patch
+    switch (status)
+    {
 
+    case CAN_INT_INT0ID_STATUS:
+        status = CANStatusGet(CANA_BASE, CAN_STS_CONTROL);
 
+        if (((status & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 7) &&
+            ((status & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 0))
+        {
 
-            if(((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 7) &&
-                    ((status  & ~(CAN_ES_TXOK | CAN_ES_RXOK)) != 0))
-            {
+            errorFlag = 1;
+            errorFrameCounterA++;
+        }
 
-                errorFlag = 1;
-                errorFrameCounterA++;
-            }
+        CANIntClear(CANA_BASE, CAN_INT_INT0ID_STATUS);
+        break;
+    case OBJ_ID_FROM_IMU:
 
-            CANIntClear(CANA_BASE, CAN_INT_INT0ID_STATUS);
-            break;
-        case OBJ_ID_FROM_IMU:
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, true);
 
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, true);
+        id = getMessageID(CANA_BASE, OBJ_ID_FROM_IMU);
 
-            id = getMessageID(CANA_BASE, OBJ_ID_FROM_IMU);
+        read_IMU_message((Uint16 *)RXA_Imu_Data, id);
 
-            read_IMU_message((Uint16 *)RXA_Imu_Data, id);
+        rxAMsgCount++;
 
-            rxAMsgCount++;
+        CANIntClear(CANA_BASE, OBJ_ID_FROM_IMU);
+        break;
+    case OBJ_ID_FROM_SMU:
 
-            CANIntClear(CANA_BASE, OBJ_ID_FROM_IMU);
-            break;
-        case OBJ_ID_FROM_SMU:
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, true);
 
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_SMU, &RXCANA_Smu_Message, true);
+        id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
 
-            id = getMessageID(CANA_BASE, OBJ_ID_FROM_SMU);
+        read_SMU_Message((Uint16 *)RXA_Smu_Data, id);
 
-            read_SMU_Message((Uint16 *)RXA_Smu_Data, id);
+        rxAMsgCount++;
 
-            rxAMsgCount++;
+        CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
+        break;
+    case OBJ_ID_BMS_VOLTAGE:
 
-            CANIntClear(CANA_BASE, OBJ_ID_FROM_SMU);
-            break;
-        case OBJ_ID_BMS_VOLTAGE:
+        CANMessageGet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, true);
 
-            CANMessageGet(CANA_BASE, OBJ_ID_BMS_VOLTAGE, &RXCANA_BmsVol_Message, true);
+        id = getMessageID(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
 
-            id = getMessageID(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
+        read_BMS_VOLTAGE_message((Uint16 *)RXA_BmsVol_Data);
 
-            read_BMS_VOLTAGE_message((Uint16 *)RXA_BmsVol_Data);
+        rxAMsgCount++;
 
-            rxAMsgCount++;
+        CANIntClear(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
+        break;
+    case OBJ_ID_BMS_TEMP:
 
-            CANIntClear(CANA_BASE, OBJ_ID_BMS_VOLTAGE);
-            break;
-        case OBJ_ID_BMS_TEMP:
+        CANMessageGet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, true);
 
-            CANMessageGet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, true);
+        id = getMessageID(CANA_BASE, OBJ_ID_BMS_TEMP);
 
-            id = getMessageID(CANA_BASE, OBJ_ID_BMS_TEMP);
+        read_BMS_TEMP_message((Uint16 *)RXA_BmsTemp_Data);
 
+        rxAMsgCount++;
 
-            read_BMS_TEMP_message((Uint16 *)RXA_BmsTemp_Data);
+        CANIntClear(CANA_BASE, OBJ_ID_BMS_TEMP);
+        break;
+    case OBJ_ID_FROM_BMS_LV:
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, true);
 
-            rxAMsgCount++;
+        id = getMessageID(CANA_BASE, OBJ_ID_FROM_BMS_LV);
 
-            CANIntClear(CANA_BASE, OBJ_ID_BMS_TEMP);
-            break;
-        case OBJ_ID_FROM_BMS_LV:
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, true);
+        read_BMSLV_message((Uint16 *)RXA_BmsLV_Data, id);
 
-            id = getMessageID(CANA_BASE, OBJ_ID_FROM_BMS_LV);
+        rxAMsgCount++;
 
-            read_BMSLV_message((Uint16 *)RXA_BmsLV_Data, id);
+        CANIntClear(CANA_BASE, OBJ_ID_FROM_BMS_LV);
+        break;
+    case OBJ_ID_MAP_SW:
 
-            rxAMsgCount++;
+        CANMessageGet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, true);
+        read_map_sw_message(RXA_Map_SW_Data[0]);
 
-            CANIntClear(CANA_BASE, OBJ_ID_FROM_BMS_LV);
-            break;
-         case OBJ_ID_MAP_SW:
+        rxAMsgCount++;
 
-             CANMessageGet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, true);
-             read_map_sw_message(RXA_Map_SW_Data[0]);
+        CANIntClear(CANA_BASE, OBJ_ID_MAP_SW);
+        break;
 
-              rxAMsgCount++;
+    case OBJ_ID_FROM_LEM: // aggiunto  lem message
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, true);
 
-              CANIntClear(CANA_BASE, OBJ_ID_MAP_SW);
-              break;
+        read_LEM_message(RXA_Lem_Data);
 
-        case OBJ_ID_FROM_LEM: //aggiunto  lem message
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, true);
+        rxAMsgCount++;
 
-            read_LEM_message(RXA_Lem_Data);
+        CANIntClear(CANA_BASE, OBJ_ID_FROM_LEM);
+        break;
+        // alberto patch
+    case OBJ_ID_FROM_ATC_TBS:
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, true);
 
-            rxAMsgCount++;
-
-            CANIntClear(CANA_BASE, OBJ_ID_FROM_LEM);
-           break;
-           //alberto patch
-        case OBJ_ID_FROM_ATC_TBS:
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, true);
-            
-            can2_unpack_message(&o,
+        can2_unpack_message(&o,
                             &TXCANA_ATC_Message_TBS.ui32MsgID,
                             &RXA_ATC_DATA_TBS,
                             &TXCANA_ATC_Message_TBS.ui32MsgLen,
-                            0);//not using timestamp
+                            0); // not using timestamp
 
-            read_ATC_message(&o,1);
+        read_ATC_message(&o, 1);
 
-            rxAMsgCount++;
+        rxAMsgCount++;
 
-            CANIntClear(CANA_BASE,OBJ_ID_FROM_ATC_TBS);
-            break;
-        case OBJ_ID_FROM_ATC_SENSORS:
-            CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, true);
-        
+        CANIntClear(CANA_BASE, OBJ_ID_FROM_ATC_TBS);
+        break;
+    case OBJ_ID_FROM_ATC_SENSORS:
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, true);
 
-
-            can2_unpack_message(&o,
+        can2_unpack_message(&o,
                             &TXCANA_ATC_Message_SENSORS.ui32MsgID,
                             &RXA_ATC_DATA_SENSORS,
                             &TXCANA_ATC_Message_SENSORS.ui32MsgLen,
-                            0);//not using timestamp
+                            0); // not using timestamp
 
-            read_ATC_message(&o,2);
+        read_ATC_message(&o, 2);
 
-            rxAMsgCount++;
+        rxAMsgCount++;
 
-            CANIntClear(CANA_BASE,OBJ_ID_FROM_ATC_SENSORS);
-            break;
-           //alberto patch
-
+        CANIntClear(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS);
+        break;
+        // alberto patch
     }
     CANGlobalIntClear(CANA_BASE, CAN_GLB_INT_CANINT0);
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
-
 }
 
 Uint32 getMessageID(Uint32 base, Uint32 objID)
@@ -340,10 +326,8 @@ Uint32 getMessageID(Uint32 base, Uint32 objID)
     return msgID;
 }
 
-
-void send_pwm_to_pcu(){
+void send_pwm_to_pcu()
+{
 
     CANMessageSet(CANA_BASE, OBJ_ID_TO_PCU, &TXCANA_ATMega_Message, MSG_OBJ_TYPE_TX);
-
 }
-

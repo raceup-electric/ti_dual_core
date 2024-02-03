@@ -19,9 +19,9 @@ void adcSetup()
     EALLOW;
     // Set ADCCLK divider to /4
     //
-    AdcaRegs.ADCCTL2.bit.PRESCALE = 6; //set ADCCLK divider to /4
-    AdcbRegs.ADCCTL2.bit.PRESCALE = 6; //set ADCCLK divider to /4
-    AdccRegs.ADCCTL2.bit.PRESCALE = 6; //set ADCCLK divider to /4
+    AdcaRegs.ADCCTL2.bit.PRESCALE = 6; // set ADCCLK divider to /4
+    AdcbRegs.ADCCTL2.bit.PRESCALE = 6; // set ADCCLK divider to /4
+    AdccRegs.ADCCTL2.bit.PRESCALE = 6; // set ADCCLK divider to /4
 
     //
     // Set resolution and signal mode and load
@@ -50,74 +50,71 @@ void adcSetup()
 
     EALLOW;
 
-    //ADCA
+    // ADCA
 
-    //ADCINA0
+    // ADCINA0
     AdcaRegs.ADCSOC0CTL.bit.CHSEL = 0;
     AdcaRegs.ADCSOC0CTL.bit.ACQPS = ACQPS_;
 
-    //ADCINA1
+    // ADCINA1
     AdcaRegs.ADCSOC1CTL.bit.CHSEL = 1;
     AdcaRegs.ADCSOC1CTL.bit.ACQPS = ACQPS_;
 
-    //ADCINA2
+    // ADCINA2
     AdcaRegs.ADCSOC2CTL.bit.CHSEL = 2;
     AdcaRegs.ADCSOC2CTL.bit.ACQPS = ACQPS_;
 
-    //ADCINA3
+    // ADCINA3
     AdcaRegs.ADCSOC3CTL.bit.CHSEL = 3;
     AdcaRegs.ADCSOC3CTL.bit.ACQPS = ACQPS_;
 
-    //ADCINA4
+    // ADCINA4
     AdcaRegs.ADCSOC4CTL.bit.CHSEL = 4;
     AdcaRegs.ADCSOC4CTL.bit.ACQPS = ACQPS_;
 
-    //ADCIN14
+    // ADCIN14
     AdcaRegs.ADCSOC5CTL.bit.CHSEL = 14;
     AdcaRegs.ADCSOC5CTL.bit.ACQPS = ACQPS_;
 
-    AdcaRegs.ADCINTSEL1N2.bit.INT1SEL = 5; //end of SOC5 will set INT1 flag
-    AdcaRegs.ADCINTSEL1N2.bit.INT1E = 1;   //enable INT1 flag
-    AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; //make sure INT1 flag is cleared
+    AdcaRegs.ADCINTSEL1N2.bit.INT1SEL = 5; // end of SOC5 will set INT1 flag
+    AdcaRegs.ADCINTSEL1N2.bit.INT1E = 1;   // enable INT1 flag
+    AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; // make sure INT1 flag is cleared
 
+    // ADCB
 
-    //ADCB
-
-    //ADCINB2
+    // ADCINB2
     AdcbRegs.ADCSOC6CTL.bit.CHSEL = 2;
     AdcbRegs.ADCSOC6CTL.bit.ACQPS = ACQPS_;
 
-    //ADCINB3
+    // ADCINB3
     AdcbRegs.ADCSOC7CTL.bit.CHSEL = 3;
     AdcbRegs.ADCSOC7CTL.bit.ACQPS = ACQPS_;
 
-//    AdcbRegs.ADCINTSEL1N2.bit.INT1SEL = 6;
-//    AdcbRegs.ADCINTSEL1N2.bit.INT1E = 1;
-//    AdcbRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
+    //    AdcbRegs.ADCINTSEL1N2.bit.INT1SEL = 6;
+    //    AdcbRegs.ADCINTSEL1N2.bit.INT1E = 1;
+    //    AdcbRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
 
-    AdcbRegs.ADCINTSEL1N2.bit.INT2SEL = 7; //end of SOC7 will set INT2 flag
+    AdcbRegs.ADCINTSEL1N2.bit.INT2SEL = 7; // end of SOC7 will set INT2 flag
     AdcbRegs.ADCINTSEL1N2.bit.INT2E = 1;
     AdcbRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
 
+    // ADCC
 
-    //ADCC
-
-    //ADCINC2
+    // ADCINC2
     AdccRegs.ADCSOC8CTL.bit.CHSEL = 2;
     AdccRegs.ADCSOC8CTL.bit.ACQPS = ACQPS_;
 
-    //ADCINC3
+    // ADCINC3
     AdccRegs.ADCSOC9CTL.bit.CHSEL = 3;
     AdccRegs.ADCSOC9CTL.bit.ACQPS = ACQPS_;
 
-//    AdccRegs.ADCINTSEL1N2.bit.INT1SEL = 8;
-//    AdccRegs.ADCINTSEL1N2.bit.INT1E = 1;
-//    AdccRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
+    //    AdccRegs.ADCINTSEL1N2.bit.INT1SEL = 8;
+    //    AdccRegs.ADCINTSEL1N2.bit.INT1E = 1;
+    //    AdccRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
 
-    AdccRegs.ADCINTSEL1N2.bit.INT2SEL = 9; //end of SOC7 will set INT2 flag
+    AdccRegs.ADCINTSEL1N2.bit.INT2SEL = 9; // end of SOC7 will set INT2 flag
     AdccRegs.ADCINTSEL1N2.bit.INT2E = 1;
     AdccRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
-
 }
 
 void readAllADC()
@@ -132,47 +129,46 @@ void readADC_Bank(int num_bank)
     switch (num_bank)
     {
     case 1:
-        AdcaRegs.ADCSOCFRC1.all = 0x003F; //SOC0 and SOC5
+        AdcaRegs.ADCSOCFRC1.all = 0x003F; // SOC0 and SOC5
 
-        while(AdcaRegs.ADCINTFLG.bit.ADCINT1 == 0);
-                AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
+        while (AdcaRegs.ADCINTFLG.bit.ADCINT1 == 0)
+            ;
+        AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
 
-        CurrSens_temp = AdcaResultRegs.ADCRESULT1;    //curr sens
+        CurrSens_temp = AdcaResultRegs.ADCRESULT1; // curr sens
         Steering_temp = AdcaResultRegs.ADCRESULT5;
 
     case 2:
-        AdcbRegs.ADCSOCFRC1.all = 0x00C0; //SOC6 and SOC7
+        AdcbRegs.ADCSOCFRC1.all = 0x00C0; // SOC6 and SOC7
 
-//        while(AdcbRegs.ADCINTFLG.bit.ADCINT1 == 0);
-//                AdcbRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
+        //        while(AdcbRegs.ADCINTFLG.bit.ADCINT1 == 0);
+        //                AdcbRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
 
-        while(AdcbRegs.ADCINTFLG.bit.ADCINT2 == 0);
-                AdcbRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
+        while (AdcbRegs.ADCINTFLG.bit.ADCINT2 == 0)
+            ;
+        AdcbRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
 
-        TempRadOutLC_temp = AdcbResultRegs.ADCRESULT6;    //rad out lc
-        TempRadOutRC_temp = AdcbResultRegs.ADCRESULT7;    //rad out rc
+        TempRadOutLC_temp = AdcbResultRegs.ADCRESULT6; // rad out lc
+        TempRadOutRC_temp = AdcbResultRegs.ADCRESULT7; // rad out rc
     case 3:
-        AdccRegs.ADCSOCFRC1.all = 0x0300; //SOC8 and SOC9
+        AdccRegs.ADCSOCFRC1.all = 0x0300; // SOC8 and SOC9
 
-//        while(AdccRegs.ADCINTFLG.bit.ADCINT1 == 0);
-//        AdccRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
+        //        while(AdccRegs.ADCINTFLG.bit.ADCINT1 == 0);
+        //        AdccRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
 
-        while(AdccRegs.ADCINTFLG.bit.ADCINT2 == 0);
+        while (AdccRegs.ADCINTFLG.bit.ADCINT2 == 0)
+            ;
         AdccRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
 
-        TempRadInLC_temp = AdccResultRegs.ADCRESULT8;    //rad in lc
-        TempRadInRC_temp = AdccResultRegs.ADCRESULT9;    //rad in rc
+        TempRadInLC_temp = AdccResultRegs.ADCRESULT8; // rad in lc
+        TempRadInRC_temp = AdccResultRegs.ADCRESULT9; // rad in rc
     }
 }
-
-
-
 
 /*
  * Old functions to convert voltage values.
  */
-float getVoltage(Uint16 digital){
-    return ((float)(digital))*3/4095;
+float getVoltage(Uint16 digital)
+{
+    return ((float)(digital)) * 3 / 4095;
 }
-
-

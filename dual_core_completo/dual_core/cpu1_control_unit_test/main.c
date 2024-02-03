@@ -1,6 +1,5 @@
 #include "main.h"
 
-
 int LoRa_Packet_Counter = 1;
 int LoRa_initialized = 0;
 
@@ -9,7 +8,7 @@ void main(void)
 
     InitSysCtrl();
 
-    //if standalone is active cpu1 will try to start cpu2
+    // if standalone is active cpu1 will try to start cpu2
 #ifdef _STANDALONE
 #ifdef _FLASH
 
@@ -31,19 +30,17 @@ void main(void)
 
     cpu1_timer_setup();
 
-    //stop both timers
+    // stop both timers
     CpuTimer1Regs.TCR.bit.TSS = 1;
     CpuTimer2Regs.TCR.bit.TSS = 1;
 
     GPIOSetup();
 
-
     setupSD();
-    //creates first file for logging
+    // creates first file for logging
     createFirstFile();
-    //writes the first line of log
+    // writes the first line of log
     writeHeader();
-
 
     uart_setup();
 
@@ -55,12 +52,12 @@ void main(void)
 
     // Write auth of some banks of Global Shared (GS) RAM is
     // given to CPU2
-    while( !(
-            MemCfgRegs.GSxMSEL.bit.MSEL_GS15 &
-            MemCfgRegs.GSxMSEL.bit.MSEL_GS14 &
-            MemCfgRegs.GSxMSEL.bit.MSEL_GS13 &
-            MemCfgRegs.GSxMSEL.bit.MSEL_GS12 &
-             MemCfgRegs.GSxMSEL.bit.MSEL_GS11))
+    while (!(
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS15 &
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS14 &
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS13 &
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS12 &
+        MemCfgRegs.GSxMSEL.bit.MSEL_GS11))
     {
         EALLOW;
         MemCfgRegs.GSxMSEL.bit.MSEL_GS15 = 1;
@@ -74,13 +71,11 @@ void main(void)
     EINT;
     ERTM;
 
-
-
     InitEPwm4Gpio();
     InitEPwm5Gpio();
     InitEPwm6Gpio();
 
-    //Muxing epwm e adc to CPU2
+    // Muxing epwm e adc to CPU2
     EALLOW;
     DevCfgRegs.CPUSEL0.bit.EPWM4 = 1;
     DevCfgRegs.CPUSEL0.bit.EPWM5 = 1;
@@ -90,26 +85,27 @@ void main(void)
     DevCfgRegs.CPUSEL11.bit.ADC_C = 1;
     EDIS;
 
-    //CAN muxed to CPU2
+    // CAN muxed to CPU2
     send_can_to_cpu2();
 
-    //shared struct copied in local variable
+    // shared struct copied in local variable
     local_sh = sh;
-
 
 #ifndef NO_LORA_DEBUG
     debugSet();
-    CpuTimer1Regs.TCR.bit.TSS = 1;      //Do not start timer 1 (SD) in LORA_DEBUG
+    CpuTimer1Regs.TCR.bit.TSS = 1; // Do not start timer 1 (SD) in LORA_DEBUG
 #else
-    CpuTimer1Regs.TCR.bit.TSS = 0;      //Start SD timer
+    CpuTimer1Regs.TCR.bit.TSS = 0; // Start SD timer
 #endif
 
-    //stop timer2 - it's not used for the moment
+    // stop timer2 - it's not used for the moment
     CpuTimer2Regs.TCR.bit.TSS = 1;
 
     volatile int x = true;
-    while (x) {x=x;}
-
+    while (x)
+    {
+        x = x;
+    }
 }
 
 void cpu1_timer_setup(void)
@@ -128,11 +124,10 @@ void cpu1_timer_setup(void)
     CpuTimer1Regs.TCR.all = 0x4000;
     CpuTimer2Regs.TCR.all = 0x4000;
 
-    IER |= M_INT13;   //timer1
-    IER |= M_INT14;   //timer2
+    IER |= M_INT13; // timer1
+    IER |= M_INT14; // timer2
 
     PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
-
 }
 
 void send_can_to_cpu2(void)
@@ -175,133 +170,128 @@ void Shared_Ram_dataRead_c1(void)
  */
 __interrupt void cpu_timer1_isr(void)
 {
-        CpuTimer1.InterruptCount++;
+    CpuTimer1.InterruptCount++;
 
-
-        Shared_Ram_dataRead_c1();
+    Shared_Ram_dataRead_c1();
 #ifdef LOGGING
-        char cmd[200];
+    char cmd[200];
 
-        sprintf(cmd, "%lu;", local_time_elapsed);
-        writeSD(cmd);
+    sprintf(cmd, "%lu;", local_time_elapsed);
+    writeSD(cmd);
 
-        compute_AMKStatus();
+    compute_AMKStatus();
 
-        sprintf(cmd, "%d;%d;%d;%d;"  //AMKStatus
-                "%.2f;%u;%.2f;%.2f;"   //MotorVal2
-                "%.2f;%u;%.2f;%.2f;"
-                "%.2f;%u;%.2f;%.2f;"
-                "%.2f;%u;%.2f;%.2f;",
-                (int)AmkStatus[0], (int)AmkStatus[1], (int)AmkStatus[2], (int)AmkStatus[3],
+    sprintf(cmd, "%d;%d;%d;%d;"       // AMKStatus
+                 "%.2f;%u;%.2f;%.2f;" // MotorVal2
+                 "%.2f;%u;%.2f;%.2f;"
+                 "%.2f;%u;%.2f;%.2f;"
+                 "%.2f;%u;%.2f;%.2f;",
+            (int)AmkStatus[0], (int)AmkStatus[1], (int)AmkStatus[2], (int)AmkStatus[3],
 
-                local_sh.motorVal2[0].AMK_TempMotor, local_sh.motorVal2[0].AMK_ErrorInfo,
-                local_sh.motorVal2[0].AMK_TempIGBT, local_sh.motorVal2[0].AMK_TempInverter,
-                local_sh.motorVal2[1].AMK_TempMotor, local_sh.motorVal2[1].AMK_ErrorInfo,
-                local_sh.motorVal2[1].AMK_TempIGBT, local_sh.motorVal2[1].AMK_TempInverter,
-                local_sh.motorVal2[2].AMK_TempMotor, local_sh.motorVal2[2].AMK_ErrorInfo,
-                local_sh.motorVal2[2].AMK_TempIGBT, local_sh.motorVal2[2].AMK_TempInverter,
-                local_sh.motorVal2[3].AMK_TempMotor, local_sh.motorVal2[3].AMK_ErrorInfo,
-                local_sh.motorVal2[3].AMK_TempIGBT, local_sh.motorVal2[3].AMK_TempInverter
-        );
+            local_sh.motorVal2[0].AMK_TempMotor, local_sh.motorVal2[0].AMK_ErrorInfo,
+            local_sh.motorVal2[0].AMK_TempIGBT, local_sh.motorVal2[0].AMK_TempInverter,
+            local_sh.motorVal2[1].AMK_TempMotor, local_sh.motorVal2[1].AMK_ErrorInfo,
+            local_sh.motorVal2[1].AMK_TempIGBT, local_sh.motorVal2[1].AMK_TempInverter,
+            local_sh.motorVal2[2].AMK_TempMotor, local_sh.motorVal2[2].AMK_ErrorInfo,
+            local_sh.motorVal2[2].AMK_TempIGBT, local_sh.motorVal2[2].AMK_TempInverter,
+            local_sh.motorVal2[3].AMK_TempMotor, local_sh.motorVal2[3].AMK_ErrorInfo,
+            local_sh.motorVal2[3].AMK_TempIGBT, local_sh.motorVal2[3].AMK_TempInverter);
 
-        writeSD(cmd);
+    writeSD(cmd);
 
-        //TO USE
-        sprintf(cmd , "%.1f;%.1f;%.1f;%.1f;"  //Actual velocity
-                      "%d;%d;%d;%d;" //MotorSetPoints positive
-                      "%d;%d;%d;%d;", //MotorSetPoints negative
-                        local_sh.motorVal1[0].AMK_ActualVelocity,local_sh.motorVal1[1].AMK_ActualVelocity,
-                        local_sh.motorVal1[2].AMK_ActualVelocity,local_sh.motorVal1[3].AMK_ActualVelocity,
+    // TO USE
+    sprintf(cmd, "%.1f;%.1f;%.1f;%.1f;" // Actual velocity
+                 "%d;%d;%d;%d;"         // MotorSetPoints positive
+                 "%d;%d;%d;%d;",        // MotorSetPoints negative
+            local_sh.motorVal1[0].AMK_ActualVelocity, local_sh.motorVal1[1].AMK_ActualVelocity,
+            local_sh.motorVal1[2].AMK_ActualVelocity, local_sh.motorVal1[3].AMK_ActualVelocity,
 
-                        local_sh.motorSetP[0].AMK_TorqueLimitPositive,local_sh.motorSetP[1].AMK_TorqueLimitPositive,
-                        local_sh.motorSetP[2].AMK_TorqueLimitPositive,local_sh.motorSetP[3].AMK_TorqueLimitPositive,
+            local_sh.motorSetP[0].AMK_TorqueLimitPositive, local_sh.motorSetP[1].AMK_TorqueLimitPositive,
+            local_sh.motorSetP[2].AMK_TorqueLimitPositive, local_sh.motorSetP[3].AMK_TorqueLimitPositive,
 
-                        local_sh.motorSetP[0].AMK_TorqueLimitNegative,local_sh.motorSetP[1].AMK_TorqueLimitNegative,
-                        local_sh.motorSetP[2].AMK_TorqueLimitNegative,local_sh.motorSetP[3].AMK_TorqueLimitNegative
-                        );
-        writeSD(cmd);
+            local_sh.motorSetP[0].AMK_TorqueLimitNegative, local_sh.motorSetP[1].AMK_TorqueLimitNegative,
+            local_sh.motorSetP[2].AMK_TorqueLimitNegative, local_sh.motorSetP[3].AMK_TorqueLimitNegative);
+    writeSD(cmd);
 #ifndef NO_LORA
-        LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
+    LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
 #endif
-        sprintf(cmd ,
-                        "%d;%d;%d;%d;%lu;%d;%d;%d;"                //status
-                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%u;"    //bms
-                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
-                        "%.1f;%.3f;%.2f;%.2f;",              //sendyne
-                        //status
-                        local_sh.status.throttle_shared, local_sh.status.steering_shared,
-                        local_sh.status.brake_shared, local_sh.status.brakePress_shared,
-                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
-                        local_sh.pedals.brk_req_shared, local_sh.pedals.throttle_req_shared,
-                        //bms
-                        local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
-                        local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
-                        local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
-                        local_sh.bms.bms_bitmap_shared,
-                        //bms_lv
-                        local_sh.bms_lv[0], local_sh.bms_lv[1], local_sh.bms_lv[2],
-                        local_sh.bms_lv[3], local_sh.bms_lv[4], local_sh.bms_lv[5],
-                        local_sh.bms_lv[6], local_sh.bms_lv[7],
-                        //power
-                        local_sh.power.batteryPack_voltage_shared, local_sh.power.lem_current_shared,
-                        local_sh.power.curr_sens_shared, local_sh.power.total_power_shared);
-        writeSD(cmd);
+    sprintf(cmd,
+            "%d;%d;%d;%d;%lu;%d;%d;%d;"                // status
+            "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%u;"        // bms
+            "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;" // bms_lv
+            "%.1f;%.3f;%.2f;%.2f;",                    // sendyne
+            // status
+            local_sh.status.throttle_shared, local_sh.status.steering_shared,
+            local_sh.status.brake_shared, local_sh.status.brakePress_shared,
+            local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
+            local_sh.pedals.brk_req_shared, local_sh.pedals.throttle_req_shared,
+            // bms
+            local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
+            local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
+            local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
+            local_sh.bms.bms_bitmap_shared,
+            // bms_lv
+            local_sh.bms_lv[0], local_sh.bms_lv[1], local_sh.bms_lv[2],
+            local_sh.bms_lv[3], local_sh.bms_lv[4], local_sh.bms_lv[5],
+            local_sh.bms_lv[6], local_sh.bms_lv[7],
+            // power
+            local_sh.power.batteryPack_voltage_shared, local_sh.power.lem_current_shared,
+            local_sh.power.curr_sens_shared, local_sh.power.total_power_shared);
+    writeSD(cmd);
 
-        sprintf(cmd ,
-                "%u;%u;"                           //fanSpeed
-                "%.4f;%.4f;%.4f;%.4f;%.4f;%.4f;"   //imu
-                "%.1f;%.1f;%.1f;%.1f;",            //suspensions
+    sprintf(cmd,
+            "%u;%u;"                         // fanSpeed
+            "%.4f;%.4f;%.4f;%.4f;%.4f;%.4f;" // imu
+            "%.1f;%.1f;%.1f;%.1f;",          // suspensions
 
-                        //fanSpeed
-                        local_sh.fanSpeed.fanSpeed_shared, local_sh.fanSpeed.fanSpeed_shared,
-                        //imu
-                        local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
-                        local_sh.imu.accelerations_shared[2], local_sh.imu.omegas_shared[0],
-                        local_sh.imu.omegas_shared[1], local_sh.imu.omegas_shared[2],
-                        //potenziometri sospensioni FL-FR-RL-RR
-                        local_sh.imu.suspensions_shared[0], local_sh.imu.suspensions_shared[1],
-                        local_sh.imu.suspensions_shared[2], local_sh.imu.suspensions_shared[3]);
-        writeSD(cmd);
+            // fanSpeed
+            local_sh.fanSpeed.fanSpeed_shared, local_sh.fanSpeed.fanSpeed_shared,
+            // imu
+            local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
+            local_sh.imu.accelerations_shared[2], local_sh.imu.omegas_shared[0],
+            local_sh.imu.omegas_shared[1], local_sh.imu.omegas_shared[2],
+            // potenziometri sospensioni FL-FR-RL-RR
+            local_sh.imu.suspensions_shared[0], local_sh.imu.suspensions_shared[1],
+            local_sh.imu.suspensions_shared[2], local_sh.imu.suspensions_shared[3]);
+    writeSD(cmd);
 
-        sprintf(cmd ,
-                "%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;"        //temperatures per cooling
-                "%d;%d;%d;%d;%d;%d\n",
+    sprintf(cmd,
+            "%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;" // temperatures per cooling
+            "%d;%d;%d;%d;%d;%d\n",
 
-                        //temperature per cooling
-                        local_sh.imu.temperatures_shared[0], local_sh.imu.temperatures_shared[1],
-                        local_sh.imu.temperatures_shared[2], local_sh.imu.temperatures_shared[3],
-                        local_sh.imu.temperatures_shared[4], local_sh.imu.temperatures_shared[5],
-                        local_sh.imu.temperatures_shared[6], local_sh.imu.temperatures_shared[7],
-                        //gpio
-                        local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
-                        local_sh.bms.max_bms_temp_nslave_shared,
-                        (int)local_sh.pedals.acc_shared,(int)local_sh.pedals.acc_shared,(int)local_sh.pedals.brk_shared);
-        writeSD(cmd);
-
+            // temperature per cooling
+            local_sh.imu.temperatures_shared[0], local_sh.imu.temperatures_shared[1],
+            local_sh.imu.temperatures_shared[2], local_sh.imu.temperatures_shared[3],
+            local_sh.imu.temperatures_shared[4], local_sh.imu.temperatures_shared[5],
+            local_sh.imu.temperatures_shared[6], local_sh.imu.temperatures_shared[7],
+            // gpio
+            local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
+            local_sh.bms.max_bms_temp_nslave_shared,
+            (int)local_sh.pedals.acc_shared, (int)local_sh.pedals.acc_shared, (int)local_sh.pedals.brk_shared);
+    writeSD(cmd);
 
 #ifdef MORE_FILES
-        if(CpuTimer1.InterruptCount % 2000 == 0 && CpuTimer1.InterruptCount != 0)
-        {
-            //DA TESTARE SE USARE O MENO
-            newSetupSD();
-            createFile();
-            writeHeader();
-
-        }
+    if (CpuTimer1.InterruptCount % 2000 == 0 && CpuTimer1.InterruptCount != 0)
+    {
+        // DA TESTARE SE USARE O MENO
+        newSetupSD();
+        createFile();
+        writeHeader();
+    }
 #endif
 #endif
-        if(CpuTimer1.InterruptCount % 5 == 0)
-        {
-                EALLOW;
-                GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-                EDIS;
-        }
+    if (CpuTimer1.InterruptCount % 5 == 0)
+    {
+        EALLOW;
+        GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+        EDIS;
+    }
 #ifndef NO_LORA
-        LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
+    LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
 #endif
 }
 
-//not necessary at the moment
+// not necessary at the moment
 __interrupt void cpu_timer2_isr(void)
 {
 }
@@ -309,9 +299,10 @@ __interrupt void cpu_timer2_isr(void)
 /*
  * Function to compress amk status in one Byte
  */
-void compute_AMKStatus(){
+void compute_AMKStatus()
+{
     int index = 0;
-    for(index = 0; index < 4; index++)
+    for (index = 0; index < 4; index++)
     {
         AmkStatus[index] = 0;
         AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bSystemReady);
@@ -324,7 +315,3 @@ void compute_AMKStatus(){
         AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bInverterOn << 7);
     }
 }
-
-
-
-
