@@ -268,10 +268,7 @@ unsigned char RXA_ATC_DATA_SENSORS[8];
 
 unsigned char fan_enable;
 unsigned char pump_enable;
-unsigned char epwm4B;
-unsigned char epwm5A;
-unsigned char epwm5B;
-unsigned char epwm6A;
+
 
 /*
  * KALMAN FILTER

@@ -85,10 +85,7 @@ extern unsigned char RXA_ATC_DATA_SENSORS[8];
 
 extern unsigned char fan_enable;
 extern unsigned char pump_enable;
-extern unsigned char epwm4B;
-extern unsigned char epwm5A;
-extern unsigned char epwm5B;
-extern unsigned char epwm6A;
+
 
 //
 // prototypes

@@ -59,7 +59,6 @@ void setup()
 
        GPIOSetup();
 
-       epwmSetup();
        adcSetup();
 
        timerSetup();

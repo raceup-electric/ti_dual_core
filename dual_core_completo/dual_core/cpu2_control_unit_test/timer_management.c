@@ -87,10 +87,10 @@ __interrupt void cpu_timer1_isr(void)
     //Start pumps 5 sec after lv power on
     if(time_elapsed >500){
             pump_enable = 1;
-            setPumpSpeed(0);
+            setPumpSpeed(100);
     } else {
             pump_enable = 0;
-            setPumpSpeed(0);
+            setPumpSpeed(100);
     }
 
 

@@ -804,11 +804,11 @@ void fanControl()
 
     }
     else {
-        setFanSpeed(100);
+        setFanSpeed(0);
     }
 
 
-    setFanSpeed(100 - leftFanSpeed);
+    setFanSpeed(leftFanSpeed);
 }
 
 /*
