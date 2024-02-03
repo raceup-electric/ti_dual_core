@@ -135,8 +135,6 @@ void read_steering_wheel_message(Uint16 val[], int id);
 
 void brakeLight();
 
-void playRTDS();
-
 void R2D_On();
 
 void R2D_Off();

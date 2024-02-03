@@ -90,7 +90,6 @@ void read_IMU_message(Uint16 imu_values[], int id)
 void read_SMU_Message(Uint16 smu_values[], int id){
 
     uint64_t aux = 0;
-    Uint16 tmp = 0;
     int i;
 
     for(i = 7; i >= 0; i--){
@@ -143,19 +142,6 @@ void read_BMSLV_message(Uint16 bmslv_values[], int id){
         bms_lv_cell[7] = convert_temp_lv(bms_lv_cell[7]);
     }
 
-    /*int i = 0;
-    if (id == MSG_ID_BMS_LV_1)
-    {
-        for (i = 0; i < 4; i++){
-            bms_lv_cell[i] = bmslv_values[i]*0.0001;
-        }
-    } else if (id == MSG_ID_BMS_LV_2) {
-        for (i = 0; i < 2; i++){
-            bms_lv_cell[i+4] = bmslv_values[i]*0.0001;
-        }
-        bms_lv_cell[6] = convert_temp_lv(bms_lv_cell[6]*0.0001);
-        bms_lv_cell[7] = convert_temp_lv(bms_lv_cell[7]*0.0001);
-    }*/
 }
 
 void read_BMS_VOLTAGE_message(Uint16 bms_values[]){
@@ -197,22 +183,15 @@ void brakeLight()
 
 }
 
-//da cambiare
-void playRTDS()
-{
-    GPIO_WritePin(RTDS, 1U);  // sound
-    CpuTimer2.InterruptCount = 0;
-    CpuTimer2Regs.TCR.bit.TSS = 0;      //Start timer 2
-}
 
 void R2D_On()
 {
-    playRTDS();
+    // playRTDS
+    GPIO_WritePin(RTDS, 1U);  // sound
+    CpuTimer2.InterruptCount = 0;
+    CpuTimer2Regs.TCR.bit.TSS = 0;      //Start timer 2
+
     GPIO_WritePin(R2D, R2D_LED_ON);  // led
-
-
-    //GPIO_WritePin(ENABLE_PUMPS, 1U);  // pompa on - ok cooling
-    //GPIO_WritePin(VENTOLA_Abil, 1U);  // ventole on
 
     fan_enable = 1;
     pump_enable = 1;
@@ -222,9 +201,6 @@ void R2D_Off()
 {
     GPIO_WritePin(RTDS, 0U);  // sound
     GPIO_WritePin(R2D, R2D_LED_OFF);  // led
-
-    //GPIO_WritePin(ENABLE_PUMPS, 1U);  // pompa on - ok cooling
-    //GPIO_WritePin(VENTOLA_Abil, 0U);  // ventole off
 
     fan_enable = 0;
     pump_enable = 1;
@@ -328,25 +304,6 @@ void computeBatteryPackTension()
 }
 
 
-//void checkHV()      //HV COUNTER OFF-->ON ON-->OFF
-//{
-//    int i;
-//
-//    for (i = 0; i < NUM_OF_MOTORS; i++)
-//    {
-//        if ((inverterHV[i] != motorVal1[i].AMK_bQuitDcOn) && (hvCounter[i] < HV_TRAP))
-//                hvCounter[i]++;
-//
-//        else if ((inverterHV[i] != motorVal1[i].AMK_bQuitDcOn) && (hvCounter[i]>= HV_TRAP))
-//        {
-//            inverterHV[i] = motorVal1[i].AMK_bQuitDcOn;
-//            hvCounter[i] = 0;
-//        }
-//        else if ((inverterHV[i] == motorVal1[i].AMK_bQuitDcOn) && (hvCounter[i] > 0))
-//            hvCounter[i] = 0;
-//    }
-//}
-
 /*
  * Tramaccio: we wait 500ms before stating that an inverter has no Hv
  */
@@ -372,37 +329,6 @@ void checkHV()      //HV COUNTER ON-->OFF
     }
 }
 
-//void checkHV()    //HV ALWAYS ON
-//{
-//    int i;
-//
-//    for (i = 0; i < NUM_OF_MOTORS; i++)
-//    {
-//        if ((motorVal1[i].AMK_bQuitDcOn == false) && (inverterHV[i] == false))
-//            inverterHV[i] = false;
-//        else if ((motorVal1[i].AMK_bQuitDcOn == true) && (inverterHV[i] == false))
-//            inverterHV[i] = true;
-//        else if ((motorVal1[i].AMK_bQuitDcOn == false) && (inverterHV[i] == true))
-//            inverterHV[i] = true;
-//    }
-//}
-
-
-//void checkRF()  //RF ALWAYS ON ONCE ENABLED
-//{
-//    int i;
-//
-//    for (i = 0; i < NUM_OF_MOTORS; i++)
-//    {
-//        if ((motorVal1[i].AMK_bQuitInverterOn == false) && (inverterRF[i] == false))
-//            inverterRF[i] = false;
-//        else if ((motorVal1[i].AMK_bQuitInverterOn == true) && (inverterRF[i] == false))
-//            inverterRF[i] = true;
-//        else if ((motorVal1[i].AMK_bQuitInverterOn == false) && (inverterRF[i] == true))
-//            inverterRF[i] = true;
-//    }
-//}
-
 /*
  * Tramaccio: we wait 500ms before stating that an Rf is not active
  */
@@ -427,26 +353,6 @@ void checkRF()   //RF COUNTER ON-->OFF
         }
     }
 }
-
-
-//void checkRF()    //RF COUNTER OFF-->ON ON-->OFF
-//{
-//    int i;
-//
-//    for (i = 0; i < NUM_OF_MOTORS; i++)
-//    {
-//        if ((inverterRF[i] != motorVal1[i].AMK_bQuitInverterOn) && (rfCounter[i] < RF_TRAP))
-//                rfCounter[i]++;
-//
-//        else if ((inverterRF[i] != motorVal1[i].AMK_bQuitInverterOn) && (rfCounter[i]>= RF_TRAP))
-//        {
-//            inverterRF[i] = motorVal1[i].AMK_bQuitInverterOn;
-//            rfCounter[i] = 0;
-//        }
-//        else if ((inverterRF[i] == motorVal1[i].AMK_bQuitInverterOn) && (rfCounter[i] > 0))
-//            rfCounter[i] = 0;
-//    }
-//}
 
 /*
  * Check if High Voltage is On. inverterHV[i] is updated in checkHv function
@@ -689,8 +595,8 @@ void update_shared_mem()
         sh.motorVal2[index] = motorVal2_shared[index];
         sh.motorSetP[index] = motorSetP_shared[index];
     }
-    //memcpy(sh.Temps, Temps_shared, 8);
-    int i;
+
+   int i;
     for(i = 0; i < 8; i++){
         sh.bms_lv[i] = bms_lv_shared[i];
     }

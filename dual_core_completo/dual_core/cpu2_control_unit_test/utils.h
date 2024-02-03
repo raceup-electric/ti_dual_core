@@ -177,12 +177,6 @@ void setup_macros();
 
 float convertBMSvoltage(Uint16 voltage);
 
-float convertBMStemp(Uint16 temp);
-
-float changeRange(float val, float minX, float maxX, float newMinX, float newMaxX);
-
-Uint16 saturateUnsigned(Uint16 signal, Uint16 upperBound, Uint16 lowerBound);
-
 float saturateFloat(float signal, float upperBound, float lowerBound);
 
 float saturateInt(int signal, int upperBound, int lowerBound);
@@ -193,17 +187,9 @@ int NMtoTorqueSetpoint(float torqueNM);
 
 float convert_temp_lv(float cell_volt);
 
-float ConvertTempToKelvin(int adc_read);
-
-//void debugLight(int period);
-
 float uint32_to_float(Uint32 u);
+
 int16_t unsigned_to_signed(Uint16 value);
-
-
-void send_calibration(float V[3][3]);
-void imu_calibration_1(float accelerations[3]);
-void imu_calibration_2(float accelerations[3]);
 
 void apply_calibration();
 
