@@ -51,7 +51,6 @@ char AmkStatus[4];
 #pragma DATA_SECTION(car_settings,"SHARERAMGS14");
 #pragma DATA_SECTION(sh,"SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS12");
-#pragma DATA_SECTION(display,"SHARERAMGS13");
 
 
 Uint16 error;

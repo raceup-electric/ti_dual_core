@@ -117,12 +117,7 @@ struct Car_settings{
 
     //screen
     float presets_power[8];
-    float presets_max_pos[5];
-    float presets_max_neg[5];
     float presets_regen[6];
-    float presets_speed[6];
-    float presets_coppie_front[6];
-    float presets_coppie_rear[6];
 
     //setup variables
     float max_regen_current;
