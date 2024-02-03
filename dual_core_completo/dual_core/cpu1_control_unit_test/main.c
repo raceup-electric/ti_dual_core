@@ -259,7 +259,7 @@ __interrupt void cpu_timer1_isr(void)
                 "%.1f;%.1f;%.1f;%.1f;",            //suspensions
 
                         //fanSpeed
-                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
+                        local_sh.fanSpeed.fanSpeed_shared, local_sh.fanSpeed.fanSpeed_shared,
                         //imu
                         local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
                         local_sh.imu.accelerations_shared[2], local_sh.imu.omegas_shared[0],

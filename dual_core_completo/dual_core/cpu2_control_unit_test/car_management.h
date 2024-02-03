@@ -80,8 +80,7 @@ extern int enablePumpLimit;
 extern Uint16 Temps[8];
 extern Uint32 status;
 
-extern Uint16 leftFanSpeed;
-extern Uint16 rightFanSpeed;
+extern Uint16 fanSpeed;
 
 //AMK
 extern int hvCounter[4];
@@ -173,7 +172,6 @@ void update_shared_mem();
 void update_log_values();
 
 Uint16 fanSpeedFunction(int temp);
-Uint16 fanSpeedFunctionDebug(int temp);
 
 void fanControl();
 

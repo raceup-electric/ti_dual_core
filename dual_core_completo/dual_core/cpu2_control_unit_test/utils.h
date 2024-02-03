@@ -85,8 +85,7 @@ struct Power_Log {
 };
 
 struct FanSpeed_Log{
-    Uint16 leftFanSpeed_shared;
-    Uint16 rightFanSpeed_shared;
+    Uint16 fanSpeed_shared;
 };
 
 struct Imu_Log{

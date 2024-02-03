@@ -435,8 +435,7 @@ void read_steering_wheel_message(Uint16 val[], int id){
                    display.manual_speed_selector = !display.manual_speed_selector;
                }
                else if(display.ack_fan == 1){
-                   leftFanSpeed = display.selector_speed_fan;
-                   rightFanSpeed = display.selector_speed_fan;
+                   fanSpeed = display.selector_speed_fan;
                }
            }
        }
@@ -796,19 +795,14 @@ void fanControl()
         int rightTemp = fmax(motorVal2[1].AMK_TempInverter, motorVal2[3].AMK_TempInverter);
         int maxTemp = fmax(leftTemp, rightTemp);
 
-        if(!display.manual_speed_selector){
-
-            leftFanSpeed = fanSpeedFunction(maxTemp);
-            rightFanSpeed = leftFanSpeed;
-        }
+        fanSpeed = fanSpeedFunction(maxTemp);
 
     }
     else {
         setFanSpeed(0);
     }
 
-
-    setFanSpeed(leftFanSpeed);
+    setFanSpeed(fanSpeed);
 }
 
 /*
@@ -816,22 +810,6 @@ void fanControl()
  */
 
 Uint16 fanSpeedFunction(int temp){
-//#ifndef CONST_FAN_SPEED
-//    if(fan_flag && temp > 45 && temp < FAN_MIN_TEMP){
-//        return 10;
-//    }
-//    if (temp < FAN_MIN_TEMP){
-//        fan_flag = 0;
-//        return 0;
-//
-//    }
-//    else if (temp >  FAN_MAX_TEMP){
-//        fan_flag = 1;
-//        return 100;
-//    }else {
-//        fan_flag = 1;
-//        return (9*temp) - 440;
-//    }
 
     /*
      * Reminder: fans actually work with pwm greater or equal than 40%
@@ -844,40 +822,9 @@ Uint16 fanSpeedFunction(int temp){
         return (2*temp) - 80;
     }
 
-//#endif
-/*
-#ifdef CONST_FAN_SPEED
-    return 50;
-#endif
-*/
-
 }
 
-/*
- * Only for test bench. DO NOT USE IN RUN
- */
-Uint16 fanSpeedFunctionDebug(int temp){
-#ifndef CONST_FAN_SPEED
-    if(fan_flag && temp > 15 && temp < 20){
-        return 10;
-    }
-    if (temp < 20){
-        fan_flag = 0;
-        return 0;
 
-    }
-    else if (temp >  30){
-        return 100;
-    }else {
-        fan_flag = 1;
-        return (9*temp) - 170;
-    }
-#endif
-
-#ifdef CONST_FAN_SPEED
-    return 50;
-#endif
-}
 
 /*
  * Status represent an easy debug variable, visible on first display page
@@ -997,8 +944,7 @@ void update_log_values()
     power_log.total_power_shared = total_power;
 
     //FanSpeed
-    fanspeed_log.leftFanSpeed_shared = leftFanSpeed;
-    fanspeed_log.rightFanSpeed_shared = rightFanSpeed;
+    fanspeed_log.fanSpeed_shared = fanSpeed;
 
 
     //Imu

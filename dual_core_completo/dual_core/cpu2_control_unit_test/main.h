@@ -93,8 +93,7 @@ int pump;
 int stopPumpLimit;
 int enablePumpLimit;
 
-Uint16 leftFanSpeed = 0;
-Uint16 rightFanSpeed = 0;
+Uint16 fanSpeed = 0;
 
 bool temp_warning = false;
 Uint16 Temps[8];

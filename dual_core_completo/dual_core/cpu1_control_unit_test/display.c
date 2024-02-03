@@ -431,7 +431,7 @@ void  updatePage14(){
     setSelector2_fan();
     setAckFan();
 
-    sprintf(tmp, "fan_SPEED.speed.val=%dÿÿÿ\0", local_sh.fanSpeed.rightFanSpeed_shared);
+    sprintf(tmp, "fan_SPEED.speed.val=%dÿÿÿ\0", local_sh.fanSpeed.fanSpeed_shared);
     scic_msg(tmp);
 
 }
