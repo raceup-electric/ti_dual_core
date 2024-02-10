@@ -109,9 +109,9 @@ void read_BMS_VOLTAGE_message(Uint16 bms_values[]);
 
 void read_steering_wheel_message(Uint16 val[], int id);
 
-void read_ATC_TBS(Uint16 data[]);
+void read_ATC_TBS(unsigned char data[]);
 
-void read_ATC_SENSORS(Uint16 data[]);
+void read_ATC_SENSORS(unsigned char data[]);
 
 void brakeLight();
 
