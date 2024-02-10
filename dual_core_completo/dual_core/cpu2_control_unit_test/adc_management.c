@@ -137,6 +137,7 @@ void readADC_Bank(int num_bank)
 
         CurrSens_temp = AdcaResultRegs.ADCRESULT1; // curr sens
         Steering_temp = AdcaResultRegs.ADCRESULT5;
+        break;
 
     case 2:
         AdcbRegs.ADCSOCFRC1.all = 0x00C0; // SOC6 and SOC7
@@ -150,6 +151,7 @@ void readADC_Bank(int num_bank)
 
         TempRadOutLC_temp = AdcbResultRegs.ADCRESULT6; // rad out lc
         TempRadOutRC_temp = AdcbResultRegs.ADCRESULT7; // rad out rc
+        break;
     case 3:
         AdccRegs.ADCSOCFRC1.all = 0x0300; // SOC8 and SOC9
 
@@ -162,6 +164,7 @@ void readADC_Bank(int num_bank)
 
         TempRadInLC_temp = AdccResultRegs.ADCRESULT8; // rad in lc
         TempRadInRC_temp = AdccResultRegs.ADCRESULT9; // rad in rc
+        break;
     }
 }
 

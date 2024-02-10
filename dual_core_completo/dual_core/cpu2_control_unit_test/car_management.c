@@ -427,13 +427,13 @@ void fanControl()
         int maxTemp = fmax(leftTemp, rightTemp);
 
         fanSpeed = fanSpeedFunction(maxTemp);
+        setFanSpeed(fanSpeed);
     }
     else
     {
         setFanSpeed(0);
     }
 
-    setFanSpeed(fanSpeed);
 }
 
 /*
