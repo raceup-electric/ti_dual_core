@@ -86,11 +86,6 @@
 			<locationURI>PARENT-5-ORIGINAL_PROJECT_ROOT/common/source/F2837xD_usDelay.asm</locationURI>
 		</link>
 		<link>
-			<name>can.c</name>
-			<type>1</type>
-			<locationURI>PARENT-5-ORIGINAL_PROJECT_ROOT/common/deprecated/driverlib/can.c</locationURI>
-		</link>
-		<link>
 			<name>interrupt.c</name>
 			<type>1</type>
 			<locationURI>copy_PARENT/common/deprecated/driverlib/interrupt.c</locationURI>

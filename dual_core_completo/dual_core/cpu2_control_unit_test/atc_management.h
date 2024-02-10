@@ -1,6 +1,7 @@
 #ifndef _ATC_MANAGEMENT_
 #define _ATC_MANAGEMENT_
-#include "dbc_gen/can2.h"
+
+enum type_message {TBS, SENSORS};
 
 // only for compatibility with legacy code
 //--------------------------------------
@@ -26,6 +27,6 @@ unsigned int atc_motor_temperature_left();
 
 unsigned int atc_motor_temperature_right();
 
-void atc_update(can_obj_can2_h_t *atc_data, unsigned int message_number);
+void atc_update(unsigned int data[], enum type_message t);
 
 #endif

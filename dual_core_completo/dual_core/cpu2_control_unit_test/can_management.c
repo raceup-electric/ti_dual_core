@@ -1,6 +1,5 @@
 #include "can_management.h"
 #include "global_definitions.h"
-#include "dbc_gen/can2.h"
 
 // alberto patch
 void setting_package_param(tCANMsgObject *Object, unsigned int ID,
@@ -180,7 +179,6 @@ __interrupt void canISR_A(void)
 {
     uint32_t status;
     int id;
-    can_obj_can2_h_t o;
     status = CANIntStatus(CANA_BASE, CAN_INT_STS_CAUSE);
 
     // alberto patch
@@ -282,13 +280,7 @@ __interrupt void canISR_A(void)
     case OBJ_ID_FROM_ATC_TBS:
         CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, true);
 
-        can2_unpack_message(&o,
-                            &TXCANA_ATC_Message_TBS.ui32MsgID,
-                            &RXA_ATC_DATA_TBS,
-                            &TXCANA_ATC_Message_TBS.ui32MsgLen,
-                            0); // not using timestamp
-
-        read_ATC_message(&o, 1);
+        read_ATC_TBS(RXA_ATC_DATA_TBS);
 
         rxAMsgCount++;
 
@@ -297,13 +289,7 @@ __interrupt void canISR_A(void)
     case OBJ_ID_FROM_ATC_SENSORS:
         CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, true);
 
-        can2_unpack_message(&o,
-                            &TXCANA_ATC_Message_SENSORS.ui32MsgID,
-                            &RXA_ATC_DATA_SENSORS,
-                            &TXCANA_ATC_Message_SENSORS.ui32MsgLen,
-                            0); // not using timestamp
-
-        read_ATC_message(&o, 2);
+        read_ATC_SENSORS(RXA_ATC_DATA_SENSORS);
 
         rxAMsgCount++;
 

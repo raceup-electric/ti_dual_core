@@ -12,7 +12,7 @@
 #include "global_definitions.h"
 #include "epwm_management.h"
 #include "can_management.h"
-#include "dbc_gen/can2.h"
+#include "atc_management.h"
 
 //
 // variables
@@ -91,8 +91,6 @@ extern struct motorValues1 motorVal1[4]; //  0 --> FL, 1 --> FR, 2 --> RL, 3 -->
 //
 // prototypes
 //
-void read_ATC_message(can_obj_can2_h_t *atc_data, unsigned int message_number);
-
 void read_SENDYNE_message(unsigned char sendyne_values[]);
 
 void read_LEM_message(unsigned char lem_values[]);
@@ -110,6 +108,10 @@ void read_BMS_TEMP_message(Uint16 bms_values[]);
 void read_BMS_VOLTAGE_message(Uint16 bms_values[]);
 
 void read_steering_wheel_message(Uint16 val[], int id);
+
+void read_ATC_TBS(Uint16 data[]);
+
+void read_ATC_SENSORS(Uint16 data[]);
 
 void brakeLight();
 

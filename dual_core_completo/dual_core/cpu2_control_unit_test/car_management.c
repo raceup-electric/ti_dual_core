@@ -21,11 +21,7 @@ int leftFanDebug = 0;
 int rightFanDebug = 0;
 #endif
 
-// alberto patch
-void read_ATC_message(can_obj_can2_h_t *atc_data, unsigned int message_number)
-{
-    atc_update(atc_data, message_number);
-}
+
 
 void read_map_sw_message(Uint16 val)
 {
@@ -171,6 +167,16 @@ void read_BMS_TEMP_message(Uint16 bms_values[])
     mean_bms_temp = tmp;
     max_temp_nslave = bms_values[6];
 }
+
+
+void read_ATC_TBS(Uint16 data[]) {
+    atc_update(data, TBS);
+}
+
+void read_ATC_SENSORS(Uint16 data[]) {
+    atc_update(data, SENSORS);
+}
+
 
 /*
  * 2023 - logica invertita
