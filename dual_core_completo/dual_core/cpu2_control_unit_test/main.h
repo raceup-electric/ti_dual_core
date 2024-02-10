@@ -59,9 +59,6 @@ const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};
 // filtro max-nuotatori: media mobile, senza contare i top N valori
 const int filterValCount = 20;
 const int filterDiscardCount = 10;
-int throttles[20];  //20 = filterValCount
-int brakes[20];
-int steerings[20];
 
 
 

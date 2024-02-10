@@ -22,9 +22,6 @@
 extern bool brk_disconnected;
 extern const int filterValCount;
 extern const int filterDiscardCount;
-extern int throttles[];
-extern int brakes[];
-extern int steerings[];
 
 extern double w_angles[4];
 extern double delta_steer[2];
