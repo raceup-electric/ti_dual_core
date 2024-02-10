@@ -5,13 +5,6 @@
 /*
  * Retrieve data from ATC
  */
-void readThrottleBrakeSteering()
-{
-    throttle = atc_acceleration_pedal();
-    brake = atc_brake_pedal();
-    steering = atc_steering_sensor();
-}
-
 void wheels_angles()
 {
     w_angles[0] = delta_steer[0] - TOE_F;

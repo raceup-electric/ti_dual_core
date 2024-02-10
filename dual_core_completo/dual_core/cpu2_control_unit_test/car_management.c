@@ -590,8 +590,8 @@ void update_log_values()
     }
 
     // Pedals update
-    pedals_log.acc_shared = atc_acceleration_pedal();
-    pedals_log.brk_shared = atc_brake_pedal();
+    pedals_log.acc_shared = throttle;
+    pedals_log.brk_shared = brake;
     pedals_log.throttle_req_shared = throttleReq;
     pedals_log.brk_req_shared = brakeReq;
 

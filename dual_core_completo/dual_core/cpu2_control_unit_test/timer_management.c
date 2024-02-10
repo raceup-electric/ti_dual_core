@@ -72,7 +72,6 @@ __interrupt void cpu_timer1_isr(void)
     CpuTimer1.InterruptCount++;
 
     readAllADC();
-    readThrottleBrakeSteering();
 
 
     brakeLight();

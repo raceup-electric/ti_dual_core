@@ -41,8 +41,6 @@ extern struct Pedals_Log pedals_log;
 // prototypes
 //
 
-void readThrottleBrakeSteering();
-
 void wheels_angles();
 
 #endif

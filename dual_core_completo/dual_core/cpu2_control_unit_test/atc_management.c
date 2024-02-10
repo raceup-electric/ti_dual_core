@@ -15,34 +15,20 @@
 
 void atc_update(unsigned int data[], enum type_message t) {
 
-}
+    switch(t){
 
+    case TBS:
+        throttle = data[0] & 0xFF;
+        brake = (data[0] >> 8) & 0xFF;
+        steering = data[1] & 0xFFF;
+        break;
 
-// steering -180 + 180
-unsigned int atc_steering_sensor()
-{
-}
-// acceleration 0-100
-unsigned char atc_acceleration_pedal()
-{
-}
-// brake 0-100
-unsigned char atc_brake_pedal()
-{
-}
-// suspension 0-200
-unsigned int atc_front_suspension_left()
-{
-}
+    case SENSORS:
+        suspensions[1] = data[0] & 0x3FF;
+        suspensions[0] = ( data[0] >> 10 ) | (( data[1] & 0xF) << 4);
+        temperatures[0] = (data[1] >> 4) & 0x3FF;
+        temperatures[1] = (data[1] >> 14) | data[2] << 2;
 
-unsigned int atc_front_suspension_right()
-{
-}
-// temperature 0-150
-unsigned int atc_motor_temperature_left()
-{
-}
-
-unsigned int atc_motor_temperature_right()
-{
+        break;
+    }
 }
