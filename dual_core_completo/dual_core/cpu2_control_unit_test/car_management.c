@@ -203,7 +203,6 @@ void R2D_On()
     GPIO_WritePin(R2D, R2D_LED_ON); // led
 
     fan_enable = 1;
-    pump_enable = 1;
 }
 
 void R2D_Off()
@@ -212,7 +211,6 @@ void R2D_Off()
     GPIO_WritePin(R2D, R2D_LED_OFF); // led
 
     fan_enable = 0;
-    pump_enable = 1;
 }
 
 /*

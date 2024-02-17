@@ -83,12 +83,13 @@ __interrupt void cpu_timer1_isr(void)
     fanControl();
 
     pump_enable = 0;
-    setPumpSpeed(100);
 
     //Start pumps 5 sec after lv power on
     if(time_elapsed >500){
             pump_enable = 1;
     }
+
+    setPumpSpeed(100);
 
     if(time_elapsed%4 == 0){
         sendHostData();
