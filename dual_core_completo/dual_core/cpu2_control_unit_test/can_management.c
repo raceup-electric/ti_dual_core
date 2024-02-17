@@ -168,7 +168,7 @@ __interrupt void canISR_B(void)
 
         errorFlag = 0;
         break;
-    default:
+    //default:
     }
 
     CANGlobalIntClear(CANB_BASE, CAN_GLB_INT_CANINT0);
