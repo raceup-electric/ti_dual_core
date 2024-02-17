@@ -212,9 +212,25 @@ __interrupt void cpu_timer1_isr(void)
             local_sh.motorSetP[0].AMK_TorqueLimitNegative, local_sh.motorSetP[1].AMK_TorqueLimitNegative,
             local_sh.motorSetP[2].AMK_TorqueLimitNegative, local_sh.motorSetP[3].AMK_TorqueLimitNegative);
     writeSD(cmd);
-#ifndef NO_LORA
-    LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
-#endif
+
+    // send to esp32
+    char data[sizeof(local_sh)];
+    memcpy(data, &local_sh, sizeof(local_sh));
+
+    char ptr[sizeof(local_sh)*2];
+
+    int i;
+    for(i=0; i<sizeof(local_sh); i++){
+        ptr[i*2] = data[i] & 0x00FF;
+        ptr[i*2+1] = data[i] >> 8;
+    }
+
+    char encoded[sizeof(ptr) + 2];
+    cobs_encode(encoded, sizeof(encoded)-1, &ptr, sizeof(ptr));
+    encoded[sizeof(ptr) + 1] = '\0';
+
+    scic_msg(encoded);
+
     sprintf(cmd,
             "%d;%d;%d;%d;%lu;%d;%d;%d;"                // status
             "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%u;"        // bms
