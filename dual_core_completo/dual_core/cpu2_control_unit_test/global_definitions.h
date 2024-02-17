@@ -275,8 +275,8 @@
 #define MSG_ID_TO_ATMEGA                     0x130
 #define MSG_ID_LEM                           0x3C2
 //alberto patch
-#define MSG_ID_ATC_TBS                  0x083
-#define MSG_ID_ATC_SENSORS              0x258
+#define MSG_ID_ATC_TBS                  0x053
+#define MSG_ID_ATC_SENSORS              0x104
 
 
 

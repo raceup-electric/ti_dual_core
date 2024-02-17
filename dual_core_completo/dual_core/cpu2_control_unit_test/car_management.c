@@ -169,11 +169,11 @@ void read_BMS_TEMP_message(Uint16 bms_values[])
 }
 
 
-void read_ATC_TBS(unsigned char data[]) {
+void read_ATC_TBS(Uint16 data[]) {
     atc_update(data, TBS);
 }
 
-void read_ATC_SENSORS(unsigned char data[]) {
+void read_ATC_SENSORS(Uint16 data[]) {
     atc_update(data, SENSORS);
 }
 

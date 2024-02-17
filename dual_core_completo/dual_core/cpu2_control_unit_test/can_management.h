@@ -70,8 +70,8 @@ extern tCANMsgObject RXCANB_AmkVal2_Message[4];
 extern unsigned char RXB_AmkVal_Data[8];
 
 // alberto patch
-extern unsigned char RXA_ATC_DATA_TBS[8];
-extern unsigned char RXA_ATC_DATA_SENSORS[8];
+extern unsigned char RXA_ATC_DATA_TBS[4];
+extern unsigned char RXA_ATC_DATA_SENSORS[5];
 
 extern unsigned char fan_enable;
 extern unsigned char pump_enable;

@@ -187,8 +187,8 @@ unsigned char RXA_Map_SW_Data[1];
 unsigned char TXA_Host_Data[4];
 unsigned char RXA_Lem_Data[8];
 unsigned char TXCANA_PCU_Data[2];
-unsigned char RXA_ATC_DATA_TBS[8];
-unsigned char RXA_ATC_DATA_SENSORS[8];
+unsigned char RXA_ATC_DATA_TBS[4];
+unsigned char RXA_ATC_DATA_SENSORS[5];
 
 
 unsigned char fan_enable;

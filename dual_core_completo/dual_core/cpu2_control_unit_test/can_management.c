@@ -106,12 +106,12 @@ void canSetup_phase2()
     // Alberto Patch
     // TBS_ATC PACKAGE
     setting_package_param(&TXCANA_ATC_Message_TBS, MSG_ID_ATC_TBS, 0x0, MSG_OBJ_RX_INT_ENABLE,
-                          MSG_DATA_LENGTH, RXA_ATC_DATA_TBS);
+                          4, RXA_ATC_DATA_TBS);
     CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, MSG_OBJ_TYPE_RX);
 
     // SENSORS_ATC PACKAGE
     setting_package_param(&TXCANA_ATC_Message_SENSORS, MSG_ID_ATC_SENSORS, 0x0, MSG_OBJ_RX_INT_ENABLE,
-                          MSG_DATA_LENGTH, RXA_ATC_DATA_SENSORS);
+                          5, RXA_ATC_DATA_SENSORS);
     CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, MSG_OBJ_TYPE_RX);
     // end Alberto Patch
 
@@ -280,7 +280,7 @@ __interrupt void canISR_A(void)
     case OBJ_ID_FROM_ATC_TBS:
         CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, true);
 
-        read_ATC_TBS(RXA_ATC_DATA_TBS);
+        read_ATC_TBS((Uint16 *)RXA_ATC_DATA_TBS);
 
         rxAMsgCount++;
 
@@ -289,7 +289,7 @@ __interrupt void canISR_A(void)
     case OBJ_ID_FROM_ATC_SENSORS:
         CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_SENSORS, &TXCANA_ATC_Message_SENSORS, true);
 
-        read_ATC_SENSORS(RXA_ATC_DATA_SENSORS);
+        read_ATC_SENSORS((Uint16 *)RXA_ATC_DATA_SENSORS);
 
         rxAMsgCount++;
 

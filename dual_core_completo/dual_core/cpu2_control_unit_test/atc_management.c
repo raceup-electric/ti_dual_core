@@ -15,19 +15,37 @@
 
 void atc_update(unsigned int data[], enum type_message t) {
 
+    uint64_t aux = 0;
+    int i;
+
     switch(t){
 
     case TBS:
         throttle = data[0] & 0xFF;
-        brake = (data[0] >> 8) & 0xFF;
-        steering = data[1] & 0xFFF;
+        brake = data[1] & 0xFF;
+        steering = data[2] & 0xFF | (data[3] & 0xF) << 8;
         break;
 
     case SENSORS:
-        suspensions[1] = data[0] & 0x3FF;
-        suspensions[0] = ( data[0] >> 10 ) | (( data[1] & 0xF) << 4);
-        temperatures[0] = (data[1] >> 4) & 0x3FF;
-        temperatures[1] = (data[1] >> 14) | data[2] << 2;
+
+        for (i = 4; i >= 0; i--)
+        {
+            aux = aux << 8;
+            aux |= (0x00FF & data[i]);
+        }
+
+
+        for (i = 0; i < 2; i++)
+        {
+            suspensions[i] = (0x3FF & aux);
+            aux >>= 10;
+        }
+
+        for (i = 0; i < 2; i++)
+        {
+            temperatures[i] = (0x3FF & aux);
+            aux >>= 10;
+        }
 
         break;
     }
