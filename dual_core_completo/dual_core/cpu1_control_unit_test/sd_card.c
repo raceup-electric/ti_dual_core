@@ -67,39 +67,7 @@ const char *g_ppcStatusStrings[NUM_STATUS_STRINGS] =
         g_pcStatus[5]};
 unsigned long g_ulStatusStringIndex = 0;
 
-//
-// StringFromFresult - This function returns a string representation of an
-//                     error code that was returned from a function call to
-//                     FatFs.  It can be used for printing human readable
-//                     error messages.
-//
-static const char *
-StringFromFresult(FRESULT fresult)
-{
-    unsigned int uIdx;
 
-    //
-    // Enter a loop to search the error code table for a matching
-    // error code.
-    //
-    for (uIdx = 0; uIdx < NUM_FRESULT_CODES; uIdx++)
-    {
-        //
-        // If a match is found, then return the string name of the
-        // error code.
-        //
-        if (g_sFresultStrings[uIdx].fresult == fresult)
-        {
-            return (g_sFresultStrings[uIdx].pcResultStr);
-        }
-    }
-
-    //
-    // At this point no matching code was found, so return a
-    // string indicating unknown error.
-    //
-    return ("UNKNOWN ERROR CODE");
-}
 
 //
 // SysTickHandler - This is the handler for this SysTick interrupt.  FatFs
@@ -127,7 +95,6 @@ int Cmd_ls(int argc, char *argv[])
 {
     unsigned long ulTotalSize, ulItemCount, ulFileCount, ulDirCount;
     FRESULT fresult;
-    FATFS *pFatFs;
 
     //
     // Open the current directory for access.

@@ -63,7 +63,6 @@ static FILINFO g_sFileInfo;
 static FIL g_sFileObject;
 
 static FRESULT ChangeToDirectory(char *pcDirectory, unsigned long *pulReason);
-static const char *StringFromFresult(FRESULT fresult);
 
 extern int file_counter;
 extern char filename[20];
