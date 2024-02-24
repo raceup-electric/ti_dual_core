@@ -268,6 +268,8 @@ void R2D_init()
  * Battery pack tension is given indipendently by every motor.
  * The function seems complex because takes in consideration the case
  * that one or more motor are inactive.
+ *
+ * BMS precharge needs a message with the tot voltage
  */
 void computeBatteryPackTension()
 {
@@ -500,6 +502,7 @@ void sendDataToLogger()
     update_log_values();
     update_shared_mem();
 }
+
 void update_log_values()
 {
     int i;

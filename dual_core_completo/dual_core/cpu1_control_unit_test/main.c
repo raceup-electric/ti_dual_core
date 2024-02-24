@@ -1,23 +1,18 @@
 #include "main.h"
 
-int LoRa_Packet_Counter = 1;
-int LoRa_initialized = 0;
-
 void main(void)
 {
 
     InitSysCtrl();
 
     // if standalone is active cpu1 will try to start cpu2
-#ifdef _STANDALONE
-#ifdef _FLASH
-
-    IPCBootCPU2(C1C2_BROM_BOOTMODE_BOOT_FROM_FLASH);
-#else
-
-    IPCBootCPU2(C1C2_BROM_BOOTMODE_BOOT_FROM_RAM);
-#endif
-#endif
+    #ifdef _STANDALONE
+        #ifdef _FLASH
+            IPCBootCPU2(C1C2_BROM_BOOTMODE_BOOT_FROM_FLASH);
+        #else
+            IPCBootCPU2(C1C2_BROM_BOOTMODE_BOOT_FROM_RAM);
+        #endif
+    #endif
 
     InitGpio();
 
@@ -43,12 +38,6 @@ void main(void)
     writeHeader();
 
     uart_setup();
-
-#ifndef NO_LORA
-
-    GPIO_LoRa_Setup();
-    LoRa_initialized = LoRa_begin(LORA_DEFAULT_SPI_FREQUENCY);
-#endif
 
     // Write auth of some banks of Global Shared (GS) RAM is
     // given to CPU2
@@ -91,16 +80,11 @@ void main(void)
     // shared struct copied in local variable
     local_sh = sh;
 
-#ifndef NO_LORA_DEBUG
-    debugSet();
-    CpuTimer1Regs.TCR.bit.TSS = 1; // Do not start timer 1 (SD) in LORA_DEBUG
-#else
     CpuTimer1Regs.TCR.bit.TSS = 0; // Start SD timer
-#endif
-
     // stop timer2 - it's not used for the moment
     CpuTimer2Regs.TCR.bit.TSS = 1;
 
+    // che figo
     volatile int x = true;
     while (x)
     {
@@ -173,12 +157,12 @@ __interrupt void cpu_timer1_isr(void)
     CpuTimer1.InterruptCount++;
 
     Shared_Ram_dataRead_c1();
+
 #ifdef LOGGING
     char cmd[200];
 
     sprintf(cmd, "%lu;", local_time_elapsed);
     writeSD(cmd);
-
     compute_AMKStatus();
 
     sprintf(cmd, "%d;%d;%d;%d;"       // AMKStatus
@@ -302,9 +286,6 @@ __interrupt void cpu_timer1_isr(void)
         GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
         EDIS;
     }
-#ifndef NO_LORA
-    LoRa_Packet_Counter = send_Single_Data(LoRa_Packet_Counter);
-#endif
 }
 
 // not necessary at the moment

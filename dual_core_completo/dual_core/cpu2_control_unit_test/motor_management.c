@@ -44,14 +44,11 @@ void read_AMK_Values1(Uint16 canMsg[], int indexMotor) {
 
     motorVal1[indexMotor].AMK_ActualVelocity = unsigned_to_signed((canMsg[2] | canMsg[3] << 8));
     motorVal1[indexMotor].AMK_TorqueCurrent = (canMsg[4] | canMsg[5] << 8) * AMK_CURR_SCALE;
+    // it should be AMK Magnetizing current, but ...
     motorVal1[indexMotor].AMK_Voltage = (canMsg[6] | canMsg[7] << 8);
 
-    // see PDK
-    float torqueCurr = motorVal1[indexMotor].AMK_TorqueCurrent;
-    //float magnCurr = motorVal1[indexMotor].AMK_MagnetizingCurrent;
-    //float curr = 0.243 * torqueCurr + 0.0009 * torqueCurr * magnCurr;
-    motorVal1[indexMotor].AMK_Current = torqueCurr;
-
+    // see PDK - TODO: to be removed
+    motorVal1[indexMotor].AMK_Current = motorVal1[indexMotor].AMK_TorqueCurrent;
 }
 
 
@@ -110,7 +107,7 @@ void initializeMotor(int indexMotor)
     if(motorVal1[indexMotor].AMK_bSystemReady == 1) {
         motorSetP[indexMotor].AMK_bDcOn = 1;
     }
-
+    // TODO: ridondante
     if(motorVal1[indexMotor].AMK_bQuitDcOn && enableMotor) {
         motorSetP[indexMotor].AMK_bEnable = 1;
         motorSetP[indexMotor].AMK_bInverterOn = 1;
@@ -256,26 +253,21 @@ void int2Bytes(unsigned char* bytes_temp, int int_variable)
  */
 void sendAMKDataMotor(int motor, int posTorque, int negTorque) {
 
-    /*
-     * if motor is not initialized and is ready -> initialize motor
-     */
+    //if motor is not initialized and is ready -> initialize motor
     if(!motorInitialized[motor] && motorVal1[motor].AMK_bSystemReady == 1) {
         initializeMotor(motor);
     }
+    // if error, stop motor
     else if(motorVal1[motor].AMK_bError) {
-           send_AMK_SetPoints(motor, 0, 0, 0);
-           removeError(motor);
-           motorInitialized[motor] = 0;
+        send_AMK_SetPoints(motor, 0, 0, 0);
+        removeError(motor);
+        motorInitialized[motor] = 0;
     }
-    /*
-    * if motor is initialized and RF is on -> send setpoints
-    */
+    //if motor is initialized and RF is on -> send setpoints
     else if(motorInitialized[motor] == 1 && motorVal1[motor].AMK_bQuitInverterOn == 1) {
         send_AMK_SetPoints(motor, velocityRef, posTorque, negTorque);
     }
-    /*
-     * if error occurred in motor -> stop motor, remove error, motor to be reinitialized
-     */
+    //limit case - motor destroyed
     else {
         motorSetP[motor].AMK_bDcOn = 0;
         motorSetP[motor].AMK_bInverterOn = 0;
@@ -303,6 +295,9 @@ void sendAMKData() {
 
     for (i = 0; i < NUM_OF_MOTORS; i++)
     {
+        /*
+         * 0 - 100 throttle and brake to Nm (at this point max is 9.8 = MN)
+         */
         posTorquesNM[i] = torqueSetpointToNM(throttleReq*THROTTLE_POWER_SCALE);
         negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
     }
@@ -325,9 +320,10 @@ void sendAMKData() {
     int posTorque[4], negTorque[4];
     for (i = 0; i < NUM_OF_MOTORS; i++) {
 
-
-        float Torque_max = 21.0f - 0.000857*(fabsf(motorVal1[i].AMK_ActualVelocity) - 13000.0f);
-        Torque_max=saturateFloat(Torque_max,car_settings.max_pos_torque,0.0f);
+        // Safety limit to torque at high speed (decrease torque limit with increasing rpm)
+        float Torque_max = 21.0f - 0.000857*(motorVal1[i].AMK_ActualVelocity - 13000.0f);
+        // Choose strictest limit
+        Torque_max = saturateFloat(Torque_max, car_settings.max_pos_torque, 0.0f);
 
 
         //RIPARTIZIONE DI COPPIA SEMPLICE

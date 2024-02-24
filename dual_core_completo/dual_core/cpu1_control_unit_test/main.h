@@ -12,8 +12,6 @@
 #include "inc/hw_can.h"
 #include "driverlib/can.h"
 #include "sd_card.h"
-#include "LoRa.h"
-#include "Telemetry.h"
 
 //
 // Globals

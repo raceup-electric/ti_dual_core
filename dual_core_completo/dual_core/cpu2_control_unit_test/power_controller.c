@@ -8,16 +8,9 @@ void powerControl()
     for (i = 0; i < NUM_OF_MOTORS; i++)
         sTorque+=posTorquesNM[i];
 
-    float computed_power_limit = Thermal_Power_Control();
+    power_error = total_power - Thermal_Power_Control(); //limited by BMS temp
 
-    power_error = total_power - computed_power_limit;
-
-
-
-    reduction_factor = PIController(power_error);
-    reduction_factor = reduction_factor/STANDARD_SPEED;
-
-    reduction_factor = saturateFloat(reduction_factor, sTorque*(0.99f), 0)/sTorque;
+    reduction_factor = saturateFloat((PIController(power_error)/STANDARD_SPEED), sTorque*(0.99f), 0)/sTorque;
 
     if (reduction_factor > 0)
     {
