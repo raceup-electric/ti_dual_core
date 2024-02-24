@@ -2,9 +2,8 @@
 #include "car_management.h"
 
 int calibration_status = 0;
-int NUM_SMU_TEMP = 5;
-// alberto patch
-int NUM_SMU_SUSP = 2;
+// TODO: controlla
+int NUM_SMU_SUSP = 4;
 int fan_flag = 0;
 
 #ifdef DEBUG_HV
@@ -97,14 +96,14 @@ void read_SMU_Message(Uint16 smu_values[], int id)
     switch (id)
     {
     case MSG_ID_SMU_TEMPERATURES:
-        // alberto
         for (i = 0; i < 8; i += 2)
         {
             temperatures[i / 2] = (smu_values[i] | (smu_values[i + 1] << 8));
         }
         break;
     case (MSG_ID_SMU_TEMPERATURES + 1):
-        for (i = 0; i < 4; i += 2)
+            //TODO: controllare con tronici
+        for (i = 0; i < 8; i += 2)
         {
             temperatures[i / 2 + 4] = (smu_values[i] | (smu_values[i + 1] << 8));
         }
