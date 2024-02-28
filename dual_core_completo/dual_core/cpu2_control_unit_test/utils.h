@@ -47,8 +47,8 @@ struct Status_Log {
     int steering_shared;
     int brake_shared;
     int brakePress_shared;
-    Uint32 status_shared;
     int actualVelocityKMH_shared;
+    char status_shared;
 };
 
 //alberto patch

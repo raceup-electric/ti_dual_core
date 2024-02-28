@@ -19,7 +19,7 @@
 //
 extern bool R2D_first_state;
 extern bool R2D_state;
-extern Uint32 status;
+extern char status;
 
 extern Uint32 last_imu_message_time;
 
@@ -132,6 +132,8 @@ bool readRF();
 void checkTemps();
 
 void checkStatus();
+
+void carSettingsMessage();
 
 void update_shared_mem();
 

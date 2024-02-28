@@ -470,27 +470,42 @@ Uint16 fanSpeedFunction(int temp)
  */
 void checkStatus()
 {
-    // STATUS
-    // bit       | 7  |    6    |    5     |  4  |     3     |    2        |    1     | 0  |
-    // meaning   | RF | imp_b_t | brk_disc | r2d | PRECHARGE | Fault check | LV_ALARM | HV |
 
-    Uint32 mstatus = 0x0000000F;
     if (isHVOn())
-        mstatus |= 0x000000F0;
+        status |= 0x01;
     if (R2D_state)
-        mstatus |= 0x00000F00;
+        status |= 0x02;
     if (Air1_State)
-        mstatus |= 0x0000F000;
+        status |= 0x04;
+    if(readRF())
+        status |= 0x08;
     if (Air2_State)
-        mstatus |= 0x000F0000;
-    if (readRF())
-        mstatus |= 0x00F00000;
-    /* if (implBrakeAndThrottle)
-         mstatus |= 0x0F000000;
-     if (brk_disconnected)
-         mstatus |= 0xF0000000; */
+        status |= 0x10;
+    if (false)   // precharge!! TODO
+        status |= 0x20;
 
-    status = mstatus;
+    TXCANA_CarStatus_Data[0] = status;
+    TXCANA_CarStatus_Data[1] = status_log.actualVelocityKMH_shared;  // velocity TODO
+
+}
+
+
+void carSettingsMessage()
+{
+
+    TXCANA_CarSettings_Data[0] = (unsigned char)car_settings.max_regen_current;
+    TXCANA_CarSettings_Data[1] = (unsigned char)car_settings.power_limit;
+
+    Uint16 max_speed = (Uint16)car_settings.max_speed;
+
+    TXCANA_CarSettings_Data[2] = max_speed && 0xFF;
+    TXCANA_CarSettings_Data[3] = (max_speed >> 8) && 0xFF;
+
+    TXCANA_CarSettings_Data[4] = (unsigned char)car_settings.max_pos_torque;
+    TXCANA_CarSettings_Data[5] = (unsigned char)car_settings.max_neg_torque;
+    TXCANA_CarSettings_Data[6] = (unsigned char)(car_settings.front_motor_scale * 100);
+    TXCANA_CarSettings_Data[7] = (unsigned char)(car_settings.rear_motor_scale * 100);
+
 }
 
 /*

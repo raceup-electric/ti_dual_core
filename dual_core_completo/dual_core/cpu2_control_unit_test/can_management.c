@@ -116,8 +116,16 @@ void canSetup_phase2()
     // end Alberto Patch
 
     // PACCHETTO PER PCU
-    setting_package_param(&TXCANA_ATMega_Message, MSG_ID_TO_ATMEGA, 0x0, MSG_OBJ_NO_FLAGS,
+    setting_package_param(&TXCANA_PCU_Message, MSG_ID_TO_PCU, 0x0, MSG_OBJ_NO_FLAGS,
                           2, TXCANA_PCU_Data);
+
+    // PACCHETTO CAR SETTINGS
+    setting_package_param(&TXCANA_CarSettings_Message, MSG_ID_CAR_SETTINGS, 0x0, MSG_OBJ_NO_FLAGS,
+                          8, TXCANA_CarSettings_Data);
+
+    // PACCHETTO CAR STATUS
+    setting_package_param(&TXCANA_CarSettings_Message, MSG_ID_CAR_STATUS, 0x0, MSG_OBJ_NO_FLAGS,
+                          2, TXCANA_CarStatus_Data);
 
     CANEnable(CANA_BASE);
     CANEnable(CANB_BASE);
@@ -313,6 +321,15 @@ Uint32 getMessageID(Uint32 base, Uint32 objID)
 
 void send_pwm_to_pcu()
 {
+    CANMessageSet(CANA_BASE, OBJ_ID_TO_PCU, &TXCANA_PCU_Message, MSG_OBJ_TYPE_TX);
+}
 
-    CANMessageSet(CANA_BASE, OBJ_ID_TO_PCU, &TXCANA_ATMega_Message, MSG_OBJ_TYPE_TX);
+void send_car_settings()
+{
+    CANMessageSet(CANA_BASE, OBJ_ID_CAR_INFOS, &TXCANA_CarSettings_Message, MSG_OBJ_TYPE_TX);
+}
+
+void send_car_status()
+{
+    CANMessageSet(CANA_BASE, OBJ_ID_CAR_INFOS, &TXCANA_CarStatus_Message, MSG_OBJ_TYPE_TX);
 }

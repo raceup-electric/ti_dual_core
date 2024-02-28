@@ -46,7 +46,10 @@ extern tCANMsgObject RXCANA_BmsLV_Message;
 extern tCANMsgObject TXCANA_BmsHost_Message;
 extern tCANMsgObject RXCANA_Map_SW_Message;
 extern tCANMsgObject RXCANA_Lem_Message; // aggiunto lem
-extern tCANMsgObject TXCANA_ATMega_Message;
+extern tCANMsgObject TXCANA_PCU_Message;
+extern tCANMsgObject TXCANA_CarSettings_Message;
+extern tCANMsgObject TXCANA_CarStatus_Message;
+
 // alberto patch
 extern tCANMsgObject TXCANA_ATC_Message_TBS;
 extern tCANMsgObject TXCANA_ATC_Message_SENSORS;
@@ -61,6 +64,8 @@ extern unsigned char RXA_BmsLV_Data[8];
 extern unsigned char RXA_Lem_Data[8]; // aggiunto lem
 extern unsigned char TXA_Host_Data[4];
 extern unsigned char TXCANA_PCU_Data[2];
+extern unsigned char TXCANA_CarStatus_Data[2];
+extern unsigned char TXCANA_CarSettings_Data[8];
 
 extern tCANMsgObject TXCANB_Setpoints_Message[4];
 extern unsigned char TXB_Setpoints_Data[4][8];
@@ -89,5 +94,8 @@ __interrupt void canISR_A(void);
 Uint32 getMessageID(Uint32 base, Uint32 objID);
 
 void send_pwm_to_pcu();
+void send_car_settings();
+void send_car_status();
+
 
 #endif

@@ -95,8 +95,17 @@ __interrupt void cpu_timer1_isr(void)
         sendHostData();
     }
 
+    // every 500 ms
     if(time_elapsed%50 == 0){
         send_pwm_to_pcu();
+        checkStatus();
+        send_car_status();
+    }
+
+    // every 5s
+    if(time_elapsed%500 == 0){
+        carSettingsMessage();
+        send_car_settings();
     }
 
 
@@ -125,8 +134,6 @@ __interrupt void cpu_timer1_isr(void)
 
     sendAMKData();
 
-
-    checkStatus();
     computeBatteryPackTension();
 
     sendDataToLogger();

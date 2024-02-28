@@ -66,7 +66,7 @@ Uint16 fanSpeed = 0;
 
 
 
-Uint32 status = 0x00000000;
+char status = 0x00;
 
 //torque
 int actualVelocityRPM = 0;
@@ -171,7 +171,10 @@ tCANMsgObject TXCANA_BmsHost_Message;
 tCANMsgObject RXCANA_BmsLV_Message;
 tCANMsgObject RXCANA_Map_SW_Message;
 tCANMsgObject RXCANA_Lem_Message;
-tCANMsgObject TXCANA_ATMega_Message;
+tCANMsgObject TXCANA_PCU_Message;
+tCANMsgObject TXCANA_CarSettings_Message;
+tCANMsgObject TXCANA_CarStatus_Message;
+
 //alberto patch
 tCANMsgObject TXCANA_ATC_Message_TBS;
 tCANMsgObject TXCANA_ATC_Message_SENSORS;
@@ -187,6 +190,8 @@ unsigned char RXA_Map_SW_Data[1];
 unsigned char TXA_Host_Data[4];
 unsigned char RXA_Lem_Data[8];
 unsigned char TXCANA_PCU_Data[2];
+unsigned char TXCANA_CarStatus_Data[2];
+unsigned char TXCANA_CarSettings_Data[8];
 unsigned char RXA_ATC_DATA_TBS[4];
 unsigned char RXA_ATC_DATA_SENSORS[5];
 

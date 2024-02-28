@@ -239,6 +239,7 @@
  * 15, 16, 17 are occupied by AMK, DO NOT USE THEM!!!
  */
 #define OBJ_ID_FROM_BMS_LV      18
+#define OBJ_ID_CAR_INFOS        19
 #define OBJ_ID_FROM_LEM         21
 #define OBJ_ID_FROM_IMU         22
 #define OBJ_ID_TO_PCU        23
@@ -252,7 +253,6 @@
 #define MSG_ID_AMK1_DATA_BASE   0x40
 #define MSG_ID_AMK2_DATA_BASE   0x44
 #define MSG_ID_TEMPS            0x49
-#define MSG_ID_CAR_STATUS       0x52
 #define MSG_ID_BMS_BASE         0x55
 #define MSG_ID_BMS_LV_1         0x55
 #define MSG_ID_BMS_LV_2         0x56
@@ -272,7 +272,9 @@
 #define MSG_ID_BMS_VOLTAGE                   0x110
 #define MSG_ID_BMS_TEMP                      0x111
 #define MSG_ID_HOST_SEND                     0x120
-#define MSG_ID_TO_ATMEGA                     0x130
+#define MSG_ID_TO_PCU                     0x130
+#define MSG_ID_CAR_SETTINGS                     0x66
+#define MSG_ID_CAR_STATUS                    0x65
 #define MSG_ID_LEM                           0x3C2
 //alberto patch
 #define MSG_ID_ATC_TBS                  0x053
