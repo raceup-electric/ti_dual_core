@@ -35,14 +35,6 @@ void main(void)
 
     GPIOSetup();
 
-
-    setupSD();
-    //creates first file for logging
-    createFirstFile();
-    //writes the first line of log
-    writeHeader();
-
-
     uart_setup();
 
     // Write auth of some banks of Global Shared (GS) RAM is
@@ -66,8 +58,6 @@ void main(void)
     EINT;
     ERTM;
 
-
-
     InitEPwm4Gpio();
     InitEPwm5Gpio();
     InitEPwm6Gpio();
@@ -88,12 +78,10 @@ void main(void)
     //shared struct copied in local variable
     local_sh = sh;
 
-    CpuTimer1Regs.TCR.bit.TSS = 0;      //Start SD timer
+    CpuTimer1Regs.TCR.bit.TSS = 0;      //Start telemetry timer
 
     //stop timer2 - it's not used for the moment
     CpuTimer2Regs.TCR.bit.TSS = 1;
-
-
 
     Uint16 i;
     while(1)
@@ -124,7 +112,6 @@ void cpu1_timer_setup(void)
     IER |= M_INT14;   //timer2
 
     PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
-
 }
 
 void send_can_to_cpu2(void)
@@ -155,67 +142,21 @@ void Shared_Ram_dataRead_c1(void)
     local_time_elapsed = time_elapsed;
 }
 
-/*
- * Timer1 integrates all features: logging, display and LoRa
- *      - Logging is active every cycle.
- *      - Display updates every 5 cycles.
- *      - LoRa is active every cycle, but LoRa code is alternated to
- *        logging code, to give receiving buffer time to flush
- * if MORE_FILES function is active, a new log file will be
- * created periodically. This is a safer configuration if log files are
- * corrupted because of critical situations.
- */
 __interrupt void cpu_timer1_isr(void)
 {
         CpuTimer1.InterruptCount++;
 
-
         Shared_Ram_dataRead_c1();
-#ifdef LOGGING
-        char cmd[200];
 
-        sprintf(cmd, "%lu;", local_time_elapsed);
-        writeSD(cmd);
-
+    #ifdef LOGGING
         compute_AMKStatus();
 
-        sprintf(cmd, "%d;%d;%d;%d;"  //AMKStatus
-                "%.2f;%u;%.2f;%.2f;"   //MotorVal2
-                "%.2f;%u;%.2f;%.2f;"
-                "%.2f;%u;%.2f;%.2f;"
-                "%.2f;%u;%.2f;%.2f;",
-                (int)AmkStatus[0], (int)AmkStatus[1], (int)AmkStatus[2], (int)AmkStatus[3],
-
-                local_sh.motorVal2[0].AMK_TempMotor, local_sh.motorVal2[0].AMK_ErrorInfo,
-                local_sh.motorVal2[0].AMK_TempIGBT, local_sh.motorVal2[0].AMK_TempInverter,
-                local_sh.motorVal2[1].AMK_TempMotor, local_sh.motorVal2[1].AMK_ErrorInfo,
-                local_sh.motorVal2[1].AMK_TempIGBT, local_sh.motorVal2[1].AMK_TempInverter,
-                local_sh.motorVal2[2].AMK_TempMotor, local_sh.motorVal2[2].AMK_ErrorInfo,
-                local_sh.motorVal2[2].AMK_TempIGBT, local_sh.motorVal2[2].AMK_TempInverter,
-                local_sh.motorVal2[3].AMK_TempMotor, local_sh.motorVal2[3].AMK_ErrorInfo,
-                local_sh.motorVal2[3].AMK_TempIGBT, local_sh.motorVal2[3].AMK_TempInverter
-        );
-
-        writeSD(cmd);
-
-        //TO USE
-        sprintf(cmd , "%.1f;%.1f;%.1f;%.1f;"  //Actual velocity
-                      "%d;%d;%d;%d;" //MotorSetPoints positive
-                      "%d;%d;%d;%d;", //MotorSetPoints negative
-                        local_sh.motorVal1[0].AMK_ActualVelocity,local_sh.motorVal1[1].AMK_ActualVelocity,
-                        local_sh.motorVal1[2].AMK_ActualVelocity,local_sh.motorVal1[3].AMK_ActualVelocity,
-
-                        local_sh.motorSetP[0].AMK_TorqueLimitPositive,local_sh.motorSetP[1].AMK_TorqueLimitPositive,
-                        local_sh.motorSetP[2].AMK_TorqueLimitPositive,local_sh.motorSetP[3].AMK_TorqueLimitPositive,
-
-                        local_sh.motorSetP[0].AMK_TorqueLimitNegative,local_sh.motorSetP[1].AMK_TorqueLimitNegative,
-                        local_sh.motorSetP[2].AMK_TorqueLimitNegative,local_sh.motorSetP[3].AMK_TorqueLimitNegative
-                        );
-        writeSD(cmd);
-
+        if(CpuTimer1.InterruptCount % 500 == 0){
+            GPIO_WritePin(RED_BLINK, 1);
+        }
+        // ESP32 message
         char data[sizeof(local_sh)];
         memcpy(data, &local_sh, sizeof(local_sh));
-
         char ptr[sizeof(local_sh)*2];
 
         int i;
@@ -227,91 +168,13 @@ __interrupt void cpu_timer1_isr(void)
         char encoded[sizeof(ptr) + 2];
         cobs_encode(encoded, sizeof(encoded)-1, &ptr, sizeof(ptr));
         encoded[sizeof(ptr) + 1] = '\0';
+        // ESP32 message
 
         scic_msg(encoded);
+    #endif
 
-        sprintf(cmd ,
-                        "%d;%d;%d;%d;%lu;%d;%d;%d;"                //status
-                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%u;"    //bms
-                        "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;"    //bms_lv
-                        "%.1f;%.3f;%.2f;%.2f;",              //sendyne
-                        //status
-                        local_sh.status.throttle_shared, local_sh.status.steering_shared,
-                        local_sh.status.brake_shared, local_sh.status.brakePress_shared,
-                        local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
-                        local_sh.pedals.brk_req_shared, local_sh.pedals.throttle_req_shared,
-                        //bms
-                        local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
-                        local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
-                        local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
-                        local_sh.bms.bms_bitmap_shared,
-                        //bms_lv
-                        local_sh.bms_lv[0], local_sh.bms_lv[1], local_sh.bms_lv[2],
-                        local_sh.bms_lv[3], local_sh.bms_lv[4], local_sh.bms_lv[5],
-                        local_sh.bms_lv[6], local_sh.bms_lv[7],
-                        //power
-                        local_sh.power.batteryPack_voltage_shared, local_sh.power.lem_current_shared,
-                        local_sh.power.curr_sens_shared, local_sh.power.total_power_shared);
-        writeSD(cmd);
-
-        sprintf(cmd ,
-                "%u;%u;"                           //fanSpeed
-                "%.4f;%.4f;%.4f;%.4f;%.4f;%.4f;"   //imu
-                "%.1f;%.1f;%.1f;%.1f;",            //suspensions
-
-                        //fanSpeed
-                        local_sh.fanSpeed.leftFanSpeed_shared, local_sh.fanSpeed.rightFanSpeed_shared,
-                        //imu
-                        local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
-                        local_sh.imu.accelerations_shared[2], local_sh.imu.omegas_shared[0],
-                        local_sh.imu.omegas_shared[1], local_sh.imu.omegas_shared[2],
-                        //potenziometri sospensioni FL-FR-RL-RR
-                        local_sh.imu.suspensions_shared[0], local_sh.imu.suspensions_shared[1],
-                        local_sh.imu.suspensions_shared[2], local_sh.imu.suspensions_shared[3]);
-        writeSD(cmd);
-
-        sprintf(cmd ,
-                "%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;"        //temperatures per cooling
-                "%d;%d;%d;%d;%d;%d\n",
-
-                        //temperature per cooling
-                        local_sh.imu.temperatures_shared[0], local_sh.imu.temperatures_shared[1],
-                        local_sh.imu.temperatures_shared[2], local_sh.imu.temperatures_shared[3],
-                        local_sh.imu.temperatures_shared[4], local_sh.imu.temperatures_shared[5],
-                        local_sh.imu.temperatures_shared[6], local_sh.imu.temperatures_shared[7],
-                        //gpio
-                        local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
-                        local_sh.bms.max_bms_temp_nslave_shared,
-                        (int)local_sh.pedals.acc_pot1_shared,(int)local_sh.pedals.acc_pot2_shared,(int)local_sh.pedals.brk_pot_shared);
-        writeSD(cmd);
-
-
-#ifdef MORE_FILES
-        if(CpuTimer1.InterruptCount % 2000 == 0 && CpuTimer1.InterruptCount != 0)
-        {
-            //DA TESTARE SE USARE O MENO
-            newSetupSD();
-            createFile();
-            writeHeader();
-
-        }
-#endif
-#endif
-        if(CpuTimer1.InterruptCount % 5 == 0)
-        {
-            /*if(display.emergencyBrk_active){
-                if(display.emergencyBrk_isNotSet){
-                    scic_msg("page 18ÿÿÿ\0");
-                    display.emergencyBrk_isNotSet = 0;
-                }
-            }else{*/
-                EALLOW;
-                GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
-                updatePage(display.page);
-                updateValues();
-                display.emergencyBrk_isNotSet = 1;
-                EDIS;
-          // }
+        if(CpuTimer1.InterruptCount % 100 == 0){
+            GPIO_WritePin(RED_BLINK, 0);
         }
 }
 

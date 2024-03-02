@@ -46,11 +46,14 @@ void scic_init()
     ScicRegs.SCILBAUD.all = 0x008a;
      */
     //baudrate 115200
-    ScicRegs.SCIHBAUD.all = 0x0000;
+    /*ScicRegs.SCIHBAUD.all = 0x0000;
     ScicRegs.SCILBAUD.all = 0x0035;
-    ScicRegs.SCICTL1.all = 0x0023;  // Relinquish SCI from Reset
+    ScicRegs.SCICTL1.all = 0x0023;*/  // Relinquish SCI from Reset
 
-
+    //baudrate 460800
+    ScicRegs.SCIHBAUD.all = 0x0000;
+    ScicRegs.SCILBAUD.all = 0x00D;
+    ScicRegs.SCICTL1.all = 0x0023;
 }
 //
 // scia_xmit - Transmit a character from the SCI

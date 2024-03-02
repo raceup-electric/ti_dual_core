@@ -13,7 +13,6 @@
 #include "inc/hw_memmap.h"
 #include "inc/hw_can.h"
 #include "driverlib/can.h"
-#include "sd_card.h"
 #include "display.h"
 //#include "LoRa.h"
 //#include "Telemetry.h"
