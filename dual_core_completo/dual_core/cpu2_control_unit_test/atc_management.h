@@ -8,6 +8,7 @@ enum type_message {TBS, SENSORS};
 extern int throttle;
 extern int brake;
 extern int steering;
+extern unsigned char imp;
 extern float suspensions[4];
 extern float temperatures[8];
 //--------------------------------------

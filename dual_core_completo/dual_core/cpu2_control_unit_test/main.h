@@ -74,6 +74,7 @@ float actualVelocityKMH = 0;
 int brake = 0; 
 int steering = 0; 
 int throttle = 0; 
+unsigned char imp;
 int curOnepedalSlope = 1;
 const int STEERING_DEADBAND = 5;
 bool checkPower = false;

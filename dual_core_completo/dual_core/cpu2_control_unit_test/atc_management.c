@@ -1,18 +1,7 @@
 #include "atc_management.h"
-
-// only for compatibility with legacy code
-//--------------------------------------
 #include "car_management.h"
-//--------------------------------------
-
-
-
-// private
-
-
 
 // public
-
 void atc_update(unsigned int data[], enum type_message t) {
 
     uint64_t aux = 0;
@@ -24,6 +13,7 @@ void atc_update(unsigned int data[], enum type_message t) {
         throttle = data[0] & 0xFF;
         brake = data[1] & 0xFF;
         steering = data[2] & 0xFF | (data[3] & 0xF) << 8;
+        imp = data[3] & 0x0F;
         break;
 
     case SENSORS:
