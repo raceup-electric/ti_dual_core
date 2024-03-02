@@ -31,7 +31,6 @@ void main(void)
 
     //stop both timers
     CpuTimer1Regs.TCR.bit.TSS = 1;
-    CpuTimer2Regs.TCR.bit.TSS = 1;
 
     GPIOSetup();
 
@@ -80,8 +79,7 @@ void main(void)
 
     CpuTimer1Regs.TCR.bit.TSS = 0;      //Start telemetry timer
 
-    //stop timer2 - it's not used for the moment
-    CpuTimer2Regs.TCR.bit.TSS = 1;
+    GPIO_WritePin(RED_BLINK, 0);
 
     Uint16 i;
     while(1)
@@ -97,19 +95,15 @@ void cpu1_timer_setup(void)
     EALLOW;
 
     PieVectTable.TIMER1_INT = &cpu_timer1_isr;
-    PieVectTable.TIMER2_INT = &cpu_timer2_isr;
     EDIS;
 
     InitCpuTimers();
 
     ConfigCpuTimer(&CpuTimer1, 200, 20000);
-    ConfigCpuTimer(&CpuTimer2, 200, 8000);
 
     CpuTimer1Regs.TCR.all = 0x4000;
-    CpuTimer2Regs.TCR.all = 0x4000;
 
     IER |= M_INT13;   //timer1
-    IER |= M_INT14;   //timer2
 
     PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
 }
@@ -151,9 +145,12 @@ __interrupt void cpu_timer1_isr(void)
     #ifdef LOGGING
         compute_AMKStatus();
 
-        if(CpuTimer1.InterruptCount % 500 == 0){
-            GPIO_WritePin(RED_BLINK, 1);
+        if(CpuTimer1.InterruptCount % 20 == 0){
+            EALLOW;
+            GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+            EDIS;
         }
+
         // ESP32 message
         char data[sizeof(local_sh)];
         memcpy(data, &local_sh, sizeof(local_sh));
@@ -172,15 +169,6 @@ __interrupt void cpu_timer1_isr(void)
 
         scic_msg(encoded);
     #endif
-
-        if(CpuTimer1.InterruptCount % 100 == 0){
-            GPIO_WritePin(RED_BLINK, 0);
-        }
-}
-
-//not necessary at the moment
-__interrupt void cpu_timer2_isr(void)
-{
 }
 
 /*
