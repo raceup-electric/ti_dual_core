@@ -479,10 +479,11 @@ void checkStatus()
         status |= 0x08;
     if (Air2_State)
         status |= 0x10;
-    if (Air2_State && Air1_State)   // precharge!! TODO
+    if (Air2_State && Air1_State)   // precharge
         status |= 0x20;
 
     TXCANA_CarStatus_Data[0] = status;
+    status_log.status_shared = status;
     TXCANA_CarStatus_Data[1] = status_log.actualVelocityKMH_shared;  // velocity TODO
 
 }
