@@ -136,7 +136,7 @@ int drivingMode = 0;
 //IMU
 float accelerations[3]; //g
 float omegas[3];        //rad/s
-float temperatures[8];
+float temperatures[10];
 float suspensions[4]; 
 
 float bms_lv_cell[8]; //gli ultimi due valori sono temperature

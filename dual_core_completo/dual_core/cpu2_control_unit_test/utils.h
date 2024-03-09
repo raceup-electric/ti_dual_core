@@ -84,7 +84,7 @@ struct FanSpeed_Log{
 struct Imu_Log{
     float accelerations_shared[3];
     float omegas_shared[3];
-    float temperatures_shared[8];
+    float temperatures_shared[10];
     float suspensions_shared[4];
 };
 

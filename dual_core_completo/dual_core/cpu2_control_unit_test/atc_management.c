@@ -33,7 +33,7 @@ void atc_update(unsigned int data[], enum type_message t) {
 
         for (i = 0; i < 2; i++)
         {
-            temperatures[i] = (0x3FF & aux);
+            temperatures[8+i] = (0x3FF & aux);
             aux >>= 10;
         }
 

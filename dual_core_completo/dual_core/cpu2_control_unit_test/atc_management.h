@@ -10,7 +10,7 @@ extern int brake;
 extern int steering;
 extern unsigned char imp;
 extern float suspensions[4];
-extern float temperatures[8];
+extern float temperatures[10];
 //--------------------------------------
 
 // steering -180 + 180

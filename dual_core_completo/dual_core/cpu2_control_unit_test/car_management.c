@@ -2,8 +2,7 @@
 #include "car_management.h"
 
 int calibration_status = 0;
-// TODO: controlla
-int NUM_SMU_SUSP = 4;
+int NUM_SMU_SUSP = 2;
 int fan_flag = 0;
 
 #ifdef DEBUG_HV
@@ -102,7 +101,6 @@ void read_SMU_Message(Uint16 smu_values[], int id)
         }
         break;
     case (MSG_ID_SMU_TEMPERATURES + 1):
-            //TODO: controllare con tronici
         for (i = 0; i < 8; i += 2)
         {
             temperatures[i / 2 + 4] = (smu_values[i] | (smu_values[i + 1] << 8));
@@ -111,7 +109,7 @@ void read_SMU_Message(Uint16 smu_values[], int id)
     case MSG_ID_SMU_SUSPENSIONS:
         for (i = 0; i < NUM_SMU_SUSP; i++)
         {
-            suspensions[i] = (0x3FF & aux);
+            suspensions[2+i] = (0x3FF & aux);
             aux >>= 10;
         }
         break;
@@ -481,7 +479,7 @@ void checkStatus()
         status |= 0x08;
     if (Air2_State)
         status |= 0x10;
-    if (false)   // precharge!! TODO
+    if (Air2_State && Air1_State)   // precharge!! TODO
         status |= 0x20;
 
     TXCANA_CarStatus_Data[0] = status;
@@ -599,7 +597,7 @@ void update_log_values()
         imu_log.suspensions_shared[i] = suspensions[i];
     }
 
-    for (i = 0; i < 8; i++)
+    for (i = 0; i < 10; i++)
     {
         imu_log.temperatures_shared[i] = temperatures[i];
     }
