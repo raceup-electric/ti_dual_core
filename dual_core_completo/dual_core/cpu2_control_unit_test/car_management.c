@@ -1,4 +1,3 @@
-
 #include "car_management.h"
 
 int calibration_status = 0;
@@ -170,9 +169,14 @@ void read_ATC_TBS(Uint16 data[]) {
     atc_update(data, TBS);
 }
 
-void read_ATC_SENSORS(Uint16 data[]) {
-    atc_update(data, SENSORS);
+void read_ATC_SUSPS(Uint16 data[]) {
+    atc_update(data, SUSPS);
 }
+
+void read_ATC_TEMPS(Uint16 data[]) {
+    atc_update(data, TEMPS);
+}
+
 
 
 /*

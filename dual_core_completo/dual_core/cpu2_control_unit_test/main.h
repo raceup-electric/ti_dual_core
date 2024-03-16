@@ -178,7 +178,8 @@ tCANMsgObject TXCANA_CarStatus_Message;
 
 //alberto patch
 tCANMsgObject TXCANA_ATC_Message_TBS;
-tCANMsgObject TXCANA_ATC_Message_SENSORS;
+tCANMsgObject TXCANA_ATC_Message_SUSPS;
+tCANMsgObject TXCANA_ATC_Message_TEMPS;
 
 
 unsigned char RXA_Imu_Data[8];
@@ -194,7 +195,8 @@ unsigned char TXCANA_PCU_Data[2];
 unsigned char TXCANA_CarStatus_Data[2];
 unsigned char TXCANA_CarSettings_Data[8];
 unsigned char RXA_ATC_DATA_TBS[4];
-unsigned char RXA_ATC_DATA_SENSORS[5];
+unsigned char RXA_ATC_DATA_SUSPS[3];
+unsigned char RXA_ATC_DATA_TEMPS[3];
 
 
 unsigned char fan_enable;

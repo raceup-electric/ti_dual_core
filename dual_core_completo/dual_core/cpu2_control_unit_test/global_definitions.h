@@ -247,7 +247,8 @@
 #define OBJ_ID_FROM_AMK         26
 //alberto patch
 #define OBJ_ID_FROM_ATC_TBS             27 
-#define OBJ_ID_FROM_ATC_SENSORS         28
+#define OBJ_ID_FROM_ATC_SUSPS           28
+#define OBJ_ID_FROM_ATC_TEMPS           29
 
 //Message IDs
 #define MSG_ID_AMK1_DATA_BASE   0x40
@@ -278,7 +279,8 @@
 #define MSG_ID_LEM                           0x3C2
 //alberto patch
 #define MSG_ID_ATC_TBS                  0x053
-#define MSG_ID_ATC_SENSORS              0x104
+#define MSG_ID_ATC_SUSPS                0x104
+#define MSG_ID_ATC_TEMPS                0x105
 
 
 

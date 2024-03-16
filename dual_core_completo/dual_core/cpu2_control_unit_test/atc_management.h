@@ -1,7 +1,7 @@
 #ifndef _ATC_MANAGEMENT_
 #define _ATC_MANAGEMENT_
 
-enum type_message {TBS, SENSORS};
+enum type_message {TBS, SUSPS, TEMPS};
 
 // only for compatibility with legacy code
 //--------------------------------------

@@ -111,7 +111,9 @@ void read_steering_wheel_message(Uint16 val[], int id);
 
 void read_ATC_TBS(Uint16 data[]);
 
-void read_ATC_SENSORS(Uint16 data[]);
+void read_ATC_SUSPS(Uint16 data[]);
+
+void read_ATC_TEMPS(Uint16 data[]);
 
 void brakeLight();
 
