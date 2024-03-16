@@ -484,7 +484,7 @@ void checkStatus()
 
     TXCANA_CarStatus_Data[0] = status;
     status_log.status_shared = status;
-    TXCANA_CarStatus_Data[1] = status_log.actualVelocityKMH_shared;  // velocity TODO
+    TXCANA_CarStatus_Data[1] = status_log.actualVelocityKMH_shared;  // velocity
 
 }
 

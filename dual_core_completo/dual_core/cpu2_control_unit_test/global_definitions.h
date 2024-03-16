@@ -283,21 +283,24 @@
 
 
 
-#define IMD_STATE           14      //PIN74     //INPUT
-#define BMS_STATE           15      //PIN73     //INPUT
+#define IMD_STATE           3      //PIN37     //INPUT
+#define BMS_STATE           2      //PIN38    //INPUT
+#define AIR_1_STATE         1      //PIN39     //INPUT
+#define AIR_2_STATE         0      //PIN40     //INPUT
+#define RTDS                6      //PIN80
 
-#define AIR_1_STATE         40      //PIN50     //INPUT
-#define AIR_2_STATE         41      //PIN49     //INPUT
-#define RTDS                27      //PIN52
-#define SCS_FAULT           11      //PIN75
-#define R2D                 6       //PIN80
-#define BRAKE_LIGHT_Abil    25      //PIN51
+#define SCS_FAULT           11      //PIN75   --> non esiste
+
+#define R2D                 25       //PIN51
+#define BRAKE_LIGHT_Abil    27      //PIN52
+
 #define SDC1_STATE          26      //PIN53     //INPUT
 #define SDC2_STATE          130     //PIN57     //INPUT
 #define SDC3_STATE          64      //PIN54     //INPUT
 #define SDC4_STATE          131     //PIN58     //INPUT
 #define SDC5_STATE          63      //PIN55     //INPUT
 #define SDC6_STATE          66      //PIN59     //INPUT
+
 #define DEBUG_LED1          105     //PIN9
 #define DEBUG_LED2          104     //PIN10
 
@@ -305,10 +308,8 @@
 #define R2D_LED_ON           1U      //GPIO ALTA -> LED ACCESO       GPIO BASSA -> LED SPENSO
 
 #define RTDS_DURATION       15      //*100ms
-
 #define BRAKE_LIGHT_ON      1U
 #define BRAKE_LIGHT_OFF     0
-
 #define BLUE_BLINK          31
 
 //
