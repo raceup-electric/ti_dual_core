@@ -3,7 +3,6 @@
 
 int gpioOutput[] = {
     RTDS,
-    SCS_FAULT,
     R2D,
     DEBUG_LED1,
     DEBUG_LED2,
@@ -12,12 +11,6 @@ int gpioOutput[] = {
 
 int gpioInput[] = {AIR_1_STATE,
                    AIR_2_STATE,
-                   SDC1_STATE,
-                   SDC2_STATE,
-                   SDC3_STATE,
-                   SDC4_STATE,
-                   SDC5_STATE,
-                   SDC6_STATE,
                    IMD_STATE,
                    BMS_STATE};
 
@@ -62,5 +55,4 @@ void GPIOSetup()
     GPIO_WritePin(R2D, R2D_LED_OFF);
     GPIO_WritePin(RTDS, 0);
     GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);
-    GPIO_WritePin(SCS_FAULT, 1U);
 }

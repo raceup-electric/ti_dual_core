@@ -289,17 +289,8 @@
 #define AIR_2_STATE         0      //PIN40     //INPUT
 #define RTDS                6      //PIN80
 
-#define SCS_FAULT           11      //PIN75   --> non esiste
-
 #define R2D                 25       //PIN51
 #define BRAKE_LIGHT_Abil    27      //PIN52
-
-#define SDC1_STATE          26      //PIN53     //INPUT
-#define SDC2_STATE          130     //PIN57     //INPUT
-#define SDC3_STATE          64      //PIN54     //INPUT
-#define SDC4_STATE          131     //PIN58     //INPUT
-#define SDC5_STATE          63      //PIN55     //INPUT
-#define SDC6_STATE          66      //PIN59     //INPUT
 
 #define DEBUG_LED1          105     //PIN9
 #define DEBUG_LED2          104     //PIN10
