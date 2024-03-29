@@ -149,4 +149,7 @@ void sendDataToLogger();
 
 void computeBatteryPackTension();
 
+void paddleControl(Uint32 time_elapsed);
+
+
 #endif

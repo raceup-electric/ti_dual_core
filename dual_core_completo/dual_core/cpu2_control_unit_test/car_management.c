@@ -467,6 +467,40 @@ Uint16 fanSpeedFunction(int temp)
     }
 }
 
+
+void paddleControl(Uint32 time_elapsed ) {
+
+    bool is_breaking = brake > 0;
+    static Uint32 start_breaking = 0;
+    const int time_descent = 600;
+
+    if (is_breaking) {
+
+        if(start_breaking == 0) {   // just start breaking
+            start_breaking = time_elapsed;
+        }
+
+        float regen_current_limit = 200.0;
+
+        if ((time_elapsed - start_breaking) > 200)  {  // 2s
+
+            float slope = (200.0 - 65.0) / (float)(time_descent);        // in time_descent goes from 200A to 65A
+            int time_since_start = time_elapsed - start_breaking - 200;  // Time since linear descent
+            regen_current_limit = 200 - (int)(slope * time_since_start);
+            regen_current_limit = regen_current_limit < 65 ? 65 : regen_current_limit;   // Ensure limit doesn't go below 65A
+        }
+
+        car_settings.max_regen_current = regen_current_limit;
+
+
+    } else {
+        start_breaking = 0;    // no longer breaking
+    }
+}
+
+
+
+
 /*
  * Status represent an easy debug variable, visible on first display page
  */
@@ -644,3 +678,6 @@ void update_shared_mem()
     sh.pedals = pedals_log;
     sh.power_setup = power_setup_log;
 }
+
+
+

@@ -132,6 +132,7 @@ __interrupt void cpu_timer1_isr(void)
 #endif
 
 
+    paddleControl(time_elapsed);
     sendAMKData();
 
     computeBatteryPackTension();
