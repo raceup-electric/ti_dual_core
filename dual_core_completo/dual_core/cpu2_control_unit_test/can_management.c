@@ -98,6 +98,11 @@ void canSetup_phase2()
                           MSG_OBJ_RX_INT_ENABLE, 1, RXA_Map_SW_Data);
     CANMessageSet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, MSG_OBJ_TYPE_RX);
 
+    // Pacchetto volante paddle
+    setting_package_param(&RXCANA_SW_Message, MSG_ID_PADDLE_SW, 0x0,
+                             MSG_OBJ_RX_INT_ENABLE, 1, RXA_SW_Data);
+       CANMessageSet(CANA_BASE, OBJ_ID_PADDLE_SW, &RXCANA_SW_Message, MSG_OBJ_TYPE_RX);
+
     // PACCHETTO DA LEM
     setting_package_param(&RXCANA_Lem_Message, MSG_ID_LEM, 0x0, MSG_OBJ_RX_INT_ENABLE,
                           MSG_DATA_LENGTH, RXA_Lem_Data);
@@ -277,6 +282,17 @@ __interrupt void canISR_A(void)
         rxAMsgCount++;
 
         CANIntClear(CANA_BASE, OBJ_ID_MAP_SW);
+        break;
+
+    case OBJ_ID_PADDLE_SW:
+
+        CANMessageGet(CANA_BASE, OBJ_ID_PADDLE_SW, &RXCANA_SW_Message, true);
+        read_paddle_sw_message(RXA_SW_Data[0]);
+
+
+        rxAMsgCount++;
+
+        CANIntClear(CANA_BASE, OBJ_ID_PADDLE_SW);
         break;
 
     case OBJ_ID_FROM_LEM: // aggiunto  lem message

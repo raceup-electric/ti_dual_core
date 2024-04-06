@@ -48,6 +48,8 @@ extern Uint16 bms_bitmap;
 extern int brakeReq;
 extern int throttleReq;
 
+extern int paddle;  // 0-100
+
 extern float accelerations[3];
 extern float omegas[3];
 extern float suspensions[4];
@@ -102,6 +104,8 @@ void read_SMU_Message(Uint16 smu_values[], int id);
 void read_BMSLV_message(Uint16 bmslv_values[], int id);
 
 void read_map_sw_message(Uint16 val);
+
+void read_paddle_sw_message(Uint16 val);
 
 void read_BMS_TEMP_message(Uint16 bms_values[]);
 

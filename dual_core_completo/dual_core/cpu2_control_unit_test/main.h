@@ -72,6 +72,7 @@ char status = 0x00;
 int actualVelocityRPM = 0;
 float actualVelocityKMH = 0;
 int brake = 0; 
+int paddle = 0;  // 0-100
 int steering = 0; 
 int throttle = 0; 
 unsigned char imp;
@@ -172,6 +173,9 @@ tCANMsgObject TXCANA_BmsHost_Message;
 tCANMsgObject RXCANA_BmsLV_Message;
 tCANMsgObject RXCANA_Map_SW_Message;
 tCANMsgObject RXCANA_Lem_Message;
+tCANMsgObject RXCANA_SW_Message;
+
+
 tCANMsgObject TXCANA_PCU_Message;
 tCANMsgObject TXCANA_CarSettings_Message;
 tCANMsgObject TXCANA_CarStatus_Message;
@@ -197,6 +201,9 @@ unsigned char TXCANA_CarSettings_Data[8];
 unsigned char RXA_ATC_DATA_TBS[4];
 unsigned char RXA_ATC_DATA_SUSPS[3];
 unsigned char RXA_ATC_DATA_TEMPS[3];
+
+unsigned char RXA_SW_Data[1];
+
 
 
 unsigned char fan_enable;

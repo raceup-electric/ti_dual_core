@@ -30,6 +30,12 @@ void read_map_sw_message(Uint16 val)
     car_settings.max_regen_current = presets_regen[regen_index % 5];
 }
 
+void read_paddle_sw_message(Uint16 val)
+{
+    paddle = val;
+}
+
+
 void read_LEM_message(unsigned char lem_values[])
 {
     reassembled_data = 0;
@@ -470,7 +476,7 @@ Uint16 fanSpeedFunction(int temp)
 
 void paddleControl(Uint32 time_elapsed ) {
 
-    bool is_breaking = brake > 0;
+    bool is_breaking = paddle > 0;
     static Uint32 start_breaking = 0;
     const int time_descent = 600;
 
@@ -491,7 +497,6 @@ void paddleControl(Uint32 time_elapsed ) {
         }
 
         car_settings.max_regen_current = regen_current_limit;
-
 
     } else {
         start_breaking = 0;    // no longer breaking

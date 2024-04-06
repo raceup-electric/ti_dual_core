@@ -240,6 +240,7 @@
  */
 #define OBJ_ID_FROM_BMS_LV      18
 #define OBJ_ID_CAR_INFOS        19
+#define OBJ_ID_PADDLE_SW           20
 #define OBJ_ID_FROM_LEM         21
 #define OBJ_ID_FROM_IMU         22
 #define OBJ_ID_TO_PCU        23
@@ -254,6 +255,7 @@
 #define MSG_ID_AMK1_DATA_BASE   0x40
 #define MSG_ID_AMK2_DATA_BASE   0x44
 #define MSG_ID_TEMPS            0x49
+#define MSG_ID_PADDLE_SW    0X54
 #define MSG_ID_BMS_BASE         0x55
 #define MSG_ID_BMS_LV_1         0x55
 #define MSG_ID_BMS_LV_2         0x56
@@ -262,6 +264,7 @@
 #define MSG_ID_IMU_2            0x61
 #define MSG_ID_IMU_3            0x62
 #define MSG_ID_MAP_SW    0X64
+
 #define MSG_ID_AMK_SETPOINTS    0x82
 #define MSG_ID_STEERING_WHEEL_BASE 0x90
 #define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90   //buttons ID
