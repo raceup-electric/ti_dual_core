@@ -1,2 +1,7 @@
-/CPU2_RAM/
-/CPU2_FLASH/
+CPU2_RAM/*
+CPU2_FLASH/*
+
+targetConfigs/*
+.clangd
+.launches/*
+.settings/*

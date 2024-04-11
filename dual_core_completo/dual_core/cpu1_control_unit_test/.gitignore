@@ -1,3 +1,8 @@
-/CPU1_RAM_DEBUG/
-/CPU1_FLASH_DEBUG/
-/CPU1_FLASH_STANDALONE/
+CPU1_RAM_DEBUG/*
+CPU1_FLASH_DEBUG/*
+CPU1_FLASH_STANDALONE/*
+
+.targetConfigs/*
+.launches/*
+.settings/*
+.clangd
