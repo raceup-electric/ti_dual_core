@@ -2,7 +2,7 @@ CPU1_RAM_DEBUG/*
 CPU1_FLASH_DEBUG/*
 CPU1_FLASH_STANDALONE/*
 
-.targetConfigs/*
+targetConfigs/*
 .launches/*
 .settings/*
 .clangd
