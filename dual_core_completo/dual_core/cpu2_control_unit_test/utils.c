@@ -122,34 +122,3 @@ void apply_calibration(){
     accelerations[Y] = accelerations[X] * V[1][0] + accelerations[Y] * V[1][1] + accelerations[Z] * V[1][2];
     accelerations[Z] = accelerations[X] * V[2][0] + accelerations[Y] * V[2][1] + accelerations[Z] * V[2][2];
 }
-
-
-void steering_to_delta_wheels(){
-
-    double steering_rack_travel = (steering/180)*PI*R_P;
-
-    double tmp0a = pow(steering_rack_travel,5)*p_lf[0];
-    double tmp1a = pow(steering_rack_travel,4)*p_lf[1];
-    double tmp2a = pow(steering_rack_travel,3)*p_lf[2];
-    double tmp3a = pow(steering_rack_travel,2)*p_lf[3];
-    double tmp4a = steering_rack_travel*p_lf[4];
-
-    double delta_lf = tmp0a+tmp1a+tmp2a+tmp3a+tmp4a+p_lf[5];
-
-
-    double tmp0b = pow(steering_rack_travel,5)*p_fr[0];
-    double tmp1b = pow(steering_rack_travel,4)*p_fr[1];
-    double tmp2b = pow(steering_rack_travel,3)*p_fr[2];
-    double tmp3b = pow(steering_rack_travel,2)*p_fr[3];
-    double tmp4b = steering_rack_travel*p_fr[4];
-
-    double delta_fr = tmp0b+tmp1b+tmp2b+tmp3b+tmp4b+p_fr[5];
-
-
-    delta_steer[0] = delta_lf*PI/180;
-    delta_steer[1] = delta_fr*PI/180;
-
-}
-
-
-

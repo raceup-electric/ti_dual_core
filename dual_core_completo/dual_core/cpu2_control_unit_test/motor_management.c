@@ -299,10 +299,6 @@ void sendAMKData() {
         negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
     }
 
-    //TORQUE VECTORING
-    if(macros_settings.torque_vectoring)
-         performancePack();
-
     if(macros_settings.reg_brake)
          regBrake();
 

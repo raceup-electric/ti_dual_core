@@ -9,10 +9,7 @@
 
 
 //variabili
-extern float sendyne_current;
-extern float sendyne_voltage;
 extern float total_power;
-extern int posTorques[4];
 extern float posTorquesNM[4];
 extern float power_error;
 extern float anti_wind_up;

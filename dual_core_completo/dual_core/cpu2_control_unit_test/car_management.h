@@ -24,8 +24,6 @@ extern char status;
 extern Uint32 last_imu_message_time;
 
 // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
-// extern float sendyne_current;
-// extern float sendyne_voltage;
 
 extern Uint16 batteryPackTension;
 extern float lem_current;

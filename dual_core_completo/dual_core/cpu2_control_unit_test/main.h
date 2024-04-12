@@ -20,9 +20,6 @@
 //timestamp
 Uint32 time_elapsed = 0;
 Uint32 last_imu_message_time = 0;
-// TODO: remove useless (check TV)
-double T_s = 0;
-
 
 Uint16 batteryPackTension;
 float lem_current;
@@ -52,7 +49,7 @@ const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};
 
 Uint16 fanSpeed = 0;
 
-char status = 0x00;
+char status = 0;
 
 //torque
 int actualVelocityRPM = 0;
@@ -62,36 +59,12 @@ int paddle = 0;  // 0-100
 int steering = 0; 
 int throttle = 0; 
 unsigned char imp;
-const int STEERING_DEADBAND = 5;
 bool checkPower = false;
-int posTorques[4];
-int negTorques[4];
 
 float posTorquesNM[4];
 float negTorquesNM[4];
 
-//PERFORMANCE PACK
-float th, brk;
-int str;
-float ax, ay, yaw_r;
-float motorSpeeds[4];
-float steers[4];
-float speedTv = 0;
-float fz[4] = {0,0,0,0};
-float re[4];
-
-double fzTC[4] = {0,0,0,0};
-double reTC[4];
 float repFz[4];
-
-double TC_pos[4] = {0, 0, 0, 0};
-double TC_neg[4] = {0, 0, 0, 0};
-
-float posTorqueCandidate[4][4];      //[MotorIndex][CandidateIndex]
-float negTorqueCandidate[4];      //[MotorIndex][CandidateIndex]
-float Torque_max[4];
-float AMK_TorqueLimitPositive[4];
-float AMK_TorqueLimitNegative[4];
 float torque_reg_IPM[4];            //massima coppia rigenerativa per motore
 
 
@@ -190,24 +163,8 @@ unsigned char RXA_ATC_DATA_TEMPS[3];
 unsigned char RXA_SW_Data[1];
 
 
-
 unsigned char fan_enable;
 unsigned char pump_enable;
-
-
-/*
- * KALMAN FILTER
- */
-
-
-const double p_lf[] = {45640000,-1951000,60000,-3000,1000,0};
-const double p_fr[] = {45640000,1951000,60000,3000,1000,0};
-
-double speed_state[2] = {0,0};
-double w_angles[4] = {0,0,0,0};
-double v_wheels[4] = {0,0,0,0};
-double delta_steer[2] = {0,0};
-
 
 /*
  * AMK CAN
