@@ -1,4 +1,7 @@
 #include "main.h"
+#include "F2837xD_device.h"
+#include "sys/_stdint.h"
+#include <stdint.h>
 
 void main(void)
 {
@@ -163,14 +166,13 @@ __interrupt void cpu_timer1_isr(void)
 
     sprintf(cmd, "%lu;", local_time_elapsed);
     writeSD(cmd);
-    compute_AMKStatus();
 
     sprintf(cmd, "%d;%d;%d;%d;"       // AMKStatus
                  "%.2f;%u;%.2f;%.2f;" // MotorVal2
                  "%.2f;%u;%.2f;%.2f;"
                  "%.2f;%u;%.2f;%.2f;"
                  "%.2f;%u;%.2f;%.2f;",
-            (int)AmkStatus[0], (int)AmkStatus[1], (int)AmkStatus[2], (int)AmkStatus[3],
+            compute_AMKStatus(0), compute_AMKStatus(1), compute_AMKStatus(2), compute_AMKStatus(3),
 
             local_sh.motorVal2[0].AMK_TempMotor, local_sh.motorVal2[0].AMK_ErrorInfo,
             local_sh.motorVal2[0].AMK_TempIGBT, local_sh.motorVal2[0].AMK_TempInverter,
@@ -216,7 +218,7 @@ __interrupt void cpu_timer1_isr(void)
     scic_msg(encoded);
 
     sprintf(cmd,
-            "%d;%d;%d;%d;%lu;%d;%d;%d;"                // status
+            "%d;%d;%d;%d;%u;%d;%d;%d;"                // status
             "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%u;"        // bms
             "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;" // bms_lv
             "%.1f;%.3f;%.2f;%.2f;",                    // sendyne
@@ -294,21 +296,17 @@ __interrupt void cpu_timer2_isr(void)
 }
 
 /*
- * Function to compress amk status in one Byte
+ * Function to compress amk status in one Byte, index is 0 FL 1 FR 2 RL 3 RR
  */
-void compute_AMKStatus()
+uint8_t compute_AMKStatus(uint8_t index)
 {
-    int index = 0;
-    for (index = 0; index < 4; index++)
-    {
-        AmkStatus[index] = 0;
-        AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bSystemReady);
-        AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bError << 1);
-        AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bWarn << 2);
-        AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bQuitDcOn << 3);
-        AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bDcOn << 4);
-        AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bQuitInverterOn << 5);
-        AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bInverterOn << 6);
-        AmkStatus[index] |= (local_sh.motorVal1[index].AMK_bInverterOn << 7);
-    }
+    int status = 0;
+    status |= (local_sh.motorVal1[index].AMK_bSystemReady);
+    status |= (local_sh.motorVal1[index].AMK_bError << 1);
+    status |= (local_sh.motorVal1[index].AMK_bWarn << 2);
+    status |= (local_sh.motorVal1[index].AMK_bQuitDcOn << 3);
+    status |= (local_sh.motorVal1[index].AMK_bDcOn << 4);
+    status |= (local_sh.motorVal1[index].AMK_bQuitInverterOn << 5);
+    status |= (local_sh.motorVal1[index].AMK_bInverterOn << 6);
+    status |= (local_sh.motorVal1[index].AMK_bInverterOn << 7);
 }
