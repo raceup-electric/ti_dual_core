@@ -20,13 +20,13 @@
 //timestamp
 Uint32 time_elapsed = 0;
 Uint32 last_imu_message_time = 0;
+// TODO: remove useless (remove onepedal)
 Uint32 last_onepedal_slope_update = 0;
+// TODO: remove useless (check TV)
 double T_s = 0;
 
-Uint16 batteryPackTension;
-unsigned long int reassembled_data;
-unsigned char CAN_SENDYNE_ACT_VALUES[8];
 
+Uint16 batteryPackTension;
 float lem_current;
 
 //bms
@@ -45,6 +45,7 @@ bool R2D_first_state = 0;
 bool R2D_state = 0;
 
 
+// TODO: remove useless (remove launch)
 bool is_launch_inserted = false;
 
 
@@ -55,16 +56,7 @@ const float presets_power[8] = {5000.f, 15000.f, 30000.f, 45000.f, 60000.f, 6500
 const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};
 
 
-// driver input
-// filtro max-nuotatori: media mobile, senza contare i top N valori
-const int filterValCount = 20;
-const int filterDiscardCount = 10;
-
-
-
 Uint16 fanSpeed = 0;
-
-
 
 char status = 0x00;
 
@@ -76,6 +68,7 @@ int paddle = 0;  // 0-100
 int steering = 0; 
 int throttle = 0; 
 unsigned char imp;
+// TODO: Remove onepedal
 int curOnepedalSlope = 1;
 const int STEERING_DEADBAND = 5;
 bool checkPower = false;
@@ -140,6 +133,7 @@ float omegas[3];        //rad/s
 float temperatures[10];
 float suspensions[4]; 
 
+// TODO: Use a better structure
 float bms_lv_cell[8]; //gli ultimi due valori sono temperature
 
 //Calibration parameter
@@ -237,8 +231,11 @@ unsigned char TXB_Setpoints_Data[4][8];
 //Hardware debug variables
 Uint16 Air1_State;
 Uint16 Air2_State;
+// TODO: Read but unused
 Uint16 Imd_State;
+// TODO: Read but unused
 Uint16 Bms_State;
+// TODO: Remove not connected
 Uint16 Sdc1_State;
 Uint16 Sdc2_State;
 Uint16 Sdc3_State;
@@ -247,6 +244,7 @@ Uint16 Sdc5_State;
 Uint16 Sdc6_State;
 
 //ADC
+// TODO: Remove unused
 Uint16 CurrSens_temp;
 Uint16 Steering_temp;
 Uint16 TempRadOutLC_temp;
