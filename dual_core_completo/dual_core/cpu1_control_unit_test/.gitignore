@@ -6,6 +6,3 @@ targetConfigs/*
 .launches/*
 .settings/*
 .clangd
-.cproject
-.ccsproject
-.project
