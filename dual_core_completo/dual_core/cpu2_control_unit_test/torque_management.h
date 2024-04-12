@@ -51,35 +51,6 @@ float readRPMVelocity();
 
 void readVelocity();
 
-void performancePack();
-
-void saturationsAndConversions();
-
-void TractionControl(double T);
-
-//Debug version for initial implementation
-void SimplifiedTractionControl(double T);
-
-void FzCalculatorTV();
-
-void FzCalculatorTC();
-
-void RECalculatorTC();
-
-void speedCalculatorTV();
-
-void torqueVectoring();
-
-void torqueRepartition();
-
 void regBrake();
-
-void torqueLimit1();
-
-void ExtendedKalmanFilter(double T);
-
-double ZK_compute(double T);
-
-void velocity_estimation(double T);
 
 #endif

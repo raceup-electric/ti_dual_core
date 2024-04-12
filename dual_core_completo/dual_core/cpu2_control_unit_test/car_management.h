@@ -5,7 +5,6 @@
 //
 // includes
 //
-#include "driver_input.h"
 #include "adc_management.h"
 #include "atc_management.h"
 #include "utils.h"
@@ -27,8 +26,6 @@ extern Uint32 last_imu_message_time;
 
 extern Uint16 batteryPackTension;
 extern float lem_current;
-extern unsigned long int reassembled_data;
-extern unsigned char CAN_SENDYNE_ACT_VALUES[8];
 
 extern unsigned char fan_enable;
 extern unsigned char pump_enable;
