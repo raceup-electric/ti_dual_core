@@ -20,8 +20,6 @@
 //timestamp
 Uint32 time_elapsed = 0;
 Uint32 last_imu_message_time = 0;
-// TODO: remove useless (remove onepedal)
-Uint32 last_onepedal_slope_update = 0;
 // TODO: remove useless (check TV)
 double T_s = 0;
 
@@ -68,8 +66,6 @@ int paddle = 0;  // 0-100
 int steering = 0; 
 int throttle = 0; 
 unsigned char imp;
-// TODO: Remove onepedal
-int curOnepedalSlope = 1;
 const int STEERING_DEADBAND = 5;
 bool checkPower = false;
 int posTorques[4];
