@@ -108,22 +108,20 @@ void canSetup_phase2()
                           MSG_DATA_LENGTH, RXA_Lem_Data);
     CANMessageSet(CANA_BASE, OBJ_ID_FROM_LEM, &RXCANA_Lem_Message, MSG_OBJ_TYPE_RX);
 
-    // Alberto Patch
     // TBS_ATC PACKAGE
-    setting_package_param(&TXCANA_ATC_Message_TBS, MSG_ID_ATC_TBS, 0x0, MSG_OBJ_RX_INT_ENABLE,
+    setting_package_param(&RXCANA_ATC_Message_TBS, MSG_ID_ATC_TBS, 0x0, MSG_OBJ_RX_INT_ENABLE,
                           4, RXA_ATC_DATA_TBS);
-    CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, MSG_OBJ_TYPE_RX);
+    CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &RXCANA_ATC_Message_TBS, MSG_OBJ_TYPE_RX);
 
     // TEMPS_ATC PACKAGE
-    setting_package_param(&TXCANA_ATC_Message_TEMPS, MSG_ID_ATC_TEMPS, 0x0, MSG_OBJ_RX_INT_ENABLE,
+    setting_package_param(&RXCANA_ATC_Message_TEMPS, MSG_ID_ATC_TEMPS, 0x0, MSG_OBJ_RX_INT_ENABLE,
                           3, RXA_ATC_DATA_TEMPS);
-    CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TEMPS, &TXCANA_ATC_Message_TEMPS, MSG_OBJ_TYPE_RX);
+    CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TEMPS, &RXCANA_ATC_Message_TEMPS, MSG_OBJ_TYPE_RX);
 
     // SENSORS_ATC PACKAGE
-    setting_package_param(&TXCANA_ATC_Message_SUSPS, MSG_ID_ATC_SUSPS, 0x0, MSG_OBJ_RX_INT_ENABLE,
+    setting_package_param(&RXCANA_ATC_Message_SUSPS, MSG_ID_ATC_SUSPS, 0x0, MSG_OBJ_RX_INT_ENABLE,
                           3, RXA_ATC_DATA_SUSPS);
-    CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_SUSPS, &TXCANA_ATC_Message_SUSPS, MSG_OBJ_TYPE_RX);
-    // end Alberto Patch
+    CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_SUSPS, &RXCANA_ATC_Message_SUSPS, MSG_OBJ_TYPE_RX);
 
     // PACCHETTO PER PCU
     setting_package_param(&TXCANA_PCU_Message, MSG_ID_TO_PCU, 0x0, MSG_OBJ_NO_FLAGS,
@@ -306,7 +304,7 @@ __interrupt void canISR_A(void)
         break;
         // alberto patch
     case OBJ_ID_FROM_ATC_TBS:
-        CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &TXCANA_ATC_Message_TBS, true);
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TBS, &RXCANA_ATC_Message_TBS, true);
 
         read_ATC_TBS((Uint16 *)RXA_ATC_DATA_TBS);
 
@@ -315,7 +313,7 @@ __interrupt void canISR_A(void)
         CANIntClear(CANA_BASE, OBJ_ID_FROM_ATC_TBS);
         break;
     case OBJ_ID_FROM_ATC_SUSPS:
-        CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_SUSPS, &TXCANA_ATC_Message_SUSPS, true);
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_SUSPS, &RXCANA_ATC_Message_SUSPS, true);
 
         read_ATC_SUSPS((Uint16 *)RXA_ATC_DATA_SUSPS);
 
@@ -325,7 +323,7 @@ __interrupt void canISR_A(void)
         break;
 
     case OBJ_ID_FROM_ATC_TEMPS:
-        CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TEMPS, &TXCANA_ATC_Message_TEMPS, true);
+        CANMessageGet(CANA_BASE, OBJ_ID_FROM_ATC_TEMPS, &RXCANA_ATC_Message_TEMPS, true);
 
         read_ATC_TEMPS((Uint16 *)RXA_ATC_DATA_TEMPS);
 

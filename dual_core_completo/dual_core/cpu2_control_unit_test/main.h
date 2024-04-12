@@ -166,10 +166,9 @@ tCANMsgObject TXCANA_PCU_Message;
 tCANMsgObject TXCANA_CarSettings_Message;
 tCANMsgObject TXCANA_CarStatus_Message;
 
-//alberto patch
-tCANMsgObject TXCANA_ATC_Message_TBS;
-tCANMsgObject TXCANA_ATC_Message_SUSPS;
-tCANMsgObject TXCANA_ATC_Message_TEMPS;
+tCANMsgObject RXCANA_ATC_Message_TBS;
+tCANMsgObject RXCANA_ATC_Message_SUSPS;
+tCANMsgObject RXCANA_ATC_Message_TEMPS;
 
 
 unsigned char RXA_Imu_Data[8];
@@ -227,7 +226,7 @@ Uint16 Air2_State;
 Uint16 Imd_State;
 // TODO: Read but unused
 Uint16 Bms_State;
-// TODO: Remove not connected
+// TODO: Remove if unused (check schematic 2024)
 Uint16 Sdc1_State;
 Uint16 Sdc2_State;
 Uint16 Sdc3_State;
