@@ -235,15 +235,6 @@ Uint16 Sdc4_State;
 Uint16 Sdc5_State;
 Uint16 Sdc6_State;
 
-//ADC
-// TODO: Remove unused
-Uint16 CurrSens_temp;
-Uint16 Steering_temp;
-Uint16 TempRadOutLC_temp;
-Uint16 TempRadOutRC_temp;
-Uint16 TempRadInLC_temp;
-Uint16 TempRadInRC_temp;
-
 
 /*
  * Shared structs

@@ -27,12 +27,6 @@
 // SOC8 --> ADCINC2 --> PIN27 --> TempRadINL
 // SOC9 --> ADCINC3 --> PIN24 --> TempRadINR
 
-extern Uint16 CurrSens_temp;
-extern Uint16 Steering_temp;
-extern Uint16 TempRadOutLC_temp;
-extern Uint16 TempRadOutRC_temp;
-extern Uint16 TempRadInLC_temp;
-extern Uint16 TempRadInRC_temp;
 
 //
 // prototypes
