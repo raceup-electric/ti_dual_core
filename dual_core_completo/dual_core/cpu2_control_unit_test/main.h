@@ -43,10 +43,6 @@ bool R2D_first_state = 0;
 bool R2D_state = 0;
 
 
-// TODO: remove useless (remove launch)
-bool is_launch_inserted = false;
-
-
 /*
  * PRESETS
  */

@@ -68,8 +68,6 @@ extern bool inverterRF[4];
 
 extern float repFz[4];
 
-// Launch setting
-extern bool is_launch_inserted;
 // logging
 extern struct Share_struct sh;
 extern struct Status_Log status_log;

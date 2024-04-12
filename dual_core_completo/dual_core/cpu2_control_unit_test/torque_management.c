@@ -383,7 +383,6 @@ void performancePack()
     //Funzione di controllo e calcolo dei candidati
     torqueVectoring();          //Secondo candidato calcolato secondo TV2019, con ripartizione front rear
     torqueLimit1();             //Terzo candidato calcolato con TorqueLimit1, ripartizione con Re e steer
-    //launch_control();
 
     for (i = 0; i < NUM_OF_MOTORS; i++)
     {
