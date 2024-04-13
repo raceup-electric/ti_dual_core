@@ -66,7 +66,7 @@ void canSetup_phase2()
     }
 
     // Pacchetto accelerazioni IMU
-    setting_package_param(&RXCANA_Imu_Message, MSG_ID_IMU_BASE, 0x1FFFFFFC,
+    setting_package_param(&RXCANA_Imu_Message, MSG_ID_IMU_1, 0x1FFFFFFC,
                           MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER, MSG_DATA_LENGTH, RXA_Imu_Data);
     CANMessageSet(CANA_BASE, OBJ_ID_FROM_IMU, &RXCANA_Imu_Message, MSG_OBJ_TYPE_RX);
 
@@ -89,7 +89,7 @@ void canSetup_phase2()
                           MSG_OBJ_NO_FLAGS, 4, TXA_Host_Data);
 
     // PACCHETTO BMS LV
-    setting_package_param(&RXCANA_BmsLV_Message, MSG_ID_BMS_BASE, 0x1FFFFFFC,
+    setting_package_param(&RXCANA_BmsLV_Message, MSG_ID_BMS_LV_1, 0x1FFFFFFC,
                           MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER, 8, RXA_BmsLV_Data);
     CANMessageSet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, MSG_OBJ_TYPE_RX);
 

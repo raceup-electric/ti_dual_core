@@ -121,22 +121,30 @@ __interrupt void cpu_timer1_isr(void)
     R2D_init();
 #endif
 
-#if defined(DEBUG_NO_HV) || defined(DEBUG_HV)
-    /*
-     * space for debug purpose
-     */
-#endif
-
-#ifdef DEBUG_NO_HV  //for debug purposes with no inverter and no HV > HV ON is simulated by ECU
-    canSendAMK = true; //debug
-#endif
-
 
     paddleControl(time_elapsed);
-    sendAMKData();
+
+
+
+    if (!imp) {
+        if(paddle > 0) {
+            brakeAMK(paddle);       //Deleted the if-else statement with lem_curr < max_reg
+        }
+        else if(throttle > 0) {
+            throttleAMK(throttle);
+        }
+        else {
+            stopAMK();
+        }
+    }
+    else {
+        stopAMK();
+    }
+
+        sendAMKData();
+
 
     computeBatteryPackTension();
-
     sendDataToLogger();
 
     static Uint32 old_time_elapsed = 0;

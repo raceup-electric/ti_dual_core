@@ -251,39 +251,55 @@
 #define OBJ_ID_FROM_ATC_SUSPS           28
 #define OBJ_ID_FROM_ATC_TEMPS           29
 
-//Message IDs
+
+// -- Message IDs --
+// -- CAN2 --
 #define MSG_ID_AMK1_DATA_BASE   0x40
 #define MSG_ID_AMK2_DATA_BASE   0x44
 #define MSG_ID_TEMPS            0x49
+
+#define MSG_ID_ATC_TBS                  0x053
+
 #define MSG_ID_PADDLE_SW    0X54
-#define MSG_ID_BMS_BASE         0x55
+
 #define MSG_ID_BMS_LV_1         0x55
 #define MSG_ID_BMS_LV_2         0x56
-#define MSG_ID_IMU_BASE         0x60
+
+#define MSG_ID_BMS_VOLTAGE                   0x57
+#define MSG_ID_BMS_TEMP                      0x58
+
 #define MSG_ID_IMU_1            0x60
 #define MSG_ID_IMU_2            0x61
 #define MSG_ID_IMU_3            0x62
+
 #define MSG_ID_MAP_SW    0X64
 
+#define MSG_ID_CAR_STATUS                    0x65
+#define MSG_ID_CAR_SETTINGS                  0x66
+
+#define MSG_ID_SMU_BASE                      0x100
+#define MSG_ID_SMU_TEMPERATURES              0x100
+#define MSG_ID_SMU_SUSPENSIONS               0x102  // rear
+
+#define MSG_ID_ATC_SUSPS                0x104   // front
+#define MSG_ID_ATC_TEMPS                0x105
+
+#define MSG_ID_HOST_SEND                     0x120
+#define MSG_ID_TO_PCU                        0x130
+
+#define MSG_ID_LEM                           0x3C2
+
+
+// --- CAN1 ----
 #define MSG_ID_AMK_SETPOINTS    0x82
 #define MSG_ID_STEERING_WHEEL_BASE 0x90
 #define MSG_ID_STEERING_WHEEL_DISPLAY_PAGE   0x90   //buttons ID
 #define MSG_ID_STEERING_WHEEL_CHANGE_SETUP   0x91
 #define MSG_ID_STEERING_WHEEL_CHANGE_SETUP_2         0x92
-#define MSG_ID_SMU_BASE                      0x100
-#define MSG_ID_SMU_TEMPERATURES              0x100
-#define MSG_ID_SMU_SUSPENSIONS               0x102
-#define MSG_ID_BMS_VOLTAGE                   0x110
-#define MSG_ID_BMS_TEMP                      0x111
-#define MSG_ID_HOST_SEND                     0x120
-#define MSG_ID_TO_PCU                     0x130
-#define MSG_ID_CAR_SETTINGS                     0x66
-#define MSG_ID_CAR_STATUS                    0x65
-#define MSG_ID_LEM                           0x3C2
-//alberto patch
-#define MSG_ID_ATC_TBS                  0x053
-#define MSG_ID_ATC_SUSPS                0x104
-#define MSG_ID_ATC_TEMPS                0x105
+
+
+
+
 
 
 

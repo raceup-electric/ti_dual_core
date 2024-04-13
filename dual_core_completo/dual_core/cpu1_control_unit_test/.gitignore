@@ -6,3 +6,4 @@ targetConfigs/*
 .launches/*
 .settings/*
 .clangd
+/CPU1_FLASH_STANDALONE/

@@ -5,3 +5,4 @@ targetConfigs/*
 .clangd
 .launches/*
 .settings/*
+/CPU2_FLASH/
