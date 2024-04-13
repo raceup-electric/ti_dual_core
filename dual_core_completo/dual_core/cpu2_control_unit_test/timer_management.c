@@ -124,11 +124,9 @@ __interrupt void cpu_timer1_isr(void)
 
     paddleControl(time_elapsed);
 
-
-
     if (!imp) {
         if(paddle > 0) {
-            brakeAMK(paddle);       //Deleted the if-else statement with lem_curr < max_reg
+            brakeAMK(paddle);
         }
         else if(throttle > 0) {
             throttleAMK(throttle);
