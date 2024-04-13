@@ -121,7 +121,6 @@ __interrupt void cpu_timer1_isr(void)
     R2D_init();
 #endif
 
-
     paddleControl(time_elapsed);
 
     if (!imp) {
@@ -139,8 +138,7 @@ __interrupt void cpu_timer1_isr(void)
         stopAMK();
     }
 
-        sendAMKData();
-
+    sendAMKData();
 
     computeBatteryPackTension();
     sendDataToLogger();
