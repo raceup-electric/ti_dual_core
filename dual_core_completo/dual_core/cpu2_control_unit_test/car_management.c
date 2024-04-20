@@ -35,7 +35,7 @@ void read_map_sw_message(Uint16 val[])
     car_settings.rear_motor_scale = presets_repartition[(repartition_index % 3)*2];
     car_settings.front_motor_scale = presets_repartition[(repartition_index % 3)*2 +1];
 
-    if (repartition_index % 3)
+    if (! (repartition_index % 3))
         car_settings.torque_vectoring = true;
     else 
         car_settings.torque_vectoring = false;

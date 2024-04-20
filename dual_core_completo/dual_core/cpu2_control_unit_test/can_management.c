@@ -86,7 +86,7 @@ void canSetup_phase2()
     CANMessageSet(CANA_BASE, OBJ_ID_BMS_TEMP, &RXCANA_BmsTemp_Message, MSG_OBJ_TYPE_RX);
 
     setting_package_param(&TXCANA_BmsHost_Message, MSG_ID_HOST_SEND, 0,
-                          MSG_OBJ_NO_FLAGS, 4, TXA_Host_Data);
+                          MSG_OBJ_NO_FLAGS, 2, TXA_Host_Data);
 
     // PACCHETTO BMS LV
     setting_package_param(&RXCANA_BmsLV_Message, MSG_ID_BMS_LV_1, 0x1FFFFFFC,

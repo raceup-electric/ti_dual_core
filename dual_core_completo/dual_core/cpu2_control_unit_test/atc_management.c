@@ -18,7 +18,7 @@ void atc_update(unsigned int data[], enum type_message t) {
     case TBS:
         throttle = data[0] & 0xFF;
         brake = data[1] & 0xFF;
-        steering = (data[2] & 0xFF) | (data[3] & 0xF) << 8;
+        steering = (int)((data[2] & 0xFF) | ((data[3] & 0xF) << 8));
         imp = !((data[3] >> 4) & 0x01);
         break;
     case SUSPS:

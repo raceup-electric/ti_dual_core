@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "cpu1_control_unit_test",
+            "type": "ccs-debug",
+            "request": "launch",
+            "project": "cpu1_control_unit_test",
+            "launchSettings": {
+                "coresToLoadForProjectLaunch": [
+                    "C28xx_CPU1"
+                ]
+            }
+        },
+    ]
+}

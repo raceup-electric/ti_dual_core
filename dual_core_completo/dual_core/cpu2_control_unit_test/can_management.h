@@ -63,7 +63,7 @@ extern unsigned char RXA_BmsTemp_Data[7];
 extern unsigned char RXA_Map_SW_Data[1];
 extern unsigned char RXA_BmsLV_Data[8];
 extern unsigned char RXA_Lem_Data[8]; // aggiunto lem
-extern unsigned char TXA_Host_Data[4];
+extern unsigned char TXA_Host_Data[2];
 extern unsigned char TXCANA_PCU_Data[2];
 extern unsigned char TXCANA_CarStatus_Data[2];
 extern unsigned char TXCANA_CarSettings_Data[8];
