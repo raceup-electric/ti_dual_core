@@ -5,7 +5,6 @@
 //
 // includes
 //
-#include "driver_input.h"
 #include "adc_management.h"
 #include "atc_management.h"
 #include "utils.h"
@@ -24,13 +23,9 @@ extern char status;
 extern Uint32 last_imu_message_time;
 
 // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
-// extern float sendyne_current;
-// extern float sendyne_voltage;
 
 extern Uint16 batteryPackTension;
 extern float lem_current;
-extern unsigned long int reassembled_data;
-extern unsigned char CAN_SENDYNE_ACT_VALUES[8];
 
 extern unsigned char fan_enable;
 extern unsigned char pump_enable;
@@ -68,8 +63,6 @@ extern bool inverterRF[4];
 
 extern float repFz[4];
 
-// Launch setting
-extern bool is_launch_inserted;
 // logging
 extern struct Share_struct sh;
 extern struct Status_Log status_log;

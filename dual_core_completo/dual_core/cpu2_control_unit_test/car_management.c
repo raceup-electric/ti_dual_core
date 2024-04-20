@@ -1,4 +1,6 @@
 #include "car_management.h"
+#include "sys/_stdint.h"
+#include <stdint.h>
 
 int calibration_status = 0;
 int NUM_SMU_SUSP = 2;
@@ -38,8 +40,8 @@ void read_paddle_sw_message(Uint16 val)
 
 void read_LEM_message(unsigned char lem_values[])
 {
-    reassembled_data = 0;
-    Uint16 tmp = lem_values[0];
+    uint32_t reassembled_data = 0;
+    uint16_t tmp = lem_values[0];
     tmp ^= 1 << 7;
     reassembled_data |= ((uint32_t)(tmp) << 24);
     reassembled_data |= ((uint32_t)(lem_values[1]) << 16);

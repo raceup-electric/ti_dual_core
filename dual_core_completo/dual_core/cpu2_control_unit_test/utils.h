@@ -25,9 +25,9 @@ struct motorValues1 {
 };
 
 struct motorValues2 {
-    float AMK_TempMotor;                //Signed - Unit: 0.1 °C - Motor temperature
-    float AMK_TempInverter;             //Signed - Unit: 0.1 °C - Cold plate temperature
-    float AMK_TempIGBT;                 //Signed - Unit: 0.1 °C - IGBTtemperature
+    float AMK_TempMotor;                //Signed - Unit: 0.1 ï¿½C - Motor temperature
+    float AMK_TempInverter;             //Signed - Unit: 0.1 ï¿½C - Cold plate temperature
+    float AMK_TempIGBT;                 //Signed - Unit: 0.1 ï¿½C - IGBTtemperature
     unsigned int AMK_ErrorInfo;         //Unsigned - Diagnostic number
 };
 
@@ -160,8 +160,6 @@ extern const float presets_regen[5];
 extern struct Macros_settings macros_settings;
 
 
-extern const double p_lf[6];
-extern const double p_fr[6];
 extern double delta_steer[2];
 
 

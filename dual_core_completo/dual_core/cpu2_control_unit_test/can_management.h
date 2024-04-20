@@ -51,10 +51,9 @@ extern tCANMsgObject TXCANA_PCU_Message;
 extern tCANMsgObject TXCANA_CarSettings_Message;
 extern tCANMsgObject TXCANA_CarStatus_Message;
 
-// alberto patch
-extern tCANMsgObject TXCANA_ATC_Message_TBS;
-extern tCANMsgObject TXCANA_ATC_Message_SUSPS;
-extern tCANMsgObject TXCANA_ATC_Message_TEMPS;
+extern tCANMsgObject RXCANA_ATC_Message_TBS;
+extern tCANMsgObject RXCANA_ATC_Message_SUSPS;
+extern tCANMsgObject RXCANA_ATC_Message_TEMPS;
 
 extern unsigned char RXA_Imu_Data[8];
 extern unsigned char RXA_Smu_Data[8];

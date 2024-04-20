@@ -143,11 +143,6 @@ __interrupt void cpu_timer1_isr(void)
     computeBatteryPackTension();
     sendDataToLogger();
 
-    static Uint32 old_time_elapsed = 0;
-
-    T_s = ((double)(time_elapsed - old_time_elapsed))/100;
-    old_time_elapsed = time_elapsed;
-
     if((time_elapsed - last_imu_message_time) > 500){
         if (macros_settings.torque_vectoring)
             macros_settings.torque_vectoring = 0;

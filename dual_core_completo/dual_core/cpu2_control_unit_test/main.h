@@ -20,13 +20,8 @@
 //timestamp
 Uint32 time_elapsed = 0;
 Uint32 last_imu_message_time = 0;
-Uint32 last_onepedal_slope_update = 0;
-double T_s = 0;
 
 Uint16 batteryPackTension;
-unsigned long int reassembled_data;
-unsigned char CAN_SENDYNE_ACT_VALUES[8];
-
 float lem_current;
 
 //bms
@@ -45,9 +40,6 @@ bool R2D_first_state = 0;
 bool R2D_state = 0;
 
 
-bool is_launch_inserted = false;
-
-
 /*
  * PRESETS
  */
@@ -55,18 +47,9 @@ const float presets_power[8] = {5000.f, 15000.f, 30000.f, 45000.f, 60000.f, 6500
 const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};
 
 
-// driver input
-// filtro max-nuotatori: media mobile, senza contare i top N valori
-const int filterValCount = 20;
-const int filterDiscardCount = 10;
-
-
-
 Uint16 fanSpeed = 0;
 
-
-
-char status = 0x00;
+char status = 0;
 
 //torque
 int actualVelocityRPM = 0;
@@ -76,37 +59,12 @@ int paddle = 0;  // 0-100
 int steering = 0; 
 int throttle = 0; 
 unsigned char imp;
-int curOnepedalSlope = 1;
-const int STEERING_DEADBAND = 5;
 bool checkPower = false;
-int posTorques[4];
-int negTorques[4];
 
 float posTorquesNM[4];
 float negTorquesNM[4];
 
-//PERFORMANCE PACK
-float th, brk;
-int str;
-float ax, ay, yaw_r;
-float motorSpeeds[4];
-float steers[4];
-float speedTv = 0;
-float fz[4] = {0,0,0,0};
-float re[4];
-
-double fzTC[4] = {0,0,0,0};
-double reTC[4];
 float repFz[4];
-
-double TC_pos[4] = {0, 0, 0, 0};
-double TC_neg[4] = {0, 0, 0, 0};
-
-float posTorqueCandidate[4][4];      //[MotorIndex][CandidateIndex]
-float negTorqueCandidate[4];      //[MotorIndex][CandidateIndex]
-float Torque_max[4];
-float AMK_TorqueLimitPositive[4];
-float AMK_TorqueLimitNegative[4];
 float torque_reg_IPM[4];            //massima coppia rigenerativa per motore
 
 
@@ -140,6 +98,7 @@ float omegas[3];        //rad/s
 float temperatures[10];
 float suspensions[4]; 
 
+// TODO: Use a better structure
 float bms_lv_cell[8]; //gli ultimi due valori sono temperature
 
 //Calibration parameter
@@ -180,10 +139,9 @@ tCANMsgObject TXCANA_PCU_Message;
 tCANMsgObject TXCANA_CarSettings_Message;
 tCANMsgObject TXCANA_CarStatus_Message;
 
-//alberto patch
-tCANMsgObject TXCANA_ATC_Message_TBS;
-tCANMsgObject TXCANA_ATC_Message_SUSPS;
-tCANMsgObject TXCANA_ATC_Message_TEMPS;
+tCANMsgObject RXCANA_ATC_Message_TBS;
+tCANMsgObject RXCANA_ATC_Message_SUSPS;
+tCANMsgObject RXCANA_ATC_Message_TEMPS;
 
 
 unsigned char RXA_Imu_Data[8];
@@ -205,24 +163,8 @@ unsigned char RXA_ATC_DATA_TEMPS[3];
 unsigned char RXA_SW_Data[1];
 
 
-
 unsigned char fan_enable;
 unsigned char pump_enable;
-
-
-/*
- * KALMAN FILTER
- */
-
-
-const double p_lf[] = {45640000,-1951000,60000,-3000,1000,0};
-const double p_fr[] = {45640000,1951000,60000,3000,1000,0};
-
-double speed_state[2] = {0,0};
-double w_angles[4] = {0,0,0,0};
-double v_wheels[4] = {0,0,0,0};
-double delta_steer[2] = {0,0};
-
 
 /*
  * AMK CAN
@@ -237,22 +179,17 @@ unsigned char TXB_Setpoints_Data[4][8];
 //Hardware debug variables
 Uint16 Air1_State;
 Uint16 Air2_State;
+// TODO: Read but unused
 Uint16 Imd_State;
+// TODO: Read but unused
 Uint16 Bms_State;
+// TODO: Remove if unused (check schematic 2024)
 Uint16 Sdc1_State;
 Uint16 Sdc2_State;
 Uint16 Sdc3_State;
 Uint16 Sdc4_State;
 Uint16 Sdc5_State;
 Uint16 Sdc6_State;
-
-//ADC
-Uint16 CurrSens_temp;
-Uint16 Steering_temp;
-Uint16 TempRadOutLC_temp;
-Uint16 TempRadOutRC_temp;
-Uint16 TempRadInLC_temp;
-Uint16 TempRadInRC_temp;
 
 
 /*
