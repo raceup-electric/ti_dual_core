@@ -72,42 +72,24 @@ __interrupt void cpu_timer1_isr(void)
     CpuTimer1.InterruptCount++;
 
     readAllADC();
-
-
     brakeLight();
     readVelocity();
 
-    /*
-     * Il codice finale in auto richiede fanControl();
-     */
-    fanControl();
-
-    pump_enable = 0;
-
-    //Start pumps 5 sec after lv power on
-    if(time_elapsed >500){
-            pump_enable = 1;
-    }
-
-    setPumpSpeed(100);
-
-    if(time_elapsed%4 == 0){
+    if(time_elapsed%(40 MS) == 0){
         sendHostData();
     }
 
-    // every 500 ms
-    if(time_elapsed%50 == 0){
+    if(time_elapsed%(500 MS) == 0){
+        fanControl();
+        pumpControl(time_elapsed);  // start after 5s in LV
+
         send_pwm_to_pcu();
         checkStatus();
         send_car_status();
-    }
 
-    // every 5s
-    if(time_elapsed%500 == 0){
         carSettingsMessage();
         send_car_settings();
     }
-
 
     updateGPIOState();
 
@@ -123,7 +105,9 @@ __interrupt void cpu_timer1_isr(void)
 
     paddleControl(time_elapsed);
 
-    if (!imp) {
+    bool canSendAMK = R2D_state && readRF() && isHVOn();
+
+    if (!imp && canSendAMK) {
         if(paddle > 0) {
             brakeAMK(paddle);
         }
@@ -143,10 +127,6 @@ __interrupt void cpu_timer1_isr(void)
     computeBatteryPackTension();
     sendDataToLogger();
 
-    if((time_elapsed - last_imu_message_time) > 500){
-        if (macros_settings.torque_vectoring)
-            macros_settings.torque_vectoring = 0;
-    }
 }
 
 

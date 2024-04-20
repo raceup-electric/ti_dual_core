@@ -57,19 +57,15 @@ void regBrake()
         Pw = Pw/SATURAZIONE;
         float T_max_an_IPM = Pw/rads;
 
-        //T_lim = 21-0.000857*(rpm-13000); da matlab
-        float T_lim = 21.0f - 0.000857*(fabsf(motorVal1[mot].AMK_ActualVelocity) - 13000.0f); //da riga 47
+        // check AMK motors datasheet pg.1 rmp torque curve
+        float T_lim = 21.0f - 0.000857*(fabsf(motorVal1[mot].AMK_ActualVelocity) - 13000.0f); 
         T_lim=saturateFloat(T_lim,-car_settings.max_neg_torque,0.0f);
 
         if(T_max_an_IPM > T_lim)
             torque_reg_IPM[mot] = T_lim;
         else
             torque_reg_IPM[mot] = T_max_an_IPM;
-//#ifdef NO_TORQUE_VECTORING
-        //Sovrascrive il valore sia che ci sia o no TV
+
         negTorquesNM[mot] = -((brakeReq/100.0)*torque_reg_IPM[mot]);
-//#endif
     }
-
-
 }

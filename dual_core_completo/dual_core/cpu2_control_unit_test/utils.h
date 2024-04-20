@@ -107,31 +107,23 @@ struct Power_Setup_Log{
 };
 
 
-struct Macros_settings{
-    bool torque_vectoring;
-    bool traction_ctrl;
-    bool one_pedal;
-    bool thermal_power_ctrl;
-    bool reg_brake;
-};
-
 struct Car_settings{
-    //status
-    bool lauch_ready;
-
     //screen
     float presets_power[8];
-    float presets_regen[6];
-
+    float presets_regen[5];
+    float presets_repartition[6];
 
     //setup variables
     float max_regen_current;
+    float power_limit;
     float max_speed;
-    float rear_motor_scale;
-    float front_motor_scale;
     float max_pos_torque;
     float max_neg_torque;
-    float power_limit;
+    float front_motor_scale;
+    float rear_motor_scale;
+
+    bool torque_vectoring;
+
 };
 
 
@@ -156,10 +148,7 @@ extern float V[3][3];
 
 extern const float presets_power[8];
 extern const float presets_regen[5];
-
-extern struct Macros_settings macros_settings;
-
-
+extern const float presets_repartition[6];
 extern double delta_steer[2];
 
 
@@ -167,8 +156,6 @@ extern double delta_steer[2];
 // prototypes
 //
 void setup_car_settings();
-
-void setup_macros();
 
 float convertBMSvoltage(Uint16 voltage);
 

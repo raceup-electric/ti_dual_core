@@ -9,6 +9,7 @@
 #include "epwm_management.h"
 #include "GPIO_management.h"
 #include "utils.h"
+#include "can_management.h"
 
 
 
@@ -45,6 +46,7 @@ bool R2D_state = 0;
  */
 const float presets_power[8] = {5000.f, 15000.f, 30000.f, 45000.f, 60000.f, 65000.f, 70000.f, 75000.f};
 const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};
+const float presets_repartition[6] = {1.f, 1.f, 2.f, 0.5f, 1.8f, 0.6f};
 
 
 Uint16 fanSpeed = 0;
@@ -222,11 +224,9 @@ struct Power_Setup_Log power_setup_log;
 
 struct Car_settings car_settings;
 
-struct Macros_settings macros_settings;
 
 #pragma DATA_SECTION(sh,"SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS12");
-#pragma DATA_SECTION(macros_settings,"SHARERAMGS15");
 #pragma DATA_SECTION(car_settings,"SHARERAMGS14");
 
 

@@ -299,8 +299,7 @@ void sendAMKData() {
         negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
     }
 
-    if(macros_settings.reg_brake)
-         regBrake();
+    regBrake();
 
     #ifndef NO_POWER_CONTROL
         //POWER CONTROL
@@ -313,11 +312,11 @@ void sendAMKData() {
     int posTorque[4], negTorque[4];
     for (i = 0; i < NUM_OF_MOTORS; i++) {
 
+        // check AMK motors datasheet pg.1 rmp torque curve
         // Safety limit to torque at high speed (decrease torque limit with increasing rpm)
         float Torque_max = 21.0f - 0.000857*(motorVal1[i].AMK_ActualVelocity - 13000.0f);
         // Choose strictest limit
         Torque_max = saturateFloat(Torque_max, car_settings.max_pos_torque, 0.0f);
-
 
         //RIPARTIZIONE DI COPPIA SEMPLICE
         /*

@@ -8,7 +8,6 @@
 
 extern struct Share_struct local_sh;
 extern struct Car_settings car_settings;
-extern struct Macros_settings macros_settings;
 
 // Logging
 struct motorValues1
@@ -120,30 +119,22 @@ struct Power_Setup_Log
 
 struct Car_settings
 {
-    // status
-    bool lauch_ready;
-
     // screen
     float presets_power[8];
-    float presets_regen[6];
+    float presets_regen[5];
+    float presets_repartition[6];
 
     // setup variables
     float max_regen_current;
+    float power_limit;
     float max_speed;
-    float rear_motor_scale;
-    float front_motor_scale;
     float max_pos_torque;
     float max_neg_torque;
-    float power_limit;
-};
+    float front_motor_scale;
+    float rear_motor_scale;
 
-struct Macros_settings
-{
     bool torque_vectoring;
-    bool traction_ctrl;
-    bool one_pedal;
-    bool thermal_power_ctrl;
-    bool reg_brake;
+
 };
 
 struct Share_struct

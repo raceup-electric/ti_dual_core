@@ -132,7 +132,7 @@ void canSetup_phase2()
                           8, TXCANA_CarSettings_Data);
 
     // PACCHETTO CAR STATUS
-    setting_package_param(&TXCANA_CarSettings_Message, MSG_ID_CAR_STATUS, 0x0, MSG_OBJ_NO_FLAGS,
+    setting_package_param(&TXCANA_CarStatus_Message, MSG_ID_CAR_STATUS, 0x0, MSG_OBJ_NO_FLAGS,
                           2, TXCANA_CarStatus_Data);
 
     CANEnable(CANA_BASE);
@@ -275,7 +275,7 @@ __interrupt void canISR_A(void)
     case OBJ_ID_MAP_SW:
 
         CANMessageGet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, true);
-        read_map_sw_message(RXA_Map_SW_Data[0]);
+        read_map_sw_message(RXA_Map_SW_Data);
 
         rxAMsgCount++;
 

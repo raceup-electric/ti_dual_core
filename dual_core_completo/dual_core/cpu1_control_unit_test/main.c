@@ -309,4 +309,11 @@ uint8_t compute_AMKStatus(uint8_t index)
     status |= (local_sh.motorVal1[index].AMK_bQuitInverterOn << 5);
     status |= (local_sh.motorVal1[index].AMK_bInverterOn << 6);
     status |= (local_sh.motorVal1[index].AMK_bInverterOn << 7);
+
+    return status;
+
 }
+
+
+
+

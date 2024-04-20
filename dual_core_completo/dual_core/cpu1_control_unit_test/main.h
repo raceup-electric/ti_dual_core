@@ -32,9 +32,6 @@ struct Share_struct local_sh;
 
 struct Car_settings car_settings;
 
-struct Macros_settings macros_settings;
-
-#pragma DATA_SECTION(macros_settings, "SHARERAMGS15");
 #pragma DATA_SECTION(car_settings, "SHARERAMGS14");
 #pragma DATA_SECTION(sh, "SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed, "SHARERAMGS12");

@@ -2,6 +2,8 @@
 #ifndef _CAR_MANAGEMENT_H_
 #define _CAR_MANAGEMENT_H_
 
+#define MS /10
+
 //
 // includes
 //
@@ -96,7 +98,7 @@ void read_SMU_Message(Uint16 smu_values[], int id);
 
 void read_BMSLV_message(Uint16 bmslv_values[], int id);
 
-void read_map_sw_message(Uint16 val);
+void read_map_sw_message(Uint16 val[]);
 
 void read_paddle_sw_message(Uint16 val);
 
@@ -141,6 +143,8 @@ void update_log_values();
 Uint16 fanSpeedFunction(int temp);
 
 void fanControl();
+
+void pumpControl(uint32_t time_elapsed);
 
 void sendDataToLogger();
 

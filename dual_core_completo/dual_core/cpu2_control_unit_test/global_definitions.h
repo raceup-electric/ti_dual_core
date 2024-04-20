@@ -16,13 +16,7 @@
  *
  */
 
-/*
- * SUPER IMPORTANT MACROS
- */
-#define ONE_PEDAL    0
-#define REG_BRAKE   1
-#define TORQUE_VECTORING    0
-#define TRACTION_CTRL   0
+// TODO chech if it is needed
 #define THERMAL_POWER_CTRL    0
 
 /*
@@ -40,6 +34,8 @@
 //
 #define NUM_OF_MOTORS       4
 
+
+// TODO: change scale to be percentage
 /*
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
@@ -166,7 +162,7 @@
 
 #define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 
-
+#define TORQUE_VECTORING            1
 /*
  * POWER CONTROL
  */

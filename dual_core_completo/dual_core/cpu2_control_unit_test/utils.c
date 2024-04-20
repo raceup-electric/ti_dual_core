@@ -3,12 +3,8 @@
 
 void setup_car_settings(){
 
-    /*
-     * Must be called before changing car_settings struct
-     */
-    setup_macros();
-
     memcpy(car_settings.presets_power, presets_power, sizeof(presets_power));
+    memcpy(car_settings.presets_repartition, presets_repartition, sizeof(presets_repartition));
     memcpy(car_settings.presets_regen, presets_regen, sizeof(presets_regen));
 
     car_settings.max_regen_current=MAX_REGEN_CURRENT;
@@ -16,34 +12,26 @@ void setup_car_settings(){
     car_settings.max_pos_torque = MAX_POS_TORQUE;
     car_settings.max_neg_torque = MAX_NEG_TORQUE;
     car_settings.power_limit = POWER_LIMIT;
+    car_settings.torque_vectoring = TORQUE_VECTORING;
 
     /*
      * Torques are computed by TV when active, so we don't have to set them
      */
-    if(macros_settings.torque_vectoring){
+    if(car_settings.torque_vectoring){
         car_settings.rear_motor_scale = 1.0f;
         car_settings.front_motor_scale = 1.0f;
-        repFz[0] = 0.6;
-        repFz[1] = 0.6;
-        repFz[2] = 0.4;
-        repFz[3] = 0.4;
     } else {
         car_settings.rear_motor_scale = REAR_MOTOR_SCALE;
         car_settings.front_motor_scale = FRONT_MOTOR_SCALE;
-        repFz[0] = 0.6;
-        repFz[1] = 0.6;
-        repFz[2] = 0.4;
-        repFz[3] = 0.4;
+
     }
+
+    repFz[0] = 0.6;
+    repFz[1] = 0.6;
+    repFz[2] = 0.4;
+    repFz[3] = 0.4;
 }
 
-void setup_macros() {
-    macros_settings.one_pedal = ONE_PEDAL;
-    macros_settings.reg_brake = REG_BRAKE;
-    macros_settings.thermal_power_ctrl = THERMAL_POWER_CTRL;
-    macros_settings.torque_vectoring = TORQUE_VECTORING;
-    macros_settings.traction_ctrl = TRACTION_CTRL;
-}
 
 float convertBMSvoltage(Uint16 voltage){
   return (float)(voltage / 10000.f);

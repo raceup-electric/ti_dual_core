@@ -23,6 +23,4 @@ void powerControl();
 
 float PIController(float pi_error);
 
-float Thermal_Power_Control();
-
 #endif

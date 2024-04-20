@@ -93,7 +93,7 @@ SysTickHandler(void)
 //
 int Cmd_ls(int argc, char *argv[])
 {
-    unsigned long ulTotalSize, ulItemCount, ulFileCount, ulDirCount;
+    unsigned long ulItemCount; //ulTotalSize, ulDirCount  ulFileCount
     FRESULT fresult;
 
     //
@@ -109,9 +109,9 @@ int Cmd_ls(int argc, char *argv[])
         return (fresult);
     }
 
-    ulTotalSize = 0;
-    ulFileCount = 0;
-    ulDirCount = 0;
+    //ulTotalSize = 0;
+    //ulFileCount = 0;
+    //ulDirCount = 0;
     ulItemCount = 0;
 
     //
@@ -165,11 +165,11 @@ int Cmd_ls(int argc, char *argv[])
         // Otherwise, it is a file.  Increment the file count, and
         // add in the file size to the total.
         //
-        else
-        {
-            ulFileCount++;
+        //else
+        //{
+            //ulFileCount++;
             // ulTotalSize += g_sFileInfo.fsize;
-        }
+        //}
 
         //
         // Move to the next entry in the item array we use to populate the

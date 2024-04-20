@@ -22,14 +22,24 @@ int rightFanDebug = 0;
 
 
 
-void read_map_sw_message(Uint16 val)
+void read_map_sw_message(Uint16 val[])
 {
 
-    Uint16 power_index = val & 0xF;
-    Uint16 regen_index = (val >> 4) & 0xF;
+    Uint16 power_index = val[0] & 0xF;
+    Uint16 regen_index = (val[0] >> 4) & 0xF;
+    Uint16 repartition_index = val[1] & 0xF;
 
     car_settings.power_limit = presets_power[power_index % 8];
     car_settings.max_regen_current = presets_regen[regen_index % 5];
+
+    car_settings.rear_motor_scale = presets_repartition[(repartition_index % 3)*2];
+    car_settings.front_motor_scale = presets_repartition[(repartition_index % 3)*2 +1];
+
+    if (repartition_index % 3)
+        car_settings.torque_vectoring = true;
+    else 
+        car_settings.torque_vectoring = false;
+
 }
 
 void read_paddle_sw_message(Uint16 val)
@@ -192,7 +202,7 @@ void read_ATC_TEMPS(Uint16 data[]) {
  */
 void brakeLight()
 {
-    if (brake > BRAKE_LIGHT_MIN || brakeReq > BRAKE_LIGHT_MIN)
+    if (brake > BRAKE_LIGHT_MIN || paddle > BRAKE_LIGHT_MIN)
     {
         GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF); // ON
     }
@@ -451,6 +461,20 @@ void fanControl()
 
 }
 
+void pumpControl(uint32_t time_elapsed) {
+
+    pump_enable = 0;
+
+    //Start pumps 5 sec after lv power on
+    if(time_elapsed > (5000 MS)){
+            pump_enable = 1;
+    }
+
+    setPumpSpeed(100);
+
+}
+
+
 /*
  * Always active at 20% then linearly increases from 60% to 80% when temperature is above between 60  and 80
  */
@@ -539,16 +563,12 @@ void carSettingsMessage()
 
     TXCANA_CarSettings_Data[0] = (unsigned char)car_settings.max_regen_current;
     TXCANA_CarSettings_Data[1] = (unsigned char)car_settings.power_limit;
-
-    Uint16 max_speed = (Uint16)car_settings.max_speed;
-
-    TXCANA_CarSettings_Data[2] = max_speed && 0xFF;
-    TXCANA_CarSettings_Data[3] = (max_speed >> 8) && 0xFF;
-
-    TXCANA_CarSettings_Data[4] = (unsigned char)car_settings.max_pos_torque;
-    TXCANA_CarSettings_Data[5] = (unsigned char)car_settings.max_neg_torque;
-    TXCANA_CarSettings_Data[6] = (unsigned char)(car_settings.front_motor_scale * 100);
-    TXCANA_CarSettings_Data[7] = (unsigned char)(car_settings.rear_motor_scale * 100);
+    TXCANA_CarSettings_Data[2] = (char)(car_settings.max_speed/1000) && 0xFF; // krpm
+    TXCANA_CarSettings_Data[3] = (unsigned char)car_settings.max_pos_torque;
+    TXCANA_CarSettings_Data[4] = (unsigned char)car_settings.max_neg_torque;
+    TXCANA_CarSettings_Data[5] = (unsigned char)(car_settings.front_motor_scale * 100);
+    TXCANA_CarSettings_Data[6] = (unsigned char)(car_settings.rear_motor_scale * 100);
+    TXCANA_CarSettings_Data[7] = (unsigned char)(car_settings.torque_vectoring) & 1;
 
 }
 
