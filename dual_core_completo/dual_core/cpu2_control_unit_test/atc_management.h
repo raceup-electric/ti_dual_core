@@ -11,6 +11,10 @@ extern int steering;
 extern unsigned char imp;
 extern float suspensions[4];
 extern float temperatures[10];
+
+extern Uint32 time_elapsed;
+extern Uint32 time_elapsed_ATC;
+
 //--------------------------------------
 
 void atc_update(unsigned int data[], enum type_message t);

@@ -59,7 +59,9 @@ __interrupt void cpu_timer0_isr(void){
         EDIS;
     }
     CpuTimer0.InterruptCount++;
+
     time_elapsed++;
+    time_elapsed_ATC++;
 
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }
@@ -106,8 +108,8 @@ __interrupt void cpu_timer1_isr(void)
     paddleControl(time_elapsed);
 
     bool canSendAMK = R2D_state && readRF() && isHVOn();
-
-    if (!imp && canSendAMK) {
+    
+    if (!imp && canSendAMK && ((time_elapsed - time_elapsed_ATC) < 500 MS)) {
         if(paddle > 0) {
             brakeAMK(paddle);
         }

@@ -9,6 +9,7 @@
 #include "utils.h"
 
 extern Uint32 time_elapsed;
+extern Uint32 time_elapsed_ATC;
 
 void timerSetup(void);
 __interrupt void cpu_timer0_isr(void);
