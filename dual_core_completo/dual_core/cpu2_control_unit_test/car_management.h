@@ -86,8 +86,8 @@ extern struct Car_settings car_settings;
 
 extern struct motorValues1 motorVal1[4]; //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
 
-extern ExtU TVstructIn;
-extern ExtY TVstructOut;
+extern ExtU rtU;
+extern ExtY rtY;
 
 //
 // prototypes
