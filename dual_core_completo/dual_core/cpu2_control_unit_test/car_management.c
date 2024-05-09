@@ -706,5 +706,27 @@ void update_shared_mem()
     sh.power_setup = power_setup_log;
 }
 
+void updateTVstruct() {
+    
+    TVstructIn.ax = imu_log.accelerations_shared[0];
+    TVstructIn.ay = imu_log.accelerations_shared[1];
+
+    TVstructIn.yaw_r = imu_log.omegas_shared[2];
+
+    TVstructIn.throttle = throttle;
+    TVstructIn.brake = brake;
+    TVstructIn.throttle = throttle;
+    TVstructIn.steer = steering;
+
+    TVstructIn.rpm[0] = motorVal1[0].AMK_ActualVelocity;
+    TVstructIn.rpm[1] = motorVal1[1].AMK_ActualVelocity;
+    TVstructIn.rpm[2] = motorVal1[2].AMK_ActualVelocity;
+    TVstructIn.rpm[3] = motorVal1[3].AMK_ActualVelocity;
+
+    TVstructIn.voltage = power_log.batteryPack_voltage_shared;
+
+}
+
+
 
 

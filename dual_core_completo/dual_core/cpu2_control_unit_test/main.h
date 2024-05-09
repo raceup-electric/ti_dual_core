@@ -10,6 +10,7 @@
 #include "GPIO_management.h"
 #include "utils.h"
 #include "can_management.h"
+#include "TV/TV_2024_2.h"
 
 
 
@@ -26,6 +27,11 @@ Uint32 time_elapsed_ATC = 0;
 
 Uint16 batteryPackTension;
 float lem_current;
+
+
+//TV
+ExtU TVstructIn;
+ExtY TVstructOut;
 
 //bms
 float max_bms_voltage;

@@ -95,6 +95,12 @@ __interrupt void cpu_timer1_isr(void)
 
     updateGPIOState();
 
+    if (car_settings.torque_vectoring) {
+
+        updateTVstruct();
+        TV_2024_2_step();
+    }
+
 
 #ifndef DEBUG_NO_HV
     /*

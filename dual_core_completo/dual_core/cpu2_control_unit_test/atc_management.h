@@ -12,8 +12,8 @@ extern unsigned char imp;
 extern float suspensions[4];
 extern float temperatures[10];
 
-extern Uint32 time_elapsed;
-extern Uint32 time_elapsed_ATC;
+extern unsigned long time_elapsed;
+extern unsigned long time_elapsed_ATC;
 
 //--------------------------------------
 
