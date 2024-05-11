@@ -34,12 +34,6 @@ void main(void)
 
     GPIOSetup();
 
-    setupSD();
-    // creates first file for logging
-    createFirstFile();
-    // writes the first line of log
-    writeHeader();
-
     uart_setup();
 
     // Write auth of some banks of Global Shared (GS) RAM is
@@ -105,7 +99,7 @@ void cpu1_timer_setup(void)
 
     InitCpuTimers();
 
-    ConfigCpuTimer(&CpuTimer1, 200, 20000);
+    ConfigCpuTimer(&CpuTimer1, 200, 20000); //20 ms timer1
     ConfigCpuTimer(&CpuTimer2, 200, 8000);
 
     CpuTimer1Regs.TCR.all = 0x4000;
@@ -161,44 +155,6 @@ __interrupt void cpu_timer1_isr(void)
 
     Shared_Ram_dataRead_c1();
 
-#ifdef LOGGING
-    char cmd[200];
-
-    sprintf(cmd, "%lu;", local_time_elapsed);
-    writeSD(cmd);
-
-    sprintf(cmd, "%d;%d;%d;%d;"       // AMKStatus
-                 "%.2f;%u;%.2f;%.2f;" // MotorVal2
-                 "%.2f;%u;%.2f;%.2f;"
-                 "%.2f;%u;%.2f;%.2f;"
-                 "%.2f;%u;%.2f;%.2f;",
-            compute_AMKStatus(0), compute_AMKStatus(1), compute_AMKStatus(2), compute_AMKStatus(3),
-
-            local_sh.motorVal2[0].AMK_TempMotor, local_sh.motorVal2[0].AMK_ErrorInfo,
-            local_sh.motorVal2[0].AMK_TempIGBT, local_sh.motorVal2[0].AMK_TempInverter,
-            local_sh.motorVal2[1].AMK_TempMotor, local_sh.motorVal2[1].AMK_ErrorInfo,
-            local_sh.motorVal2[1].AMK_TempIGBT, local_sh.motorVal2[1].AMK_TempInverter,
-            local_sh.motorVal2[2].AMK_TempMotor, local_sh.motorVal2[2].AMK_ErrorInfo,
-            local_sh.motorVal2[2].AMK_TempIGBT, local_sh.motorVal2[2].AMK_TempInverter,
-            local_sh.motorVal2[3].AMK_TempMotor, local_sh.motorVal2[3].AMK_ErrorInfo,
-            local_sh.motorVal2[3].AMK_TempIGBT, local_sh.motorVal2[3].AMK_TempInverter);
-
-    writeSD(cmd);
-
-    // TO USE
-    sprintf(cmd, "%.1f;%.1f;%.1f;%.1f;" // Actual velocity
-                 "%d;%d;%d;%d;"         // MotorSetPoints positive
-                 "%d;%d;%d;%d;",        // MotorSetPoints negative
-            local_sh.motorVal1[0].AMK_ActualVelocity, local_sh.motorVal1[1].AMK_ActualVelocity,
-            local_sh.motorVal1[2].AMK_ActualVelocity, local_sh.motorVal1[3].AMK_ActualVelocity,
-
-            local_sh.motorSetP[0].AMK_TorqueLimitPositive, local_sh.motorSetP[1].AMK_TorqueLimitPositive,
-            local_sh.motorSetP[2].AMK_TorqueLimitPositive, local_sh.motorSetP[3].AMK_TorqueLimitPositive,
-
-            local_sh.motorSetP[0].AMK_TorqueLimitNegative, local_sh.motorSetP[1].AMK_TorqueLimitNegative,
-            local_sh.motorSetP[2].AMK_TorqueLimitNegative, local_sh.motorSetP[3].AMK_TorqueLimitNegative);
-    writeSD(cmd);
-
     // send to esp32
     char data[sizeof(local_sh)];
     memcpy(data, &local_sh, sizeof(local_sh));
@@ -217,71 +173,6 @@ __interrupt void cpu_timer1_isr(void)
 
     scic_msg(encoded);
 
-    sprintf(cmd,
-            "%d;%d;%d;%d;%u;%d;%d;%d;"                // status
-            "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%u;"        // bms
-            "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;" // bms_lv
-            "%.1f;%.3f;%.2f;%.2f;",                    // sendyne
-            // status
-            local_sh.status.throttle_shared, local_sh.status.steering_shared,
-            local_sh.status.brake_shared, local_sh.status.brakePress_shared,
-            local_sh.status.status_shared, local_sh.status.actualVelocityKMH_shared,
-            local_sh.pedals.brk_req_shared, local_sh.pedals.throttle_req_shared,
-            // bms
-            local_sh.bms.max_bms_voltage_shared, local_sh.bms.min_bms_voltage_shared,
-            local_sh.bms.mean_bms_voltage_shared, local_sh.bms.max_bms_temp_shared,
-            local_sh.bms.min_bms_temp_shared, local_sh.bms.mean_bms_temp_shared,
-            local_sh.bms.bms_bitmap_shared,
-            // bms_lv
-            local_sh.bms_lv[0], local_sh.bms_lv[1], local_sh.bms_lv[2],
-            local_sh.bms_lv[3], local_sh.bms_lv[4], local_sh.bms_lv[5],
-            local_sh.bms_lv[6], local_sh.bms_lv[7],
-            // power
-            local_sh.power.batteryPack_voltage_shared, local_sh.power.lem_current_shared,
-            local_sh.power.curr_sens_shared, local_sh.power.total_power_shared);
-    writeSD(cmd);
-
-    sprintf(cmd,
-            "%u;%u;"                         // fanSpeed
-            "%.4f;%.4f;%.4f;%.4f;%.4f;%.4f;" // imu
-            "%.1f;%.1f;%.1f;%.1f;",          // suspensions
-
-            // fanSpeed
-            local_sh.fanSpeed.fanSpeed_shared, local_sh.fanSpeed.fanSpeed_shared,
-            // imu
-            local_sh.imu.accelerations_shared[0], local_sh.imu.accelerations_shared[1],
-            local_sh.imu.accelerations_shared[2], local_sh.imu.omegas_shared[0],
-            local_sh.imu.omegas_shared[1], local_sh.imu.omegas_shared[2],
-            // potenziometri sospensioni FL-FR-RL-RR
-            local_sh.imu.suspensions_shared[0], local_sh.imu.suspensions_shared[1],
-            local_sh.imu.suspensions_shared[2], local_sh.imu.suspensions_shared[3]);
-    writeSD(cmd);
-
-    sprintf(cmd,
-            "%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;%.1f;" // temperatures per cooling
-            "%d;%d;%d;%d;%d;%d\n",
-
-            // temperature per cooling
-            local_sh.imu.temperatures_shared[0], local_sh.imu.temperatures_shared[1],
-            local_sh.imu.temperatures_shared[2], local_sh.imu.temperatures_shared[3],
-            local_sh.imu.temperatures_shared[4], local_sh.imu.temperatures_shared[5],
-            local_sh.imu.temperatures_shared[6], local_sh.imu.temperatures_shared[7],
-            // gpio
-            local_sh.gpio.Bms_shared, local_sh.gpio.Imd_shared,
-            local_sh.bms.max_bms_temp_nslave_shared,
-            (int)local_sh.pedals.acc_shared, (int)local_sh.pedals.acc_shared, (int)local_sh.pedals.brk_shared);
-    writeSD(cmd);
-
-#ifdef MORE_FILES
-    if (CpuTimer1.InterruptCount % 2000 == 0 && CpuTimer1.InterruptCount != 0)
-    {
-        // DA TESTARE SE USARE O MENO
-        newSetupSD();
-        createFile();
-        writeHeader();
-    }
-#endif
-#endif
     if (CpuTimer1.InterruptCount % 5 == 0)
     {
         EALLOW;
