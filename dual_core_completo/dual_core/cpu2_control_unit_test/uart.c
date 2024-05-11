@@ -27,19 +27,23 @@ void scib_init()
     ScibRegs.SCICTL2.bit.TXINTENA = 0;
     ScibRegs.SCICTL2.bit.RXBKINTENA = 0;
 
-    //
     // SCIc at 9600 baud
     // @LSPCLK = 50 MHz (200 MHz SYSCLK) HBAUD = 0x02 and LBAUD = 0x8B.
     // @LSPCLK = 30 MHz (120 MHz SYSCLK) HBAUD = 0x01 and LBAUD = 0x86.
-    //
 
-    /* baudrate 9600
-     ScicRegs.SCIHBAUD.all = 0x0002;
-    ScicRegs.SCILBAUD.all = 0x008a;
-     */
+    /* baudrate 9600  */
+    ScibRegs.SCIHBAUD.all = 0x0002;
+    ScibRegs.SCILBAUD.all = 0x008b;
+
+   //ScibRegs.SCIHBAUD.all = 0x0000;
+   //ScibRegs.SCILBAUD.all = 0x00C2;
+    
+    /*
     // baudrate 115200
     ScibRegs.SCIHBAUD.all = 0x0000;
     ScibRegs.SCILBAUD.all = 0x0035;
+    */
+
     ScibRegs.SCICTL1.all = 0x0023; // Relinquish SCI from Reset
 }
 
