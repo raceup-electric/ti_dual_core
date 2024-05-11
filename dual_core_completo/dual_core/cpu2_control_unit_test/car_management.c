@@ -1,6 +1,9 @@
 #include "car_management.h"
 #include "sys/_stdint.h"
+#include "utils.h"
 #include <stdint.h>
+
+#define MAX_GPS_LEN 81
 
 int calibration_status = 0;
 int NUM_SMU_SUSP = 2;
@@ -705,6 +708,28 @@ void update_shared_mem()
     sh.pedals = pedals_log;
     sh.power_setup = power_setup_log;
 }
+
+
+void updateGPS() {
+
+    char buffer[MAX_GPS_LEN];
+    int error_flag = 0;
+
+    error_flag = readMessage(buffer);
+
+    if (error_flag)
+        return;
+
+    error_flag = parse_NMEA_buffer(buffer, gps);
+
+    if (error_flag)
+        return;
+
+    sprintf(sh.gps_shared.ISO_time, "%d-%02d-%02dT%02d:%02d:%02dZ", gps.time.year, gps.time.month, gps.time.day, gps.time.hour, gps.time.minute, gps.time.second);
+    sh.gps_shared.velocity = gps.velocity;
+
+}
+
 
 
 

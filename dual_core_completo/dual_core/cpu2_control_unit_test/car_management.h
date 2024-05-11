@@ -14,6 +14,7 @@
 #include "epwm_management.h"
 #include "can_management.h"
 #include "atc_management.h"
+#include "GPS.h"
 
 //
 // variables
@@ -84,6 +85,7 @@ extern struct Power_Setup_Log power_setup_log;
 extern struct Car_settings car_settings;
 
 extern struct motorValues1 motorVal1[4]; //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
+extern GPS gps;
 
 //
 // prototypes
@@ -151,6 +153,8 @@ void sendDataToLogger();
 void computeBatteryPackTension();
 
 void paddleControl(Uint32 time_elapsed);
+
+void updateGPS();
 
 
 #endif

@@ -10,6 +10,7 @@
 #include "GPIO_management.h"
 #include "utils.h"
 #include "can_management.h"
+#include "GPS.h"
 
 
 
@@ -225,6 +226,9 @@ struct Pedals_Log pedals_log;
 struct Power_Setup_Log power_setup_log;
 
 struct Car_settings car_settings;
+
+GPS gps;
+
 
 
 #pragma DATA_SECTION(sh,"SHARERAMGS11");

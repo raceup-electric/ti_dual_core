@@ -91,10 +91,10 @@ __interrupt void cpu_timer1_isr(void)
 
         carSettingsMessage();
         send_car_settings();
+        updateGPS();
     }
 
     updateGPIOState();
-
 
 #ifndef DEBUG_NO_HV
     /*

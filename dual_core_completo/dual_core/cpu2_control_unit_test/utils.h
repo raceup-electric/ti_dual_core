@@ -126,6 +126,13 @@ struct Car_settings{
 
 };
 
+struct GPS_shared {
+
+    float velocity;
+    char ISO_time[20];
+
+};
+
 
 struct Share_struct {
     float bms_lv[8];
@@ -140,6 +147,7 @@ struct Share_struct {
     struct Gpio_Log gpio;
     struct Pedals_Log pedals;
     struct Power_Setup_Log power_setup;
+    struct GPS_shared gps_shared;
 };
 
 
