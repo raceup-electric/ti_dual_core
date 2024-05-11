@@ -18,7 +18,6 @@ int gpioInput[] = { AIR_1_STATE,
 void GPIOSetup()
 {
 
-
     GPIO_WritePin(BLUE_BLINK, 0);
     GPIO_WritePin(R2D, R2D_LED_OFF);
     GPIO_WritePin(RTDS, 0);

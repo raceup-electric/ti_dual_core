@@ -30,4 +30,7 @@
 #define RED_BLINK 34
 #define BLUE_BLINK 31
 
+#define UART_TX_GPS 14
+#define UART_RX_GPS 15
+
 #endif

@@ -1,4 +1,5 @@
 #include "GPS.h"
+#include "uart.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -287,9 +288,9 @@ char readGPSMessage(char* buffer) {
     char start[6] = {0, 0, 0, 0, 0, 0};
     int count_char = 0;
 
-    while(scib_msg_available()) {
+    while(char_available()) {
 
-        start[count_char++] = read_scib_rcvd();
+        start[count_char++] = read_char();
 
         if (count_char == 6) {
 
@@ -306,9 +307,9 @@ char readGPSMessage(char* buffer) {
 
     buffer = "$GNRMC";
 
-    while(scib_msg_available()) {
+    while(char_available()) {
 
-        buffer[count_char++] = read_scib_rcvd();
+        buffer[count_char++] = read_char();
 
         if(buffer[count_char - 1] == '\n' ){
             buffer[count_char] = 0;

@@ -11,7 +11,6 @@
 #include "inc/hw_memmap.h"
 #include "inc/hw_can.h"
 #include "driverlib/can.h"
-#include "sd_card.h"
 #include "cobs.h"
 #include "sys/_stdint.h"
 

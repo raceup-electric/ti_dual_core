@@ -2,6 +2,7 @@
 #include "sys/_stdint.h"
 #include "utils.h"
 #include <stdint.h>
+#include <stdio.h>
 
 #define MAX_GPS_LEN 81
 
@@ -715,12 +716,12 @@ void updateGPS() {
     char buffer[MAX_GPS_LEN];
     int error_flag = 0;
 
-    error_flag = readMessage(buffer);
+    error_flag = readGPSMessage(buffer);
 
     if (error_flag)
         return;
 
-    error_flag = parse_NMEA_buffer(buffer, gps);
+    error_flag = parse_NMEA_buffer(buffer, &gps);
 
     if (error_flag)
         return;

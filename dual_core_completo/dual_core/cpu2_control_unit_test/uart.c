@@ -1,17 +1,12 @@
 #include "uart.h"
 
 
-#define UART_TX 14
-#define UART_RX 15
+void scib_init();
+void scib_fifo_init();
 
 
 void uart_setup()
 {
-    GPIO_SetupPinMux(UART_RX, GPIO_MUX_CPU2, 2); // RX
-    GPIO_SetupPinOptions(UART_RX, GPIO_INPUT, GPIO_PUSHPULL);
-    GPIO_SetupPinMux(UART_TX, GPIO_MUX_CPU2, 2); // TX
-    GPIO_SetupPinOptions(UART_TX, GPIO_OUTPUT, GPIO_ASYNC);
-
     scib_fifo_init(); // Initialize the SCI FIFO
     scib_init();      // Initialize SCI for
 }
