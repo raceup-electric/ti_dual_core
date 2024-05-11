@@ -7,3 +7,4 @@ targetConfigs/*
 .settings/*
 .clangd
 /CPU1_FLASH_STANDALONE/
+/CPU1_RAM_DEBUG/
