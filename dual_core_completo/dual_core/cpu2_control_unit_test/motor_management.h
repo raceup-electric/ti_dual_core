@@ -16,6 +16,7 @@
 //add
 #include "power_controller.h"
 #include "torque_management.h"
+#include "TV/TV_2024_2.h"
 
 //
 // struct

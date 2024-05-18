@@ -711,19 +711,21 @@ void update_shared_mem()
 int getSP100BrakePress(int adc_reading) {
     float g_adc = 3.3f / pow(2, 12);
     float v = adc_reading * g_adc * 2;
-    float max_pres = 100.0; // Bar
+    float max_press = 100.0; // Bar
     float min_volt = 0.5; // V
-    float max_volt = 4.5 // V
+    float max_volt = 4.5; // V
     float m = max_press / (max_volt - min_volt);
+    
     if (v <= min_volt) {
         return 0;
     }
-    else if (v > min_volt && v < max_volt) {
+    
+    if (v > min_volt && v < max_volt) {
         return 1e5 * m * (v - min_volt);
     }
-    else {
-        return 1e5 * max_pres;
-    }
+        
+    return 1e5 * max_press;
+    
 }
 
 void updateTVstruct() {
