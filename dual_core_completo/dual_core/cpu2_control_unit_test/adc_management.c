@@ -1,4 +1,5 @@
 #include "adc_management.h"
+#include "car_management.h"
 
 /*
  * ADCs are grouped in banks. ADCs reading i triggered via software interrupt through the function readADC_Bank().
@@ -134,6 +135,7 @@ void readADC_Bank(int num_bank)
         while (AdcaRegs.ADCINTFLG.bit.ADCINT1 == 0)
             ;
         AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
+        brakePress = getSP100BrakePress(AdcaResultRegs.ADCRESULT4);
         break;
 
     case 2:

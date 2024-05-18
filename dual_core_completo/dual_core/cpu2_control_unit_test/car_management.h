@@ -45,6 +45,7 @@ extern Uint16 bms_bitmap;
 
 extern int brakeReq;
 extern int throttleReq;
+extern int brakePress;
 
 extern int paddle;  // 0-100
 
@@ -141,6 +142,8 @@ void checkStatus();
 void carSettingsMessage();
 
 void update_shared_mem();
+
+int getSP100BrakePress(int adc_reading); 
 
 void update_log_values();
 

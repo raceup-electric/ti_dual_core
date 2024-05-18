@@ -1,4 +1,5 @@
 #include "car_management.h"
+#include "adc_management.h"
 #include "sys/_stdint.h"
 #include <stdint.h>
 
@@ -630,7 +631,7 @@ void update_log_values()
     status_log.actualVelocityKMH_shared = actualVelocityKMH;
     status_log.brake_shared = brake;
     status_log.status_shared = status;
-    status_log.brakePress_shared = 0; // not implemented
+    status_log.brakePress_shared = brakePress;
     status_log.steering_shared = steering;
 
     // Bms
@@ -706,24 +707,43 @@ void update_shared_mem()
     sh.power_setup = power_setup_log;
 }
 
+// Returns Pa brake line pressure (read SP100 Aviorace datasheet)
+int getSP100BrakePress(int adc_reading) {
+    float g_adc = 3.3f / pow(2, 12);
+    float v = adc_reading * g_adc * 2;
+    float max_pres = 100.0; // Bar
+    float min_volt = 0.5; // V
+    float max_volt = 4.5 // V
+    float m = max_press / (max_volt - min_volt);
+    if (v <= min_volt) {
+        return 0;
+    }
+    else if (v > min_volt && v < max_volt) {
+        return 1e5 * m * (v - min_volt);
+    }
+    else {
+        return 1e5 * max_pres;
+    }
+}
+
 void updateTVstruct() {
-    
-    rtU.ax = imu_log.accelerations_shared[0];
-    rtU.ay = imu_log.accelerations_shared[1];
 
-    rtU.yaw_r = imu_log.omegas_shared[2];
+    rtU.ax = accelerations[0]; // m/s^2
+    rtU.ay = accelerations[1]; // m/s^2
 
-    rtU.throttle = throttle;
-    rtU.brake = brake;
-    rtU.throttle = throttle;
-    rtU.steer = steering;
+    rtU.yaw_r = omegas[2]; // rad/s
 
-    rtU.rpm[0] = motorVal1[0].AMK_ActualVelocity;
-    rtU.rpm[1] = motorVal1[1].AMK_ActualVelocity;
-    rtU.rpm[2] = motorVal1[2].AMK_ActualVelocity;
-    rtU.rpm[3] = motorVal1[3].AMK_ActualVelocity;
+    rtU.throttle = throttle / 100.0; // 0 to 1
+    rtU.regen = paddle / 100.0; // 0 to 1
+    rtU.brake = brakePress; // Pa
+    rtU.steer = steering; // deg
 
-    rtU.voltage = power_log.batteryPack_voltage_shared;
+    rtU.rpm[0] = motorVal1[0].AMK_ActualVelocity; // rpm
+    rtU.rpm[1] = motorVal1[1].AMK_ActualVelocity; // rpm
+    rtU.rpm[2] = motorVal1[2].AMK_ActualVelocity; // rpm
+    rtU.rpm[3] = motorVal1[3].AMK_ActualVelocity; // rpm
+
+    rtU.voltage = batteryPackTension; // V
 
 }
 

@@ -39,6 +39,7 @@
 /*
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
+ * Motor scale should be around 2.14 to obtain maximum torque (scale = Mmax / Mrated which for our motors is 21 Nm / 9,8 Nm check motor datasheet) 
  */
 #define REAR_MOTOR_SCALE    2.0f
 #define FRONT_MOTOR_SCALE   0.5f
