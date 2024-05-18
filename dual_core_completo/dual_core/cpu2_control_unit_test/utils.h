@@ -91,12 +91,6 @@ struct Imu_Log{
 struct Gpio_Log{
     int Imd_shared;
     int Bms_shared;
-    int Sdc1_shared;
-    int Sdc2_shared;
-    int Sdc3_shared;
-    int Sdc4_shared;
-    int Sdc5_shared;
-    int Sdc6_shared;
 };
 
 struct Power_Setup_Log{
@@ -127,10 +121,9 @@ struct Car_settings{
 };
 
 struct GPS_shared {
-
     float velocity;
-    char ISO_time[20];
-
+    float lati;
+    float longi;
 };
 
 

@@ -726,9 +726,9 @@ void updateGPS() {
     if (error_flag)
         return;
 
-    sprintf(sh.gps_shared.ISO_time, "%d-%02d-%02dT%02d:%02d:%02dZ", gps.time.year, gps.time.month, gps.time.day, gps.time.hour, gps.time.minute, gps.time.second);
     sh.gps_shared.velocity = gps.velocity;
-
+    sh.gps_shared.lati = degreeToFloat(gps->latitude);
+    sh.gps_shared.longi = degreeToFloat(gps->longitude);
 }
 
 

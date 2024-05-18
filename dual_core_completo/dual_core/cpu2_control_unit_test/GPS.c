@@ -321,3 +321,7 @@ char readGPSMessage(char* buffer) {
     return 1;
 
 }
+
+float degreeToFloat(coordinate_gps* coord) {
+    return coord->grad + (coord->minutes/60);
+}
