@@ -30,11 +30,11 @@ void read_map_sw_message(Uint16 val[])
     Uint16 regen_index = (val[0] >> 4) & 0xF;
     Uint16 repartition_index = val[1] & 0xF;
 
-    car_settings.power_limit = presets_power[power_index % 8];
-    car_settings.max_regen_current = presets_regen[regen_index % 5];
+    car_settings.power_limit = presets_power[power_index];
+    car_settings.regen_current_scale = MAX_REGEN_CURRENT * presets_regen[regen_index];
 
-    car_settings.rear_motor_scale = presets_repartition[(repartition_index % 3)*2];
-    car_settings.front_motor_scale = presets_repartition[(repartition_index % 3)*2 +1];
+    car_settings.rear_motor_scale = presets_repartition[(repartition_index)*2];
+    car_settings.front_motor_scale = presets_repartition[(repartition_index)*2 +1];
 
     if (! (repartition_index % 3))
         car_settings.torque_vectoring = true;
@@ -500,30 +500,21 @@ Uint16 fanSpeedFunction(int temp)
     }
 }
 
+#define TIME_STEP 200   // 2s
+#define LOW_REGEN_STEP 65  // 65 A
 
-void paddleControl(Uint32 time_elapsed ) {
+void paddleControl(Uint32 time_elapsed) {
 
     bool is_breaking = paddle > 0;
     static Uint32 start_breaking = 0;
-    const int time_descent = 600;
 
     if (is_breaking) {
 
         if(start_breaking == 0) {   // just start breaking
             start_breaking = time_elapsed;
         }
-
-        float regen_current_limit = 200.0;
-
-        if ((time_elapsed - start_breaking) > 200)  {  // 2s
-
-            float slope = (200.0 - 65.0) / (float)(time_descent);        // in time_descent goes from 200A to 65A
-            int time_since_start = time_elapsed - start_breaking - 200;  // Time since linear descent
-            regen_current_limit = 200 - (int)(slope * time_since_start);
-            regen_current_limit = regen_current_limit < 65 ? 65 : regen_current_limit;   // Ensure limit doesn't go below 65A
-        }
-
-        car_settings.max_regen_current = regen_current_limit;
+        
+        car_settings.max_regen_current = (time_elapsed - start_breaking) > TIME_STEP ? LOW_REGEN_STEP : car_settings.regen_current_scale;
 
     } else {
         start_breaking = 0;    // no longer breaking

@@ -120,12 +120,14 @@ struct Power_Setup_Log
 struct Car_settings
 {
     // screen
-    float presets_power[8];
-    float presets_regen[5];
-    float presets_repartition[6];
+    float presets_power[10];
+    float presets_regen[10];
+    float presets_repartition[20];
 
     // setup variables
+    float regen_current_scale;
     float max_regen_current;
+
     float power_limit;
     float max_speed;
     float max_pos_torque;

@@ -46,13 +46,11 @@ bool R2D_state = 0;
 /*
  * PRESETS
  */
-const float presets_power[8] = {5000.f, 15000.f, 30000.f, 45000.f, 60000.f, 65000.f, 70000.f, 75000.f};
-const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};
-const float presets_repartition[6] = {1.f, 1.f, 2.f, 0.5f, 1.8f, 0.6f};
-
+const float presets_power[10] = {75000.f, 60000.f, 45000.f, 30000.f, 15000.f, 15000.f, 15000.f, 15000.f, 15000.f, 15000.f};
+const float presets_regen[10] = {0.0f, 0.3f, 0.5f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};   // max curr regen A
+const float presets_repartition[20] = {1.f, 1.f, 2.f, 0.5f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f};
 
 Uint16 fanSpeed = 0;
-
 char status = 0;
 
 //torque
