@@ -32,6 +32,7 @@ void read_map_sw_message(Uint16 val[])
 
     car_settings.power_limit = presets_power[power_index];
     car_settings.regen_current_scale = MAX_REGEN_CURRENT * presets_regen[regen_index];
+    car_settings.max_regen_current = car_settings.regen_current_scale;
 
     car_settings.rear_motor_scale = presets_repartition[(repartition_index)*2];
     car_settings.front_motor_scale = presets_repartition[(repartition_index)*2 +1];

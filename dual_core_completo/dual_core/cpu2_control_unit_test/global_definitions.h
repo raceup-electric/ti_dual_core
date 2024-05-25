@@ -161,8 +161,7 @@
 #define MAX_POS_TORQUE              18.f
 #define MAX_NEG_TORQUE              -12.f
 
-#define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
-
+#define MAX_REGEN_CURRENT           150.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 #define TORQUE_VECTORING            1
 /*
  * POWER CONTROL
