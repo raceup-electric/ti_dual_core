@@ -1,5 +1,6 @@
 #include "car_management.h"
 #include "adc_management.h"
+#include "global_definitions.h"
 #include "sys/_stdint.h"
 #include <stdint.h>
 
@@ -31,13 +32,13 @@ void read_map_sw_message(Uint16 val[])
     Uint16 repartition_index = val[1] & 0xF;
 
     car_settings.power_limit = presets_power[power_index];
-    car_settings.regen_current_scale = MAX_REGEN_CURRENT * presets_regen[regen_index];
+    car_settings.regen_current_scale = presets_regen[regen_index];
     car_settings.max_regen_current = car_settings.regen_current_scale;
 
     car_settings.rear_motor_scale = presets_repartition[(repartition_index)*2];
     car_settings.front_motor_scale = presets_repartition[(repartition_index)*2 +1];
 
-    if (! (repartition_index % 3))
+    if (!repartition_index)
         car_settings.torque_vectoring = true;
     else 
         car_settings.torque_vectoring = false;
@@ -502,7 +503,7 @@ Uint16 fanSpeedFunction(int temp)
 }
 
 #define TIME_STEP 200   // 2s
-#define LOW_REGEN_STEP 65  // 65 A
+#define CONTINOUS_CURR_LIMIT 65  // 65 A
 
 void paddleControl(Uint32 time_elapsed) {
 
@@ -515,7 +516,7 @@ void paddleControl(Uint32 time_elapsed) {
             start_breaking = time_elapsed;
         }
         
-        car_settings.max_regen_current = (time_elapsed - start_breaking) > TIME_STEP ? LOW_REGEN_STEP : car_settings.regen_current_scale;
+        car_settings.max_regen_current = car_settings.regen_current_scale * ((time_elapsed - start_breaking) > TIME_STEP ? CONTINOUS_CURR_LIMIT : PEAK_REGEN_CURRENT);
 
     } else {
         start_breaking = 0;    // no longer breaking
