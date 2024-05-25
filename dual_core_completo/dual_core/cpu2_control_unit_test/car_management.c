@@ -554,8 +554,8 @@ void carSettingsMessage()
 {
 
     TXCANA_CarSettings_Data[0] = (unsigned char)car_settings.max_regen_current;
-    TXCANA_CarSettings_Data[1] = (unsigned char)car_settings.power_limit;
-    TXCANA_CarSettings_Data[2] = (unsigned char)(car_settings.max_speed/1000) && 0xFF; // krpm
+    TXCANA_CarSettings_Data[1] = (unsigned char)(car_settings.power_limit / 1000);
+    TXCANA_CarSettings_Data[2] = (unsigned char)(car_settings.max_speed / 1000) && 0xFF; // krpm
     TXCANA_CarSettings_Data[3] = (unsigned char)car_settings.max_pos_torque;
     TXCANA_CarSettings_Data[4] = (char)car_settings.max_neg_torque;
     TXCANA_CarSettings_Data[5] = (unsigned char)(car_settings.front_motor_scale * 100);
