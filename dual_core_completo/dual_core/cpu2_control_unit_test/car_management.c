@@ -520,6 +520,7 @@ void paddleControl(Uint32 time_elapsed) {
 
     } else {
         start_breaking = 0;    // no longer breaking
+        car_settings.max_regen_current = car_settings.regen_current_scale * PEAK_REGEN_CURRENT;
     }
 }
 
