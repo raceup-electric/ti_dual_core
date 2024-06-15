@@ -52,6 +52,7 @@ void timerSetup()
        CpuTimer1Regs.TCR.bit.TSS = 1;
 }
 
+// timer 0 - blink
 __interrupt void cpu_timer0_isr(void){
     if(CpuTimer0.InterruptCount % 50 == 0){
         EALLOW;
@@ -66,9 +67,7 @@ __interrupt void cpu_timer0_isr(void){
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }
 
-//
-// cpu_timer1_isr - main timer (ex timer0)
-//
+// timer 1 - main timer (ex timer0)
 __interrupt void cpu_timer1_isr(void)
 {
     CpuTimer1.InterruptCount++;
@@ -91,7 +90,6 @@ __interrupt void cpu_timer1_isr(void)
 
         carSettingsMessage();
         send_car_settings();
-        updateGPS();
     }
 
     updateGPIOState();
@@ -128,14 +126,9 @@ __interrupt void cpu_timer1_isr(void)
 
     computeBatteryPackTension();
     sendDataToLogger();
-
 }
 
-
-
-//
-// cpu_timer2_isr - for R2D sound
-//
+// timer 2 - for R2D sound
 __interrupt void cpu_timer2_isr(void)
 {
     //

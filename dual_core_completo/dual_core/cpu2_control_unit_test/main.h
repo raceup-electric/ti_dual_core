@@ -13,7 +13,6 @@
 #include "GPS.h"
 
 
-
 #if (defined(DEBUG_HV) && defined(DEBUG_NO_HV))
 #error "Error! Both DEBUG_HV and DEBUG_NO_HV are defined! Define only one of the two debug configurations at the same time"
 #endif
@@ -147,6 +146,7 @@ tCANMsgObject TXCANA_CarStatus_Message;
 tCANMsgObject RXCANA_ATC_Message_TBS;
 tCANMsgObject RXCANA_ATC_Message_SUSPS;
 tCANMsgObject RXCANA_ATC_Message_TEMPS;
+tCANMsgObject RXCANA_SetStart_Message;
 
 
 unsigned char RXA_Imu_Data[8];
@@ -164,6 +164,7 @@ unsigned char TXCANA_CarSettings_Data[8];
 unsigned char RXA_ATC_DATA_TBS[4];
 unsigned char RXA_ATC_DATA_SUSPS[3];
 unsigned char RXA_ATC_DATA_TEMPS[3];
+unsigned char RXA_SetStart;
 
 unsigned char RXA_SW_Data[1];
 
@@ -200,7 +201,7 @@ Uint16 Sdc6_State;
 /*
  * Shared structs
  */
-
+unsigned char setStart = false;
 struct Share_struct sh;
 
 float bms_lv_shared[8];
@@ -230,10 +231,10 @@ struct Car_settings car_settings;
 GPS gps;
 
 
-
 #pragma DATA_SECTION(sh,"SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed,"SHARERAMGS12");
 #pragma DATA_SECTION(car_settings,"SHARERAMGS14");
+#pragma DATA_SECTION(setStart, "SHARERAMGS15");
 
 
 //

@@ -283,7 +283,7 @@ void parse_UTC_date(GPS *gps)
 
 
 // 1 error, 0 correct
-char readGPSMessage(char* buffer) {
+/*char readGPSMessage(char* buffer) {
 
     char start[6] = {0, 0, 0, 0, 0, 0};
     int count_char = 0;
@@ -298,12 +298,13 @@ char readGPSMessage(char* buffer) {
                 break;
 
             memset(start, 0, sizeof(start));
-            count_char = 0;   
         }
     }
 
-    if (count_char != 6)
+    if (count_char != 6) {
+        count_char = 0;
         return 1;
+    }
 
     buffer = "$GNRMC";
 
@@ -320,7 +321,7 @@ char readGPSMessage(char* buffer) {
 
     return 1;
 
-}
+}*/
 
 float degreeToFloat(coordinate_gps* coord) {
     return coord->grad + (coord->minutes/60);

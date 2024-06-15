@@ -30,4 +30,15 @@ typedef struct
     float cog; //   course over ground
 } GPS;
 
+
+// true if the parsing is successful
+char parse_NMEA_buffer(char *buffer, GPS *gps);
+
+// 1 error
+//char readGPSMessage(char* buffer);
+char readGPSMessage(char* buffer, int buffer_lenght);
+
+// degree, dec, sec to double
+float degreeToFloat(coordinate_gps* coord);
+
 #endif // GPS_H

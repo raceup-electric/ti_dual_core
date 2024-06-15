@@ -118,6 +118,11 @@ void canSetup_phase2()
                           3, RXA_ATC_DATA_TEMPS);
     CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TEMPS, &RXCANA_ATC_Message_TEMPS, MSG_OBJ_TYPE_RX);
 
+    // COMANDO SET START POSITION
+    setting_package_param(&RXCANA_SetStart_Message, MSG_ID_SET_START, 0x0, MSG_OBJ_RX_INT_ENABLE,
+                              1, &RXA_SetStart);
+    CANMessageSet(CANA_BASE, OBJ_ID_SETSTART, &RXCANA_SetStart_Message, MSG_OBJ_TYPE_RX);
+
     // SENSORS_ATC PACKAGE
     setting_package_param(&RXCANA_ATC_Message_SUSPS, MSG_ID_ATC_SUSPS, 0x0, MSG_OBJ_RX_INT_ENABLE,
                           3, RXA_ATC_DATA_SUSPS);
@@ -332,6 +337,16 @@ __interrupt void canISR_A(void)
         CANIntClear(CANA_BASE, OBJ_ID_FROM_ATC_TEMPS);
         break;
         // alberto patch
+
+    case OBJ_ID_SETSTART:
+        CANMessageGet(CANA_BASE, OBJ_ID_SETSTART, &RXCANA_SetStart_Message, true);
+
+        updateStart();
+
+        rxAMsgCount++;
+
+        CANIntClear(CANA_BASE, OBJ_ID_SETSTART);
+        break;
     }
     CANGlobalIntClear(CANA_BASE, CAN_GLB_INT_CANINT0);
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;

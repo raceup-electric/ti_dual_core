@@ -1,4 +1,3 @@
-
 #ifndef GLOBAL_DEFINITIONS_H_
 #define GLOBAL_DEFINITIONS_H_
 
@@ -246,6 +245,7 @@
 #define OBJ_ID_FROM_ATC_TBS             27 
 #define OBJ_ID_FROM_ATC_SUSPS           28
 #define OBJ_ID_FROM_ATC_TEMPS           29
+#define OBJ_ID_SETSTART                 30
 
 
 // -- Message IDs --
@@ -273,6 +273,8 @@
 #define MSG_ID_CAR_STATUS                    0x65
 #define MSG_ID_CAR_SETTINGS                  0x66
 
+#define MSG_ID_SET_START              0x70 //receive "set start position"
+
 #define MSG_ID_SMU_BASE                      0x100
 #define MSG_ID_SMU_TEMPERATURES              0x100
 #define MSG_ID_SMU_SUSPENSIONS               0x102  // rear
@@ -284,7 +286,6 @@
 #define MSG_ID_TO_PCU                        0x130
 
 #define MSG_ID_LEM                           0x3C2
-
 
 // --- CAN1 ----
 #define MSG_ID_AMK_SETPOINTS    0x82

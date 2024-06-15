@@ -199,6 +199,10 @@ void read_ATC_TEMPS(Uint16 data[]) {
     atc_update(data, TEMPS);
 }
 
+void updateStart() {
+    setStart = true;
+}
+
 
 
 /*
@@ -708,27 +712,6 @@ void update_shared_mem()
     sh.gpio = gpio_log;
     sh.pedals = pedals_log;
     sh.power_setup = power_setup_log;
-}
-
-
-void updateGPS() {
-
-    char buffer[MAX_GPS_LEN];
-    int error_flag = 0;
-
-    error_flag = readGPSMessage(buffer);
-
-    if (error_flag)
-        return;
-
-    error_flag = parse_NMEA_buffer(buffer, &gps);
-
-    if (error_flag)
-        return;
-
-    sh.gps_shared.velocity = gps.velocity;
-    sh.gps_shared.lati = degreeToFloat(gps->latitude);
-    sh.gps_shared.longi = degreeToFloat(gps->longitude);
 }
 
 

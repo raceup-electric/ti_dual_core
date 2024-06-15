@@ -6,12 +6,17 @@
  */
 #include "uart.h"
 
-void uart_setup()
+void uart_esp_setup()
 {
     GPIO_SetupPinMux(UART_RX, GPIO_MUX_CPU1, 6); // RX
     GPIO_SetupPinOptions(UART_RX, GPIO_INPUT, GPIO_PUSHPULL);
     GPIO_SetupPinMux(UART_TX, GPIO_MUX_CPU1, 6); // TX
     GPIO_SetupPinOptions(UART_TX, GPIO_OUTPUT, GPIO_ASYNC);
+
+    GPIO_SetupPinMux(UART_RX_GPS, GPIO_MUX_CPU1, 2); // RX
+    GPIO_SetupPinOptions(UART_RX_GPS, GPIO_INPUT, GPIO_PUSHPULL);
+    GPIO_SetupPinMux(UART_TX_GPS, GPIO_MUX_CPU1, 2); // TX
+    GPIO_SetupPinOptions(UART_TX_GPS, GPIO_OUTPUT, GPIO_ASYNC);
 
     scic_fifo_init(); // Initialize the SCI FIFO
     scic_init();      // Initialize SCI for
@@ -24,14 +29,17 @@ void scic_init()
     // in the InitSysCtrl() function
     //
 
-    ScicRegs.SCICCR.all = 0x0007;  // 1 stop bit,  No loopback
-                                   // No parity,8 char bits,
-                                   // async mode, idle-line protocol
-    ScicRegs.SCICTL1.all = 0x0003; // enable TX, RX, internal SCICLK,
-                                   // Disable RX ERR, SLEEP, TXWAKE
+    ScicRegs.SCICCR.all = 0x0007;  // 1 stop bit,  No loopback, No parity,8 char bits, async mode, idle-line protocol
+    ScicRegs.SCICTL1.all = 0x0003; // enable TX, RX, internal SCICLK, Disable RX ERR, SLEEP, TXWAKE
     ScicRegs.SCICTL2.all = 0x0003;
     ScicRegs.SCICTL2.bit.TXINTENA = 0;
     ScicRegs.SCICTL2.bit.RXBKINTENA = 0;
+
+    ScibRegs.SCICCR.all = 0x0007;
+    ScibRegs.SCICTL1.all = 0x0003;
+    ScibRegs.SCICTL2.all = 0x0003;
+    ScibRegs.SCICTL2.bit.TXINTENA = 0;
+    ScibRegs.SCICTL2.bit.RXBKINTENA = 0;
 
     //
     // SCIc at 9600 baud
@@ -39,14 +47,15 @@ void scic_init()
     // @LSPCLK = 30 MHz (120 MHz SYSCLK) HBAUD = 0x01 and LBAUD = 0x86.
     //
 
-    /* baudrate 9600
-     ScicRegs.SCIHBAUD.all = 0x0002;
-    ScicRegs.SCILBAUD.all = 0x008a;
-     */
+    // baudrate 9600
+    ScibRegs.SCIHBAUD.all = 0x0002;
+    ScibRegs.SCILBAUD.all = 0x008b;
+    ScibRegs.SCICTL1.all = 0x0023;
+
     // baudrate 115200
-    ScicRegs.SCIHBAUD.all = 0x0000;
-    ScicRegs.SCILBAUD.all = 0x0035;
-    ScicRegs.SCICTL1.all = 0x0023; // Relinquish SCI from Reset
+    //ScicRegs.SCIHBAUD.all = 0x0000;
+    //ScicRegs.SCILBAUD.all = 0x0035;
+    //ScicRegs.SCICTL1.all = 0x0023; // Relinquish SCI from Reset
 
     //baudrate 460800
     ScicRegs.SCIHBAUD.all = 0x0000;
@@ -76,6 +85,8 @@ void scic_msg(char *msg)
         scic_xmit(msg[i]);
         i++;
     }
+
+    scic_xmit('\0');
 }
 
 //
@@ -86,4 +97,8 @@ void scic_fifo_init()
     ScicRegs.SCIFFTX.all = 0xE040;
     ScicRegs.SCIFFRX.all = 0x2044;
     ScicRegs.SCIFFCT.all = 0x0;
+
+    ScibRegs.SCIFFTX.all = 0xE040;
+    ScibRegs.SCIFFRX.all = 0x2044;
+    ScibRegs.SCIFFCT.all = 0x0;
 }

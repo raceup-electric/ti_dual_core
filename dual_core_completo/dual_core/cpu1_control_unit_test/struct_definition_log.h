@@ -123,6 +123,7 @@ struct Car_settings{
 };
 
 struct GPS_shared {
+    int lap;
     float velocity;
     float lati;
     float longi;
