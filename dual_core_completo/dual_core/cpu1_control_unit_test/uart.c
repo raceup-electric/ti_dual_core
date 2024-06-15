@@ -6,7 +6,7 @@
  */
 #include "uart.h"
 
-void uart_esp_setup()
+void uart_setup()
 {
     GPIO_SetupPinMux(UART_RX, GPIO_MUX_CPU1, 6); // RX
     GPIO_SetupPinOptions(UART_RX, GPIO_INPUT, GPIO_PUSHPULL);
@@ -19,7 +19,9 @@ void uart_esp_setup()
     GPIO_SetupPinOptions(UART_TX_GPS, GPIO_OUTPUT, GPIO_ASYNC);
 
     scic_fifo_init(); // Initialize the SCI FIFO
+    scib_fifo_init();
     scic_init();      // Initialize SCI for
+    scib_init();
 }
 
 void scic_init()
@@ -35,6 +37,14 @@ void scic_init()
     ScicRegs.SCICTL2.bit.TXINTENA = 0;
     ScicRegs.SCICTL2.bit.RXBKINTENA = 0;
 
+    //baudrate 460800
+    ScicRegs.SCIHBAUD.all = 0x0000;
+    ScicRegs.SCILBAUD.all = 0x00D;
+    ScicRegs.SCICTL1.all = 0x0023;
+}
+
+void scib_init()
+{
     ScibRegs.SCICCR.all = 0x0007;
     ScibRegs.SCICTL1.all = 0x0003;
     ScibRegs.SCICTL2.all = 0x0003;
@@ -51,16 +61,6 @@ void scic_init()
     ScibRegs.SCIHBAUD.all = 0x0002;
     ScibRegs.SCILBAUD.all = 0x008b;
     ScibRegs.SCICTL1.all = 0x0023;
-
-    // baudrate 115200
-    //ScicRegs.SCIHBAUD.all = 0x0000;
-    //ScicRegs.SCILBAUD.all = 0x0035;
-    //ScicRegs.SCICTL1.all = 0x0023; // Relinquish SCI from Reset
-
-    //baudrate 460800
-    ScicRegs.SCIHBAUD.all = 0x0000;
-    ScicRegs.SCILBAUD.all = 0x00D;
-    ScicRegs.SCICTL1.all = 0x0023;
 }
 //
 // scia_xmit - Transmit a character from the SCI
@@ -71,6 +71,14 @@ void scic_xmit(int a)
     {
     }
     ScicRegs.SCITXBUF.bit.TXDT = a;
+}
+
+void scib_xmit(int a)
+{
+    while (ScibRegs.SCIFFTX.bit.TXFFST != 0)
+    {
+    }
+    ScibRegs.SCITXBUF.bit.TXDT = a;
 }
 
 //
@@ -89,6 +97,19 @@ void scic_msg(char *msg)
     scic_xmit('\0');
 }
 
+void scib_msg(char *msg)
+{
+    int i;
+    i = 0;
+    while (msg[i] != '\0')
+    {
+        scib_xmit(msg[i]);
+        i++;
+    }
+
+    scib_xmit('\0');
+}
+
 //
 // scia_fifo_init - Initialize the SCI FIFO
 //
@@ -97,7 +118,10 @@ void scic_fifo_init()
     ScicRegs.SCIFFTX.all = 0xE040;
     ScicRegs.SCIFFRX.all = 0x2044;
     ScicRegs.SCIFFCT.all = 0x0;
+}
 
+void scib_fifo_init()
+{
     ScibRegs.SCIFFTX.all = 0xE040;
     ScibRegs.SCIFFRX.all = 0x2044;
     ScibRegs.SCIFFCT.all = 0x0;

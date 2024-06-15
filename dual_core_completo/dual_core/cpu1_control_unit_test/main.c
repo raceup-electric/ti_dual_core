@@ -34,7 +34,7 @@ void main(void)
 
     GPIOSetup();
 
-    uart_esp_setup();
+    uart_setup();
 
     // Write auth of some banks of Global Shared (GS) RAM is
     // given to CPU2
@@ -81,10 +81,24 @@ void main(void)
     // stop timer2 - it's not used for the moment
     CpuTimer2Regs.TCR.bit.TSS = 1;
 
+    // SEND GPS CONF
+    // deactivate messages
+    scib_msg("$PUBX,40,GGA,1,0,0,0,0,0*5B\r\n");
+    scib_msg("$PUBX,40,GSA,1,0,0,0,0,0*4F\r\n");
+    scib_msg("$PUBX,40,GSV,1,0,0,0,0,0*58\r\n");
+    scib_msg("$PUBX,40,VTG,1,0,0,0,0,0*5F\r\n");
+    scib_msg("$PUBX,40,GLL,1,0,0,0,0,0*5D\r\n");
+    // 10Hz gps
+    char hz10[] = {0xB5, 0x62, 0x06, 0x08, 0x06, 0x00, 0x64, 0x00, 0x01, 0x00, 0x01, 0x00, 0x7A, 0x12};
+    int i;
+    for(i = 0; i < sizeof(hz10); i++){
+        scib_xmit(hz10[i]);
+    }
+
+    // READ GPS
     Uint16 receivedChar;
     char* buffer;
     int count_char = 0;
-
     for(;;)
     {
         while(ScibRegs.SCIFFRX.bit.RXFFST == 0) { } // wait for empty state
