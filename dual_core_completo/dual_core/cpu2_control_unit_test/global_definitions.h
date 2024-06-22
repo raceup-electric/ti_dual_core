@@ -11,7 +11,7 @@
  *      FRONT_MOTOR_SCALE
  *      MAX_POS_TORQUE
  *      MAX_NEG_TORQUE
- *      MAX_REGEN_CURRENT
+ *      PEAK_REGEN_CURRENT
  *
  */
 
@@ -38,6 +38,7 @@
 /*
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
+ * Motor scale should be around 2.14 to obtain maximum torque (scale = Mmax / Mrated which for our motors is 21 Nm / 9,8 Nm check motor datasheet) 
  */
 #define REAR_MOTOR_SCALE    2.0f
 #define FRONT_MOTOR_SCALE   0.5f
@@ -159,8 +160,7 @@
 #define MAX_POS_TORQUE              18.f
 #define MAX_NEG_TORQUE              -12.f
 
-#define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
-
+#define PEAK_REGEN_CURRENT           150.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 #define TORQUE_VECTORING            1
 /*
  * POWER CONTROL
@@ -235,11 +235,11 @@
  */
 #define OBJ_ID_FROM_BMS_LV      18
 #define OBJ_ID_CAR_INFOS        19
-#define OBJ_ID_PADDLE_SW           20
+#define OBJ_ID_PADDLE_SW           25
 #define OBJ_ID_FROM_LEM         21
 #define OBJ_ID_FROM_IMU         22
 #define OBJ_ID_TO_PCU        23
-#define OBJ_ID_MAP_SW    25
+#define OBJ_ID_MAP_SW    20
 #define OBJ_ID_FROM_AMK         26
 //alberto patch
 #define OBJ_ID_FROM_ATC_TBS             27 
@@ -256,10 +256,10 @@
 
 #define MSG_ID_ATC_TBS                  0x053
 
-#define MSG_ID_PADDLE_SW    0X54
+#define MSG_ID_PADDLE_SW    0X52
 
-#define MSG_ID_BMS_LV_1         0x55
-#define MSG_ID_BMS_LV_2         0x56
+#define MSG_ID_BMS_LV_1         0x54
+#define MSG_ID_BMS_LV_2         0x55
 
 #define MSG_ID_BMS_VOLTAGE                   0x57
 #define MSG_ID_BMS_TEMP                      0x58
@@ -267,6 +267,8 @@
 #define MSG_ID_IMU_1            0x60
 #define MSG_ID_IMU_2            0x61
 #define MSG_ID_IMU_3            0x62
+// 0x63 must be free for IMU mask
+
 
 #define MSG_ID_MAP_SW    0X64
 
@@ -278,6 +280,8 @@
 #define MSG_ID_SMU_BASE                      0x100
 #define MSG_ID_SMU_TEMPERATURES              0x100
 #define MSG_ID_SMU_SUSPENSIONS               0x102  // rear
+// 0x103 must be free for SMU mask
+
 
 #define MSG_ID_ATC_SUSPS                0x104   // front
 #define MSG_ID_ATC_TEMPS                0x105

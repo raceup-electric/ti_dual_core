@@ -94,6 +94,10 @@ __interrupt void cpu_timer1_isr(void)
 
     updateGPIOState();
 
+    updateTVstruct();
+    TV_2024_2_step();
+
+
 #ifndef DEBUG_NO_HV
     /*
      * Every cycle is verified if we can trigger R2D

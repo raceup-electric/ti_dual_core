@@ -1,4 +1,6 @@
 #include "motor_management.h"
+#include "TV/TV_2024_2.h"
+#include "car_management.h"
 
 
 //attenzione passare 8 bit
@@ -309,30 +311,47 @@ void sendAMKData() {
             anti_wind_up = 0;
     #endif
 
+    // check AMK motors datasheet pg.1 rmp torque curve
+    // Safety limit to torque at high speed (decrease torque limit with increasing rpm)
+    float Torque_max = 21.0f - 0.000857*(motorVal1[i].AMK_ActualVelocity - 13000.0f);
+    // Choose strictest limit
+    Torque_max = saturateFloat(Torque_max, car_settings.max_pos_torque, 0.0f);
+
     int posTorque[4], negTorque[4];
-    for (i = 0; i < NUM_OF_MOTORS; i++) {
+    if (car_settings.torque_vectoring) {
 
-        // check AMK motors datasheet pg.1 rmp torque curve
-        // Safety limit to torque at high speed (decrease torque limit with increasing rpm)
-        float Torque_max = 21.0f - 0.000857*(motorVal1[i].AMK_ActualVelocity - 13000.0f);
-        // Choose strictest limit
-        Torque_max = saturateFloat(Torque_max, car_settings.max_pos_torque, 0.0f);
+        // typedef struct {
+        // real_T T_pos1[4];                    /* '<Root>/T_pos1' */
+        // real_T T_neg1[4];                    /* '<Root>/T_neg1' */
+        // } ExtY;
 
-        //RIPARTIZIONE DI COPPIA SEMPLICE
-        /*
-         * Quando si usa la regen si inverte la coppia front con rear quando si frena
-         */
-        if (i == MOTOR_FL || i == MOTOR_FR)
-        {
-            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*car_settings.front_motor_scale, Torque_max, 0.0f));
-            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*car_settings.rear_motor_scale,0.0f,car_settings.max_neg_torque));
+        for (i = 0; i < NUM_OF_MOTORS; i++) {
+            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_pos1[i], Torque_max, 0.0f));
         }
-        else if (i == MOTOR_RR || i == MOTOR_RL)
-        {
-            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*car_settings.rear_motor_scale, Torque_max, 0.0f));
-            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*car_settings.front_motor_scale,0.0f,car_settings.max_neg_torque));
+        for (i = 0; i < NUM_OF_MOTORS; i++) {
+            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_neg1[i], 0.0f, car_settings.max_neg_torque));
         }
     }
+    else {
+        for (i = 0; i < NUM_OF_MOTORS; i++) {
+
+            //RIPARTIZIONE DI COPPIA SEMPLICE
+            /*
+            * Quando si usa la regen si inverte la coppia front con rear quando si frena
+            */
+            if (i == MOTOR_FL || i == MOTOR_FR)
+            {
+                posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*car_settings.front_motor_scale, Torque_max, 0.0f));
+                negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*car_settings.rear_motor_scale,0.0f,car_settings.max_neg_torque));
+            }
+            else if (i == MOTOR_RR || i == MOTOR_RL)
+            {
+                posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*car_settings.rear_motor_scale, Torque_max, 0.0f));
+                negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*car_settings.front_motor_scale,0.0f,car_settings.max_neg_torque));
+            }
+        }
+    }
+
 
     for (i = 0; i < NUM_OF_MOTORS; i++) {
         sendAMKDataMotor(i, posTorque[i], negTorque[i]);

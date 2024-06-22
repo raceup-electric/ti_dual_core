@@ -1,4 +1,6 @@
 #include "car_management.h"
+#include "adc_management.h"
+#include "global_definitions.h"
 #include "sys/_stdint.h"
 #include "utils.h"
 #include <stdint.h>
@@ -33,13 +35,14 @@ void read_map_sw_message(Uint16 val[])
     Uint16 regen_index = (val[0] >> 4) & 0xF;
     Uint16 repartition_index = val[1] & 0xF;
 
-    car_settings.power_limit = presets_power[power_index % 8];
-    car_settings.max_regen_current = presets_regen[regen_index % 5];
+    car_settings.power_limit = presets_power[power_index];
+    car_settings.regen_current_scale = presets_regen[regen_index];
+    car_settings.max_regen_current = PEAK_REGEN_CURRENT * car_settings.regen_current_scale;
 
-    car_settings.rear_motor_scale = presets_repartition[(repartition_index % 3)*2];
-    car_settings.front_motor_scale = presets_repartition[(repartition_index % 3)*2 +1];
+    car_settings.rear_motor_scale = presets_repartition[(repartition_index)*2];
+    car_settings.front_motor_scale = presets_repartition[(repartition_index)*2 +1];
 
-    if (! (repartition_index % 3))
+    if (!repartition_index)
         car_settings.torque_vectoring = true;
     else 
         car_settings.torque_vectoring = false;
@@ -507,33 +510,25 @@ Uint16 fanSpeedFunction(int temp)
     }
 }
 
+#define TIME_STEP 200   // 2s
+#define CONTINOUS_CURR_LIMIT 65  // 65 A
 
-void paddleControl(Uint32 time_elapsed ) {
+void paddleControl(Uint32 time_elapsed) {
 
     bool is_breaking = paddle > 0;
     static Uint32 start_breaking = 0;
-    const int time_descent = 600;
 
     if (is_breaking) {
 
         if(start_breaking == 0) {   // just start breaking
             start_breaking = time_elapsed;
         }
-
-        float regen_current_limit = 200.0;
-
-        if ((time_elapsed - start_breaking) > 200)  {  // 2s
-
-            float slope = (200.0 - 65.0) / (float)(time_descent);        // in time_descent goes from 200A to 65A
-            int time_since_start = time_elapsed - start_breaking - 200;  // Time since linear descent
-            regen_current_limit = 200 - (int)(slope * time_since_start);
-            regen_current_limit = regen_current_limit < 65 ? 65 : regen_current_limit;   // Ensure limit doesn't go below 65A
-        }
-
-        car_settings.max_regen_current = regen_current_limit;
+        
+        car_settings.max_regen_current = car_settings.regen_current_scale * ((time_elapsed - start_breaking) > TIME_STEP ? CONTINOUS_CURR_LIMIT : PEAK_REGEN_CURRENT);
 
     } else {
         start_breaking = 0;    // no longer breaking
+        car_settings.max_regen_current = car_settings.regen_current_scale * PEAK_REGEN_CURRENT;
     }
 }
 
@@ -570,8 +565,8 @@ void carSettingsMessage()
 {
 
     TXCANA_CarSettings_Data[0] = (unsigned char)car_settings.max_regen_current;
-    TXCANA_CarSettings_Data[1] = (unsigned char)car_settings.power_limit;
-    TXCANA_CarSettings_Data[2] = (unsigned char)(car_settings.max_speed/1000) && 0xFF; // krpm
+    TXCANA_CarSettings_Data[1] = (unsigned char)(car_settings.power_limit / 1000);
+    TXCANA_CarSettings_Data[2] = (unsigned char)(car_settings.max_speed / 1000) && 0xFF; // krpm
     TXCANA_CarSettings_Data[3] = (unsigned char)car_settings.max_pos_torque;
     TXCANA_CarSettings_Data[4] = (char)car_settings.max_neg_torque;
     TXCANA_CarSettings_Data[5] = (unsigned char)(car_settings.front_motor_scale * 100);
@@ -638,7 +633,7 @@ void update_log_values()
     status_log.actualVelocityKMH_shared = actualVelocityKMH;
     status_log.brake_shared = brake;
     status_log.status_shared = status;
-    status_log.brakePress_shared = 0; // not implemented
+    status_log.brakePress_shared = brakePress;
     status_log.steering_shared = steering;
 
     // Bms
@@ -713,6 +708,49 @@ void update_shared_mem()
     sh.pedals = pedals_log;
     sh.power_setup = power_setup_log;
 }
+
+// Returns Pa brake line pressure (read SP100 Aviorace datasheet)
+int getSP100BrakePress(int adc_reading) {
+    float g_adc = 3.3f / pow(2, 12);
+    float v = adc_reading * g_adc * 2;
+    float max_press = 100.0; // Bar
+    float min_volt = 0.5; // V
+    float max_volt = 4.5; // V
+    float m = max_press / (max_volt - min_volt);
+    
+    if (v <= min_volt) {
+        return 0;
+    }
+    
+    if (v > min_volt && v < max_volt) {
+        return 1e5 * m * (v - min_volt);
+    }
+        
+    return 1e5 * max_press;
+    
+}
+
+void updateTVstruct() {
+
+    rtU.ax = accelerations[0]; // m/s^2
+    rtU.ay = accelerations[1]; // m/s^2
+
+    rtU.yaw_r = omegas[2]; // rad/s
+
+    rtU.throttle = throttle / 100.0; // 0 to 1
+    rtU.regen = paddle / 100.0; // 0 to 1
+    rtU.brake = brakePress; // Pa
+    rtU.steer = steering; // deg
+
+    rtU.rpm[0] = motorVal1[0].AMK_ActualVelocity; // rpm
+    rtU.rpm[1] = motorVal1[1].AMK_ActualVelocity; // rpm
+    rtU.rpm[2] = motorVal1[2].AMK_ActualVelocity; // rpm
+    rtU.rpm[3] = motorVal1[3].AMK_ActualVelocity; // rpm
+
+    rtU.voltage = batteryPackTension; // V
+
+}
+
 
 
 

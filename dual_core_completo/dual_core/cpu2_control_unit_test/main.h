@@ -12,7 +12,6 @@
 #include "can_management.h"
 #include "GPS.h"
 
-
 #if (defined(DEBUG_HV) && defined(DEBUG_NO_HV))
 #error "Error! Both DEBUG_HV and DEBUG_NO_HV are defined! Define only one of the two debug configurations at the same time"
 #endif
@@ -26,6 +25,7 @@ Uint32 time_elapsed_ATC = 0;
 
 Uint16 batteryPackTension;
 float lem_current;
+
 
 //bms
 float max_bms_voltage;
@@ -46,19 +46,18 @@ bool R2D_state = 0;
 /*
  * PRESETS
  */
-const float presets_power[8] = {5000.f, 15000.f, 30000.f, 45000.f, 60000.f, 65000.f, 70000.f, 75000.f};
-const float presets_regen[5] = {0.0f, 10.0f, 20.0f, 25.0f, 30.0f};
-const float presets_repartition[6] = {1.f, 1.f, 2.f, 0.5f, 1.8f, 0.6f};
-
+const float presets_power[10] = {75000.f, 60000.f, 45000.f, 30000.f, 15000.f, 15000.f, 15000.f, 15000.f, 15000.f, 15000.f};
+const float presets_regen[10] = {0.0f, 0.3f, 0.5f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};   // max curr regen A
+const float presets_repartition[20] = {1.f, 1.f, 2.f, 0.5f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f, 1.8f, 0.6f};
 
 Uint16 fanSpeed = 0;
-
 char status = 0;
 
 //torque
 int actualVelocityRPM = 0;
 float actualVelocityKMH = 0;
 int brake = 0; 
+int brakePress = 0; // Pa
 int paddle = 0;  // 0-100
 int steering = 0; 
 int throttle = 0; 

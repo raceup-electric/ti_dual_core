@@ -27,6 +27,7 @@
 // SOC8 --> ADCINC2 --> PIN27 --> TempRadINL
 // SOC9 --> ADCINC3 --> PIN24 --> TempRadINR
 
+extern int brakePress;
 
 //
 // prototypes

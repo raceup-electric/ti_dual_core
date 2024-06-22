@@ -92,4 +92,7 @@ void setup()
        setupOk = 1;    //debug
 
        CpuTimer1Regs.TCR.bit.TSS = 0;  //start timer1
+
+       TV_2024_2_initialize();
+
 }
