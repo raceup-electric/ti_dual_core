@@ -1,5 +1,6 @@
 #include "timer_management.h"
 
+
 void timerSetup()
 {
     //
@@ -125,6 +126,12 @@ __interrupt void cpu_timer1_isr(void)
     else {
         stopAMK();
     }
+
+
+    if(time_elapsed - time_elapsed_ATC >= 500 MS) {
+        GPIO_WritePin(SCS, SCS_OFF);
+    }
+
 
     sendAMKData();
 

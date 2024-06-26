@@ -325,6 +325,10 @@
 #define BRAKE_LIGHT_OFF     0
 #define BLUE_BLINK          31
 
+#define SCS 19               // PIN61
+#define SCS_ON 1U            // CONST ON
+#define SCS_OFF 0            // CONST ON
+
 //
 // misc
 //
