@@ -62,7 +62,7 @@ __interrupt void cpu_timer0_isr(void){
     CpuTimer0.InterruptCount++;
 
     time_elapsed++;
-    time_elapsed_ATC++;
+    //time_elapsed_ATC++;
 
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }
