@@ -12,17 +12,17 @@
 #define VENTOLA_Abil 97     // PIN46
 #define AIR_1_STATE 40      // PIN50     //INPUT
 #define AIR_2_STATE 41      // PIN49     //INPUT
-#define RTDS 27             // PIN52
-#define R2D 6               // PIN80
-#define BRAKE_LIGHT_Abil 25 // PIN51
+#define RTDS 6              // PIN80
+#define R2D 25              // PIN51
+#define BRAKE_LIGHT_Abil 27 // PIN52
 #define DEBUG_LED1 105      // PIN9
 #define DEBUG_LED2 104      // PIN10
 
 #define UART_RX 139
 #define UART_TX 56
 
-#define R2D_LED_ON 0   // LED R2D ha la logica invertita!
-#define R2D_LED_OFF 1U // GPIO ALTA -> LED SPENTO       GPIO BASSA -> LED ACCESO
+#define R2D_LED_ON 1U   
+#define R2D_LED_OFF 0 // GPIO ALTA -> LED ACCESO       GPIO BASSA -> LED SPENTO
 
 #define BRAKE_LIGHT_ON 1U
 #define BRAKE_LIGHT_OFF 0
@@ -32,5 +32,8 @@
 
 #define UART_TX_GPS 14
 #define UART_RX_GPS 15
+
+#define SCS 19               // PIN61
+#define SCS_ON 1U            // CONST ON
 
 #endif

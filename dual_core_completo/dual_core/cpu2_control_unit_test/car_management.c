@@ -209,18 +209,20 @@ void updateStart() {
 
 
 /*
- * 2023 - logica invertita
+ * 2024
  */
 void brakeLight()
-{
+{   
+    // NON PIU' A LOGICA INVERTITA
     if (brake > BRAKE_LIGHT_MIN || paddle > BRAKE_LIGHT_MIN)
     {
-        GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF); // ON
+        GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_ON); // ON
     }
     else
     {
-        GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_ON); // OFF
+        GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF); // OFF
     }
+
 }
 
 void R2D_On()
