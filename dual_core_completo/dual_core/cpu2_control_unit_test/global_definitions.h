@@ -157,15 +157,15 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              18.f
+#define MAX_POS_TORQUE              12.f
 #define MAX_NEG_TORQUE              -12.f
 
 #define PEAK_REGEN_CURRENT           150.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
-#define TORQUE_VECTORING            1
+#define TORQUE_VECTORING            0
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         75000.0f       //Watt
+#define POWER_LIMIT         35000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f
