@@ -278,7 +278,7 @@
 #define MSG_ID_SET_START              0x70 //receive "set start position"
 
 #define MSG_ID_SMU_BASE                      0x100
-#define MSG_ID_SMU_TEMPERATURES              0x100
+#define MSG_ID_SMU_TEMPERATURES              0x101
 #define MSG_ID_SMU_SUSPENSIONS               0x102  // rear
 // 0x103 must be free for SMU mask
 
