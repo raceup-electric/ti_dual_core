@@ -5,13 +5,13 @@
 // GPIOs
 //
 
-#define IMD_STATE 14 // PIN74     //INPUT
-#define BMS_STATE 15 // PIN73     //INPUT
+#define IMD_STATE 3         // PIN37     //INPUT
+#define BMS_STATE 2         // PIN38     //INPUT
 
 #define ENABLE_PUMPS 94     // PIN45
 #define VENTOLA_Abil 97     // PIN46
-#define AIR_1_STATE 40      // PIN50     //INPUT
-#define AIR_2_STATE 41      // PIN49     //INPUT
+#define AIR_1_STATE 1       // PIN39     //INPUT
+#define AIR_2_STATE 0       // PIN40     //INPUT
 #define RTDS 6              // PIN80
 #define R2D 25              // PIN51
 #define BRAKE_LIGHT_Abil 27 // PIN52

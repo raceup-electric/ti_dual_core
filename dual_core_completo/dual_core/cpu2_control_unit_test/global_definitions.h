@@ -317,7 +317,7 @@
 #define DEBUG_LED1          105     //PIN9
 #define DEBUG_LED2          104     //PIN10
 
-#define R2D_LED_OFF          0     
+#define R2D_LED_OFF          0
 #define R2D_LED_ON           1U      //GPIO ALTA -> LED ACCESO       GPIO BASSA -> LED SPENTO
 
 #define RTDS_DURATION       15      //*100ms
