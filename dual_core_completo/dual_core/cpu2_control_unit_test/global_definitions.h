@@ -256,10 +256,10 @@
 
 #define MSG_ID_ATC_TBS                  0x053
 
-#define MSG_ID_PADDLE_SW    0X54
+#define MSG_ID_PADDLE_SW    0X52
 
-#define MSG_ID_BMS_LV_1         0x55
-#define MSG_ID_BMS_LV_2         0x56
+#define MSG_ID_BMS_LV_1         0x54
+#define MSG_ID_BMS_LV_2         0x55
 
 #define MSG_ID_BMS_VOLTAGE                   0x57
 #define MSG_ID_BMS_TEMP                      0x58
