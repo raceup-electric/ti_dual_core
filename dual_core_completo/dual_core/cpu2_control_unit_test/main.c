@@ -70,8 +70,6 @@ void setup()
 
        GPIO_WritePin(BLUE_BLINK, 1U);
 
-
-
        int index;
        for(index = 0; index < 4; index++)
        {
@@ -87,11 +85,14 @@ void setup()
        sh.gpio = gpio_log;
        sh.pedals = pedals_log;
        sh.power_setup = power_setup_log;
-
+       setStart = false;
 
        setup_car_settings();
 
        setupOk = 1;    //debug
 
        CpuTimer1Regs.TCR.bit.TSS = 0;  //start timer1
+
+       TV_2024_2_initialize();
+
 }

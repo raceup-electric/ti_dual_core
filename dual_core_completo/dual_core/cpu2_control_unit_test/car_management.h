@@ -15,6 +15,7 @@
 #include "can_management.h"
 #include "atc_management.h"
 #include "GPS.h"
+#include "TV/TV_2024_2.h"
 
 //
 // variables
@@ -45,6 +46,7 @@ extern Uint16 bms_bitmap;
 
 extern int brakeReq;
 extern int throttleReq;
+extern int brakePress;
 
 extern int paddle;  // 0-100
 
@@ -66,6 +68,8 @@ extern bool inverterRF[4];
 
 extern float repFz[4];
 
+extern unsigned char setStart;
+
 // logging
 extern struct Share_struct sh;
 extern struct Status_Log status_log;
@@ -86,6 +90,9 @@ extern struct Car_settings car_settings;
 
 extern struct motorValues1 motorVal1[4]; //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
 extern GPS gps;
+
+extern ExtU rtU;
+extern ExtY rtY;
 
 //
 // prototypes
@@ -140,6 +147,8 @@ void carSettingsMessage();
 
 void update_shared_mem();
 
+int getSP100BrakePress(int adc_reading); 
+
 void update_log_values();
 
 Uint16 fanSpeedFunction(int temp);
@@ -154,7 +163,8 @@ void computeBatteryPackTension();
 
 void paddleControl(Uint32 time_elapsed);
 
-void updateGPS();
+void updateStart();
+void updateTVstruct();
 
 
 #endif

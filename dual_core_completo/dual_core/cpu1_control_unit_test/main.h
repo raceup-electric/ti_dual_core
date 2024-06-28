@@ -6,13 +6,16 @@
 #include "GPIO_management.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include <struct_definition_log.h>
+#include <string.h>
+#include <math.h>
+#include "struct_definition_log.h"
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
 #include "inc/hw_can.h"
 #include "driverlib/can.h"
 #include "cobs.h"
 #include "sys/_stdint.h"
+#include "GPS.h"
 
 //
 // Globals
@@ -26,14 +29,17 @@ Uint32 local_time_elapsed;
 int file_counter;
 char filename[20];
 
+unsigned char setStart;
 struct Share_struct sh;
 struct Share_struct local_sh;
+GPS gps_data;
 
 struct Car_settings car_settings;
 
-#pragma DATA_SECTION(car_settings, "SHARERAMGS14");
 #pragma DATA_SECTION(sh, "SHARERAMGS11");
 #pragma DATA_SECTION(time_elapsed, "SHARERAMGS12");
+#pragma DATA_SECTION(car_settings, "SHARERAMGS14");
+#pragma DATA_SECTION(setStart, "SHARERAMGS15");
 
 //
 // Function Prototypes

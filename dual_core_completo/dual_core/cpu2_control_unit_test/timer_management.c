@@ -1,5 +1,6 @@
 #include "timer_management.h"
 
+
 void timerSetup()
 {
     //
@@ -52,6 +53,7 @@ void timerSetup()
        CpuTimer1Regs.TCR.bit.TSS = 1;
 }
 
+// timer 0 - blink
 __interrupt void cpu_timer0_isr(void){
     if(CpuTimer0.InterruptCount % 50 == 0){
         EALLOW;
@@ -61,14 +63,12 @@ __interrupt void cpu_timer0_isr(void){
     CpuTimer0.InterruptCount++;
 
     time_elapsed++;
-    time_elapsed_ATC++;
+    //time_elapsed_ATC++;
 
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }
 
-//
-// cpu_timer1_isr - main timer (ex timer0)
-//
+// timer 1 - main timer (ex timer0)
 __interrupt void cpu_timer1_isr(void)
 {
     CpuTimer1.InterruptCount++;
@@ -91,10 +91,13 @@ __interrupt void cpu_timer1_isr(void)
 
         carSettingsMessage();
         send_car_settings();
-        updateGPS();
     }
 
     updateGPIOState();
+
+    updateTVstruct();
+    TV_2024_2_step();
+
 
 #ifndef DEBUG_NO_HV
     /*
@@ -124,18 +127,19 @@ __interrupt void cpu_timer1_isr(void)
         stopAMK();
     }
 
+
+    if(time_elapsed - time_elapsed_ATC >= 500 MS) {
+        GPIO_WritePin(SCS, SCS_OFF);
+    }
+
+
     sendAMKData();
 
     computeBatteryPackTension();
     sendDataToLogger();
-
 }
 
-
-
-//
-// cpu_timer2_isr - for R2D sound
-//
+// timer 2 - for R2D sound
 __interrupt void cpu_timer2_isr(void)
 {
     //

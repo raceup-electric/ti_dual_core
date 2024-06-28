@@ -103,12 +103,14 @@ struct Power_Setup_Log{
 
 struct Car_settings{
     //screen
-    float presets_power[8];
-    float presets_regen[5];
-    float presets_repartition[6];
+    float presets_power[10];
+    float presets_regen[10];
+    float presets_repartition[20];
 
     //setup variables
+    float regen_current_scale;
     float max_regen_current;
+
     float power_limit;
     float max_speed;
     float max_pos_torque;
@@ -121,6 +123,7 @@ struct Car_settings{
 };
 
 struct GPS_shared {
+    int lap;
     float velocity;
     float lati;
     float longi;
@@ -147,9 +150,9 @@ struct Share_struct {
 extern float repFz[4];
 extern float V[3][3];
 
-extern const float presets_power[8];
-extern const float presets_regen[5];
-extern const float presets_repartition[6];
+extern const float presets_power[10];
+extern const float presets_regen[10];
+extern const float presets_repartition[20];
 extern double delta_steer[2];
 
 

@@ -81,18 +81,71 @@ void main(void)
     // stop timer2 - it's not used for the moment
     CpuTimer2Regs.TCR.bit.TSS = 1;
 
-    // che figo
-    volatile int x = true;
-    while (x)
+    // SEND GPS CONF
+    // deactivate messages
+    scib_msg("$PUBX,40,GGA,1,0,0,0,0,0*5B\r\n");
+    scib_msg("$PUBX,40,GSA,1,0,0,0,0,0*4F\r\n");
+    scib_msg("$PUBX,40,GSV,1,0,0,0,0,0*58\r\n");
+    scib_msg("$PUBX,40,VTG,1,0,0,0,0,0*5F\r\n");
+    scib_msg("$PUBX,40,GLL,1,0,0,0,0,0*5D\r\n");
+    // 10Hz gps
+    char hz10[] = {0xB5, 0x62, 0x06, 0x08, 0x06, 0x00, 0x64, 0x00, 0x01, 0x00, 0x01, 0x00, 0x7A, 0x12};
+    int i;
+    for(i = 0; i < sizeof(hz10); i++){
+        scib_xmit(hz10[i]);
+    }
+
+    // READ GPS
+    Uint16 receivedChar;
+    char* buffer;
+    int count_char = 0;
+    for(;;)
     {
-        x = x;
+        while(ScibRegs.SCIFFRX.bit.RXFFST == 0) { } // wait for empty state
+
+        receivedChar = ScibRegs.SCIRXBUF.all;
+        buffer[count_char] = receivedChar;
+
+        if(buffer[0] != '$') {
+            memset(buffer, 0, count_char);
+            count_char = 0;
+            continue;
+        }
+
+        if(receivedChar == '\n' && count_char > 0){
+            buffer[count_char] = '\0';
+
+            char decode_complete = parse_NMEA_buffer(buffer, &gps_data);
+            memset(buffer, 0, count_char);
+            count_char = 0;
+
+            if(setStart && degreeToFloat(&gps_data.lat0) == 0 && degreeToFloat(&gps_data.lon0) == 0){
+                gps_data.lat0 = gps_data.latitude;
+                gps_data.lon0 = gps_data.longitude;
+                // chatGPT
+                double lat1 = degreeToFloat(&gps_data.lat0) * M_PI / 180.0;
+                double lon1 = degreeToFloat(&gps_data.lon0) * M_PI / 180.0;
+                double lat2 = local_sh.gps_shared.lati * M_PI / 180.0;
+                double lon2 = local_sh.gps_shared.longi * M_PI / 180.0;
+
+                double dlat = lat2 - lat1;
+                double dlon = lon2 - lon1;
+
+                double a = sin(dlat / 2) * sin(dlat / 2) + cos(lat1) * cos(lat2) * sin(dlon / 2) * sin(dlon / 2);
+                double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+                // Earth radius
+                if((6371000 * c) < 1.5) local_sh.gps_shared.lap++;
+            }
+        }
+
+        count_char++;
     }
 }
 
 void cpu1_timer_setup(void)
 {
     EALLOW;
-
     PieVectTable.TIMER1_INT = &cpu_timer1_isr;
     PieVectTable.TIMER2_INT = &cpu_timer2_isr;
     EDIS;
@@ -134,9 +187,12 @@ void send_can_to_cpu2(void)
  */
 void Shared_Ram_dataRead_c1(void)
 {
+    int lap = local_sh.gps_shared.lap;
 
     local_sh = sh;
     local_time_elapsed = time_elapsed;
+
+    local_sh.gps_shared.lap = lap;
 }
 
 /*
@@ -154,6 +210,17 @@ __interrupt void cpu_timer1_isr(void)
     CpuTimer1.InterruptCount++;
 
     Shared_Ram_dataRead_c1();
+
+    /*
+     * Il gps viene usato solo in telemetria quindi
+     * viene aggiornata la local_sh solo prima di inviare
+     *
+     * Per sviluppi futuri va aggiornata sh in modo che anche
+     * CPU2 riesca ad accedere a quei dati
+     */
+    local_sh.gps_shared.velocity = gps_data.velocity;
+    local_sh.gps_shared.lati = degreeToFloat(&gps_data.latitude);
+    local_sh.gps_shared.longi = degreeToFloat(&gps_data.longitude);
 
     // send to esp32
     char data[sizeof(local_sh)];
@@ -202,7 +269,6 @@ uint8_t compute_AMKStatus(uint8_t index)
     status |= (local_sh.motorVal1[index].AMK_bInverterOn << 7);
 
     return status;
-
 }
 
 

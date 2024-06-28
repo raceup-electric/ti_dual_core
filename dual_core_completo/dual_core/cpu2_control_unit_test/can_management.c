@@ -89,7 +89,7 @@ void canSetup_phase2()
                           MSG_OBJ_NO_FLAGS, 2, TXA_Host_Data);
 
     // PACCHETTO BMS LV
-    setting_package_param(&RXCANA_BmsLV_Message, MSG_ID_BMS_LV_1, 0x1FFFFFFC,
+    setting_package_param(&RXCANA_BmsLV_Message, MSG_ID_BMS_LV_1, 0x1FFFFFFE,
                           MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER, 8, RXA_BmsLV_Data);
     CANMessageSet(CANA_BASE, OBJ_ID_FROM_BMS_LV, &RXCANA_BmsLV_Message, MSG_OBJ_TYPE_RX);
 
@@ -99,9 +99,11 @@ void canSetup_phase2()
     CANMessageSet(CANA_BASE, OBJ_ID_MAP_SW, &RXCANA_Map_SW_Message, MSG_OBJ_TYPE_RX);
 
     // Pacchetto volante paddle
+
     setting_package_param(&RXCANA_SW_Message, MSG_ID_PADDLE_SW, 0x0,
-                             MSG_OBJ_RX_INT_ENABLE, 1, RXA_SW_Data);
-       CANMessageSet(CANA_BASE, OBJ_ID_PADDLE_SW, &RXCANA_SW_Message, MSG_OBJ_TYPE_RX);
+                          MSG_OBJ_RX_INT_ENABLE, 1, RXA_SW_Data);
+    CANMessageSet(CANA_BASE, OBJ_ID_PADDLE_SW, &RXCANA_SW_Message, MSG_OBJ_TYPE_RX);
+
 
     // PACCHETTO DA LEM
     setting_package_param(&RXCANA_Lem_Message, MSG_ID_LEM, 0x0, MSG_OBJ_RX_INT_ENABLE,
@@ -117,6 +119,11 @@ void canSetup_phase2()
     setting_package_param(&RXCANA_ATC_Message_TEMPS, MSG_ID_ATC_TEMPS, 0x0, MSG_OBJ_RX_INT_ENABLE,
                           3, RXA_ATC_DATA_TEMPS);
     CANMessageSet(CANA_BASE, OBJ_ID_FROM_ATC_TEMPS, &RXCANA_ATC_Message_TEMPS, MSG_OBJ_TYPE_RX);
+
+    // COMANDO SET START POSITION
+    setting_package_param(&RXCANA_SetStart_Message, MSG_ID_SET_START, 0x0, MSG_OBJ_RX_INT_ENABLE,
+                              1, &RXA_SetStart);
+    CANMessageSet(CANA_BASE, OBJ_ID_SETSTART, &RXCANA_SetStart_Message, MSG_OBJ_TYPE_RX);
 
     // SENSORS_ATC PACKAGE
     setting_package_param(&RXCANA_ATC_Message_SUSPS, MSG_ID_ATC_SUSPS, 0x0, MSG_OBJ_RX_INT_ENABLE,
@@ -332,6 +339,16 @@ __interrupt void canISR_A(void)
         CANIntClear(CANA_BASE, OBJ_ID_FROM_ATC_TEMPS);
         break;
         // alberto patch
+
+    case OBJ_ID_SETSTART:
+        CANMessageGet(CANA_BASE, OBJ_ID_SETSTART, &RXCANA_SetStart_Message, true);
+
+        updateStart();
+
+        rxAMsgCount++;
+
+        CANIntClear(CANA_BASE, OBJ_ID_SETSTART);
+        break;
     }
     CANGlobalIntClear(CANA_BASE, CAN_GLB_INT_CANINT0);
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;

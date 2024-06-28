@@ -51,14 +51,14 @@ void GPIOSetup()
     GPIO_SetupPinMux(16, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(16, GPIO_OUTPUT, GPIO_PUSHPULL);
 
+    GPIO_SetupPinMux(SCS, GPIO_MUX_CPU2, 0);
+    GPIO_SetupPinOptions(SCS, GPIO_OUTPUT, GPIO_PUSHPULL);
+
+
     GPIO_WritePin(BLUE_BLINK, 0);
     GPIO_WritePin(R2D, R2D_LED_OFF);
     GPIO_WritePin(RTDS, 0);
-    GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_OFF);
+    GPIO_WritePin(BRAKE_LIGHT_Abil, BRAKE_LIGHT_ON);
 
-    GPIO_SetupPinMux(UART_RX_GPS, GPIO_MUX_CPU2, 2); // RX
-    GPIO_SetupPinOptions(UART_RX_GPS, GPIO_INPUT, GPIO_PUSHPULL);
-    GPIO_SetupPinMux(UART_TX_GPS, GPIO_MUX_CPU2, 2); // TX
-    GPIO_SetupPinOptions(UART_TX_GPS, GPIO_OUTPUT, GPIO_ASYNC);
-
+    GPIO_WritePin(SCS, SCS_ON);
 }

@@ -7,6 +7,7 @@
 #include "can_management.h"
 #include "GPIO_management.h"
 #include "utils.h"
+#include "TV/TV_2024_2.h"
 
 extern Uint32 time_elapsed;
 extern Uint32 time_elapsed_ATC;

@@ -1,4 +1,3 @@
-
 #ifndef GLOBAL_DEFINITIONS_H_
 #define GLOBAL_DEFINITIONS_H_
 
@@ -12,7 +11,7 @@
  *      FRONT_MOTOR_SCALE
  *      MAX_POS_TORQUE
  *      MAX_NEG_TORQUE
- *      MAX_REGEN_CURRENT
+ *      PEAK_REGEN_CURRENT
  *
  */
 
@@ -39,6 +38,7 @@
 /*
  * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
  * Be careful when you set them, always ask powertrain department
+ * Motor scale should be around 2.14 to obtain maximum torque (scale = Mmax / Mrated which for our motors is 21 Nm / 9,8 Nm check motor datasheet) 
  */
 #define REAR_MOTOR_SCALE    2.0f
 #define FRONT_MOTOR_SCALE   0.5f
@@ -157,16 +157,15 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              18.f
+#define MAX_POS_TORQUE              12.f
 #define MAX_NEG_TORQUE              -12.f
 
-#define MAX_REGEN_CURRENT           20.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
-
-#define TORQUE_VECTORING            1
+#define PEAK_REGEN_CURRENT           150.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
+#define TORQUE_VECTORING            0
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         75000.0f       //Watt
+#define POWER_LIMIT         35000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f
@@ -236,16 +235,17 @@
  */
 #define OBJ_ID_FROM_BMS_LV      18
 #define OBJ_ID_CAR_INFOS        19
-#define OBJ_ID_PADDLE_SW           20
+#define OBJ_ID_PADDLE_SW           25
 #define OBJ_ID_FROM_LEM         21
 #define OBJ_ID_FROM_IMU         22
 #define OBJ_ID_TO_PCU        23
-#define OBJ_ID_MAP_SW    25
+#define OBJ_ID_MAP_SW    20
 #define OBJ_ID_FROM_AMK         26
 //alberto patch
 #define OBJ_ID_FROM_ATC_TBS             27 
 #define OBJ_ID_FROM_ATC_SUSPS           28
 #define OBJ_ID_FROM_ATC_TEMPS           29
+#define OBJ_ID_SETSTART                 30
 
 
 // -- Message IDs --
@@ -267,15 +267,21 @@
 #define MSG_ID_IMU_1            0x60
 #define MSG_ID_IMU_2            0x61
 #define MSG_ID_IMU_3            0x62
+// 0x63 must be free for IMU mask
+
 
 #define MSG_ID_MAP_SW    0X64
 
 #define MSG_ID_CAR_STATUS                    0x65
 #define MSG_ID_CAR_SETTINGS                  0x66
 
+#define MSG_ID_SET_START              0x70 //receive "set start position"
+
 #define MSG_ID_SMU_BASE                      0x100
 #define MSG_ID_SMU_TEMPERATURES              0x100
 #define MSG_ID_SMU_SUSPENSIONS               0x102  // rear
+// 0x103 must be free for SMU mask
+
 
 #define MSG_ID_ATC_SUSPS                0x104   // front
 #define MSG_ID_ATC_TEMPS                0x105
@@ -284,7 +290,6 @@
 #define MSG_ID_TO_PCU                        0x130
 
 #define MSG_ID_LEM                           0x3C2
-
 
 // --- CAN1 ----
 #define MSG_ID_AMK_SETPOINTS    0x82
@@ -313,12 +318,16 @@
 #define DEBUG_LED2          104     //PIN10
 
 #define R2D_LED_OFF          0
-#define R2D_LED_ON           1U      //GPIO ALTA -> LED ACCESO       GPIO BASSA -> LED SPENSO
+#define R2D_LED_ON           1U      //GPIO ALTA -> LED ACCESO       GPIO BASSA -> LED SPENTO
 
 #define RTDS_DURATION       15      //*100ms
 #define BRAKE_LIGHT_ON      1U
 #define BRAKE_LIGHT_OFF     0
 #define BLUE_BLINK          31
+
+#define SCS 19               // PIN61
+#define SCS_ON 1U            // CONST ON
+#define SCS_OFF 0            // CONST ON
 
 //
 // misc
