@@ -122,11 +122,13 @@ void main(void)
             if(setStart && degreeToFloat(&gps_data.lat0) == 0 && degreeToFloat(&gps_data.lon0) == 0){
                 gps_data.lat0 = gps_data.latitude;
                 gps_data.lon0 = gps_data.longitude;
+                continue;
+            } else if (degreeToFloat(&gps_data.lat0) != 0 && degreeToFloat(&gps_data.lon0) != 0) {
                 // chatGPT
                 double lat1 = degreeToFloat(&gps_data.lat0) * M_PI / 180.0;
                 double lon1 = degreeToFloat(&gps_data.lon0) * M_PI / 180.0;
-                double lat2 = local_sh.gps_shared.lati * M_PI / 180.0;
-                double lon2 = local_sh.gps_shared.longi * M_PI / 180.0;
+                double lat2 = degreeToFloat(&gps_data.latitude) * M_PI / 180.0;
+                double lon2 = degreeToFloat(&gps_data.longitude) * M_PI / 180.0;
 
                 double dlat = lat2 - lat1;
                 double dlon = lon2 - lon1;
@@ -135,7 +137,7 @@ void main(void)
                 double c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
                 // Earth radius
-                if((6371000 * c) < 1.5) local_sh.gps_shared.lap++;
+                if((6371000 * c) < 1) local_sh.gps_shared.lap++;
             }
         }
 
