@@ -250,10 +250,6 @@
 
 // -- Message IDs --
 // -- CAN2 --
-#define MSG_ID_AMK1_DATA_BASE   0x40
-#define MSG_ID_AMK2_DATA_BASE   0x44
-#define MSG_ID_TEMPS            0x49
-
 #define MSG_ID_ATC_TBS                  0x053
 
 #define MSG_ID_PADDLE_SW    0X52
@@ -278,7 +274,7 @@
 #define MSG_ID_SET_START              0x70 //receive "set start position"
 
 #define MSG_ID_SMU_BASE                      0x100
-#define MSG_ID_SMU_TEMPERATURES              0x101
+#define MSG_ID_SMU_TEMPERATURES              0x100
 #define MSG_ID_SMU_SUSPENSIONS               0x102  // rear
 // 0x103 must be free for SMU mask
 
