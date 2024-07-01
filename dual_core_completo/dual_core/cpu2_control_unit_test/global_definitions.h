@@ -41,7 +41,7 @@
  * Motor scale should be around 2.14 to obtain maximum torque (scale = Mmax / Mrated which for our motors is 21 Nm / 9,8 Nm check motor datasheet) 
  */
 #define REAR_MOTOR_SCALE    2.0f
-#define FRONT_MOTOR_SCALE   0.5f
+#define FRONT_MOTOR_SCALE   0.0f
 
 
 #define G_ACC               9.81f                   // gravity acceleration [m/s^2]
@@ -157,7 +157,7 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              12.f
+#define MAX_POS_TORQUE              15.f
 #define MAX_NEG_TORQUE              -12.f
 
 #define PEAK_REGEN_CURRENT           150.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
