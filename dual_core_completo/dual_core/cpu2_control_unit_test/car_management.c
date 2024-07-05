@@ -449,7 +449,7 @@ bool readRF()
 }
 
 
-void pumpFanControl(uint32_t time_elapsed) {
+void pumpFanControl() {
 
     if (R2D_state) {
 

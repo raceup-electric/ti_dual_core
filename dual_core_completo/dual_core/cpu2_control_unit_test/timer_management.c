@@ -82,7 +82,7 @@ __interrupt void cpu_timer1_isr(void)
     }
 
     if(time_elapsed%(500 MS) == 0){
-        pumpFanControl(time_elapsed);  // start aonly in R2D
+        pumpFanControl();  // start aonly in R2D
 
         checkStatus();
         send_car_status();
