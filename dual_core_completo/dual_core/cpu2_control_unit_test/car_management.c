@@ -234,7 +234,6 @@ void R2D_On()
 
     GPIO_WritePin(R2D, R2D_LED_ON); // led
 
-    fan_enable = 1;
 }
 
 void R2D_Off()
@@ -242,7 +241,6 @@ void R2D_Off()
     GPIO_WritePin(RTDS, 0U);         // sound
     GPIO_WritePin(R2D, R2D_LED_OFF); // led
 
-    fan_enable = 0;
 }
 
 /*
@@ -450,67 +448,24 @@ bool readRF()
     return rf;
 }
 
-/*
- * Important: fans should be active after R2d
- */
-void fanControl()
-{
-    if (fan_enable)
-    {
-        /*
-         * fan activation threshold is based on max temp among all inverters
-         */
-        int leftTemp = fmax(motorVal2[0].AMK_TempInverter, motorVal2[2].AMK_TempInverter);
-        int rightTemp = fmax(motorVal2[1].AMK_TempInverter, motorVal2[3].AMK_TempInverter);
-        int maxTemp = fmax(leftTemp, rightTemp);
 
-        fanSpeed = fanSpeedFunction(maxTemp);
-        setFanSpeed(fanSpeed);
-    }
-    else
-    {
-        setFanSpeed(0);
-    }
+void pumpFanControl(uint32_t time_elapsed) {
 
-}
+    if (R2D_state) {
 
-void pumpControl(uint32_t time_elapsed) {
+        pump_enable = 1;
+        fan_enable = 1;
 
-    pump_enable = 0;
+        setPumpSpeed(100);
+        setFanSpeed(100);
 
-    //Start pumps 5 sec after lv power on
-    if(time_elapsed > (5000 MS)){
-            pump_enable = 1;
-    }
+        send_pwm_to_pcu();
 
-    setPumpSpeed(100);
-
-}
-
-
-/*
- * Always active at 20% then linearly increases from 60% to 80% when temperature is above between 60  and 80
- */
-
-Uint16 fanSpeedFunction(int temp)
-{
-
-    /*
-     * Reminder: fans actually work with pwm greater or equal than 40%
-     */
-    if (temp <= 60)
-    {
-        return 40;
-    }
-    else if (temp >= 80)
-    {
-        return 80;
-    }
-    else
-    {
-        return (2 * temp) - 80;
     }
 }
+
+
+
 
 #define TIME_STEP 200   // 2s
 #define CONTINOUS_CURR_LIMIT 65  // 65 A

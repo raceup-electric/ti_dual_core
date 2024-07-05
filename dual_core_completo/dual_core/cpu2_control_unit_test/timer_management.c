@@ -82,10 +82,8 @@ __interrupt void cpu_timer1_isr(void)
     }
 
     if(time_elapsed%(500 MS) == 0){
-        fanControl();
-        pumpControl(time_elapsed);  // start after 5s in LV
+        pumpFanControl(time_elapsed);  // start aonly in R2D
 
-        send_pwm_to_pcu();
         checkStatus();
         send_car_status();
 

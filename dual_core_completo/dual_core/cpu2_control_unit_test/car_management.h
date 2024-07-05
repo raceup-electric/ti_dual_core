@@ -151,11 +151,7 @@ int getSP100BrakePress(int adc_reading);
 
 void update_log_values();
 
-Uint16 fanSpeedFunction(int temp);
-
-void fanControl();
-
-void pumpControl(uint32_t time_elapsed);
+void pumpFanControl(uint32_t time_elapsed);
 
 void sendDataToLogger();
 
