@@ -97,8 +97,8 @@ struct Gpio_Log{
 
 struct Power_Setup_Log{
     int max_speed_shared;
-    float rear_motor_percentage_shared;
-    float front_motor_percentage_shared;
+    float rear_motor_repartition_shared;
+    float front_motor_repartition_shared;
     float power_limit_shared;
 };
 
@@ -117,8 +117,8 @@ struct Car_settings
     float max_speed;
     float max_pos_torque;
     float max_neg_torque;
-    float front_motor_percentage;
-    float rear_motor_percentage;
+    float front_motor_repartition;
+    float rear_motor_repartition;
 
     bool torque_vectoring;
 

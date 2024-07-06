@@ -34,8 +34,8 @@
 #define NUM_OF_MOTORS       4
 
 
-#define REAR_MOTOR_PERCENTAGE    0.5f  // rear scale fixed to MAX_TORQUE_SCALE
-#define FRONT_MOTOR_PERCENTAGE   0.5f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
+#define REAR_MOTOR_REPARTITION    0.5f  // rear scale fixed to MAX_TORQUE_SCALE
+#define FRONT_MOTOR_REPARTITION   0.5f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
 #define MAX_TORQUE_SCALE 2.14
 
 
