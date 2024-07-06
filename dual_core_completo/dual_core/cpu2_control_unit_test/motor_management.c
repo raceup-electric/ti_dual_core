@@ -341,13 +341,13 @@ void sendAMKData() {
             */
             if (i == MOTOR_FL || i == MOTOR_FR)
             {
-                posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*car_settings.front_motor_scale, Torque_max, 0.0f));
-                negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*car_settings.rear_motor_scale,0.0f,car_settings.max_neg_torque));
+                posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i] * MAX_TORQUE_SCALE * car_settings.front_motor_percentage / (1 - car_settings.front_motor_percentage), Torque_max, 0.0f));
+                negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i] * MAX_TORQUE_SCALE,0.0f,car_settings.max_neg_torque));
             }
             else if (i == MOTOR_RR || i == MOTOR_RL)
             {
-                posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i]*car_settings.rear_motor_scale, Torque_max, 0.0f));
-                negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]*car_settings.front_motor_scale,0.0f,car_settings.max_neg_torque));
+                posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i] * MAX_TORQUE_SCALE, Torque_max, 0.0f));
+                negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]* MAX_TORQUE_SCALE * car_settings.front_motor_percentage / (1 - car_settings.front_motor_percentage),0.0f,car_settings.max_neg_torque));
             }
         }
     }

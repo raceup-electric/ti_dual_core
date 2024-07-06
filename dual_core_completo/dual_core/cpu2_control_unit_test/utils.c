@@ -19,11 +19,11 @@ void setup_car_settings(){
      * Torques are computed by TV when active, so we don't have to set them
      */
     if(car_settings.torque_vectoring){
-        car_settings.rear_motor_scale = 1.0f;
-        car_settings.front_motor_scale = 1.0f;
+        car_settings.rear_motor_percentage = 0.5f;
+        car_settings.front_motor_percentage = 0.5f;
     } else {
-        car_settings.rear_motor_scale = REAR_MOTOR_SCALE;
-        car_settings.front_motor_scale = FRONT_MOTOR_SCALE;
+        car_settings.rear_motor_percentage = REAR_MOTOR_PERCENTAGE;
+        car_settings.front_motor_percentage = FRONT_MOTOR_PERCENTAGE;
     }
 
     repFz[0] = 0.6;

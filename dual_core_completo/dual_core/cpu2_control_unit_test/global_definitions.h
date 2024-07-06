@@ -34,14 +34,9 @@
 #define NUM_OF_MOTORS       4
 
 
-// TODO: change scale to be percentage
-/*
- * REAR_MOTOR_SCALE and FRONT_MOTOR_SCALE are the values used when TV is disabled
- * Be careful when you set them, always ask powertrain department
- * Motor scale should be around 2.14 to obtain maximum torque (scale = Mmax / Mrated which for our motors is 21 Nm / 9,8 Nm check motor datasheet) 
- */
-#define REAR_MOTOR_SCALE    1.0f
-#define FRONT_MOTOR_SCALE   1.0f
+#define REAR_MOTOR_PERCENTAGE    0.5f  // rear scale fixed to MAX_TORQUE_SCALE
+#define FRONT_MOTOR_PERCENTAGE   0.5f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
+#define MAX_TORQUE_SCALE 2.14
 
 
 #define G_ACC               9.81f                   // gravity acceleration [m/s^2]

@@ -39,8 +39,8 @@ void read_map_sw_message(Uint16 val[])
     car_settings.regen_current_scale = presets_regen[regen_index];
     car_settings.max_regen_current = PEAK_REGEN_CURRENT * car_settings.regen_current_scale;
 
-    car_settings.rear_motor_scale = presets_repartition[(repartition_index)*2];
-    car_settings.front_motor_scale = presets_repartition[(repartition_index)*2 +1];
+    car_settings.rear_motor_percentage = presets_repartition[(repartition_index)*2];
+    car_settings.front_motor_percentage = presets_repartition[(repartition_index)*2 +1];
 
     if (!repartition_index)
         car_settings.torque_vectoring = true;
@@ -526,8 +526,8 @@ void carSettingsMessage()
     TXCANA_CarSettings_Data[2] = (unsigned char)(car_settings.max_speed / 1000) && 0xFF; // krpm
     TXCANA_CarSettings_Data[3] = (unsigned char)car_settings.max_pos_torque;
     TXCANA_CarSettings_Data[4] = (char)car_settings.max_neg_torque;
-    TXCANA_CarSettings_Data[5] = (unsigned char)(car_settings.front_motor_scale * 100);
-    TXCANA_CarSettings_Data[6] = (unsigned char)(car_settings.rear_motor_scale * 100);
+    TXCANA_CarSettings_Data[5] = (unsigned char)(car_settings.front_motor_percentage * 100);
+    TXCANA_CarSettings_Data[6] = (unsigned char)(car_settings.rear_motor_percentage * 100);
     TXCANA_CarSettings_Data[7] = (unsigned char)(car_settings.torque_vectoring) & 1;
 
 }
