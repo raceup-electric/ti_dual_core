@@ -451,15 +451,46 @@ bool readRF()
 
 void pumpFanControl() {
 
+    typedef enum {DISABLED, TURNING_ON, ON} status;
+    static status fan_status = DISABLED;
+    static status pump_status = DISABLED;
+    static Uint32 RTD_timestamp = 0;
+
+    pump_enable = 0;
+    fan_enable = 0;
+
     if (R2D_state) {
 
-        pump_enable = 1;
-        fan_enable = 1;
+        if (RTD_timestamp == 0) {
+            RTD_timestamp = time_elapsed;
+            return;
+        }
 
-        setPumpSpeed(100);
-        setFanSpeed(100);
+        if(time_elapsed - RTD_timestamp > 1000 MS && pump_status == DISABLED) {
+
+                pump_enable = 1;
+                pump_status = TURNING_ON;
+                setPumpSpeed(30);
+
+        } else if(time_elapsed - RTD_timestamp > 2000 MS && pump_status == TURNING_ON) {
+
+             pump_status = ON;
+             setPumpSpeed(100);
+
+        }
+
+        if(time_elapsed - RTD_timestamp > 3000 MS && fan_status == DISABLED) {
+
+                fan_enable = 1;
+                fan_status = ON;
+                setFanSpeed(100);
+
+        }
 
         send_pwm_to_pcu();
+
+    }
+
 
     }
 }
