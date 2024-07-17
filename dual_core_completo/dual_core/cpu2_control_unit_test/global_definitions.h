@@ -152,7 +152,7 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              15.f
+#define MAX_POS_TORQUE              10.f
 #define MAX_NEG_TORQUE              -12.f
 
 #define PEAK_REGEN_CURRENT           150.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!

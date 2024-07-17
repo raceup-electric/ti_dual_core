@@ -64,7 +64,7 @@ void read_LEM_message(unsigned char lem_values[])
     reassembled_data |= ((uint32_t)(lem_values[1]) << 16);
     reassembled_data |= ((uint32_t)(lem_values[2]) << 8);
     reassembled_data |= ((uint32_t)(lem_values[3]) << 0);
-    lem_current = (int32_t)(reassembled_data) / 1000.0;
+    lem_current = -(int32_t)(reassembled_data) / 1000.0;
 }
 
 void read_IMU_message(Uint16 imu_values[], int id)
@@ -475,6 +475,7 @@ void pumpFanControl() {
         } else if(time_elapsed - RTD_timestamp > 2000 MS && pump_status == TURNING_ON) {
 
              pump_status = ON;
+             pump_enable=1;
              setPumpSpeed(100);
 
         }

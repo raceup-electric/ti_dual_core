@@ -48,7 +48,7 @@ bool R2D_state = 0;
  */
 const float presets_power[10] = {75000.f, 60000.f, 45000.f, 30000.f, 15000.f, 15000.f, 15000.f, 15000.f, 15000.f, 15000.f};
 const float presets_regen[10] = {0.0f, 0.3f, 0.5f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};   // max curr regen A
-const float presets_repartition[20] = {0.8f, 0.2f, 0.7f, 0.3f, 0.6f, 0.4f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f};
+const float presets_repartition[20] = {0.5f, 0.5f, 0.8f, 0.2f, 0.7f, 0.3f, 0.6f, 0.4f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f};
 
 Uint16 fanSpeed = 0;
 char status = 0;
