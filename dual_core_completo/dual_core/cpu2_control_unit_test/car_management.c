@@ -303,49 +303,21 @@ void R2D_init()
  */
 void computeBatteryPackTension()
 {
-    int j = 0, active_motors = 0;
-    Uint16 tensions[4];
-    Uint16 active[4];
-    Uint16 mean, mean_of_squared, max = 0;
-
-    for (j = 0; j < 4; j++)
-    {
-        active[j] = 1;
-        tensions[j] = motorVal1[j].AMK_Voltage;
-        if (tensions[j] > max)
-        {
-            max = tensions[j];
-        }
-    }
-
-    for (j = 0; j < 4; j++)
-    {
-        if (tensions[j] < max - 40)
-        {
-            active[j] = 0;
-        }
-    }
-
-    for (j = 0; j < 4; j++)
-    {
-        if (active[j] > 0)
+    float voltage_sum = 0;
+    Uint8 active_motors = 0;
+    for (int j = 0; j < NUM_OF_MOTORS; j++) {
+        if (motorVal1[j].AMK_bDcOn) {
             active_motors++;
-        mean += tensions[j] * active[j];
-        mean_of_squared += tensions[j] * tensions[j] * active[j];
+            voltage_sum += motorVal1[j].AMK_Voltage;
+        }
     }
 
-    if (active_motors != 0)
-    {
-        mean /= active_motors;
-        mean_of_squared /= active_motors;
+    if (active_motors == 0) {
+        batteryPackTension = 0;
     }
-    else
-    {
-        mean = 0;
-        mean_of_squared = 0;
+    else {
+        batteryPackTension = voltage_sum / (float)active_motors;
     }
-
-    batteryPackTension = mean;
     total_power = batteryPackTension * lem_current;
 }
 

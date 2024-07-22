@@ -155,6 +155,8 @@
 #define MAX_POS_TORQUE              10.f
 #define MAX_NEG_TORQUE              -12.f
 
+#define MAX_MOTOR_TORQUE            21.0f
+
 #define PEAK_REGEN_CURRENT           150.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
 #define TORQUE_VECTORING            0
 /*

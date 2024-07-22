@@ -290,17 +290,32 @@ void sendAMKDataMotor(int motor, int posTorque, int negTorque) {
  */
 void sendAMKData() {
 
+    int posTorque[4], negTorque[4];
+
     int i = 0;
+    // check AMK motors datasheet pg.1 rmp torque curve
+    // Safety limit to torque at high speed (decrease torque limit with increasing rpm)
+    float actual_max_pos_torque = saturateFloat(MAX_MOTOR_TORQUE - 0.000857*(motorVal1[i].AMK_ActualVelocity - 13000.0f), car_settings.max_pos_torque, 0.0f);
+    float actual_max_neg_torque = -saturateFloat(MAX_MOTOR_TORQUE - 0.000857*(motorVal1[i].AMK_ActualVelocity - 13000.0f), -car_settings.max_neg_torque, 0.0f);
 
     for (i = 0; i < NUM_OF_MOTORS; i++)
     {
         /*
-         * 0 - 100 throttle and brake to Nm (at this point max is 9.8 = MN)
+         * 0 - 100 throttle and brake to Nm (setpoint is relative to nominal torque and goes in 0.1% that's why there is * 10)
+         * Setpoints are scaled to obtain desired torque repartition that inverts during braking
+         * Negative torques are computed in regBrake() 
          */
-        posTorquesNM[i] = torqueSetpointToNM(throttleReq*THROTTLE_POWER_SCALE);
-        negTorquesNM[i] = torqueSetpointToNM(brakeReq*REG_POWER_SCALE);
+        if (i == MOTOR_FL || i == MOTOR_FR) {
+            posTorquesNM[i] = torqueSetpointToNM(throttleReq * (actual_max_pos_torque/M_N) * 10 * (car_settings.front_motor_repartition / (1 - car_settings.front_motor_repartition)));
+            negTorquesNM[i] = 0.0f;
+        }
+        else if (i == MOTOR_RR || i == MOTOR_RL) {
+            posTorquesNM[i] = torqueSetpointToNM(throttleReq * (actual_max_pos_torque/M_N) * 10);
+            negTorquesNM[i] = 0.0f;
+        }
     }
 
+    // Reg brake makes the negative torques from positive to negative
     regBrake();
 
     #ifndef NO_POWER_CONTROL
@@ -311,13 +326,6 @@ void sendAMKData() {
             anti_wind_up = 0;
     #endif
 
-    // check AMK motors datasheet pg.1 rmp torque curve
-    // Safety limit to torque at high speed (decrease torque limit with increasing rpm)
-    float Torque_max = 21.0f - 0.000857*(motorVal1[i].AMK_ActualVelocity - 13000.0f);
-    // Choose strictest limit
-    Torque_max = saturateFloat(Torque_max, car_settings.max_pos_torque, 0.0f);
-
-    int posTorque[4], negTorque[4];
     if (car_settings.torque_vectoring) {
 
         // typedef struct {
@@ -326,35 +334,25 @@ void sendAMKData() {
         // } ExtY;
 
         for (i = 0; i < NUM_OF_MOTORS; i++) {
-            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_pos1[i], Torque_max, 0.0f));
-        }
-        for (i = 0; i < NUM_OF_MOTORS; i++) {
-            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_neg1[i], 0.0f, car_settings.max_neg_torque));
+            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_pos1[i], actual_max_pos_torque, 0.0f));
+            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_neg1[i], 0.0f, actual_max_neg_torque));
         }
     }
     else {
         for (i = 0; i < NUM_OF_MOTORS; i++) {
-
-            //RIPARTIZIONE DI COPPIA SEMPLICE
-            /*
-            * Quando si usa la regen si inverte la coppia front con rear quando si frena
-            */
-            if (i == MOTOR_FL || i == MOTOR_FR)
-            {
-                posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i] * MAX_TORQUE_SCALE * car_settings.front_motor_repartition / (1 - car_settings.front_motor_repartition), Torque_max, 0.0f));
-                negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i] * MAX_TORQUE_SCALE,0.0f,car_settings.max_neg_torque));
-            }
-            else if (i == MOTOR_RR || i == MOTOR_RL)
-            {
-                posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i] * MAX_TORQUE_SCALE, Torque_max, 0.0f));
-                negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i]* MAX_TORQUE_SCALE * car_settings.front_motor_repartition / (1 - car_settings.front_motor_repartition),0.0f,car_settings.max_neg_torque));
-            }
+            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i], actual_max_pos_torque, 0.0f));
+            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i], 0.0f, actual_max_neg_torque))
         }
     }
 
 
     for (i = 0; i < NUM_OF_MOTORS; i++) {
-        sendAMKDataMotor(i, posTorque[i], negTorque[i]);
+        if (posTorque[i] > 0 && negTorque[i] < 0) {
+            sendAMKDataMotor(i, 0, 0);
+        }
+        else {
+            sendAMKDataMotor(i, posTorque[i], negTorque[i]);
+        }
     }
 }
 
