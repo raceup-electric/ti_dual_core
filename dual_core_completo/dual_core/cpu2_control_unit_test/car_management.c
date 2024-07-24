@@ -133,8 +133,8 @@ void read_SMU_Message(Uint16 smu_values[], int id)
     case MSG_ID_SMU_SUSPENSIONS:
         for (i = 0; i < NUM_SMU_SUSP; i++)
         {
-            suspensions[2+i] = (0x3FF & aux);
-            aux >>= 10;
+            suspensions[2+i] = (0xFFF & aux) / 10;
+            aux >>= 12;
         }
         break;
     }
