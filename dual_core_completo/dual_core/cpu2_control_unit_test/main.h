@@ -57,7 +57,9 @@ char status = 0;
 int actualVelocityRPM = 0;
 float actualVelocityKMH = 0;
 int brake = 0; 
-int brakePress = 0; // Pa
+int brakePress1 = 0; // Pa
+int brakePress2 = 0; // Pa
+
 int paddle = 0;  // 0-100
 int steering = 0; 
 int throttle = 0; 

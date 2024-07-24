@@ -46,7 +46,8 @@ struct Status_Log {
     int throttle_shared;
     int steering_shared;
     int brake_shared;
-    int brakePress_shared;
+    int brakePress_shared1;
+    int brakePress_shared2;
     int actualVelocityKMH_shared;
     char status_shared;
 };

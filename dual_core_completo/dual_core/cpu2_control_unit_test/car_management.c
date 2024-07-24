@@ -622,7 +622,8 @@ void update_log_values()
     status_log.actualVelocityKMH_shared = actualVelocityKMH;
     status_log.brake_shared = brake;
     status_log.status_shared = status;
-    status_log.brakePress_shared = brakePress;
+    status_log.brakePress_shared1 = brakePress1;
+    status_log.brakePress_shared2 = brakePress2;
     status_log.steering_shared = steering;
 
     // Bms
@@ -719,6 +720,26 @@ int getSP100BrakePress(int adc_reading) {
     
 }
 
+int getSP150BrakePress(int adc_reading) {
+    float g_adc = 3.3f / pow(2, 12);
+    float v = adc_reading * g_adc * 2;
+    float max_press = 150.0; // Bar
+    float min_volt = 0.5; // V
+    float max_volt = 4.5; // V
+    float m = max_press / (max_volt - min_volt);
+
+    if (v <= min_volt) {
+        return 0;
+    }
+
+    if (v > min_volt && v < max_volt) {
+        return 1e5 * m * (v - min_volt);
+    }
+
+    return 1e5 * max_press;
+
+}
+
 void updateTVstruct() {
 
     rtU.ax = accelerations[0]; // m/s^2
@@ -728,7 +749,7 @@ void updateTVstruct() {
 
     rtU.throttle = throttle / 100.0; // 0 to 1
     rtU.regen = paddle / 100.0; // 0 to 1
-    rtU.brake = brakePress; // Pa
+    rtU.brake = brakePress1; // Pa
     rtU.steer = steering; // deg
 
     rtU.rpm[0] = motorVal1[0].AMK_ActualVelocity; // rpm
