@@ -451,9 +451,10 @@ bool readRF()
 
 void pumpFanControl() {
 
-    typedef enum {DISABLED, TURNING_ON, ON} status;
-    static status fan_status = DISABLED;
-    static status pump_status = DISABLED;
+    int steps[5] = {1000, 2000, 3000, 4000, 5000};
+    int duty[5] = {20, 40, 60, 80, 100};
+
+    static int steps_index = 0;
     static Uint32 RTD_timestamp = 0;
 
     pump_enable = 0;
@@ -466,24 +467,24 @@ void pumpFanControl() {
             return;
         }
 
-        if(time_elapsed - RTD_timestamp > 1000 MS && pump_status == DISABLED) {
+        if(steps_index < sizeof(steps)/sizeof(steps[0]) - 2 && time_elapsed - RTD_timestamp >= steps[steps_index] MS && time_elapsed - RTD_timestamp < steps[steps_index + 1] MS) {
 
                 pump_enable = 1;
-                pump_status = TURNING_ON;
-                setPumpSpeed(30);
-
-        } else if(time_elapsed - RTD_timestamp > 2000 MS && pump_status == TURNING_ON) {
-
-             pump_status = ON;
-             pump_enable=1;
-             setPumpSpeed(100);
+                setPumpSpeed(duty[steps_index]);
+                steps_index ++;
 
         }
 
-        if(time_elapsed - RTD_timestamp > 3000 MS && fan_status == DISABLED) {
+        if(time_elapsed - RTD_timestamp > steps[sizeof(steps)/sizeof(steps[0]) - 1] MS) {
+
+                 pump_enable = 1;
+                 setPumpSpeed(duty[sizeof(steps)/sizeof(steps[0]) - 1]);
+
+        }
+
+        if(time_elapsed - RTD_timestamp > steps[sizeof(steps)/sizeof(steps[0]) - 1] MS + 5000) {
 
                 fan_enable = 1;
-                fan_status = ON;
                 setFanSpeed(100);
 
         }
@@ -624,6 +625,7 @@ void update_log_values()
     status_log.status_shared = status;
     status_log.brakePress_shared1 = brakePress1;
     status_log.brakePress_shared2 = brakePress2;
+
     status_log.steering_shared = steering;
 
     // Bms
