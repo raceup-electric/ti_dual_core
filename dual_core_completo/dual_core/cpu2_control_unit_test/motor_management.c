@@ -341,7 +341,7 @@ void sendAMKData() {
     else {
         for (i = 0; i < NUM_OF_MOTORS; i++) {
             posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i], actual_max_pos_torque, 0.0f));
-            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i], 0.0f, actual_max_neg_torque))
+            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i], 0.0f, actual_max_neg_torque));
         }
     }
 

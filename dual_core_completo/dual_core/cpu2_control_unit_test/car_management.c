@@ -309,7 +309,8 @@ void computeBatteryPackTension()
     Uint16 mean, mean_of_squared, max = 0;
 
     // find max voltage
-    for (int i = 0; i < NUM_OF_MOTORS; i++)
+    int i;
+    for (i = 0; i < NUM_OF_MOTORS; i++)
     {
         if (motorVal1[i].AMK_Voltage > max)
         {
@@ -318,7 +319,7 @@ void computeBatteryPackTension()
     }
 
     // Compute sum of voltages, exclude if it is below 50 V than the maximum reading
-    for (int i = 0; i < NUM_OF_MOTORS; i++)
+    for (i = 0; i < NUM_OF_MOTORS; i++)
     {
         if (motorVal1[i].AMK_Voltage > (max - 50))
         {

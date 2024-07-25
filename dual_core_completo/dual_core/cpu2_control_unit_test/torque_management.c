@@ -39,7 +39,8 @@ void regBrake()
     float c = 0;
     float iq = 0, id = 0;
 
-    for (int mot = 0; mot < NUM_OF_MOTORS; mot++)
+    int mot;
+    for (mot = 0; mot < NUM_OF_MOTORS; mot++)
     {
         // compute per-motor power accounting for torque repartition ( / 2 because there are 2 motors per axle)
         if (mot == MOTOR_FL || mot == MOTOR_FR)
