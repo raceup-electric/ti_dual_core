@@ -27,8 +27,8 @@ void atc_update(unsigned int data[], enum type_message t) {
     case SUSPS:
         for (i = 0; i < 2; i++)
         {
-            suspensions[i] = (0x3FF & aux);
-            aux >>= 10;
+            suspensions[i] = (0xFFF & aux) / 10;
+            aux >>= 12;
         }
         break;
     case TEMPS:

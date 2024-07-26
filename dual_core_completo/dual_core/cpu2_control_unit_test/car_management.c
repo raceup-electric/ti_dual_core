@@ -133,8 +133,8 @@ void read_SMU_Message(Uint16 smu_values[], int id)
     case MSG_ID_SMU_SUSPENSIONS:
         for (i = 0; i < NUM_SMU_SUSP; i++)
         {
-            suspensions[2+i] = (0x3FF & aux);
-            aux >>= 10;
+            suspensions[2+i] = (0xFFF & aux) / 10;
+            aux >>= 12;
         }
         break;
     }
@@ -438,9 +438,10 @@ bool readRF()
 
 void pumpFanControl() {
 
-    typedef enum {DISABLED, TURNING_ON, ON} status;
-    static status fan_status = DISABLED;
-    static status pump_status = DISABLED;
+    int steps[5] = {1000, 4000, 7000, 10000, 13000};
+    int duty[5] = {20, 40, 60, 80, 100};
+
+    static int steps_index = 0;
     static Uint32 RTD_timestamp = 0;
 
     pump_enable = 0;
@@ -453,24 +454,24 @@ void pumpFanControl() {
             return;
         }
 
-        if(time_elapsed - RTD_timestamp > 1000 MS && pump_status == DISABLED) {
+        if(steps_index < sizeof(steps)/sizeof(steps[0]) - 2 && time_elapsed - RTD_timestamp >= steps[steps_index] MS && time_elapsed - RTD_timestamp < steps[steps_index + 1] MS) {
 
                 pump_enable = 1;
-                pump_status = TURNING_ON;
-                setPumpSpeed(30);
-
-        } else if(time_elapsed - RTD_timestamp > 2000 MS && pump_status == TURNING_ON) {
-
-             pump_status = ON;
-             pump_enable=1;
-             setPumpSpeed(100);
+                setPumpSpeed(duty[steps_index]);
+                steps_index ++;
 
         }
 
-        if(time_elapsed - RTD_timestamp > 3000 MS && fan_status == DISABLED) {
+        if(time_elapsed - RTD_timestamp > steps[sizeof(steps)/sizeof(steps[0]) - 1] MS) {
+
+                 pump_enable = 1;
+                 setPumpSpeed(duty[sizeof(steps)/sizeof(steps[0]) - 1]);
+
+        }
+
+        if(time_elapsed - RTD_timestamp > steps[sizeof(steps)/sizeof(steps[0]) - 1] MS + 5000 MS) {
 
                 fan_enable = 1;
-                fan_status = ON;
                 setFanSpeed(100);
 
         }
@@ -609,7 +610,9 @@ void update_log_values()
     status_log.actualVelocityKMH_shared = actualVelocityKMH;
     status_log.brake_shared = brake;
     status_log.status_shared = status;
-    status_log.brakePress_shared = brakePress;
+    status_log.brakePress_shared1 = brakePress1;
+    status_log.brakePress_shared2 = brakePress2;
+
     status_log.steering_shared = steering;
 
     // Bms
@@ -706,6 +709,26 @@ int getSP100BrakePress(int adc_reading) {
     
 }
 
+int getSP150BrakePress(int adc_reading) {
+    float g_adc = 3.3f / pow(2, 12);
+    float v = adc_reading * g_adc * 2;
+    float max_press = 150.0; // Bar
+    float min_volt = 0.5; // V
+    float max_volt = 4.5; // V
+    float m = max_press / (max_volt - min_volt);
+
+    if (v <= min_volt) {
+        return 0;
+    }
+
+    if (v > min_volt && v < max_volt) {
+        return 1e5 * m * (v - min_volt);
+    }
+
+    return 1e5 * max_press;
+
+}
+
 void updateTVstruct() {
 
     rtU.ax = accelerations[0]; // m/s^2
@@ -715,7 +738,7 @@ void updateTVstruct() {
 
     rtU.throttle = throttle / 100.0; // 0 to 1
     rtU.regen = paddle / 100.0; // 0 to 1
-    rtU.brake = brakePress; // Pa
+    rtU.brake = brakePress1; // Pa
     rtU.steer = steering; // deg
 
     rtU.rpm[0] = motorVal1[0].AMK_ActualVelocity; // rpm
