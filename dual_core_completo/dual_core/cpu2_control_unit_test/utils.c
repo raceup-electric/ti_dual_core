@@ -7,7 +7,7 @@ void setup_car_settings(){
     memcpy(car_settings.presets_repartition, presets_repartition, sizeof(presets_repartition));
     memcpy(car_settings.presets_regen, presets_regen, sizeof(presets_regen));
 
-    car_settings.regen_current_scale = PEAK_REGEN_CURRENT;
+    car_settings.regen_current_scale = 0.0f;
     car_settings.max_regen_current = PEAK_REGEN_CURRENT;
     car_settings.max_speed = SPEED_LIMIT;
     car_settings.max_pos_torque = MAX_POS_TORQUE;
