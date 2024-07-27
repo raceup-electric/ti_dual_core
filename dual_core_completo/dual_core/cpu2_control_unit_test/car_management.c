@@ -305,6 +305,7 @@ void computeBatteryPackTension()
 {
     int active_motors = 0;
     float sum = 0.0f;
+    int max = 0;
 
     // find max voltage
     int i;

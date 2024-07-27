@@ -34,8 +34,9 @@
 #define NUM_OF_MOTORS       4
 
 
-#define REAR_MOTOR_REPARTITION    0.75f  // rear scale fixed to MAX_TORQUE_SCALE
-#define FRONT_MOTOR_REPARTITION   0.25f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
+
+#define FRONT_MOTOR_REPARTITION   0.22f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
+#define REAR_MOTOR_REPARTITION    0.78f  // rear scale fixed to MAX_TORQUE_SCALE
 #define MAX_TORQUE_SCALE 2.14
 
 
@@ -49,7 +50,7 @@
 #define THROTTLE_POWER_SCALE        10
 #define REG_POWER_SCALE             10
 
-#define SPEED_LIMIT                 18000   // Typical value: 15000
+#define SPEED_LIMIT                 15000   // Typical value: 15000
 #define M_N                         9.8f
 
 /*
@@ -152,7 +153,7 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              8.f
+#define MAX_POS_TORQUE              15.0f
 #define MAX_NEG_TORQUE              -12.f
 
 #define MAX_MOTOR_TORQUE            21.0f
@@ -162,7 +163,7 @@
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         30000.0f       //Watt
+#define POWER_LIMIT         40000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.05f
 #define KI_PI               10.0f
