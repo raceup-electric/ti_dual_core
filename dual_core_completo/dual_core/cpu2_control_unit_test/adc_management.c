@@ -136,8 +136,8 @@ void readADC_Bank(int num_bank)
         while (AdcaRegs.ADCINTFLG.bit.ADCINT1 == 0)
             ;
         AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
-        brakePress1 = getSP100BrakePress(AdcaResultRegs.ADCRESULT4);
-        brakePress2 = getSP150BrakePress(AdcaResultRegs.ADCRESULT5);
+        brakePress1 = AdcaResultRegs.ADCRESULT3;
+        brakePress2 = AdcaResultRegs.ADCRESULT5;
 
         break;
 
