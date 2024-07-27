@@ -73,9 +73,10 @@ void adcSetup()
     AdcaRegs.ADCSOC4CTL.bit.CHSEL = 4;
     AdcaRegs.ADCSOC4CTL.bit.ACQPS = ACQPS_;
 
-    // ADCIN14
-    AdcaRegs.ADCSOC5CTL.bit.CHSEL = 14;
+    // ADCINA5
+    AdcaRegs.ADCSOC5CTL.bit.CHSEL = 5;
     AdcaRegs.ADCSOC5CTL.bit.ACQPS = ACQPS_;
+
 
     AdcaRegs.ADCINTSEL1N2.bit.INT1SEL = 5; // end of SOC5 will set INT1 flag
     AdcaRegs.ADCINTSEL1N2.bit.INT1E = 1;   // enable INT1 flag
@@ -123,7 +124,6 @@ void readAllADC()
     readADC_Bank(1);
     readADC_Bank(2);
     readADC_Bank(3);
-    readADC_Bank(4);
 }
 
 void readADC_Bank(int num_bank)
@@ -137,6 +137,7 @@ void readADC_Bank(int num_bank)
             ;
         AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
         brakePress1 = getSP100BrakePress(AdcaResultRegs.ADCRESULT4);
+        brakePress2 = getSP150BrakePress(AdcaResultRegs.ADCRESULT5);
 
         break;
 
@@ -160,17 +161,6 @@ void readADC_Bank(int num_bank)
         while (AdccRegs.ADCINTFLG.bit.ADCINT2 == 0)
             ;
         AdccRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
-        break;
-    case 4:
-
-        brakePress2 = getSP150BrakePress(AdcaResultRegs.ADCRESULT4);
-
-        AdcaRegs.ADCSOCFRC1.all = 0x003F; // SOC0 and SOC5
-
-        while (AdcaRegs.ADCINTFLG.bit.ADCINT1 == 0)
-            ;
-        AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
-
         break;
     }
 }

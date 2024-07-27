@@ -8,24 +8,17 @@
 #include "global_definitions.h"
 #include <math.h>
 
-// NUOVI VERIFICARE CON BALDO
 
 // #SOC  |  GPIO     |  PIN    |   FUNZIONE      |       SENSORE
 // A
 // SOC0 --> ADCINA0 --> PIN30 --> Acc2
-// SOC1 --> ADCINA1 --> PIN70 --> CurrSens
+// SOC1 --> ADCINA1 --> PIN70 --> Free
 // SOC2 --> ADCINA2 --> PIN29 --> Acc1
-// SOC3 --> ADCINA3 --> PIN26 --> BrakeClean
-// SOC4 --> ADCINA4 --> PIN69 --> BrakePressure
-// SOC? --> ADCINA5 --> PIN66 --> free
-// SOC5 --> ADCIN14 --> PIN23 --> Steering
-// B
-// SOC6 --> ADCINB2 --> PIN28 --> TempRadOutL
-// SOC7 --> ADCINB3 --> PIN25 --> TempRadOutRC
-// SOC? --> ADCINB5 --> PIN65 --> free
+// SOC3 --> ADCINA3 --> PIN26 --> BrakePress1
+// SOC4 --> ADCINA4 --> PIN69 --> Not Connected
+// SOC5 --> ADCINA5 --> PIN66 --> BrakePress2
 // C
-// SOC8 --> ADCINC2 --> PIN27 --> TempRadINL
-// SOC9 --> ADCINC3 --> PIN24 --> TempRadINR
+// SOC9 --> ADCINC4 --> PIN67 --> CurrSens
 
 extern int brakePress1;
 extern int brakePress2;
