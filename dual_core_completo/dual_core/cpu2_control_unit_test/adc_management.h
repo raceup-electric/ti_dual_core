@@ -14,11 +14,11 @@
 // SOC0 --> ADCINA0 --> PIN30 --> Acc2
 // SOC1 --> ADCINA1 --> PIN70 --> Free
 // SOC2 --> ADCINA2 --> PIN29 --> Acc1
-// SOC3 --> ADCINA3 --> PIN26 --> BrakePress1 (Front)
+// SOC3 --> ADCINA3 --> PIN26 --> Not Connected
 // SOC4 --> ADCINA4 --> PIN69 --> Not Connected
 // SOC5 --> ADCINA5 --> PIN66 --> BrakePress2 (Rear)
 // C
-// SOC9 --> ADCINC4 --> PIN67 --> CurrSens
+// SOC6 --> ADCINC4 --> PIN67 --> BrakePress1 (Front)
 
 extern int brakePress1;
 extern int brakePress2;

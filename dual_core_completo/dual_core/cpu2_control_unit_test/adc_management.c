@@ -82,39 +82,14 @@ void adcSetup()
     AdcaRegs.ADCINTSEL1N2.bit.INT1E = 1;   // enable INT1 flag
     AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; // make sure INT1 flag is cleared
 
-    // ADCB
-
-    // ADCINB2
-    AdcbRegs.ADCSOC6CTL.bit.CHSEL = 2;
-    AdcbRegs.ADCSOC6CTL.bit.ACQPS = ACQPS_;
-
-    // ADCINB3
-    AdcbRegs.ADCSOC7CTL.bit.CHSEL = 3;
-    AdcbRegs.ADCSOC7CTL.bit.ACQPS = ACQPS_;
-
-    //    AdcbRegs.ADCINTSEL1N2.bit.INT1SEL = 6;
-    //    AdcbRegs.ADCINTSEL1N2.bit.INT1E = 1;
-    //    AdcbRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
-
-    AdcbRegs.ADCINTSEL1N2.bit.INT2SEL = 7; // end of SOC7 will set INT2 flag
-    AdcbRegs.ADCINTSEL1N2.bit.INT2E = 1;
-    AdcbRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
-
     // ADCC
 
-    // ADCINC2
-    AdccRegs.ADCSOC8CTL.bit.CHSEL = 2;
-    AdccRegs.ADCSOC8CTL.bit.ACQPS = ACQPS_;
+    // ADCINC4
+    AdccRegs.ADCSOC6CTL.bit.CHSEL = 4;
+    AdccRegs.ADCSOC6CTL.bit.ACQPS = ACQPS_;
 
-    // ADCINC3
-    AdccRegs.ADCSOC9CTL.bit.CHSEL = 3;
-    AdccRegs.ADCSOC9CTL.bit.ACQPS = ACQPS_;
 
-    //    AdccRegs.ADCINTSEL1N2.bit.INT1SEL = 8;
-    //    AdccRegs.ADCINTSEL1N2.bit.INT1E = 1;
-    //    AdccRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
-
-    AdccRegs.ADCINTSEL1N2.bit.INT2SEL = 9; // end of SOC7 will set INT2 flag
+    AdccRegs.ADCINTSEL1N2.bit.INT2SEL = 6; // end of SOC7 will set INT2 flag
     AdccRegs.ADCINTSEL1N2.bit.INT2E = 1;
     AdccRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
 }
@@ -136,31 +111,17 @@ void readADC_Bank(int num_bank)
         while (AdcaRegs.ADCINTFLG.bit.ADCINT1 == 0)
             ;
         AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
-        brakePress1 = AdcaResultRegs.ADCRESULT3;
         brakePress2 = AdcaResultRegs.ADCRESULT5;
-
         break;
-
     case 2:
-        AdcbRegs.ADCSOCFRC1.all = 0x00C0; // SOC6 and SOC7
-
-        //        while(AdcbRegs.ADCINTFLG.bit.ADCINT1 == 0);
-        //                AdcbRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
-
-        while (AdcbRegs.ADCINTFLG.bit.ADCINT2 == 0)
-            ;
-        AdcbRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
-
         break;
     case 3:
-        AdccRegs.ADCSOCFRC1.all = 0x0300; // SOC8 and SOC9
-
-        //        while(AdccRegs.ADCINTFLG.bit.ADCINT1 == 0);
-        //        AdccRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
+        AdccRegs.ADCSOCFRC1.all = 0x0040; // SOC6
 
         while (AdccRegs.ADCINTFLG.bit.ADCINT2 == 0)
             ;
         AdccRegs.ADCINTFLGCLR.bit.ADCINT2 = 1;
+        brakePress1 = AdccResultRegs.ADCRESULT4;
         break;
     }
 }
