@@ -17,7 +17,7 @@
 #define LD 0.12E-3
 #define LQ 0.24E-3
 #define ETA_INV 0.98
-#define ETA_MECH 0.9
+#define ETA_MECH 0.95
 #define RBATT 0.3
 #define TALPHA -5.919761121102884
 #define BATTERY_FULL_VOLTAGE 554 // 4.2 * 132
