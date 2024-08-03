@@ -165,7 +165,7 @@
  */
 #define POWER_LIMIT         40000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
-#define KP_PI               0.05f
+#define KP_PI               0.2f
 #define KI_PI               10.0f
 #define T_SAMPLING_ECU      0.010f                          // sample period [s]
 #define PI_UPPER_BOUND      175929.2f
