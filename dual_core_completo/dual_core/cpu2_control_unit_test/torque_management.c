@@ -66,7 +66,7 @@ void regBrake()
         float analytic_max_torque = p_wheel / rads;
 
         // check AMK motors datasheet pg.1 rmp torque curve
-        float torque_limit = saturateFloat(21.0f - 0.000857 * (fabsf(motorVal1[mot].AMK_ActualVelocity) - 13000.0f), -car_settings.max_neg_torque, 0.0f);
+        float torque_limit = saturateFloat(MAX_MOTOR_TORQUE - 0.000857 * (fabsf(motorVal1[mot].AMK_ActualVelocity) - 13000.0f), -car_settings.max_neg_torque, 0.0f);
         negTorquesNM[mot] = -((brakeReq / 100.0) * fminf(torque_limit, analytic_max_torque));
     }
 }
