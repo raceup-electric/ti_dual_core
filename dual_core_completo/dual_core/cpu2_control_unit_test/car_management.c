@@ -440,7 +440,7 @@ bool readRF()
 void pumpFanControl() {
 
     int steps[5] = {1000, 4000, 7000, 10000, 13000};
-    int duty[5] = {20, 40, 60, 80, 100};
+    int duty[5] = {20, 40, 60, 70, 70};
 
     static int steps_index = 0;
     static Uint32 RTD_timestamp = 0;
