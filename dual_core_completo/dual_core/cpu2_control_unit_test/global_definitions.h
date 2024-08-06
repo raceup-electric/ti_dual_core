@@ -50,7 +50,7 @@
 #define THROTTLE_POWER_SCALE        10
 #define REG_POWER_SCALE             10
 
-#define SPEED_LIMIT                 15000   // Typical value: 15000
+#define SPEED_LIMIT                 18000   // Typical value: 15000
 #define M_N                         9.8f
 
 /*
@@ -153,8 +153,8 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              15.0f
-#define MAX_NEG_TORQUE              -12.f
+#define MAX_POS_TORQUE              19.0f
+#define MAX_NEG_TORQUE              -10.f
 
 #define MAX_MOTOR_TORQUE            21.0f
 
@@ -163,7 +163,7 @@
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         40000.0f       //Watt
+#define POWER_LIMIT         70000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.2f
 #define KI_PI               10.0f

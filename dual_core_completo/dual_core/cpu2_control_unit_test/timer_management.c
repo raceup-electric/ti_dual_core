@@ -94,7 +94,7 @@ __interrupt void cpu_timer1_isr(void)
     updateGPIOState();
 
     updateTVstruct();
-    TV_2024_2_step();
+    Torque_Vectoring_2024_forsecontiu_step();
 
 
 #ifndef DEBUG_NO_HV

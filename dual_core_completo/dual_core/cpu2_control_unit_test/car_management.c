@@ -738,9 +738,10 @@ void updateTVstruct() {
     rtU.yaw_r = omegas[2]; // rad/s
 
     rtU.throttle = throttle / 100.0; // 0 to 1
-    rtU.regen = paddle / 100.0; // 0 to 1
-    rtU.brake = brakePress1; // Pa
-    rtU.steer = steering; // deg
+    rtU.brakepressurefront = brakePress1;
+    rtU.brakepressurerear = brakePress2;
+    rtU.regenpaddle = paddle / 100.0;
+    rtU.steering = steering;
 
     rtU.rpm[0] = motorVal1[0].AMK_ActualVelocity; // rpm
     rtU.rpm[1] = motorVal1[1].AMK_ActualVelocity; // rpm

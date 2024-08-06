@@ -5,11 +5,11 @@
  *
  * File: rtwtypes.h
  *
- * Code generated for Simulink model 'TV_2024_2'.
+ * Code generated for Simulink model 'Torque_Vectoring_2024_forsecontiu'.
  *
- * Model version                  : 2.0
- * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu May  9 13:00:30 2024
+ * Model version                  : 2.19
+ * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
+ * C/C++ source code generated on : Tue Aug  6 17:37:49 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Texas Instruments->C2000

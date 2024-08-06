@@ -93,6 +93,6 @@ void setup()
 
        CpuTimer1Regs.TCR.bit.TSS = 0;  //start timer1
 
-       TV_2024_2_initialize();
+       Torque_Vectoring_2024_forsecontiu_initialize();
 
 }

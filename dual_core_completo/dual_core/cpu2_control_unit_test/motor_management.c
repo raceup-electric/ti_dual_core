@@ -1,5 +1,5 @@
 #include "motor_management.h"
-#include "TV/TV_2024_2.h"
+#include "TV/Torque_Vectoring_2024_forsecontiu.h"
 #include "car_management.h"
 
 
@@ -334,8 +334,8 @@ void sendAMKData() {
         // } ExtY;
 
         for (i = 0; i < NUM_OF_MOTORS; i++) {
-            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_pos1[i], actual_max_pos_torque, 0.0f));
-            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_neg1[i], 0.0f, actual_max_neg_torque));
+            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_pos[i], actual_max_pos_torque, 0.0f));
+            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_neg[i], 0.0f, actual_max_neg_torque));
         }
     }
     else {
