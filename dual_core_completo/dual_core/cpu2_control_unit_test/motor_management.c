@@ -318,31 +318,27 @@ void sendAMKData() {
     // Reg brake makes the negative torques from positive to negative
     regBrake();
 
+    if(car_settings.torque_vectoring) {
+
+        int j;
+        for(j = 0; j < 4; j++) {
+            posTorquesNM[j] = rtY.T_pos[j];
+        }
+    }
+
+
     #ifndef NO_POWER_CONTROL
         //POWER CONTROL
-        if (throttleReq > 0 && brakeReq == 0)
+        if (throttleReq > 0 && brakeReq >= 0)
             powerControl();
         else
             anti_wind_up = 0;
     #endif
 
-    if (car_settings.torque_vectoring) {
 
-        // typedef struct {
-        // real_T T_pos1[4];                    /* '<Root>/T_pos1' */
-        // real_T T_neg1[4];                    /* '<Root>/T_neg1' */
-        // } ExtY;
-
-        for (i = 0; i < NUM_OF_MOTORS; i++) {
-            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_pos[i], actual_max_pos_torque, 0.0f));
-            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(rtY.T_neg[i], 0.0f, actual_max_neg_torque));
-        }
-    }
-    else {
-        for (i = 0; i < NUM_OF_MOTORS; i++) {
-            posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i], actual_max_pos_torque, 0.0f));
-            negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i], 0.0f, actual_max_neg_torque));
-        }
+    for (i = 0; i < NUM_OF_MOTORS; i++) {
+        posTorque[i] = NMtoTorqueSetpoint(saturateFloat(posTorquesNM[i], actual_max_pos_torque, 0.0f));
+        negTorque[i] = NMtoTorqueSetpoint(saturateFloat(negTorquesNM[i], 0.0f, actual_max_neg_torque));
     }
 
 

@@ -45,11 +45,11 @@ void regBrake()
         // compute per-motor power accounting for torque repartition ( / 2 because there are 2 motors per axle)
         if (mot == MOTOR_FL || mot == MOTOR_FR)
         {
-            p_mot = pe_max * car_settings.front_motor_repartition / 2;
+            p_mot = pe_max * FRONT_MOTOR_BRAKE_REP / 2;
         }
         else
         {
-            p_mot = pe_max * car_settings.rear_motor_repartition / 2;
+            p_mot = pe_max * REAR_MOTOR_BRAKE_REP / 2;
         }
         rads = motorVal1[mot].AMK_ActualVelocity * PI / 30;
         rade = rads * POLES;

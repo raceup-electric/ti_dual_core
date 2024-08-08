@@ -39,6 +39,9 @@
 #define REAR_MOTOR_REPARTITION    0.78f  // rear scale fixed to MAX_TORQUE_SCALE
 #define MAX_TORQUE_SCALE 2.14
 
+#define FRONT_MOTOR_BRAKE_REP 0.7
+#define REAR_MOTOR_BRAKE_REP  0.3
+
 
 #define G_ACC               9.81f                   // gravity acceleration [m/s^2]
 #define PI_FLOAT            3.14159265f
@@ -159,11 +162,11 @@
 #define MAX_MOTOR_TORQUE            21.0f
 
 #define PEAK_REGEN_CURRENT           150.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
-#define TORQUE_VECTORING            0
+#define TORQUE_VECTORING            1
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         70000.0f       //Watt
+#define POWER_LIMIT         50000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.2f
 #define KI_PI               10.0f
