@@ -153,8 +153,8 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              19.0f
-#define MAX_NEG_TORQUE              -10.f
+#define MAX_POS_TORQUE              15.0f
+#define MAX_NEG_TORQUE              -12.f
 
 #define MAX_MOTOR_TORQUE            21.0f
 

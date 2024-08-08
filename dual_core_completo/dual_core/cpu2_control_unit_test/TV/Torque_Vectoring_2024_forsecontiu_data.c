@@ -3,13 +3,13 @@
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
  *
- * File: Torque_Vectoring_2024_forsecontiu_data.c
+ * File: Torque_Vectoring_2024_discreto_data.c
  *
- * Code generated for Simulink model 'Torque_Vectoring_2024_forsecontiu'.
+ * Code generated for Simulink model 'Torque_Vectoring_2024_discreto'.
  *
- * Model version                  : 2.19
+ * Model version                  : 2.24
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Tue Aug  6 17:37:49 2024
+ * C/C++ source code generated on : Wed Aug  7 11:14:38 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Texas Instruments->C2000
@@ -21,22 +21,12 @@
 
 #include "Torque_Vectoring_2024_forsecontiu.h"
 
-/* Invariant block signals (default storage) */
-const ConstB rtConstB = {
-  2.25,                                /* '<S21>/Exp2' */
-  49.0,                                /* '<S21>/Exp3' */
-
-  { 0.01, 0.0, 0.0, 0.01 },            /* '<S14>/Gain3' */
-
-  { 1.0, 0.0 }                         /* '<S14>/Transpose2' */
-};
-
 /* Block parameters (default storage) */
 P rtP = {
   /* Variable: Pmax
    * Referenced by: '<S22>/Total Power Limit'
    */
-  40000.0,
+  50000.0,
 
   /* Variable: TC_map
    * Referenced by:
@@ -50,7 +40,7 @@ P rtP = {
    *   '<Root>/Constant1'
    *   '<S9>/Gain'
    */
-  12.0,
+  15.0,
 
   /* Variable: offset_brake_csi
    * Referenced by:
@@ -73,10 +63,15 @@ P rtP = {
    */
   0.3,
 
+  /* Variable: regen_on
+   * Referenced by: '<Root>/Gain2'
+   */
+  0.0,
+
   /* Variable: toe_f
    * Referenced by: '<S12>/Constant2'
    */
-  -0.017453292519943295,
+  0.0,
 
   /* Variable: toe_r
    * Referenced by: '<S12>/Constant4'
