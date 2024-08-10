@@ -15,6 +15,20 @@
  *
  */
 
+
+#define SPEED_LIMIT                 18000   // Typical value: 15000
+
+#define FRONT_MOTOR_REPARTITION   0.22f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
+#define REAR_MOTOR_REPARTITION    0.78f  // rear scale fixed to MAX_TORQUE_SCALE
+
+#define MAX_POS_TORQUE              15.0f
+#define MAX_NEG_TORQUE              -12.f
+
+#define TORQUE_VECTORING            1
+#define POWER_LIMIT         50000.0f       //Watt
+
+
+
 // TODO chech if it is needed
 #define THERMAL_POWER_CTRL    0
 
@@ -35,8 +49,6 @@
 
 
 
-#define FRONT_MOTOR_REPARTITION   0.22f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
-#define REAR_MOTOR_REPARTITION    0.78f  // rear scale fixed to MAX_TORQUE_SCALE
 #define MAX_TORQUE_SCALE 2.14
 
 #define FRONT_MOTOR_BRAKE_REP 0.7
@@ -53,7 +65,6 @@
 #define THROTTLE_POWER_SCALE        10
 #define REG_POWER_SCALE             10
 
-#define SPEED_LIMIT                 18000   // Typical value: 15000
 #define M_N                         9.8f
 
 /*
@@ -156,17 +167,14 @@
 #define ALPHA4                     291.6667f;
 #define ALPHA5                     0.f;
 
-#define MAX_POS_TORQUE              15.0f
-#define MAX_NEG_TORQUE              -12.f
+
 
 #define MAX_MOTOR_TORQUE            21.0f
 
 #define PEAK_REGEN_CURRENT           150.0f           //E' GIUSTO IL SEGNO POSITIVO!!!!
-#define TORQUE_VECTORING            1
 /*
  * POWER CONTROL
  */
-#define POWER_LIMIT         50000.0f       //Watt
 #define STANDARD_SPEED      1000.0f
 #define KP_PI               0.2f
 #define KI_PI               10.0f
