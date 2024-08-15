@@ -439,8 +439,8 @@ bool readRF()
 
 void pumpFanControl() {
 
-    int steps[5] = {1000, 4000, 7000, 10000, 13000};
-    int duty[5] = {20, 40, 60, 70, 70};
+    int steps[5] = {1000, 2000, 3000, 4000, 5000};
+    int duty[5] = {20, 40, 60, 70, 100};
 
     static int steps_index = 0;
     static Uint32 RTD_timestamp = 0;
@@ -470,7 +470,7 @@ void pumpFanControl() {
 
         }
 
-        if(time_elapsed - RTD_timestamp > steps[sizeof(steps)/sizeof(steps[0]) - 1] MS + 5000 MS) {
+        if(time_elapsed - RTD_timestamp > steps[sizeof(steps)/sizeof(steps[0]) - 1] MS + 1000 MS) {
 
                 fan_enable = 1;
                 setFanSpeed(100);

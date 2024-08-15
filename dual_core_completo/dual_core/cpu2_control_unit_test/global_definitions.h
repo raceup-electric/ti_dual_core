@@ -25,7 +25,7 @@
 #define MAX_NEG_TORQUE              -12.f
 
 #define TORQUE_VECTORING            1
-#define POWER_LIMIT         50000.0f       //Watt
+#define POWER_LIMIT         70000.0f       //Watt
 
 
 
