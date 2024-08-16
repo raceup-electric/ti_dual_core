@@ -3,13 +3,13 @@
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
  *
- * File: Torque_Vectoring_2024_discreto_data.c
+ * File: Torque_Vectoring_2024_forsecontiu_data.c
  *
- * Code generated for Simulink model 'Torque_Vectoring_2024_discreto'.
+ * Code generated for Simulink model 'Torque_Vectoring_2024_forsecontiu'.
  *
- * Model version                  : 2.24
- * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Wed Aug  7 11:14:38 2024
+ * Model version                  : 3.0
+ * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
+ * C/C++ source code generated on : Fri Aug 16 09:58:35 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Texas Instruments->C2000
@@ -21,19 +21,23 @@
 
 #include "Torque_Vectoring_2024_forsecontiu.h"
 
-
+/* Invariant block signals (default storage) */
+const ConstB rtConstB = {
+  -0.0                                 /* '<S12>/Gain' */
+};
 
 /* Block parameters (default storage) */
 P rtP = {
   /* Variable: Pmax
    * Referenced by: '<S22>/Total Power Limit'
    */
-  50000.0,
+  35000.0,
 
   /* Variable: TC_map
    * Referenced by:
-   *   '<S60>/Integral Gain'
-   *   '<S68>/Proportional Gain'
+   *   '<S58>/Derivative Gain'
+   *   '<S62>/Integral Gain'
+   *   '<S70>/Proportional Gain'
    */
   { 0.0, 0.0, 0.0 },
 
@@ -44,6 +48,11 @@ P rtP = {
    */
   15.0,
 
+  /* Variable: kRamp
+   * Referenced by: '<S24>/Constant'
+   */
+  35.0,
+
   /* Variable: offset_brake_csi
    * Referenced by:
    *   '<Root>/Constant2'
@@ -53,32 +62,18 @@ P rtP = {
 
   /* Variable: offset_cornering
    * Referenced by:
-   *   '<S80>/Constant1'
-   *   '<S80>/Multiply'
+   *   '<S82>/Constant1'
+   *   '<S82>/Multiply'
    */
   0.5,
 
   /* Variable: offset_throttle_csi
    * Referenced by:
-   *   '<S9>/Constant2'
+   *   '<S9>/Constant'
+   *   '<S9>/Gain1'
    *   '<S9>/Gain4'
    */
-  0.3,
-
-  /* Variable: regen_on
-   * Referenced by: '<Root>/Gain2'
-   */
-  0.0,
-
-  /* Variable: toe_f
-   * Referenced by: '<S12>/Constant2'
-   */
-  0.0,
-
-  /* Variable: toe_r
-   * Referenced by: '<S12>/Constant4'
-   */
-  0.0
+  0.3
 };
 
 /* Constant parameters (default storage) */
@@ -86,7 +81,12 @@ const ConstP rtConstP = {
   /* Expression: [1 0]
    * Referenced by: '<S14>/Constant4'
    */
-  { 1.0, 0.0 }
+  { 1.0, 0.0 },
+
+  /* Expression: Q
+   * Referenced by: '<S14>/Constant7'
+   */
+  { 0.1, 0.0, 0.0, 0.1 }
 };
 
 /*
