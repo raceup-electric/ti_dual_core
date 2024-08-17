@@ -111,8 +111,14 @@ __interrupt void cpu_timer1_isr(void)
     bool canSendAMK = R2D_state && readRF() && isHVOn();
     
     if (!imp && canSendAMK && ((time_elapsed - time_elapsed_ATC) < 500 MS)) {
-        if(paddle > 0) {
-            brakeAMK(paddle);
+
+        bool brakeReg = brake > 10 && actualVelocityKMH > 5.f;
+
+        if(brakeReg) {
+            if (car_settings.regen_current_scale == 0.0f)
+                stopAMK();
+            else
+                brakeAMK(brake);       //Deleted the if-else statement with lem_curr < max_reg
         }
         else if(throttle > 0) {
             throttleAMK(throttle);
