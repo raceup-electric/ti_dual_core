@@ -37,6 +37,7 @@ void read_map_sw_message(Uint16 val[])
     Uint16 repartition_index = val[1] & 0xF;
 
     car_settings.power_limit = presets_power[power_index];
+    rtP.Pmax = car_settings.power_limit;
     car_settings.regen_current_scale = presets_regen[regen_index];
     car_settings.max_regen_current = PEAK_REGEN_CURRENT * car_settings.regen_current_scale;
 

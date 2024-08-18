@@ -31,7 +31,7 @@ P rtP = {
   /* Variable: Pmax
    * Referenced by: '<S22>/Total Power Limit'
    */
-  50000.0,
+  45000.0,
 
   /* Variable: TC_map
    * Referenced by:

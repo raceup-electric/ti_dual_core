@@ -13,6 +13,7 @@ void setup_car_settings(){
     car_settings.max_pos_torque = MAX_POS_TORQUE;
     car_settings.max_neg_torque = MAX_NEG_TORQUE;
     car_settings.power_limit = POWER_LIMIT;
+    rtP.Pmax = POWER_LIMIT;
     car_settings.torque_vectoring = TORQUE_VECTORING;
 
     /*

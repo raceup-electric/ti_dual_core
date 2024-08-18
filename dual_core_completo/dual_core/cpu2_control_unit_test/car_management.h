@@ -28,6 +28,8 @@ extern Uint32 last_imu_message_time;
 extern Uint32 time_elapsed_map;
 extern Uint32 time_elapsed_paddle;
 
+extern P rtP;
+
 // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
 
 extern Uint16 batteryPackTension;

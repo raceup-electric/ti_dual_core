@@ -7,6 +7,8 @@
 #include "motor_management.h"
 #include "global_definitions.h"
 
+#include "TV/Torque_Vectoring_2024_forsecontiu.h"
+
 
 struct motorValues1 {
     bool AMK_bSystemReady;      //System ready(SBM)
@@ -155,6 +157,8 @@ extern const float presets_power[10];
 extern const float presets_regen[10];
 extern const float presets_repartition[20];
 extern double delta_steer[2];
+
+extern P rtP;
 
 
 //
