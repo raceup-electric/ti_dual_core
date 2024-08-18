@@ -31,7 +31,7 @@ P rtP = {
   /* Variable: Pmax
    * Referenced by: '<S22>/Total Power Limit'
    */
-  70000.0,
+  50000.0,
 
   /* Variable: TC_map
    * Referenced by:
@@ -46,7 +46,7 @@ P rtP = {
    *   '<Root>/Constant1'
    *   '<S9>/Gain'
    */
-  19.0,
+  15.0,
 
   /* Variable: kRamp
    * Referenced by: '<S24>/Constant'

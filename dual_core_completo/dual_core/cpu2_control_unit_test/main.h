@@ -21,6 +21,8 @@
 Uint32 time_elapsed = 0;
 Uint32 last_imu_message_time = 0;
 Uint32 time_elapsed_ATC = 0;
+Uint32 time_elapsed_map = 0;
+Uint32 time_elapsed_paddle = 0;
 
 
 Uint16 batteryPackTension;

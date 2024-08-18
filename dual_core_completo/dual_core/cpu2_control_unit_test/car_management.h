@@ -25,6 +25,8 @@ extern bool R2D_state;
 extern char status;
 
 extern Uint32 last_imu_message_time;
+extern Uint32 time_elapsed_map;
+extern Uint32 time_elapsed_paddle;
 
 // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
 

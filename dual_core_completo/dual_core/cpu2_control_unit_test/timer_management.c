@@ -106,6 +106,14 @@ __interrupt void cpu_timer1_isr(void)
     R2D_init();
 #endif
 
+    if (time_elapsed - time_elapsed_map > 20000 MS) {
+        setup_car_settings();
+    }
+
+    if (time_elapsed - time_elapsed_paddle > 500 MS) {
+        paddle = 0;
+    }
+
     paddleControl(time_elapsed);
 
     bool canSendAMK = R2D_state && readRF() && isHVOn();

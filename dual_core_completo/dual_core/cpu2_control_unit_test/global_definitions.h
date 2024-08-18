@@ -21,11 +21,11 @@
 #define FRONT_MOTOR_REPARTITION   0.22f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
 #define REAR_MOTOR_REPARTITION    0.78f  // rear scale fixed to MAX_TORQUE_SCALE
 
-#define MAX_POS_TORQUE              19.0f
-#define MAX_NEG_TORQUE              -12.f
+#define MAX_POS_TORQUE              15.0f
+#define MAX_NEG_TORQUE              -15.f
 
 #define TORQUE_VECTORING            1
-#define POWER_LIMIT         70000.0f       //Watt
+#define POWER_LIMIT         35000.0f       //Watt
 
 
 

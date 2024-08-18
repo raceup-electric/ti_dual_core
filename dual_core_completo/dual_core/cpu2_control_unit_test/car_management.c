@@ -30,6 +30,7 @@ int rightFanDebug = 0;
 
 void read_map_sw_message(Uint16 val[])
 {
+    time_elapsed_map = time_elapsed;
 
     Uint16 power_index = val[0] & 0xF;
     Uint16 regen_index = (val[0] >> 4) & 0xF;
@@ -51,6 +52,7 @@ void read_map_sw_message(Uint16 val[])
 
 void read_paddle_sw_message(Uint16 val)
 {
+    time_elapsed_paddle = time_elapsed;
     paddle = val;
 }
 
