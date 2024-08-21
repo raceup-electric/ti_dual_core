@@ -496,19 +496,24 @@ void pumpFanControl() {
 
 void paddleControl(Uint32 time_elapsed) {
 
-    bool is_breaking = paddle > 0;
-    static Uint32 start_breaking = 0;
+    bool is_braking = paddle > 0;
+    static Uint32 start_braking = 0;
 
-    if (is_breaking) {
+    if (is_braking) {
 
-        if(start_breaking == 0) {   // just start breaking
-            start_breaking = time_elapsed;
+        if(start_braking == 0) {   // just start breaking
+            start_braking = time_elapsed;
         }
-        
-        car_settings.max_regen_current = car_settings.regen_current_scale * ((time_elapsed - start_breaking) > TIME_STEP ? CONTINOUS_CURR_LIMIT : PEAK_REGEN_CURRENT);
+
+        if ((time_elapsed - start_braking) > TIME_STEP) {
+            car_settings.max_regen_current = min(car_settings.regen_current_scale * PEAK_REGEN_CURRENT, CONTINOUS_CURR_LIMIT);
+        }
+        else {
+            car_settings.max_regen_current = car_settings.regen_current_scale * PEAK_REGEN_CURRENT;
+        }
 
     } else {
-        start_breaking = 0;    // no longer breaking
+        start_braking = 0;    // no longer breaking
         car_settings.max_regen_current = car_settings.regen_current_scale * PEAK_REGEN_CURRENT;
     }
 }

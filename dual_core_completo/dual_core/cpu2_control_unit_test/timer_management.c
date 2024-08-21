@@ -118,7 +118,7 @@ __interrupt void cpu_timer1_isr(void)
 
     bool canSendAMK = R2D_state && readRF() && isHVOn();
     
-    if (!imp && canSendAMK && ((time_elapsed - time_elapsed_ATC) < 500 MS)) {
+    if (canSendAMK && ((time_elapsed - time_elapsed_ATC) < 500 MS)) {
         if(paddle > 0) {
             brakeAMK(paddle);
         }
