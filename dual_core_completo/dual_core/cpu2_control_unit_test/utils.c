@@ -14,6 +14,14 @@ void setup_car_settings(){
     car_settings.max_neg_torque = MAX_NEG_TORQUE;
     car_settings.power_limit = POWER_LIMIT;
     rtP.Pmax = POWER_LIMIT;
+    rtP.TC_map[0] = KD_TC;
+    rtP.TC_map[1] = KI_TC;
+    rtP.TC_map[2] = KP_TC;
+    rtP.T_max = MAX_POS_TORQUE;
+    rtP.kRamp = K_RAMP;
+    rtP.offset_brake_csi = OFFSET_BRAKE;
+    rtP.offset_cornering = OFFSET_CORNER;
+    rtP.offset_throttle_csi = OFFSET_THROTTLE;
     car_settings.torque_vectoring = TORQUE_VECTORING;
 
     /*

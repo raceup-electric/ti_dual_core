@@ -24,7 +24,16 @@
 #define MAX_POS_TORQUE              15.0f
 #define MAX_NEG_TORQUE              -15.f
 
-#define TORQUE_VECTORING            1
+// TV params
+#define TORQUE_VECTORING        1
+#define OFFSET_CORNER           0.5
+#define OFFSET_BRAKE            0.0
+#define OFFSET_THROTTLE         0.3
+#define K_RAMP                  35
+#define KP_TC                   0.0
+#define KI_TC                   0.0
+#define KD_TC                   0.0
+
 #define POWER_LIMIT         35000.0f       //Watt
 
 
