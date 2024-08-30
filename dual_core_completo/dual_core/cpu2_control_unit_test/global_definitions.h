@@ -21,7 +21,7 @@
 #define FRONT_MOTOR_REPARTITION   0.22f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
 #define REAR_MOTOR_REPARTITION    0.78f  // rear scale fixed to MAX_TORQUE_SCALE
 
-#define MAX_POS_TORQUE              15.0f
+#define MAX_POS_TORQUE              12.0f
 #define MAX_NEG_TORQUE              -15.f
 
 // TV params
