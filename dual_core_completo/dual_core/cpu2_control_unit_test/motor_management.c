@@ -344,7 +344,7 @@ void sendAMKData() {
 
     for (i = 0; i < NUM_OF_MOTORS; i++) {
         if (posTorque[i] > 0 && negTorque[i] < 0) {
-            sendAMKDataMotor(i, 0, 0);
+            sendAMKDataMotor(i, 0, negTorque[i]);
         }
         else {
             sendAMKDataMotor(i, posTorque[i], negTorque[i]);
