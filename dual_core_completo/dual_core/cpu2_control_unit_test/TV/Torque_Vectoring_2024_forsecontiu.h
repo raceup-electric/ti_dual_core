@@ -129,6 +129,8 @@ struct P_ {
                                         */
 };
 
+void updateParams(float powLim, float maxPos);
+
 /* Parameters (default storage) */
 typedef struct P_ P;
 

@@ -31,7 +31,7 @@ P rtP = {
   /* Variable: Pmax
    * Referenced by: '<S22>/Total Power Limit'
    */
-  45000.0,
+  77000.0,
 
   /* Variable: TC_map
    * Referenced by:
@@ -46,7 +46,7 @@ P rtP = {
    *   '<Root>/Constant1'
    *   '<S9>/Gain'
    */
-  15.0,
+  12.0,
 
   /* Variable: kRamp
    * Referenced by: '<S24>/Constant'
@@ -65,7 +65,7 @@ P rtP = {
    *   '<S82>/Constant1'
    *   '<S82>/Multiply'
    */
-  0.5,
+  0.0,
 
   /* Variable: offset_throttle_csi
    * Referenced by:
@@ -73,7 +73,7 @@ P rtP = {
    *   '<S9>/Gain1'
    *   '<S9>/Gain4'
    */
-  0.3
+  0.2
 };
 
 /* Constant parameters (default storage) */

@@ -60,6 +60,12 @@ real32_T rtNaNF = -(real32_T)NAN;
 real32_T rtInfF = (real32_T)INFINITY;
 real32_T rtMinusInfF = -(real32_T)INFINITY;
 
+void updateParams(float powLim, float maxPos)
+{
+    rtP.Pmax = (real_T)powLim;
+    rtP.T_max = (real_T)maxPos;
+}
+
 /* Return rtInf needed by the generated code. */
 static real_T rtGetInf(void)
 {

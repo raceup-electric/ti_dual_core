@@ -44,11 +44,13 @@ void read_map_sw_message(Uint16 val[])
     car_settings.rear_motor_repartition = presets_repartition[(repartition_index)*2];
     car_settings.front_motor_repartition = presets_repartition[(repartition_index)*2 +1];
 
-    if (!repartition_index)
+    if (!repartition_index){
         car_settings.torque_vectoring = true;
-    else 
+        updateParams(car_settings.power_limit, (float)MAX_POS_TORQUE);
+    }
+    else{
         car_settings.torque_vectoring = false;
-
+    }
 }
 
 void read_paddle_sw_message(Uint16 val)
