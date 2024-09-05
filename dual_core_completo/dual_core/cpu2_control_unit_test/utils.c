@@ -4,8 +4,10 @@
 void setup_car_settings(){
 
     memcpy(car_settings.presets_power, presets_power, sizeof(presets_power));
+    memcpy(car_settings.presets_torque_pos, presets_torque_pos, sizeof(presets_torque_pos));
     memcpy(car_settings.presets_repartition, presets_repartition, sizeof(presets_repartition));
     memcpy(car_settings.presets_regen, presets_regen, sizeof(presets_regen));
+    memcpy(car_settings.presets_torque_neg, presets_torque_neg, sizeof(presets_torque_neg));
 
     car_settings.regen_current_scale = 0.0f;
     car_settings.max_regen_current = PEAK_REGEN_CURRENT;
@@ -14,9 +16,9 @@ void setup_car_settings(){
     car_settings.max_neg_torque = MAX_NEG_TORQUE;
     car_settings.power_limit = POWER_LIMIT;
     rtP.Pmax = POWER_LIMIT;
-    rtP.TC_map[0] = KD_TC;
+    rtP.TC_map[0] = KP_TC;
     rtP.TC_map[1] = KI_TC;
-    rtP.TC_map[2] = KP_TC;
+    rtP.TC_map[2] = KD_TC;
     rtP.T_max = MAX_POS_TORQUE;
     rtP.kRamp = K_RAMP;
     rtP.offset_brake_csi = OFFSET_BRAKE;

@@ -26,15 +26,15 @@
 
 // TV params
 #define TORQUE_VECTORING        1
-#define OFFSET_CORNER           0.5
+#define OFFSET_CORNER           0.15
 #define OFFSET_BRAKE            0.0
-#define OFFSET_THROTTLE         0.3
+#define OFFSET_THROTTLE         0.4
 #define K_RAMP                  35
 #define KP_TC                   0.0
 #define KI_TC                   0.0
 #define KD_TC                   0.0
 
-#define POWER_LIMIT         35000.0f       //Watt
+#define POWER_LIMIT         70000.0f       //Watt
 
 
 
@@ -60,8 +60,8 @@
 
 #define MAX_TORQUE_SCALE 2.14
 
-#define FRONT_MOTOR_BRAKE_REP 0.7
-#define REAR_MOTOR_BRAKE_REP  0.3
+#define FRONT_MOTOR_BRAKE_REP 0.75
+#define REAR_MOTOR_BRAKE_REP  0.25
 
 
 #define G_ACC               9.81f                   // gravity acceleration [m/s^2]

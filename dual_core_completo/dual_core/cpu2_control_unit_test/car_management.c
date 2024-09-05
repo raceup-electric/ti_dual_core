@@ -37,8 +37,11 @@ void read_map_sw_message(Uint16 val[])
     Uint16 repartition_index = val[1] & 0xF;
 
     car_settings.power_limit = presets_power[power_index];
+    car_settings.max_pos_torque = presets_torque_pos[power_index];
+    rtP.T_max = car_settings.max_pos_torque;
     rtP.Pmax = car_settings.power_limit;
     car_settings.regen_current_scale = presets_regen[regen_index];
+    car_settings.max_neg_torque = presets_torque_neg[regen_index];
     car_settings.max_regen_current = PEAK_REGEN_CURRENT * car_settings.regen_current_scale;
 
     car_settings.rear_motor_repartition = presets_repartition[(repartition_index)*2];

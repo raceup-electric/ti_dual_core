@@ -107,7 +107,9 @@ struct Power_Setup_Log{
 struct Car_settings{
     //screen
     float presets_power[10];
+    float presets_torque_pos[10];
     float presets_regen[10];
+    float presets_torque_neg[10];
     float presets_repartition[20];
 
     //setup variables
@@ -154,7 +156,9 @@ extern float repFz[4];
 extern float V[3][3];
 
 extern const float presets_power[10];
+extern const float presets_torque_pos[10];
 extern const float presets_regen[10];
+extern const float presets_torque_neg[10];
 extern const float presets_repartition[20];
 extern double delta_steer[2];
 

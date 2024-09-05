@@ -107,7 +107,9 @@ struct Car_settings
 {
     // screen
     float presets_power[10];
+    float presets_torque_pos[10];
     float presets_regen[10];
+    float presets_torque_neg[10];
     float presets_repartition[20];
 
     // setup variables

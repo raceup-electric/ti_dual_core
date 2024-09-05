@@ -49,7 +49,9 @@ bool R2D_state = 0;
  * PRESETS
  */
 const float presets_power[10] = {77000.f, 75000.f, 70000.f, 60000.f, 50000.f, 40000.f, 35000.f, 30000.f, 15000.f, 15000.f};
+const float presets_torque_pos[10] = {21.f, 20.f, 18.f, 16.f, 15.f, 15.f, 13.f, 13.f, 12.f, 10.f};
 const float presets_regen[10] = {0.0f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 0.9f, 1.0f};   // max curr regen A
+const float presets_torque_neg[10] = {0.f, -8.f, -10.f, -12.f, -15.f, -17.f, -18.f, -19.f, -20.f, -21.f};
 const float presets_repartition[20] = {0.5f, 0.5f, 1.0f, 0.0f, 0.82f, 0.18f, 0.8f, 0.2f, 0.78f, 0.22f, 0.75f, 0.25f, 0.7f, 0.3f, 0.6f, 0.4f, 0.5f, 0.5f, 0.5f, 0.5f};
 
 Uint16 fanSpeed = 0;
