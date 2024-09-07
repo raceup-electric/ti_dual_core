@@ -26,9 +26,9 @@
 
 // TV params
 #define TORQUE_VECTORING        1
-#define OFFSET_CORNER           0.15
+#define OFFSET_CORNER           0.1
 #define OFFSET_BRAKE            0.0
-#define OFFSET_THROTTLE         0.4
+#define OFFSET_THROTTLE         0.2
 #define K_RAMP                  35
 #define KP_TC                   0.0
 #define KI_TC                   0.0
