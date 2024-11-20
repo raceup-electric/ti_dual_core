@@ -16,6 +16,7 @@
 #include "atc_management.h"
 #include "GPS.h"
 #include "TV/Torque_Vectoring_2024_forsecontiu.h"
+#include "rigen_fun_simulink22_ert_rtw/rigen_fun_simulink22.h"
 
 //
 // variables
@@ -99,6 +100,9 @@ extern GPS gps;
 extern ExtU rtU;
 extern ExtY rtY;
 
+ExtY_rigen_fun_simulink22_T rigen_fun_simulink22_Y;
+ExtU_rigen_fun_simulink22_T rigen_fun_simulink22_U;
+
 //
 // prototypes
 //
@@ -167,7 +171,10 @@ void computeBatteryPackTension();
 void paddleControl(Uint32 time_elapsed);
 
 void updateStart();
+
 void updateTVstruct();
+
+void updateREGstruct();
 
 
 #endif

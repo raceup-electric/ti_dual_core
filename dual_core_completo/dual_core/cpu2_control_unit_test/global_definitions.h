@@ -34,6 +34,13 @@
 #define KI_TC                   0.0
 #define KD_TC                   0.0
 
+
+// REG params
+#define REGEN_ALG               1
+
+
+
+
 #define POWER_LIMIT         70000.0f       //Watt
 
 

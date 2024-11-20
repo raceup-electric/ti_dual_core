@@ -8,6 +8,7 @@
 #include "motor_management.h"
 #include "global_definitions.h"
 #include "utils.h"
+#include "rigen_fun_simulink22_ert_rtw/rigen_fun_simulink22.h"
 
 
 
@@ -40,6 +41,8 @@ extern float negTorquesNM[4];
 extern float repFz[4];
 extern float torque_reg_IPM[4];
 
+extern ExtY_rigen_fun_simulink22_T rigen_fun_simulink22_Y;
+extern ExtU_rigen_fun_simulink22_T rigen_fun_simulink22_U;
 
 extern float power_limit;
 

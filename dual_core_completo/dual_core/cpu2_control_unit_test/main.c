@@ -95,4 +95,5 @@ void setup()
 
        Torque_Vectoring_2024_forsecontiu_initialize();
 
+       if(REGEN_ALG) rigen_fun_simulink22_initialize();
 }

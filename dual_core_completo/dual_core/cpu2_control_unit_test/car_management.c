@@ -763,6 +763,14 @@ void updateTVstruct() {
 
 }
 
+void updateREGstruct() {
+
+    rigen_fun_simulink22_U.voltage = batteryPackTension;
+    rigen_fun_simulink22_U.rpmFL = motorVal1[0].AMK_ActualVelocity;
+    rigen_fun_simulink22_U.rpmFR = motorVal1[1].AMK_ActualVelocity;
+    rigen_fun_simulink22_U.rpmRL = motorVal1[2].AMK_ActualVelocity;
+    rigen_fun_simulink22_U.rpmRR = motorVal1[3].AMK_ActualVelocity;
+}
 
 
 

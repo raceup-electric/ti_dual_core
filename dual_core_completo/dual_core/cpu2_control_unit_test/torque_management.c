@@ -22,6 +22,14 @@ float readRPMVelocity()
 //torque_reg_IPM in uscita � POSITIVO
 void regBrake()
 {
+    if(REGEN_ALG){
+        negTorquesNM[0] = rigen_fun_simulink22_Y.TorqueFL;
+        negTorquesNM[1] = rigen_fun_simulink22_Y.TorqueFR;
+        negTorquesNM[2] = rigen_fun_simulink22_Y.TorqueRL;
+        negTorquesNM[3] = rigen_fun_simulink22_Y.TorqueRR;
+
+        return;
+    }
     // Calculate OCV of battery accounting for RBATT and current
     float v_zero = batteryPackTension + RBATT * lem_current;
     // Calculate actual current limit in battery to reduce current when battery is charged
