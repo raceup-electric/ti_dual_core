@@ -78,13 +78,19 @@ float torque_reg_IPM[4];            //massima coppia rigenerativa per motore
 
 
 
-const int AMK_VAL_1_IDS[4] = {0x283, 0x284, 0x287, 0x288};
-const int AMK_VAL_2_IDS[4] = {0x285, 0x286, 0x289, 0x28A};
-const int AMK_SETPOINTS_IDS[4] = {0x184, 0x185, 0x188, 0x189};
+const int AMK_VAL_1_IDS[4] = {0x288, 0x287, 0x284, 0x283};
+const int AMK_VAL_2_IDS[4] = {0x28A, 0x289, 0x286, 0x285};
+const int AMK_SETPOINTS_IDS[4] = {0x189, 0x188, 0x185, 0x184};
 
 Uint16 CAN_AMK_SET_POINT[4][8];
 
 struct motorValues1 motorVal1[4];
+
+/*
+    CHANGED MOTORS FOR 180 DEGREES ROTATED INVERTER
+    0 -> RR, 1 -> RL, 2 -> FR, 3 -> FL
+*/
+
 struct motorValues2 motorVal2[4];  //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
 struct motorSetPoints motorSetP[4];
 
