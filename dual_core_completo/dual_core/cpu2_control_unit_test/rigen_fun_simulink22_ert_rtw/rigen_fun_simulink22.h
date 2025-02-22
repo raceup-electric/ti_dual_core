@@ -27,9 +27,7 @@
 #endif                               /* rigen_fun_simulink22_COMMON_INCLUDES_ */
 
 #include "rigen_fun_simulink22_types.h"
-#include "rtGetInf.h"
 #include <stddef.h>
-#include "rt_nonfinite.h"
 
 /* Macros for accessing real-time model data structure */
 #ifndef rtmGetErrorStatus
@@ -49,6 +47,7 @@ typedef struct {
     real_T rpmFL;
     real_T rpmRR;
     real_T rpmRL;
+    real_T max_curr;
 } ExtU_rigen_fun_simulink22_T;
 
 /* External outputs (root outports fed by signals with default storage) */
@@ -159,6 +158,13 @@ struct P_rigen_fun_simulink22_T_ {
                                         */
 };
 
+extern real_T rtInf;
+extern real_T rtMinusInf;
+extern real_T rtNaN;
+extern real32_T rtInfF;
+extern real32_T rtMinusInfF;
+extern real32_T rtNaNF;
+
 /* Real-time Model Data Structure */
 struct tag_RTM_rigen_fun_simulink22_T {
   const char_T * volatile errorStatus;
@@ -170,6 +176,32 @@ extern P_rigen_fun_simulink22_T rigen_fun_simulink22_P;
 /* External outputs (root outports fed by signals with default storage) */
 extern ExtY_rigen_fun_simulink22_T rigen_fun_simulink22_Y;
 extern ExtU_rigen_fun_simulink22_T rigen_fun_simulink22_U;
+
+
+typedef struct {
+  struct {
+    uint32_T wordH;
+    uint32_T wordL;
+  } words;
+} BigEndianIEEEDouble;
+
+
+typedef struct {
+  struct {
+    uint32_T wordL;
+    uint32_T wordH;
+  } words;
+} LittleEndianIEEEDouble;
+
+
+
+typedef struct {
+  union {
+    real32_T wordLreal;
+    uint32_T wordLuint;
+  } wordL;
+} IEEESingle;
+
 
 /* Model entry point functions */
 extern void rigen_fun_simulink22_initialize(void);

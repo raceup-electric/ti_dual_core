@@ -31,7 +31,7 @@ P_rigen_fun_simulink22_T rigen_fun_simulink22_P = {
   /* Variable: csi_opt
    * Referenced by: '<Root>/csi_opt'
    */
-  0.7,
+  0.75,
 
   /* Variable: max_curr
    * Referenced by: '<Root>/max_curr'
@@ -41,22 +41,22 @@ P_rigen_fun_simulink22_T rigen_fun_simulink22_P = {
   /* Variable: rpmFL
    * Referenced by: '<Root>/Constant6'
    */
-  8000.0,
+  0000.0,
 
   /* Variable: rpmFR
    * Referenced by: '<Root>/Constant'
    */
-  8000.0,
+  0000.0,
 
   /* Variable: rpmRL
    * Referenced by: '<Root>/Constant1'
    */
-  8000.0,
+  0000.0,
 
   /* Variable: rpmRR
    * Referenced by: '<Root>/Constant2'
    */
-  8000.0,
+  0000.0,
 
   /* Variable: tensione
    * Referenced by: '<Root>/tensione'

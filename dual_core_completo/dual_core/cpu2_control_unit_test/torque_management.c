@@ -23,10 +23,10 @@ float readRPMVelocity()
 void regBrake()
 {
     if(REGEN_ALG){
-        negTorquesNM[0] = rigen_fun_simulink22_Y.TorqueFL;
-        negTorquesNM[1] = rigen_fun_simulink22_Y.TorqueFR;
-        negTorquesNM[2] = rigen_fun_simulink22_Y.TorqueRL;
-        negTorquesNM[3] = rigen_fun_simulink22_Y.TorqueRR;
+        negTorquesNM[0] = (brakeReq / 100.0) *rigen_fun_simulink22_Y.TorqueFL;
+        negTorquesNM[1] = (brakeReq / 100.0) *rigen_fun_simulink22_Y.TorqueFR;
+        negTorquesNM[2] = (brakeReq / 100.0) *rigen_fun_simulink22_Y.TorqueRL;
+        negTorquesNM[3] = (brakeReq / 100.0) *rigen_fun_simulink22_Y.TorqueRR;
 
         return;
     }

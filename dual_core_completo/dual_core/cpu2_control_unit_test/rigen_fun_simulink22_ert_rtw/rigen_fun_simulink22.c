@@ -20,10 +20,13 @@
  */
 
 #include "rigen_fun_simulink22.h"
-#include "rt_nonfinite.h"
+
 #include <math.h>
 #include "rtwtypes.h"
 #include <string.h>
+
+#define NOT_USING_NONFINITE_LITERALS   1
+
 
 /* External outputs (root outports fed by signals with default storage) */
 ExtY_rigen_fun_simulink22_T rigen_fun_simulink22_Y;
@@ -33,6 +36,174 @@ ExtU_rigen_fun_simulink22_T rigen_fun_simulink22_U;
 static RT_MODEL_rigen_fun_simulink22_T rigen_fun_simulink22_M_;
 RT_MODEL_rigen_fun_simulink22_T *const rigen_fun_simulink22_M =
   &rigen_fun_simulink22_M_;
+
+#define NumBitsPerChar                 16U
+
+/*
+ * Initialize rtInf needed by the generated code.
+ * Inf is initialized as non-signaling. Assumes IEEE.
+ */
+real_T rtGetInf(void)
+{
+  size_t bitsPerReal = sizeof(real_T) * (NumBitsPerChar);
+  real_T inf = 0.0;
+  if (bitsPerReal == 32U) {
+    inf = rtGetInfF();
+  } else {
+    union {
+      LittleEndianIEEEDouble bitVal;
+      real_T fltVal;
+    } tmpVal;
+
+    tmpVal.bitVal.words.wordH = 0x7FF00000U;
+    tmpVal.bitVal.words.wordL = 0x00000000U;
+    inf = tmpVal.fltVal;
+  }
+
+  return inf;
+}
+
+/*
+ * Initialize rtInfF needed by the generated code.
+ * Inf is initialized as non-signaling. Assumes IEEE.
+ */
+real32_T rtGetInfF(void)
+{
+  IEEESingle infF;
+  infF.wordL.wordLuint = 0x7F800000U;
+  return infF.wordL.wordLreal;
+}
+
+/*
+ * Initialize rtMinusInf needed by the generated code.
+ * Inf is initialized as non-signaling. Assumes IEEE.
+ */
+real_T rtGetMinusInf(void)
+{
+  size_t bitsPerReal = sizeof(real_T) * (NumBitsPerChar);
+  real_T minf = 0.0;
+  if (bitsPerReal == 32U) {
+    minf = rtGetMinusInfF();
+  } else {
+    union {
+      LittleEndianIEEEDouble bitVal;
+      real_T fltVal;
+    } tmpVal;
+
+    tmpVal.bitVal.words.wordH = 0xFFF00000U;
+    tmpVal.bitVal.words.wordL = 0x00000000U;
+    minf = tmpVal.fltVal;
+  }
+
+  return minf;
+}
+
+/*
+ * Initialize rtMinusInfF needed by the generated code.
+ * Inf is initialized as non-signaling. Assumes IEEE.
+ */
+real32_T rtGetMinusInfF(void)
+{
+  IEEESingle minfF;
+  minfF.wordL.wordLuint = 0xFF800000U;
+  return minfF.wordL.wordLreal;
+}
+
+
+/*
+ * Initialize rtNaN needed by the generated code.
+ * NaN is initialized as non-signaling. Assumes IEEE.
+ */
+real_T rtGetNaN(void)
+{
+  size_t bitsPerReal = sizeof(real_T) * (NumBitsPerChar);
+  real_T nan = 0.0;
+  if (bitsPerReal == 32U) {
+    nan = rtGetNaNF();
+  } else {
+    union {
+      LittleEndianIEEEDouble bitVal;
+      real_T fltVal;
+    } tmpVal;
+
+    tmpVal.bitVal.words.wordH = 0xFFF80000U;
+    tmpVal.bitVal.words.wordL = 0x00000000U;
+    nan = tmpVal.fltVal;
+  }
+
+  return nan;
+}
+
+/*
+ * Initialize rtNaNF needed by the generated code.
+ * NaN is initialized as non-signaling. Assumes IEEE.
+ */
+real32_T rtGetNaNF(void)
+{
+  IEEESingle nanF = { { 0.0F } };
+
+  nanF.wordL.wordLuint = 0xFFC00000U;
+  return nanF.wordL.wordLreal;
+}
+
+
+/*
+ * Initialize the rtInf, rtMinusInf, and rtNaN needed by the
+ * generated code. NaN is initialized as non-signaling. Assumes IEEE.
+ */
+void rt_InitInfAndNaN(size_t realSize)
+{
+  (void) (realSize);
+  rtNaN = rtGetNaN();
+  rtNaNF = rtGetNaNF();
+  rtInf = rtGetInf();
+  rtInfF = rtGetInfF();
+  rtMinusInf = rtGetMinusInf();
+  rtMinusInfF = rtGetMinusInfF();
+}
+
+/* Test if value is infinite */
+boolean_T rtIsInf(real_T value)
+{
+  return (boolean_T)((value==rtInf || value==rtMinusInf) ? 1U : 0U);
+}
+
+/* Test if single-precision value is infinite */
+boolean_T rtIsInfF(real32_T value)
+{
+  return (boolean_T)(((value)==rtInfF || (value)==rtMinusInfF) ? 1U : 0U);
+}
+
+/* Test if value is not a number */
+boolean_T rtIsNaN(real_T value)
+{
+  boolean_T result = (boolean_T) 0;
+  size_t bitsPerReal = sizeof(real_T) * (NumBitsPerChar);
+  if (bitsPerReal == 32U) {
+    result = rtIsNaNF((real32_T)value);
+  } else {
+    union {
+      LittleEndianIEEEDouble bitVal;
+      real_T fltVal;
+    } tmpVal;
+
+    tmpVal.fltVal = value;
+    result = (boolean_T)((tmpVal.bitVal.words.wordH & 0x7FF00000) == 0x7FF00000 &&
+                         ( (tmpVal.bitVal.words.wordH & 0x000FFFFF) != 0 ||
+                          (tmpVal.bitVal.words.wordL != 0) ));
+  }
+
+  return result;
+}
+
+/* Test if single-precision value is not a number */
+boolean_T rtIsNaNF(real32_T value)
+{
+  IEEESingle tmp;
+  tmp.wordL.wordLreal = value;
+  return (boolean_T)( (tmp.wordL.wordLuint & 0x7F800000) == 0x7F800000 &&
+                     (tmp.wordL.wordLuint & 0x007FFFFF) != 0 );
+}
 
 /* Model step function */
 void rigen_fun_simulink22_step(void)
@@ -70,9 +241,9 @@ void rigen_fun_simulink22_step(void)
   /* MinMax: '<S2>/MinMax' incorporates:
    *  Constant: '<Root>/max_curr'
    */
-  if ((rigen_fun_simulink22_P.max_curr <= rtb_Power_front) || rtIsNaN
+  if ((rigen_fun_simulink22_U.max_curr <= rtb_Power_front) || rtIsNaN
       (rtb_Power_front)) {
-    rtb_Power_front = rigen_fun_simulink22_P.max_curr;
+    rtb_Power_front = rigen_fun_simulink22_U.max_curr;
   }
 
   /* Product: '<Root>/Product' incorporates:
@@ -89,7 +260,7 @@ void rigen_fun_simulink22_step(void)
    */
   rtb_Power_front = (rtb_Power_front * rigen_fun_simulink22_P.Rbatt_Value +
           rigen_fun_simulink22_U.voltage) *
-    rigen_fun_simulink22_P.max_curr * rigen_fun_simulink22_P.Gain_Gain_h *
+                  rigen_fun_simulink22_U.max_curr * rigen_fun_simulink22_P.Gain_Gain_h *
     (rigen_fun_simulink22_P.Gain1_Gain * rigen_fun_simulink22_P.csi_opt);
 
   /* Gain: '<Root>/rad//s2rad//s elettrici' */

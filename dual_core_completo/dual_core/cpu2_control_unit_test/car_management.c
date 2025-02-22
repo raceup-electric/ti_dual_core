@@ -26,8 +26,6 @@ int leftFanDebug = 0;
 int rightFanDebug = 0;
 #endif
 
-
-
 void read_map_sw_message(Uint16 val[])
 {
     time_elapsed_map = time_elapsed;
@@ -764,7 +762,7 @@ void updateTVstruct() {
 }
 
 void updateREGstruct() {
-
+    rigen_fun_simulink22_U.max_curr = car_settings.max_regen_current;
     rigen_fun_simulink22_U.voltage = batteryPackTension;
     rigen_fun_simulink22_U.rpmFL = motorVal1[0].AMK_ActualVelocity;
     rigen_fun_simulink22_U.rpmFR = motorVal1[1].AMK_ActualVelocity;

@@ -16,7 +16,7 @@
  */
 
 
-#define SPEED_LIMIT                 18000   // Typical value: 15000
+#define SPEED_LIMIT                 20000   // Typical value: 15000
 
 #define FRONT_MOTOR_REPARTITION   0.22f  // front scale -> x/(MAX_TORQUE_SCALE + x) = FRONT_MOTOR_SCALE
 #define REAR_MOTOR_REPARTITION    0.78f  // rear scale fixed to MAX_TORQUE_SCALE
@@ -37,8 +37,6 @@
 
 // REG params
 #define REGEN_ALG               1
-
-
 
 
 #define POWER_LIMIT         70000.0f       //Watt

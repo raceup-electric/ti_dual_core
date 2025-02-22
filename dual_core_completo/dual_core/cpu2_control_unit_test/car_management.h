@@ -100,8 +100,8 @@ extern GPS gps;
 extern ExtU rtU;
 extern ExtY rtY;
 
-ExtY_rigen_fun_simulink22_T rigen_fun_simulink22_Y;
-ExtU_rigen_fun_simulink22_T rigen_fun_simulink22_U;
+extern ExtY_rigen_fun_simulink22_T rigen_fun_simulink22_Y;
+extern ExtU_rigen_fun_simulink22_T rigen_fun_simulink22_U;
 
 //
 // prototypes
