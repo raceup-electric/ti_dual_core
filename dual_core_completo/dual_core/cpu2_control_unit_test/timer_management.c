@@ -101,6 +101,10 @@ __interrupt void cpu_timer1_isr(void)
     updateREGstruct();
     rigen_fun_simulink22_step();
 
+    //POW
+    updatePOWstruct();
+    powercontrol_RGe08_2022_step();
+
 #ifndef DEBUG_NO_HV
     /*
      * Every cycle is verified if we can trigger R2D

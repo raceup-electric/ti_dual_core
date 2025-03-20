@@ -3,6 +3,7 @@
 
 void powerControl()
 {
+
     int i;
     float sTorque = 0;
 

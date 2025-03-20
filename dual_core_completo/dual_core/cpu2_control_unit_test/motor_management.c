@@ -306,17 +306,23 @@ void sendAMKData() {
          * Negative torques are computed in regBrake() 
          */
         if (i == MOTOR_FL || i == MOTOR_FR) {
-            posTorquesNM[i] = torqueSetpointToNM(throttleReq * (actual_max_pos_torque/M_N) * 10 * (car_settings.front_motor_repartition / (1 - car_settings.front_motor_repartition)));
+            posTorquesNM[i] = torqueSetpointToNM((actual_max_pos_torque/M_N) * 10 * (car_settings.front_motor_repartition / (1 - car_settings.front_motor_repartition)));
             negTorquesNM[i] = 0.0f;
         }
         else if (i == MOTOR_RR || i == MOTOR_RL) {
-            posTorquesNM[i] = torqueSetpointToNM(throttleReq * (actual_max_pos_torque/M_N) * 10);
+            posTorquesNM[i] = torqueSetpointToNM((actual_max_pos_torque/M_N) * 10);
             negTorquesNM[i] = 0.0f;
         }
+
     }
 
     // Reg brake makes the negative torques from positive to negative
     regBrake();
+
+    posTorquesNM[0] = powercontrol_RGe08_2022_Y.TorqueFL * throttleReq;
+    posTorquesNM[1] = powercontrol_RGe08_2022_Y.TorqueFR * throttleReq;
+    posTorquesNM[2] = powercontrol_RGe08_2022_Y.TorqueRL * throttleReq;
+    posTorquesNM[3] = powercontrol_RGe08_2022_Y.TorqueRR * throttleReq;
 
     if(car_settings.torque_vectoring) {
 
@@ -326,11 +332,11 @@ void sendAMKData() {
         }
     }
 
-
     #ifndef NO_POWER_CONTROL
         //POWER CONTROL
         if (throttleReq > 0 && brakeReq >= 0)
             powerControl();
+
         else
             anti_wind_up = 0;
     #endif

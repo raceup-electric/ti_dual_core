@@ -821,7 +821,6 @@ void updateTVstruct() {
     rtU.rpm[3] = motorVal1[3].AMK_ActualVelocity; // rpm
 
     rtU.voltage = batteryPackTension; // V
-
 }
 
 void updateREGstruct() {
@@ -831,6 +830,16 @@ void updateREGstruct() {
     rigen_fun_simulink22_U.rpmFR = motorVal1[1].AMK_ActualVelocity;
     rigen_fun_simulink22_U.rpmRL = motorVal1[2].AMK_ActualVelocity;
     rigen_fun_simulink22_U.rpmRR = motorVal1[3].AMK_ActualVelocity;
+}
+
+void updatePOWstruct() {
+    float actual_max_pos_torque = saturateFloat(MAX_MOTOR_TORQUE - 0.000857*(motorVal1[0].AMK_ActualVelocity - 13000.0f), car_settings.max_pos_torque, 0.0f);
+    powercontrol_RGe08_2022_U.Vbatt = batteryPackTension;
+    powercontrol_RGe08_2022_U.DC_current = lem_current;
+    powercontrol_RGe08_2022_U.TorqueFL1 = torqueSetpointToNM((actual_max_pos_torque/M_N) * 10 * (car_settings.front_motor_repartition / (1 - car_settings.front_motor_repartition)));
+    powercontrol_RGe08_2022_U.TorqueFR1 = torqueSetpointToNM((actual_max_pos_torque/M_N) * 10 * (car_settings.front_motor_repartition / (1 - car_settings.front_motor_repartition)));
+    powercontrol_RGe08_2022_U.TorqueRL1 = torqueSetpointToNM((actual_max_pos_torque/M_N) * 10);
+    powercontrol_RGe08_2022_U.TorqueRR1 = torqueSetpointToNM((actual_max_pos_torque/M_N) * 10);
 }
 
 

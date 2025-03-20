@@ -17,6 +17,7 @@
 #include "GPS.h"
 #include "TV/Torque_Vectoring_2024_forsecontiu.h"
 #include "rigen_fun_simulink22_ert_rtw/rigen_fun_simulink22.h"
+#include "powercontrol_RGe08_2022_ert_rtw/powercontrol_RGe08_2022.h"
 
 //
 // variables
@@ -102,6 +103,8 @@ extern ExtY rtY;
 
 extern ExtY_rigen_fun_simulink22_T rigen_fun_simulink22_Y;
 extern ExtU_rigen_fun_simulink22_T rigen_fun_simulink22_U;
+extern ExtY_powercontrol_RGe08_2022_T powercontrol_RGe08_2022_Y;
+extern ExtU_powercontrol_RGe08_2022_T powercontrol_RGe08_2022_U;
 
 //
 // prototypes
