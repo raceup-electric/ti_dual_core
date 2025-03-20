@@ -335,7 +335,7 @@ void sendAMKData() {
     #ifndef NO_POWER_CONTROL
         //POWER CONTROL
         if (throttleReq > 0 && brakeReq >= 0)
-            powerControl();
+//            powerControl();
 
         else
             anti_wind_up = 0;
