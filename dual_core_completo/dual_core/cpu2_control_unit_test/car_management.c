@@ -34,6 +34,8 @@ void read_map_sw_message(Uint16 val[])
     Uint16 regen_index = (val[0] >> 4) & 0xF;
     Uint16 repartition_index = val[1] & 0xF;
 
+    car_settings.max_speed = SPEED_LIMIT;
+
     car_settings.power_limit = presets_power[power_index];
     car_settings.max_pos_torque = presets_torque_pos[power_index];
     rtP.T_max = car_settings.max_pos_torque;
@@ -50,6 +52,67 @@ void read_map_sw_message(Uint16 val[])
     else 
         car_settings.torque_vectoring = false;
 
+    if (repartition_index == 8) {
+        switch(power_index){
+                    case 0:
+                        car_settings.max_speed = 4961.0f;
+                        break;
+                    case 1:
+                        car_settings.max_speed = 6614.0f;
+                        break;
+                    case 2:
+                        car_settings.max_speed = 8268.0f;
+                        break;
+                    case 3:
+                        car_settings.max_speed = 9921.0f;
+                        break;
+                    default:
+                        car_settings.max_speed = 11575.0f;
+                        break;
+                }
+        car_settings.power_limit = 35000.f;
+        car_settings.max_pos_torque = 14.f;
+        car_settings.torque_vectoring = true;
+        rtP.T_max = car_settings.max_pos_torque;
+        rtP.Pmax = car_settings.power_limit;
+        car_settings.regen_current_scale = presets_regen[regen_index];
+        car_settings.max_neg_torque = presets_torque_neg[regen_index];
+        car_settings.max_regen_current = PEAK_REGEN_CURRENT * car_settings.regen_current_scale;
+
+        car_settings.rear_motor_repartition = 0.5f;
+        car_settings.front_motor_repartition = 0.5f;
+    }
+
+    if (repartition_index == 9) {
+        switch(power_index){
+                    case 0:
+                        car_settings.max_speed = 4961.0f;
+                        break;
+                    case 1:
+                        car_settings.max_speed = 6614.0f;
+                        break;
+                    case 2:
+                        car_settings.max_speed = 8268.0f;
+                        break;
+                    case 3:
+                        car_settings.max_speed = 9921.0f;
+                        break;
+                    default:
+                        car_settings.max_speed = 11575.0f;
+                        break;
+                }
+        car_settings.power_limit = 35000.f;
+        car_settings.max_pos_torque = 14.f;
+        car_settings.torque_vectoring = false;
+        rtP.T_max = car_settings.max_pos_torque;
+        rtP.Pmax = car_settings.power_limit;
+        car_settings.regen_current_scale = presets_regen[regen_index];
+        car_settings.max_neg_torque = presets_torque_neg[regen_index];
+        car_settings.max_regen_current = PEAK_REGEN_CURRENT * car_settings.regen_current_scale;
+
+        car_settings.rear_motor_repartition = 0.7f;
+        car_settings.front_motor_repartition = 0.3f;
+    }
 }
 
 void read_paddle_sw_message(Uint16 val)
