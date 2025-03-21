@@ -7,7 +7,8 @@
 #include "motor_management.h"
 #include "global_definitions.h"
 
-#include "TV/Torque_Vectoring_2024_forsecontiu.h"
+#include "Torque_Vectoring_2024_ert_rtw/Torque_Vectoring_2024.h"
+
 
 
 struct motorValues1 {
@@ -162,7 +163,8 @@ extern const float presets_torque_neg[10];
 extern const float presets_repartition[20];
 extern double delta_steer[2];
 
-extern P rtP;
+extern P_Torque_Vectoring_2024_T Torque_Vectoring_2024_P;
+
 
 
 //
