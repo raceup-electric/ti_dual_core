@@ -15,15 +15,15 @@ void setup_car_settings(){
     car_settings.max_pos_torque = MAX_POS_TORQUE;
     car_settings.max_neg_torque = MAX_NEG_TORQUE;
     car_settings.power_limit = POWER_LIMIT;
-    rtP.Pmax = POWER_LIMIT;
-    rtP.TC_map[0] = KP_TC;
-    rtP.TC_map[1] = KI_TC;
-    rtP.TC_map[2] = KD_TC;
-    rtP.T_max = MAX_POS_TORQUE;
-    rtP.kRamp = K_RAMP;
-    rtP.offset_brake_csi = OFFSET_BRAKE;
-    rtP.offset_cornering = OFFSET_CORNER;
-    rtP.offset_throttle_csi = OFFSET_THROTTLE;
+    Torque_Vectoring_2024_P.Pmax = POWER_LIMIT;
+//    Torque_Vectoring_2024_P.TC_map[0] = KP_TC;
+//    Torque_Vectoring_2024_P.TC_map[1] = KI_TC;
+//    Torque_Vectoring_2024_P.TC_map[2] = KD_TC;
+    Torque_Vectoring_2024_P.T_max = MAX_POS_TORQUE;
+//    Torque_Vectoring_2024_P.kRamp = K_RAMP;
+    Torque_Vectoring_2024_P.offset_brake_csi = OFFSET_BRAKE;
+    Torque_Vectoring_2024_P.offset_cornering = OFFSET_CORNER;
+    Torque_Vectoring_2024_P.offset_throttle_csi = OFFSET_THROTTLE;
     car_settings.torque_vectoring = TORQUE_VECTORING;
 
     /*

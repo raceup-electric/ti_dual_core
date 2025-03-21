@@ -93,7 +93,7 @@ void setup()
 
        CpuTimer1Regs.TCR.bit.TSS = 0;  //start timer1
 
-       Torque_Vectoring_2024_forsecontiu_initialize();
+       Torque_Vectoring_2024_initialize();
 
        if(REGEN_ALG) rigen_fun_simulink22_initialize();
 }

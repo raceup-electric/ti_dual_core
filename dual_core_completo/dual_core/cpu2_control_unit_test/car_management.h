@@ -15,7 +15,7 @@
 #include "can_management.h"
 #include "atc_management.h"
 #include "GPS.h"
-#include "TV/Torque_Vectoring_2024_forsecontiu.h"
+#include "Torque_Vectoring_2024_ert_rtw/Torque_Vectoring_2024.h"
 #include "rigen_fun_simulink22_ert_rtw/rigen_fun_simulink22.h"
 
 //
@@ -29,7 +29,7 @@ extern Uint32 last_imu_message_time;
 extern Uint32 time_elapsed_map;
 extern Uint32 time_elapsed_paddle;
 
-extern P rtP;
+extern P_Torque_Vectoring_2024_T Torque_Vectoring_2024_P;
 
 // sendyne DEPRECATED. IL SENDYNE NON VIENE PIU USATO
 
@@ -97,8 +97,9 @@ extern struct Car_settings car_settings;
 extern struct motorValues1 motorVal1[4]; //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
 extern GPS gps;
 
-extern ExtU rtU;
-extern ExtY rtY;
+extern ExtU_Torque_Vectoring_2024_T Torque_Vectoring_2024_U;
+
+extern ExtY_Torque_Vectoring_2024_T Torque_Vectoring_2024_Y;
 
 extern ExtY_rigen_fun_simulink22_T rigen_fun_simulink22_Y;
 extern ExtU_rigen_fun_simulink22_T rigen_fun_simulink22_U;

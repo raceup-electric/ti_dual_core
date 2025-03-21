@@ -1,5 +1,5 @@
 #include "motor_management.h"
-#include "TV/Torque_Vectoring_2024_forsecontiu.h"
+#include "Torque_Vectoring_2024_ert_rtw/Torque_Vectoring_2024.h"
 #include "car_management.h"
 
 
@@ -322,7 +322,7 @@ void sendAMKData() {
 
         int j;
         for(j = 0; j < 4; j++) {
-            posTorquesNM[j] = rtY.T_pos[j];
+            posTorquesNM[j] = Torque_Vectoring_2024_Y.T_pos[j];
         }
     }
 
