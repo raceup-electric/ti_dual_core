@@ -153,9 +153,6 @@ extern const float presets_torque_neg[10];
 extern const float presets_repartition[20];
 extern double delta_steer[2];
 
-extern P rtP;
-
-
 //
 // prototypes
 //

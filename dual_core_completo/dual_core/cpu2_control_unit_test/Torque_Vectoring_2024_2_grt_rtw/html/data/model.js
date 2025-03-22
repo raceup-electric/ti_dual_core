@@ -1,0 +1,1 @@
+var modelInfo = {model:"Torque_Vectoring_2024_2"};var modelHierarchy=[{model:"Torque_Vectoring_2024_2",relativePath:"_internal.html",parent:"null"},];var AddCode = true;var ProtectedModel = false;

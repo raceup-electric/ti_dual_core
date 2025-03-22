@@ -95,7 +95,7 @@ __interrupt void cpu_timer1_isr(void)
 
     //TV
     updateTVstruct();
-    Torque_Vectoring_2024_forsecontiu_step();
+    Torque_Vectoring_2024_2_step();
 
     //REG
     updateREGstruct();

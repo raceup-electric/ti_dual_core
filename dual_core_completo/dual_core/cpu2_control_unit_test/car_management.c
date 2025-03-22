@@ -1,8 +1,10 @@
 #include "car_management.h"
 #include "adc_management.h"
+#include "atc_management.h"
 #include "global_definitions.h"
 #include "sys/_stdint.h"
 #include "utils.h"
+#include "Torque_Vectoring_2024_2_grt_rtw/Torque_Vectoring_2024_2.h"
 #include <stdint.h>
 
 int calibration_status = 0;
@@ -35,8 +37,14 @@ void read_map_sw_message(Uint16 val[])
 
     car_settings.power_limit = presets_power[power_index];
     car_settings.max_pos_torque = presets_torque_pos[power_index];
-    rtP.T_max = car_settings.max_pos_torque;
-    rtP.Pmax = car_settings.power_limit;
+
+    Torque_Vectoring_2024_2_P.T_max = car_settings.max_pos_torque;
+    Torque_Vectoring_2024_2_P.Pmax = car_settings.power_limit;
+
+    //OLD TV
+    // rtP.T_max = car_settings.max_pos_torque;
+    // rtP.Pmax = car_settings.power_limit;
+
     car_settings.regen_current_scale = presets_regen[regen_index];
     car_settings.max_neg_torque = presets_torque_neg[regen_index];
     car_settings.max_regen_current = PEAK_REGEN_CURRENT * car_settings.regen_current_scale;
@@ -70,8 +78,14 @@ void read_map_sw_message(Uint16 val[])
         car_settings.power_limit = 35000.f;
         car_settings.max_pos_torque = 14.f;
         car_settings.torque_vectoring = true;
-        rtP.T_max = car_settings.max_pos_torque;
-        rtP.Pmax = car_settings.power_limit;
+
+        Torque_Vectoring_2024_2_P.T_max = car_settings.max_pos_torque;
+        Torque_Vectoring_2024_2_P.Pmax = car_settings.power_limit;
+
+        // OLD TV
+        // rtP.T_max = car_settings.max_pos_torque;
+        // rtP.Pmax = car_settings.power_limit;
+
         car_settings.regen_current_scale = presets_regen[regen_index];
         car_settings.max_neg_torque = presets_torque_neg[regen_index];
         car_settings.max_regen_current = PEAK_REGEN_CURRENT * car_settings.regen_current_scale;
@@ -101,8 +115,13 @@ void read_map_sw_message(Uint16 val[])
         car_settings.power_limit = 35000.f;
         car_settings.max_pos_torque = 14.f;
         car_settings.torque_vectoring = false;
-        rtP.T_max = car_settings.max_pos_torque;
-        rtP.Pmax = car_settings.power_limit;
+
+        Torque_Vectoring_2024_2_P.T_max = car_settings.max_pos_torque;
+        Torque_Vectoring_2024_2_P.Pmax = car_settings.power_limit;
+        //OLD TV
+        // rtP.T_max = car_settings.max_pos_torque;
+        // rtP.Pmax = car_settings.power_limit;
+
         car_settings.regen_current_scale = presets_regen[regen_index];
         car_settings.max_neg_torque = presets_torque_neg[regen_index];
         car_settings.max_regen_current = PEAK_REGEN_CURRENT * car_settings.regen_current_scale;
@@ -799,24 +818,40 @@ int getSP150BrakePress(int adc_reading) {
 }
 
 void updateTVstruct() {
-
-    rtU.ax = accelerations[0]; // m/s^2
-    rtU.ay = accelerations[1]; // m/s^2
-
-    rtU.yaw_r = omegas[2]; // rad/s
-
-    rtU.throttle = throttle / 100.0; // 0 to 1
-    rtU.brakepressurefront = brakePress1;
-    rtU.brakepressurerear = brakePress2;
-    rtU.regenpaddle = paddle / 100.0;
-    rtU.steering = steering;
-
-    rtU.rpm[0] = motorVal1[0].AMK_ActualVelocity; // rpm
-    rtU.rpm[1] = motorVal1[1].AMK_ActualVelocity; // rpm
-    rtU.rpm[2] = motorVal1[2].AMK_ActualVelocity; // rpm
-    rtU.rpm[3] = motorVal1[3].AMK_ActualVelocity; // rpm
-
-    rtU.voltage = batteryPackTension; // V
+    //new
+    
+   Torque_Vectoring_2024_2_U.ax = accelerations[0];
+   Torque_Vectoring_2024_2_U.ay = accelerations[1];
+   Torque_Vectoring_2024_2_U.yaw_r = omegas[2];
+   Torque_Vectoring_2024_2_U.throttle = throttle/100.0f;
+   Torque_Vectoring_2024_2_U.brakepressurefront = brakePress1;
+   Torque_Vectoring_2024_2_U.brakepressurerear = brakePress2;
+   Torque_Vectoring_2024_2_U.regenpaddle = paddle/100.0f;
+   Torque_Vectoring_2024_2_U.steering = steering;
+   Torque_Vectoring_2024_2_U.rpm[0] = motorVal1[0].AMK_ActualVelocity;
+   Torque_Vectoring_2024_2_U.rpm[1] = motorVal1[1].AMK_ActualVelocity; // rpm
+   Torque_Vectoring_2024_2_U.rpm[2] = motorVal1[2].AMK_ActualVelocity; // rpm
+   Torque_Vectoring_2024_2_U.rpm[3] = motorVal1[3].AMK_ActualVelocity; // rpm
+   Torque_Vectoring_2024_2_U.voltage = batteryPackTension;
+    
+    //old TV
+    // rtU.ax = accelerations[0]; // m/s^2
+    // rtU.ay = accelerations[1]; // m/s^2
+    //
+    // rtU.yaw_r = omegas[2]; // rad/s
+    //
+    // rtU.throttle = throttle / 100.0; // 0 to 1
+    // rtU.brakepressurefront = brakePress1;
+    // rtU.brakepressurerear = brakePress2;
+    // rtU.regenpaddle = paddle / 100.0;
+    // rtU.steering = steering;
+    //
+    // rtU.rpm[0] = motorVal1[0].AMK_ActualVelocity; // rpm
+    // rtU.rpm[1] = motorVal1[1].AMK_ActualVelocity; // rpm
+    // rtU.rpm[2] = motorVal1[2].AMK_ActualVelocity; // rpm
+    // rtU.rpm[3] = motorVal1[3].AMK_ActualVelocity; // rpm
+    //
+    // rtU.voltage = batteryPackTension; // V
 }
 
 void updateREGstruct() {

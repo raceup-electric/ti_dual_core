@@ -1,5 +1,7 @@
 #include <math.h>
 #include "utils.h"
+#include "Torque_Vectoring_2024_2_grt_rtw/Torque_Vectoring_2024_2.h"
+#include "global_definitions.h"
 
 void setup_car_settings(){
 
@@ -15,16 +17,26 @@ void setup_car_settings(){
     car_settings.max_pos_torque = MAX_POS_TORQUE;
     car_settings.max_neg_torque = MAX_NEG_TORQUE;
     car_settings.power_limit = POWER_LIMIT;
-    rtP.Pmax = POWER_LIMIT;
-    rtP.TC_map[0] = KP_TC;
-    rtP.TC_map[1] = KI_TC;
-    rtP.TC_map[2] = KD_TC;
-    rtP.T_max = MAX_POS_TORQUE;
-    rtP.kRamp = K_RAMP;
-    rtP.offset_brake_csi = OFFSET_BRAKE;
-    rtP.offset_cornering = OFFSET_CORNER;
-    rtP.offset_throttle_csi = OFFSET_THROTTLE;
+
     car_settings.torque_vectoring = TORQUE_VECTORING;
+
+    //old TV
+    // rtP.Pmax = POWER_LIMIT;
+    // rtP.TC_map[0] = KP_TC;
+    // rtP.TC_map[1] = KI_TC;
+    // rtP.TC_map[2] = KD_TC;
+    // rtP.T_max = MAX_POS_TORQUE;
+    // rtP.kRamp = K_RAMP;
+    // rtP.offset_brake_csi = OFFSET_BRAKE;
+    // rtP.offset_cornering = OFFSET_CORNER;
+    // rtP.offset_throttle_csi = OFFSET_THROTTLE;
+
+    //new TV
+    //TODO: set up the NEW TV parameters
+    Torque_Vectoring_2024_2_P.offset_throttle_csi = OFFSET_THROTTLE;
+    Torque_Vectoring_2024_2_P.offset_cornering = OFFSET_CORNER;
+    Torque_Vectoring_2024_2_P.Pmax = POWER_LIMIT;
+    Torque_Vectoring_2024_2_P.T_max = MAX_POS_TORQUE;
 
     /*
      * Torques are computed by TV when active, so we don't have to set them
