@@ -6,6 +6,7 @@ void powerControl()
 
     int i;
     float sTorque = 0;
+    float reduction_factor=0;
 
     for (i = 0; i < NUM_OF_MOTORS; i++)
         sTorque+=posTorquesNM[i];

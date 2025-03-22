@@ -30,6 +30,4 @@ void updateGPIOState()
 {
     Air1_State = GPIO_ReadPin(AIR_1_STATE);
     Air2_State = GPIO_ReadPin(AIR_2_STATE);
-    Imd_State = GPIO_ReadPin(IMD_STATE);
-    Bms_State = GPIO_ReadPin(BMS_STATE);
 }

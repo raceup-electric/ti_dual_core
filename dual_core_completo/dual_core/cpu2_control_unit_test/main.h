@@ -10,7 +10,6 @@
 #include "GPIO_management.h"
 #include "utils.h"
 #include "can_management.h"
-#include "GPS.h"
 
 #if (defined(DEBUG_HV) && defined(DEBUG_NO_HV))
 #error "Error! Both DEBUG_HV and DEBUG_NO_HV are defined! Define only one of the two debug configurations at the same time"
@@ -19,7 +18,6 @@
 
 //timestamp
 Uint32 time_elapsed = 0;
-Uint32 last_imu_message_time = 0;
 Uint32 time_elapsed_ATC = 0;
 Uint32 time_elapsed_map = 0;
 Uint32 time_elapsed_paddle = 0;
@@ -58,7 +56,6 @@ Uint16 fanSpeed = 0;
 char status = 0;
 
 //torque
-int actualVelocityRPM = 0;
 float actualVelocityKMH = 0;
 int brake = 0; 
 int brakePress1 = 0; // Pa
@@ -67,13 +64,11 @@ int brakePress2 = 0; // Pa
 int paddle = 0;  // 0-100
 int steering = 0; 
 int throttle = 0; 
-unsigned char imp;
 bool checkPower = false;
 
 float posTorquesNM[4];
 float negTorquesNM[4];
 
-float repFz[4];
 float torque_reg_IPM[4];            //massima coppia rigenerativa per motore
 
 
@@ -119,11 +114,9 @@ float V[3][3] = {{0.9989f,-0.0464f,0.0076f},{0.0463f,0.9988f,-0.0128f},{0.0082f,
 float total_power;
 float power_error;
 float anti_wind_up = 0;
-float reduction_factor;
 
 float thermal_power_lim = POWER_LIMIT;
 float thermal_power_min = 15000;
-
 
 
 //CAN
@@ -134,7 +127,6 @@ int errorFrameCounterB = 0;
 int errorFrameCounterA = 0;
 tCANMsgObject RXCANA_Imu_Message;
 tCANMsgObject RXCANA_Smu_Message;
-tCANMsgObject RXCANA_Sendyne_Message;
 tCANMsgObject RXCANA_BmsVol_Message;
 tCANMsgObject RXCANA_BmsTemp_Message;
 tCANMsgObject TXCANA_BmsHost_Message;
@@ -151,12 +143,10 @@ tCANMsgObject TXCANA_CarStatus_Message;
 tCANMsgObject RXCANA_ATC_Message_TBS;
 tCANMsgObject RXCANA_ATC_Message_SUSPS;
 tCANMsgObject RXCANA_ATC_Message_TEMPS;
-tCANMsgObject RXCANA_SetStart_Message;
 
 
 unsigned char RXA_Imu_Data[8];
 unsigned char RXA_Smu_Data[8];
-unsigned char RXA_Sendyne_Data[8];
 unsigned char RXA_BmsVol_Data[8];
 unsigned char RXA_BmsTemp_Data[7];
 unsigned char RXA_BmsLV_Data[8];
@@ -169,7 +159,6 @@ unsigned char TXCANA_CarSettings_Data[8];
 unsigned char RXA_ATC_DATA_TBS[4];
 unsigned char RXA_ATC_DATA_SUSPS[3];
 unsigned char RXA_ATC_DATA_TEMPS[3];
-unsigned char RXA_SetStart;
 
 unsigned char RXA_SW_Data[1];
 
@@ -190,17 +179,6 @@ unsigned char TXB_Setpoints_Data[4][8];
 //Hardware debug variables
 Uint16 Air1_State;
 Uint16 Air2_State;
-// TODO: Read but unused
-Uint16 Imd_State;
-// TODO: Read but unused
-Uint16 Bms_State;
-// TODO: Remove if unused (check schematic 2024)
-Uint16 Sdc1_State;
-Uint16 Sdc2_State;
-Uint16 Sdc3_State;
-Uint16 Sdc4_State;
-Uint16 Sdc5_State;
-Uint16 Sdc6_State;
 
 
 /*
@@ -232,8 +210,6 @@ struct Pedals_Log pedals_log;
 struct Power_Setup_Log power_setup_log;
 
 struct Car_settings car_settings;
-
-GPS gps;
 
 
 #pragma DATA_SECTION(sh,"SHARERAMGS11");

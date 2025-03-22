@@ -19,7 +19,7 @@ void atc_update(unsigned int data[], enum type_message t) {
         throttle = data[0] & 0xFF;
         brake = data[1] & 0xFF;
         steering = (int)((data[2] & 0xFF) | ((data[3] & 0xF) << 8));
-        imp = !((data[3] >> 4) & 0x01);
+        // imp = !((data[3] >> 4) & 0x01);
 
         time_elapsed_ATC = time_elapsed;
 

@@ -13,7 +13,6 @@ extern float total_power;
 extern float posTorquesNM[4];
 extern float power_error;
 extern float anti_wind_up;
-extern float reduction_factor;
 extern float thermal_power_lim;
 extern float thermal_power_min;
 

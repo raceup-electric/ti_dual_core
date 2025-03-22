@@ -127,13 +127,6 @@ struct Car_settings{
 
 };
 
-struct GPS_shared {
-    int lap;
-    float velocity;
-    float lati;
-    float longi;
-};
-
 
 struct Share_struct {
     float bms_lv[8];
@@ -148,11 +141,9 @@ struct Share_struct {
     struct Gpio_Log gpio;
     struct Pedals_Log pedals;
     struct Power_Setup_Log power_setup;
-    struct GPS_shared gps_shared;
 };
 
 
-extern float repFz[4];
 extern float V[3][3];
 
 extern const float presets_power[10];

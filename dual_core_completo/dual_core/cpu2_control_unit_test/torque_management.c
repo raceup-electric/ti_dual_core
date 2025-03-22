@@ -3,8 +3,7 @@
 
 void readVelocity()
 {
-    actualVelocityRPM = readRPMVelocity();
-    actualVelocityKMH = actualVelocityRPM * RPM_TO_KMH;  // average speed kph
+    actualVelocityKMH = readRPMVelocity() * RPM_TO_KMH;  // average speed kph
 }
 
 float readRPMVelocity()

@@ -27,7 +27,6 @@
 //
 // variables
 //
-extern int actualVelocityRPM;
 extern float actualVelocityKMH;
 extern int throttleReq;
 extern int brakeReq;
@@ -38,7 +37,6 @@ extern int throttle;
 extern float posTorquesNM[4];
 extern float negTorquesNM[4];
 
-extern float repFz[4];
 extern float torque_reg_IPM[4];
 
 extern ExtY_rigen_fun_simulink22_T rigen_fun_simulink22_Y;

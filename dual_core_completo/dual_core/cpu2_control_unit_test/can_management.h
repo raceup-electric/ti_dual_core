@@ -39,7 +39,6 @@ extern bool temp_warning;
 
 extern tCANMsgObject RXCANA_Imu_Message;
 extern tCANMsgObject RXCANA_Smu_Message;
-extern tCANMsgObject RXCANA_Sendyne_Message;
 extern tCANMsgObject RXCANA_BmsVol_Message;
 extern tCANMsgObject RXCANA_BmsTemp_Message;
 extern tCANMsgObject RXCANA_BmsLV_Message;
@@ -54,11 +53,9 @@ extern tCANMsgObject TXCANA_CarStatus_Message;
 extern tCANMsgObject RXCANA_ATC_Message_TBS;
 extern tCANMsgObject RXCANA_ATC_Message_SUSPS;
 extern tCANMsgObject RXCANA_ATC_Message_TEMPS;
-extern tCANMsgObject RXCANA_SetStart_Message;
 
 extern unsigned char RXA_Imu_Data[8];
 extern unsigned char RXA_Smu_Data[8];
-extern unsigned char RXA_Sendyne_Data[8];
 extern unsigned char RXA_BmsVol_Data[8];
 extern unsigned char RXA_BmsTemp_Data[7];
 extern unsigned char RXA_Map_SW_Data[1];
@@ -69,7 +66,6 @@ extern unsigned char TXCANA_PCU_Data[2];
 extern unsigned char TXCANA_CarStatus_Data[2];
 extern unsigned char TXCANA_CarSettings_Data[8];
 extern unsigned char RXA_SW_Data[1];
-extern unsigned char RXA_SetStart;
 
 extern tCANMsgObject TXCANB_Setpoints_Message[4];
 extern unsigned char TXB_Setpoints_Data[4][8];

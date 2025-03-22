@@ -4,9 +4,6 @@
 #include "sys/_stdint.h"
 #include "utils.h"
 #include <stdint.h>
-#include <stdio.h>
-
-#define MAX_GPS_LEN 81
 
 int calibration_status = 0;
 int NUM_SMU_SUSP = 2;
@@ -136,7 +133,6 @@ void read_LEM_message(unsigned char lem_values[])
 
 void read_IMU_message(Uint16 imu_values[], int id)
 {
-    last_imu_message_time = time_elapsed;
     uint32_t aux_1 = 0;
     uint32_t aux_2 = 0;
 

@@ -36,11 +36,6 @@ void setup_car_settings(){
         car_settings.rear_motor_repartition = REAR_MOTOR_REPARTITION;
         car_settings.front_motor_repartition = FRONT_MOTOR_REPARTITION;
     }
-
-    repFz[0] = 0.6;
-    repFz[1] = 0.6;
-    repFz[2] = 0.4;
-    repFz[3] = 0.4;
 }
 
 

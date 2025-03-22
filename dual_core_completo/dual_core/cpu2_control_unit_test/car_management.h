@@ -14,7 +14,6 @@
 #include "epwm_management.h"
 #include "can_management.h"
 #include "atc_management.h"
-#include "GPS.h"
 #include "TV/Torque_Vectoring_2024_forsecontiu.h"
 #include "rigen_fun_simulink22_ert_rtw/rigen_fun_simulink22.h"
 #include "powercontrol_RGe08_2022_ert_rtw/powercontrol_RGe08_2022.h"
@@ -26,7 +25,6 @@ extern bool R2D_first_state;
 extern bool R2D_state;
 extern char status;
 
-extern Uint32 last_imu_message_time;
 extern Uint32 time_elapsed_map;
 extern Uint32 time_elapsed_paddle;
 
@@ -73,7 +71,6 @@ extern int rfCounter[4];
 extern bool inverterHV[4];
 extern bool inverterRF[4];
 
-extern float repFz[4];
 
 extern unsigned char setStart;
 
@@ -96,7 +93,6 @@ extern struct Power_Setup_Log power_setup_log;
 extern struct Car_settings car_settings;
 
 extern struct motorValues1 motorVal1[4]; //  0 --> FL, 1 --> FR, 2 --> RL, 3 --> RR
-extern GPS gps;
 
 extern ExtU rtU;
 extern ExtY rtY;
